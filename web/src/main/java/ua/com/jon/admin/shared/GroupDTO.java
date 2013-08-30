@@ -1,0 +1,60 @@
+package ua.com.jon.admin.shared;
+
+import ua.com.jon.cabinet.shared.TaskDTO;
+
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
+
+/**
+ * Created with IntelliJ IDEA.
+ * User: sergey
+ * Date: 20.04.13
+ * Time: 21:29
+ * To change this template use File | Settings | File Templates.
+ */
+public class GroupDTO implements Serializable {
+
+    private static final Long SerialVersionUID = 1L;
+
+    private String name;
+    private ArrayList<TaskTemplateDTO> tasks;
+
+    public GroupDTO() {
+        this.name = "";
+        this.tasks = new ArrayList<TaskTemplateDTO>();
+    }
+
+    public GroupDTO(String name, ArrayList<TaskTemplateDTO> tasks) {
+        this.name = name;
+        this.tasks = tasks;
+    }
+
+    public GroupDTO(String name) {
+        this.name = name;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public ArrayList<TaskTemplateDTO> getTasks() {
+        return tasks;
+    }
+
+    public void setTasks(ArrayList<TaskTemplateDTO> tasks) {
+        this.tasks = tasks;
+    }
+
+    @Override
+    public String toString() {
+        return "GroupDTO{" +
+                "name='" + name + '\'' +
+                ", tasks=" + tasks +
+                '}';
+    }
+}

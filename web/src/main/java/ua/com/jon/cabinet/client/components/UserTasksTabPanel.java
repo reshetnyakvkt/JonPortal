@@ -1,0 +1,301 @@
+package ua.com.jon.cabinet.client.components;
+
+import com.github.gwtbootstrap.client.ui.ButtonCell;
+import com.github.gwtbootstrap.client.ui.CellTable;
+import com.github.gwtbootstrap.client.ui.TextArea;
+import com.github.gwtbootstrap.client.ui.ValueListBox;
+import com.github.gwtbootstrap.client.ui.constants.ButtonType;
+import com.google.gwt.cell.client.FieldUpdater;
+import com.google.gwt.cell.client.SelectionCell;
+import com.google.gwt.cell.client.ValueUpdater;
+import com.google.gwt.core.client.GWT;
+import com.google.gwt.dom.client.*;
+import com.google.gwt.event.dom.client.ClickEvent;
+import com.google.gwt.event.logical.shared.ValueChangeEvent;
+import com.google.gwt.text.shared.AbstractRenderer;
+import com.google.gwt.uibinder.client.UiBinder;
+import com.google.gwt.uibinder.client.UiField;
+import com.google.gwt.uibinder.client.UiHandler;
+import com.google.gwt.user.cellview.client.Column;
+import com.google.gwt.user.cellview.client.TextColumn;
+import com.google.gwt.user.client.Window;
+import com.google.gwt.user.client.rpc.AsyncCallback;
+import com.google.gwt.user.client.ui.Composite;
+import com.google.gwt.user.client.ui.HTMLPanel;
+import com.google.gwt.user.client.ui.Widget;
+import com.google.gwt.view.client.ListDataProvider;
+import com.google.gwt.view.client.SelectionChangeEvent;
+import com.google.gwt.view.client.SingleSelectionModel;
+import ua.com.jon.cabinet.client.TasksService;
+import ua.com.jon.cabinet.client.TasksServiceAsync;
+import ua.com.jon.cabinet.shared.SprintDTO;
+import ua.com.jon.cabinet.shared.TaskDTO;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
+public class UserTasksTabPanel extends Composite {
+    @UiField
+    CellTable<TaskDTO> cellTable = new CellTable<TaskDTO>(5, GWT.<CellTable.SelectableResources>create(CellTable.SelectableResources.class));//new CellTable<TaskDTO>();
+
+    final SingleSelectionModel<TaskDTO> selectionModel = new SingleSelectionModel<TaskDTO>();
+
+    @UiField
+    TextArea result;
+
+    @UiField
+    TextArea taskText;
+
+    @UiField
+    TextArea code;
+
+    @UiField(provided=true)
+    ValueListBox<SprintDTO> sprintsListBox = new ValueListBox<SprintDTO>(new AbstractRenderer<SprintDTO>() {
+        @Override
+        public String render(SprintDTO sprintDTO) {
+            if(sprintDTO == null) {
+                return "";
+            } else {
+                return sprintDTO.getName();
+            }
+        }
+    });
+
+    Column<TaskDTO, String> statusCol;
+
+    ListDataProvider<TaskDTO> dataProvider = new ListDataProvider<TaskDTO>();
+
+    interface ExampleUiBinderUiBinder extends UiBinder<HTMLPanel, UserTasksTabPanel> {
+    }
+
+    private static ExampleUiBinderUiBinder ourUiBinder = GWT.create(ExampleUiBinderUiBinder.class);
+    private TasksServiceAsync tasksService = GWT.create(TasksService.class);
+
+    public UserTasksTabPanel(final UiBinder<Widget, UserTasksTabPanel> binder) {
+        initWidget(binder.createAndBindUi(this));
+        buildTable();
+        loadSprintsAndTasks();
+    }
+
+    @UiHandler("refreshTasksBtn")
+    public void onClick(ClickEvent e) {
+        result.setText("");
+        taskText.setText("");
+        loadSprintsAndTasks();
+    }
+
+    @UiHandler("sprintsListBox")
+    public void onChangeTabPosition(ValueChangeEvent<SprintDTO> sprint) {
+        result.setText("");
+        taskText.setText("");
+        addTasksToTable(sprint.getValue().getTasks(), true);
+    }
+
+    private void loadSprintsAndTasks() {
+        final AsyncCallback<ArrayList<SprintDTO>> callback = new AsyncCallback<ArrayList<SprintDTO>>() {
+
+            @Override
+            public void onFailure(Throwable caught) {
+                Window.alert("Error async get sprints");
+            }
+
+            @Override
+            public void onSuccess(ArrayList<SprintDTO> sprints) {
+                Window.alert("loadSprintsAndTasks sprints " + sprints);
+
+                for (SprintDTO sprint : sprints) {
+                    if(sprint.isActive()) {
+                        addTasksToTable(sprint.getTasks(), true);
+                        sprintsListBox.setValue(sprint);
+                    }
+                }
+                sprintsListBox.setAcceptableValues(sprints);
+            }
+        };
+
+        tasksService.getSprints(callback);
+    }
+
+    private void addTasksToTable(List<TaskDTO> tasks, boolean isSelectLast) {
+        //cellTable.setRowData(tasks);
+
+        // Connect the table to the data provider.
+        dataProvider.addDataDisplay(cellTable);
+        final List<TaskDTO> list = dataProvider.getList();
+        TaskDTO last = null;
+        for (TaskDTO task : tasks) {
+            list.add(task);
+            last = task;
+        }
+        if(isSelectLast && last != null) {
+            selectionModel.setSelected(last, true);
+        }
+    }
+
+    public void buildTable() {
+
+        TextColumn<TaskDTO> nameColumn = new TextColumn<TaskDTO>() {
+            @Override
+            public String getValue(TaskDTO contact) {
+                return contact.getName();
+            }
+        };
+        // Make the name column sortable.
+        nameColumn.setSortable(true);
+
+        TextColumn<TaskDTO> addressColumn = new TextColumn<TaskDTO>() {
+            @Override
+            public String getValue(TaskDTO contact) {
+                if(contact.getText() != null){
+                    return contact.getText().substring(0, 51);
+                }
+                return "";
+            }
+        };
+
+        cellTable.setSelectionModel(selectionModel);
+        selectionModel.addSelectionChangeHandler(
+                new SelectionChangeEvent.Handler() {
+                    public void onSelectionChange(SelectionChangeEvent event) {
+                        TaskDTO selected = selectionModel.getSelectedObject();
+                        if (selected != null) {
+                            if(!selected.getType().equals(TaskType.CLASS.name())){
+                               code.setVisible(false);
+                                for(int i=0; i<cellTable.getRowCount(); i++){
+                                    String nameText = cellTable.getRowElement(i).getInnerText();
+                                    Window.alert("selected = "+selected.toString());
+                                    if(nameText.contains(selected.getName())){
+                                        cellTable.getRowElement(i).deleteCell(3);
+                                    }
+//                                    NodeList < TableCellElement> list1 =  cellTable.getRowElement(i).getCells();
+//                                    for(int k=0; k<list1.getLength(); k++){
+//                                        Window.alert("el:text = "+list1.getItem(k).getInnerText());
+//                                    }
+                                }
+                            } else {
+                                code.setVisible(true);
+                                for(int i=0; i<cellTable.getRowCount(); i++){
+                                    String nameText = cellTable.getRowElement(i).getInnerText();
+                                    if(nameText.contains(selected.getName())){
+                                        cellTable.getRowElement(i).deleteCell(2);
+                                        cellTable.getRowElement(i).insertCell(2);
+                                    }
+                                }
+                            }
+                            result.setText(selected.getResult());
+                            taskText.setText(selected.getText());
+                        }
+                    }
+                });
+
+        // Add the columns.
+        cellTable.addColumn(nameColumn, "Название");
+        cellTable.addColumn(addressColumn, "Текст задания");
+        SelectionCell cell = new SelectionCell(getAcceptableValues()) {
+
+            @Override
+            public void onBrowserEvent(Context context, Element parent, String value, NativeEvent event, ValueUpdater<String> valueUpdater) {
+
+                super.onBrowserEvent(context, parent, value, event, valueUpdater);
+
+                if (BrowserEvents.CHANGE.equals(event.getType())) {
+
+                    SelectElement select = parent.getFirstChild().cast();
+                    String newValue = select.getValue();
+
+                    TaskDTO dto = selectionModel.getSelectedObject();
+                    if(dto == null){
+                        Window.alert("Не выбрано ни одного задания!");
+                        return;
+                    }
+                    if(!dto.getType().equals(TaskType.SVN.name())) {
+                        Window.alert("Для проверки измените статус задания на \"TEST\"");
+                        return;
+                    }
+                    dto.setStatus(newValue);
+
+
+                    tasksService.taskStatusChanged(dto, new AsyncCallback<Void>() {
+                        @Override
+                        public void onFailure(Throwable throwable) {
+                            Window.alert("Status changed with error");
+                        }
+
+                        @Override
+                        public void onSuccess(Void aVoid) {
+                            Window.alert("Status changed successfully");
+
+                        }
+                    });
+                }
+            }
+        };
+
+        statusCol =  new Column<TaskDTO, String>(cell) {
+
+            @Override
+            public String getValue(TaskDTO taskDto) {
+                return taskDto.getStatus();
+            }
+        };
+        cellTable.addColumn(statusCol, "Статус");
+
+        Column<TaskDTO, String> buttonTestCol = new Column<TaskDTO, String>(new ButtonCell(ButtonType.WARNING)) {
+            @Override
+            public String getValue(TaskDTO object) {
+                return "Проверить";
+            }
+        };
+
+        buttonTestCol.setFieldUpdater(new FieldUpdater<TaskDTO, String>() {
+            @Override
+            public void update(int index, TaskDTO taskDTO, String value) {
+                if(!taskDTO.getType().equals(TaskType.CLASS.name())) {
+                    Window.alert("Для проверки нажмите кнопку \"Проверить\"");
+                    return;
+                }
+
+                taskDTO.setCode(code.getText());
+                final AsyncCallback<TaskDTO> callback = new AsyncCallback<TaskDTO>() {
+
+                    @Override
+                    public void onFailure(Throwable caught) {
+                        Window.alert("Error callback");
+                    }
+
+                    @Override
+                    public void onSuccess(TaskDTO result) {
+                        Window.alert(result.toString());
+                    }
+                };
+                taskDTO.setText("");
+                taskDTO.setResult("");
+
+                tasksService.postForTest(taskDTO, callback);
+            }
+        });
+
+        cellTable.addColumn(buttonTestCol);
+
+        TextColumn<TaskDTO> resultColumn = new TextColumn<TaskDTO>() {
+
+            @Override
+            public String getValue(TaskDTO taskDto) {
+                int newLineMarkIdx = taskDto.getResult().indexOf('\n');
+                return taskDto.getResult().substring(0, newLineMarkIdx);
+            }
+        };
+
+        cellTable.addColumn(resultColumn, "Результат");
+    }
+
+    private List<String> getAcceptableValues() {
+        return Arrays.asList("NEW", "IN_PROGRESS", "TEST", "RESOLVED");
+    }
+
+    public enum TaskType {
+        SVN, CLASS
+    }
+}
+
