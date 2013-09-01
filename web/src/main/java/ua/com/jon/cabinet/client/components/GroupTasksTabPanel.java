@@ -39,9 +39,6 @@ public class GroupTasksTabPanel extends Composite {
     @UiField
     Button refreshSprintsBtn = new Button();
 
-//    @UiField
-//    Button createTaskBtn = new Button();
-
     @UiField
     Button saveSprintsBtn = new Button();
 

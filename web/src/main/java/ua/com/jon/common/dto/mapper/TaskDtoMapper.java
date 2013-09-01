@@ -2,6 +2,8 @@ package ua.com.jon.common.dto.mapper;
 
 import ua.com.jon.cabinet.shared.TaskDTO;
 import ua.com.jon.common.domain.Task;
+import ua.com.jon.common.domain.TaskTemplate;
+import ua.com.jon.common.domain.TaskType;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,14 +15,25 @@ import java.util.List;
  */
 public class TaskDtoMapper {
     public static TaskDTO domainToDto(Task task) {
+
+        TaskTemplate taskTemplate = task.getTaskTemplate();
+        String taskText = "";
+        String taskName = "";
+        TaskType taskType = TaskType.CLASS;
+        if (task.getTaskTemplate() != null) {
+            taskText = taskTemplate.getTaskText();
+            taskName = taskTemplate.getName();
+            taskType = taskTemplate.getType();
+        }
+
         return new TaskDTO(
                 task.getId(),
-                task.getTaskTemplate().getTaskText(),
-                task.getTaskTemplate().getName(),
+                taskText,
+                taskName,
                 task.getStatus().name(),
                 task.getResult(),
                 task.getCode(),
-                task.getTaskTemplate().getType() == null?null:task.getTaskTemplate().getType().name()
+                taskType.name()
         );
     }
 

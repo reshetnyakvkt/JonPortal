@@ -101,12 +101,12 @@ public class TaskDTO implements Serializable {
     public String toString() {
         return "TaskDTO{" +
                 "id=" + id +
-                ", type='" + type + '\'' +
+                ", text='" + text + '\'' +
                 ", name='" + name + '\'' +
                 ", status='" + status + '\'' +
-                ", text='" + text + '\'' +
                 ", result='" + result + '\'' +
                 ", code='" + code + '\'' +
+                ", type='" + type + '\'' +
                 '}';
     }
 }
