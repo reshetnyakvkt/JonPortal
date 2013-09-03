@@ -20,23 +20,7 @@
 
         <!-- tabs -->
         <div class="tabbable tabs-left">
-            <ul class="nav nav-tabs">
-                <li>
-                    <a href="/trainings/index.html">Все тренинги</a>
-                </li>
-                <li>
-                    <a href="/trainings/scheduling.html">Расписание</a>
-                </li>
-                <li>
-                    <a href="/trainings/rules.html">Правила</a>
-                </li>
-                <li>
-                    <a href="#">Записаться</a>
-                </li>
-                <li class="active">
-                    <a href="/trainings/reviews.html">Отзывы</a>
-                </li>
-            </ul>
+            <%@include file="menu.jsp" %>
             <div class="tab-content">
                 <div class="well">
                     Отзыв

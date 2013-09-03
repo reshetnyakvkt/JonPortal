@@ -40,6 +40,15 @@
 
         <ul class="well nav nav-pills nav-stacked">
             <li>
+                <a href="http://www.jetbrains.com/idea/download/download_thanks.jsp">Idea Community Edition</a>
+            </li>
+            <li>
+                <a href="files/hibernate_reference">Документация Hibernate 3.6</a>
+            </li>
+            <li>
+                <a href="files/spring-framework-reference">Документация Spring 3.2</a>
+            </li>
+            <li>
                 <a href="files/jdk-7u17-windows-i586">jdk 7u25 windows i586</a>
             </li>
             <li>
@@ -54,15 +63,7 @@
             <li>
                 <a href="files/OracleXE">Oracle XE 10g</a>
             </li>
-            <li>
-                <a href="files/hibernate_reference">Документация Hibernate 3.6</a>
-            </li>
-            <%--<li>--%>
-                <%--<a href="${ftpAddress}/libs/Spring/all_in_zip/all_spring.zip">Spring 3.2</a>--%>
-            <%--</li>--%>
-            <li>
-                <a href="files/spring-framework-reference">Документация Spring 3.2</a>
-            </li>
+
             <li>
                 <a href="files/apache-tomcat-7_0_41">Tomcat 7.0.41</a>
             </li>

@@ -20,25 +20,9 @@
 
         <!-- tabs -->
         <div class="tabbable tabs-left">
-            <ul class="nav nav-tabs">
-                <li>
-                    <a href="/trainings/index.html">Все тренинги</a>
-                </li>
-                <li>
-                    <a href="/trainings/scheduling.html">Расписание</a>
-                </li>
-                <li class="active">
-                    <a href="/trainings/rules.html">Правила</a>
-                </li>
-                <li>
-                    <a href="#">Записаться</a>
-                </li>
-                <li>
-                    <a href="/trainings/reviews.html">Отзывы</a>
-                </li>
-            </ul>
+            <%@include file="menu.jsp" %>
             <div class="tab-content">
-                <h3>Основные правила участия в онлайн тренингах</h3>
+                <h3>Основные правила проведения онлайн тренингов</h3>
                 <ul>
                     <li>Тренинг проходит с 17.00 по 20.00 по Киевскому времени</li>
                     <li>За 15 минут до занятия начинается проверка подключений</li>

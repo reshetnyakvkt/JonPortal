@@ -20,26 +20,10 @@
 
         <!-- tabs -->
         <div class="tabbable tabs-left">
-            <ul class="nav nav-tabs">
-                <li class="active">
-                    <a href="/trainings/index.html">Все тренинги</a>
-                </li>
-                <li>
-                    <a href="/trainings/scheduling.html">Расписание</a>
-                </li>
-                <li>
-                    <a href="/trainings/rules.html">Правила</a>
-                </li>
-                <li>
-                    <a href="#">Записаться</a>
-                </li>
-                <li>
-                    <a href="/trainings/reviews.html">Отзывы</a>
-                </li>
-            </ul>
+            <%@include file="menu.jsp" %>
             <div class="tab-content">
 
-                <h3>Основы баз данных Oracle</h3>
+                <h3>Тренинг основы реляционной базы данных Oracle</h3>
 
                 <p>Длительность тренинга 6 часов, состоит из двух частей.<br/>
                 Предназначен для тех кто раньше не работал с базами данных</p>

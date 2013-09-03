@@ -2,16 +2,12 @@ package ua.com.jon.common.controller;
 
 import org.apache.commons.io.IOUtils;
 import org.apache.log4j.Logger;
-import org.springframework.beans.factory.annotation.Required;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.core.io.FileSystemResource;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
 import ua.com.jon.utils.NetUtil;
 
 import javax.servlet.http.HttpServletResponse;
@@ -30,8 +26,6 @@ public class DownloadController {
 
     @Value("${files.folder}")
     private String filesBaseUrl;
-
-
 
     private Map<String, String> files;
 
@@ -59,7 +53,7 @@ public class DownloadController {
 /*
     @RequestMapping(value = "/files/{file_name}", method = RequestMethod.GET)
     @ResponseBody
-    public FileSystemResource getFile(@PathVariable("file_name") String fileName) {
+    public FileSystemResource getStreamFromPath(@PathVariable("file_name") String fileName) {
         log.info("File download request: " + fileName);
         return new FileSystemResource(getFileFor(fileName));
     }
@@ -70,10 +64,11 @@ public class DownloadController {
         try {
             File file;
             InputStream is;
+            String preparedFileName = "";
             try {
                 String pathName = getPathName(fileName);
-                file = getFile(pathName);
-                is = new FileInputStream(file);
+                preparedFileName = prepareFileName(pathName);
+                is = getStreamFromClassPath(pathName);
             } catch (FileNotFoundException e) {
                 log.error(e);
                 response.getWriter().print(e.getMessage());
@@ -81,7 +76,7 @@ public class DownloadController {
             }
 
             // copy it to response's OutputStream
-            response.setHeader("Content-Disposition", "attachment; filename=" + file.getName().replace(" ", "_"));
+            response.setHeader("Content-Disposition", "attachment; filename=" + preparedFileName);
             IOUtils.copy(is, response.getOutputStream());
             response.flushBuffer();
         } catch (IOException ex) {
@@ -89,6 +84,10 @@ public class DownloadController {
             throw new RuntimeException("IOError writing file to output stream");
         }
 
+    }
+
+    private String prepareFileName(String pathName) {
+        return pathName.substring(pathName.lastIndexOf('/') + 1);
     }
 
     private String getPathName(String fileName) throws FileNotFoundException {
@@ -99,11 +98,19 @@ public class DownloadController {
         return pathname;
     }
 
-    private File getFile(String pathname) throws FileNotFoundException {
+    private InputStream getStreamFromPath(String pathname) throws FileNotFoundException {
         File file = new File(filesBaseUrl + pathname);
         if (!file.exists()) {
             throw new FileNotFoundException("File found but not exists, contact to admin: " + filesBaseUrl + pathname);
         }
-        return file;
+        return new FileInputStream(file);
+    }
+
+    private InputStream getStreamFromClassPath(String pathname) throws FileNotFoundException {
+        InputStream is = getClass().getResourceAsStream(pathname);
+        if (is == null) {
+            throw new FileNotFoundException("File found but not exists, contact to admin: " + filesBaseUrl + pathname);
+        }
+        return is;
     }
 }

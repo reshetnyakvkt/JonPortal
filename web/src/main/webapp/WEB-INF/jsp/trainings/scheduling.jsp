@@ -20,28 +20,12 @@
 
         <!-- tabs -->
         <div class="tabbable tabs-left">
-            <ul class="nav nav-tabs">
-                <li>
-                    <a href="/trainings/index.html">Все тренинги</a>
-                </li>
-                <li class="active">
-                    <a href="/trainings/scheduling.html">Расписание</a>
-                </li>
-                <li>
-                    <a href="/trainings/rules.html">Правила</a>
-                </li>
-                <li>
-                    <a href="#">Записаться</a>
-                </li>
-                <li>
-                    <a href="/trainings/reviews.html">Отзывы</a>
-                </li>
-            </ul>
+            <%@include file="menu.jsp" %>
             <div class="tab-content">
 
                 <table class="table table-striped table-bordered">
                     <caption>
-                        <h4>Расписание тренинга "Основы баз данных"</h4>
+                        <h4>Расписание занятий</h4>
                     </caption>
                     <thead>
                     <tr>
@@ -52,14 +36,54 @@
                     </thead>
                     <tbody>
                     <tr>
-                        <td>1</td>
-                        <td>21 апреля (17.00 - 20.00)</td>
-                        <td>Введение в БД</td>
+                        <td>понедельник</td>
+                        <td>23 сентября (19.00 - 22.00)</td>
+                        <td>Базовый курс</td>
                     </tr>
                     <tr>
-                        <td>2</td>
-                        <td>Ориентировочно 12 мая (17.00 - 20.00)</td>
-                        <td>JDBC</td>
+                        <td>вторник</td>
+                        <td>с 23 сентября (19.00 - 22.00)</td>
+                        <td>Базовый курс</td>
+                    </tr>
+                    <tr>
+                        <td>среда</td>
+                        <td>с 25 сентября (19.00 - 22.00)</td>
+                        <td>Java</td>
+                    </tr>
+                    <tr>
+                        <td>пятница</td>
+                        <td>c 25 сентября (19.00 - 22.00)</td>
+                        <td>Java</td>
+                    </tr>
+                    <tr>
+                        <td>суббота</td>
+                        <td>c 21 сентября (11.00 - 14.00)</td>
+                        <td>Базовый курс</td>
+                    </tr>
+                    <tr>
+                        <td>суббота</td>
+                        <td>c 28 сентября (14.00 - 18.00)</td>
+                        <td>Java</td>
+                    </tr>
+                    <tr>
+                        <td>суббота</td>
+                        <td>c 28 сентября (19.00 - 20.00)</td>
+                        <td>Индивидуальные занятия</td>
+                    </tr>
+                    <tr>
+                        <td>воскресенье</td>
+                        <td>c 21 сентября (11.00 - 14.00)</td>
+                        <td>Базовый курс</td>
+                    </tr>
+                    <tr>
+                        <td>воскресенье</td>
+                        <td>c 28 сентября (14.00 - 18.00)</td>
+                        <td>Java</td>
+                    </tr>
+                    <tr>
+                        <td>воскресенье</td>
+                        <td>c 28 сентября (19.00 - 20.00)</td>
+                        <td>Индивидуальные занятия</td>
                     </tr>
                     </tbody>
                 </table>
