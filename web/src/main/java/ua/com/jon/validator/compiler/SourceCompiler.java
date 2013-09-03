@@ -1,17 +1,22 @@
 package ua.com.jon.validator.compiler;
 
-
-import ua.com.jon.validator.templates.TaskClass;
-
 import javax.tools.*;
 import java.util.ArrayList;
 
 
 public class SourceCompiler {
+    public CompilationResult compileSourceCode(String className, String classCode) throws Exception {
+        if(className == null) {
+            throw new IllegalArgumentException("The class name is null");
+        }
 
+        if(classCode == null) {
+            throw new IllegalArgumentException("The code of class is null");
+        }
 
-    public CompilationResult compileSourceCode(ArrayList<TaskClass> taskClasses) throws Exception {
-
+        if(classCode.isEmpty()) {
+            throw new IllegalArgumentException("Code of class is empty");
+        }
         // результат: успех компиляции, скомпилированные объекты, ошибки
         CompilationResult compilationResult = new CompilationResult();
 
@@ -22,12 +27,12 @@ public class SourceCompiler {
         DiagnosticCollector<JavaFileObject> diagnostics = new DiagnosticCollector<JavaFileObject>();
 
         // компилируем все исходники проекта
-        ArrayList<JavaFileObject> javaFileObjects = new ArrayList<JavaFileObject>();
-        for (TaskClass taskClass : taskClasses) {
-            String name = taskClass.getClassName().replaceAll("['.']java", "");
-            JavaFileObject file = new JavaSourceFromString(name, taskClass.getClassCode());
-            javaFileObjects.add(file);
-        }
+        ArrayList<JavaFileObject> javaFileObjects = new ArrayList<>();
+//        for (TaskClass taskClass : taskClasses) {
+//            String name = taskClass.getClassName().replaceAll("['.']java", "");
+        JavaFileObject file = new JavaSourceFromString(className, classCode);
+        javaFileObjects.add(file);
+//        }
 
         JavaCompiler.CompilationTask task = compiler.getTask(null, fileManager, diagnostics, null, null, javaFileObjects);
 
@@ -53,7 +58,6 @@ public class SourceCompiler {
 
 
 }
-
 
 
 

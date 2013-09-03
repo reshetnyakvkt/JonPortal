@@ -66,7 +66,7 @@ public abstract class CodeValidator {
         JSONTaskResponse jsonResponse=new JSONTaskResponse();
         try {
             // компиляция
-            compilationResult = sourceCompiler.compileSourceCode(taskClasses);
+            compilationResult = sourceCompiler.compileSourceCode(taskClasses.get(0).toString(), targetClassName);
             jsonResponse.setCompilation_success(compilationResult.isSuccess());
             for (CompilationError compilationError : compilationResult.getCompilationErrors()) {
                 jsonResponse.addCompilationError(compilationError.getLine(),compilationError.getMessage());
