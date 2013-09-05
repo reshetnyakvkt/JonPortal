@@ -33,7 +33,8 @@ public class TaskDtoMapper {
                 task.getStatus().name(),
                 task.getResult(),
                 task.getCode(),
-                taskType.name()
+                taskType.name(),
+                task.getUser().getLogin()
         );
     }
 

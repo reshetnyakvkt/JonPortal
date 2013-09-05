@@ -118,9 +118,6 @@ public class UserTasksTabPanel extends Composite {
     }
 
     private void addTasksToTable(List<TaskDTO> tasks, boolean isSelectLast) {
-        //cellTable.setRowData(tasks);
-
-        // Connect the table to the data provider.
         dataProvider.addDataDisplay(cellTable);
         final List<TaskDTO> list = dataProvider.getList();
         TaskDTO last = null;
@@ -204,7 +201,7 @@ public class UserTasksTabPanel extends Composite {
                     SelectElement select = parent.getFirstChild().cast();
                     String newValue = select.getValue();
 
-                    TaskDTO dto = selectionModel.getSelectedObject();
+                    final TaskDTO dto = selectionModel.getSelectedObject();
                     if(dto == null){
                         Window.alert("Не выбрано ни одного задания!");
                         return;
@@ -223,9 +220,8 @@ public class UserTasksTabPanel extends Composite {
                         }
 
                         @Override
-                        public void onSuccess(Void aVoid) {
+                        public void onSuccess(Void resTaskDto) {
                             Window.alert("Status changed successfully");
-
                         }
                     });
                 }
@@ -250,14 +246,14 @@ public class UserTasksTabPanel extends Composite {
 
         buttonTestCol.setFieldUpdater(new FieldUpdater<TaskDTO, String>() {
             @Override
-            public void update(int index, TaskDTO taskDTO, String value) {
+            public void update(int index, final TaskDTO taskDTO, String value) {
                 if(!taskDTO.getType().equals(TaskType.CLASS.name())) {
                     Window.alert("Для проверки нажмите кнопку \"Проверить\"");
                     return;
                 }
 
                 taskDTO.setCode(code.getText());
-                final AsyncCallback<TaskDTO> callback = new AsyncCallback<TaskDTO>() {
+                final AsyncCallback<String> callback = new AsyncCallback<String>() {
 
                     @Override
                     public void onFailure(Throwable caught) {
@@ -265,8 +261,13 @@ public class UserTasksTabPanel extends Composite {
                     }
 
                     @Override
-                    public void onSuccess(TaskDTO result) {
-                        Window.alert(result.toString());
+                    public void onSuccess(String testResult) {
+                        Window.alert(testResult.toString());
+                        taskDTO.setResult(testResult);
+                        result.setText(testResult);
+                        //dataProvider.flush();
+                        dataProvider.refresh();
+
                     }
                 };
                 taskDTO.setText("");
@@ -283,7 +284,14 @@ public class UserTasksTabPanel extends Composite {
             @Override
             public String getValue(TaskDTO taskDto) {
                 int newLineMarkIdx = taskDto.getResult().indexOf('\n');
-                return taskDto.getResult().substring(0, newLineMarkIdx);
+                String resStr;
+                if(newLineMarkIdx < 0){
+                    resStr = taskDto.getResult();
+                }else {
+                    resStr = taskDto.getResult().substring(0, newLineMarkIdx);
+                }
+                Window.alert("!!! "+resStr + taskDto);
+                return resStr;//taskDto.getResult().substring(0, newLineMarkIdx);
             }
         };
 

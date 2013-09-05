@@ -82,7 +82,7 @@ public class GroupTasksTabPanel extends Composite {
     public GroupTasksTabPanel(final UiBinder<Widget, GroupTasksTabPanel> binder) {
         initWidget(binder.createAndBindUi(this));
         buildTable();
-        loadSprints();
+        loadTasks();
     }
 
     public void buildTable() {
@@ -161,7 +161,7 @@ public class GroupTasksTabPanel extends Composite {
 
     }
 
-    private void loadSprints() {
+    private void loadTasks() {
         final AsyncCallback<ArrayList<SprintDTO>> groupCallback = new AsyncCallback<ArrayList<SprintDTO>>() {
 
             @Override
@@ -292,7 +292,7 @@ public class GroupTasksTabPanel extends Composite {
 
             @Override
             public void onSuccess(Void aVoid) {
-                loadSprints();
+                loadTasks();
                 Window.alert("CabinetMain posted successfully");
             }
         };
@@ -309,7 +309,7 @@ public class GroupTasksTabPanel extends Composite {
 
     @UiHandler("refreshSprintsBtn")
     public void refreshSprintsHandler(ClickEvent e){
-        loadSprints();
+        loadTasks();
     }
     private void relocateTasks(List<SprintDTO> loadedSprints) {
         for (SprintDTO loadedSprint : loadedSprints) {

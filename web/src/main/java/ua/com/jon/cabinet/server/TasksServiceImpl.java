@@ -2,7 +2,6 @@ package ua.com.jon.cabinet.server;
 
 
 import org.apache.log4j.Logger;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import ua.com.jon.auth.domain.SpringUser;
@@ -20,6 +19,7 @@ import ua.com.jon.common.repository.TaskRepository;
 import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 /**
  * Created with IntelliJ IDEA.
@@ -103,8 +103,8 @@ public class TasksServiceImpl implements TasksService {
     }
 
     @Override
-    public TaskDTO postForTest(TaskDTO taskDTO) {
+    public String postForTest(TaskDTO taskDTO) {
         log.info("Post for test: " + taskDTO.getCode());
-        return new TaskDTO(taskDTO);
+        return new Random().nextInt(100)+"\n text test";
     }
 }

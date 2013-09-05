@@ -18,5 +18,5 @@ public interface TasksService extends RemoteService {
     ArrayList<TaskDTO> getUserTasks();
     void taskStatusChanged(TaskDTO dto);
     ArrayList<SprintDTO> getSprints();
-    TaskDTO postForTest(TaskDTO taskDTO);
+    String postForTest(TaskDTO taskDTO);
 }

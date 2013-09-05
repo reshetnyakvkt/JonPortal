@@ -13,6 +13,7 @@
         <module>web</module>
         <module>validator</module>
         <module>Tests</module>
+        <module>Tron</module>
     </modules>
 
     <properties>
@@ -43,11 +44,11 @@
             <version>${junit.version}</version>
         </dependency>
 
-        <dependency>
-            <groupId>Testeron</groupId>
-            <artifactId>Testeron</artifactId>
-            <version>${testeron.version}</version>
-        </dependency>
+        <!--<dependency>-->
+            <!--<groupId>Testeron</groupId>-->
+            <!--<artifactId>Testeron</artifactId>-->
+            <!--<version>${testeron.version}</version>-->
+        <!--</dependency>-->
 
         <dependency>
             <groupId>mysql</groupId>

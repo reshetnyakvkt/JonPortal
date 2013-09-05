@@ -17,6 +17,6 @@ public interface TasksServiceAsync {
     void getUserTasks(AsyncCallback<ArrayList<TaskDTO>> async);
     void taskStatusChanged(TaskDTO dto, AsyncCallback<Void> async);
     void getSprints(AsyncCallback<ArrayList<SprintDTO>> callback);
-    void postForTest(TaskDTO taskDTO, AsyncCallback<TaskDTO> callback);
+    void postForTest(TaskDTO taskDTO, AsyncCallback<String> callback);
 }
 
