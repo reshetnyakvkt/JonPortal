@@ -34,7 +34,8 @@
         <maven-compiler-plugin.version>3.0</maven-compiler-plugin.version>
         <mysql.connector.version>5.1.21</mysql.connector.version>
         <junit.version>4.10</junit.version>
-        <testeron.version>1.0-MOCK</testeron.version>
+        <testeron.version>1.0-SNAPSHOT</testeron.version>
+        <tests.version>1.0-SNAPSHOT</tests.version>
     </properties>
 
     <dependencies>
@@ -45,9 +46,15 @@
         </dependency>
 
         <dependency>
-            <groupId>Testeron</groupId>
             <artifactId>Testeron</artifactId>
+            <groupId>Testeron</groupId>
             <version>${testeron.version}</version>
+        </dependency>
+
+        <dependency>
+            <artifactId>Tests</artifactId>
+            <groupId>JonGit</groupId>
+            <version>${tests.version}</version>
         </dependency>
 
         <dependency>

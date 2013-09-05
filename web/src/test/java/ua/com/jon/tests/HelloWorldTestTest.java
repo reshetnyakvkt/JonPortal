@@ -10,6 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import java.util.Map;
+
 
 /**
  * Created with IntelliJ IDEA.
@@ -39,7 +41,7 @@ public class HelloWorldTestTest {
         compilationResult = compiler.compileSourceCode(className, classCode);
 
         Class unitClass = compilationResult.getClassByName(className);
-        testsRunner.testSingleClass(unitClass, testName);
+        Map<String,String> stringStringMap = testsRunner.testSingleClass(unitClass, testName);
+        System.out.println(stringStringMap);
     }
-
 }
