@@ -16,7 +16,6 @@ import ua.com.jon.common.dto.mapper.SprintDtoMapper;
 import ua.com.jon.common.dto.mapper.TaskDtoMapper;
 import ua.com.jon.common.repository.SprintRepository;
 import ua.com.jon.common.repository.TaskRepository;
-import ua.com.jon.validator.service.ValidationService;
 
 import javax.annotation.Resource;
 import java.util.ArrayList;
@@ -36,9 +35,6 @@ public class TasksServiceImpl implements TasksService {
 
     @Resource
     private SprintRepository sprintRepository;
-
-    @Autowired
-    private ValidationService validationService;
 
     @Override
     public String greet(String name) {

@@ -1,5 +1,7 @@
 package ua.com.jon.validator.compiler;
 
+import com.jon.tron.service.compiler.CompilationResult;
+import com.jon.tron.service.compiler.SourceCompiler;
 import org.junit.Before;
 import org.junit.Test;
 
