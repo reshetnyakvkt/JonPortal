@@ -107,4 +107,9 @@ public class TasksServiceImpl implements TasksService {
         log.info("Post for test: " + taskDTO.getCode());
         return new Random().nextInt(100)+"\n text test";
     }
+
+    @Override
+    public ArrayList<TaskDTO> getTasksByUserGroup() {
+        return  null;
+    }
 }

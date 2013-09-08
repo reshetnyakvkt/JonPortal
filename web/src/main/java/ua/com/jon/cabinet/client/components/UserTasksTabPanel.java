@@ -102,7 +102,7 @@ public class UserTasksTabPanel extends Composite {
 
             @Override
             public void onSuccess(ArrayList<SprintDTO> sprints) {
-                Window.alert("loadSprintsAndTasks sprints " + sprints);
+               // Window.alert("loadSprintsAndTasks sprints " + sprints);
 
                 for (SprintDTO sprint : sprints) {
                     if(sprint.isActive()) {
@@ -157,29 +157,7 @@ public class UserTasksTabPanel extends Composite {
                     public void onSelectionChange(SelectionChangeEvent event) {
                         TaskDTO selected = selectionModel.getSelectedObject();
                         if (selected != null) {
-                            if(!selected.getType().equals(TaskType.CLASS.name())){
-                               code.setVisible(false);
-                                for(int i=0; i<cellTable.getRowCount(); i++){
-                                    String nameText = cellTable.getRowElement(i).getInnerText();
-                                    Window.alert("selected = "+selected.toString());
-                                    if(nameText.contains(selected.getName())){
-                                        cellTable.getRowElement(i).deleteCell(3);
-                                    }
-//                                    NodeList < TableCellElement> list1 =  cellTable.getRowElement(i).getCells();
-//                                    for(int k=0; k<list1.getLength(); k++){
-//                                        Window.alert("el:text = "+list1.getItem(k).getInnerText());
-//                                    }
-                                }
-                            } else {
-                                code.setVisible(true);
-                                for(int i=0; i<cellTable.getRowCount(); i++){
-                                    String nameText = cellTable.getRowElement(i).getInnerText();
-                                    if(nameText.contains(selected.getName())){
-                                        cellTable.getRowElement(i).deleteCell(2);
-                                        cellTable.getRowElement(i).insertCell(2);
-                                    }
-                                }
-                            }
+                            restructureTable(selected.getName());
                             result.setText(selected.getResult());
                             taskText.setText(selected.getText());
                         }
@@ -262,12 +240,12 @@ public class UserTasksTabPanel extends Composite {
 
                     @Override
                     public void onSuccess(String testResult) {
-                        Window.alert(testResult.toString());
+                       // Window.alert(testResult.toString());
                         taskDTO.setResult(testResult);
                         result.setText(testResult);
                         //dataProvider.flush();
                         dataProvider.refresh();
-
+                        restructureTable(null);
                     }
                 };
                 taskDTO.setText("");
@@ -290,7 +268,7 @@ public class UserTasksTabPanel extends Composite {
                 }else {
                     resStr = taskDto.getResult().substring(0, newLineMarkIdx);
                 }
-                Window.alert("!!! "+resStr + taskDto);
+              //  Window.alert("!!! "+resStr + taskDto);
                 return resStr;//taskDto.getResult().substring(0, newLineMarkIdx);
             }
         };
@@ -298,8 +276,26 @@ public class UserTasksTabPanel extends Composite {
         cellTable.addColumn(resultColumn, "Результат");
     }
 
+    private void restructureTable(String taskName) {
+        final int TEST_COLUMN = 3;
+        final int STATUS_COLUMN = 2;
+        for(int i=0; i<cellTable.getRowCount(); i++){
+            String nameText = cellTable.getRowElement(i).getInnerText();
+            if(taskName == null || nameText.contains(taskName)){
+                int columnIndex = TEST_COLUMN;
+                TaskDTO taskDTO = cellTable.getVisibleItem(i);
+                Window.alert("taskDTO = "+taskDTO.toString());
+                if(TaskType.CLASS.name().equals(taskDTO.getType())) {
+                    columnIndex = STATUS_COLUMN;
+                }
+                cellTable.getRowElement(i).deleteCell(columnIndex);
+                cellTable.getRowElement(i).insertCell(columnIndex);
+            }
+        }
+    }
+
     private List<String> getAcceptableValues() {
-        return Arrays.asList("NEW", "IN_PROGRESS", "TEST", "RESOLVED");
+        return Arrays.asList("NEW", "IN_PROGRESS", "TEST");
     }
 
     public enum TaskType {

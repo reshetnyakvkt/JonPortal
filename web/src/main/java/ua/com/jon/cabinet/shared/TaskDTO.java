@@ -112,7 +112,7 @@ public class TaskDTO implements Serializable {
     public String toString() {
         return "TaskDTO{" +
                 "id=" + id +
-                ", text='" + text + '\'' +
+                ", text='" + text.substring(0, 50) + '\'' +
                 ", name='" + name + '\'' +
                 ", status='" + status + '\'' +
                 ", result='" + result + '\'' +

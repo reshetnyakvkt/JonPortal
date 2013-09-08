@@ -94,7 +94,7 @@ public class GroupTasksTabPanel extends Composite {
                 return object.getName() == null ? "" : object.getName();
             }
         };
-        nameColumn.setFieldUpdater(new FieldUpdater<TaskDTO, String>() {
+/*        nameColumn.setFieldUpdater(new FieldUpdater<TaskDTO, String>() {
             @Override
             public void update(int index, TaskDTO object, String value) {
                 Window.alert(value);
@@ -103,14 +103,28 @@ public class GroupTasksTabPanel extends Composite {
                 dataProvider.refresh();
             }
         });
-        cellTable.addColumn(nameColumn, "Название");
+        cellTable.addColumn(nameColumn, "Название");*/
 
         cellTable.addColumn(new TextColumn<TaskDTO>() {
             @Override
-            public String getValue(TaskDTO contact) {
-                return String.valueOf(contact.getText());
+            public String getValue(TaskDTO taskDTO) {
+                return String.valueOf(taskDTO.getName());
             }
-        }, "Текст");
+        }, "Название");
+
+        cellTable.addColumn(new TextColumn<TaskDTO>() {
+            @Override
+            public String getValue(TaskDTO taskDTO) {
+                return String.valueOf(taskDTO.getUserName());
+            }
+        }, "Студент");
+
+        cellTable.addColumn(new TextColumn<TaskDTO>() {
+            @Override
+            public String getValue(TaskDTO taskDTO) {
+                return String.valueOf(taskDTO.getName());
+            }
+        }, "Название");
 
         com.google.gwt.user.cellview.client.Column<TaskDTO, String> buttonDelCol = new com.google.gwt.user.cellview.client.Column<TaskDTO, String>(new ButtonCell(IconType.REMOVE, ButtonType.DANGER)) {
             @Override
@@ -195,7 +209,7 @@ public class GroupTasksTabPanel extends Composite {
             }
         };
 
-        //adminService.getSprintsAndTasks(groupCallback);
+        adminService.getTasksByUserGroup();
 
     }
 
