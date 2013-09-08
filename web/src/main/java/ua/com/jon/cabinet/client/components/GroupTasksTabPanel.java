@@ -176,7 +176,7 @@ public class GroupTasksTabPanel extends Composite {
     }
 
     private void loadTasks() {
-        final AsyncCallback<ArrayList<SprintDTO>> groupCallback = new AsyncCallback<ArrayList<SprintDTO>>() {
+        final AsyncCallback<ArrayList<TaskDTO>> groupCallback = new AsyncCallback<ArrayList<TaskDTO>>() {
 
             @Override
             public void onFailure(Throwable caught) {
@@ -186,30 +186,30 @@ public class GroupTasksTabPanel extends Composite {
             }
 
             @Override
-            public void onSuccess(ArrayList<SprintDTO> sprintDTOs) {
+            public void onSuccess(ArrayList<TaskDTO> sprintDTOs) {
                 sprintsProgress.setVisible(false);
                 sprintsListBox.setVisible(true);
 
                 Window.alert(sprintDTOs.toString());
-                sprintsListBox.setAcceptableValues(sprintDTOs);
-                loadedSprints = sprintDTOs;
+//                sprintsListBox.setAcceptableValues(sprintDTOs);
+//                loadedSprints = sprintDTOs;
 //                for (SpaceDTO sprintDTO : spaceDTOs) {
 //                    addTasksToSprintNavList(sprintDTO.getUsers());
 //                    spacesListBox.setValue(sprintDTO);
 //                }
+/*
                 Iterator<SprintDTO> itr = sprintDTOs.iterator();
                 if (itr.hasNext()) {
                     SprintDTO sprintDTO = itr.next();
-//                    Window.alert(sprintDTO.toString());
-//                    addTasksToSprintNavList(spaceDTO.getTasks());
                     sprintsListBox.setValue(sprintDTO);
                     currentSprint = sprintDTO;
                 }
                 addSprintsToTable(sprintsListBox.getValue().getTasks());
+*/
             }
         };
 
-        adminService.getTasksByUserGroup();
+        adminService.getTasksByUserGroup(groupCallback);
 
     }
 
