@@ -13,11 +13,13 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import java.util.Map;
 
 
+
 /**
  * Created with IntelliJ IDEA.
  * User: al1
  * Date: 9/4/13
  */
+
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {"/testContext.xml"})
 //@ComponentScan(basePackages = {"com.jon.tron.service.junit"})
@@ -45,3 +47,4 @@ public class HelloWorldTestTest {
         System.out.println(stringStringMap);
     }
 }
+

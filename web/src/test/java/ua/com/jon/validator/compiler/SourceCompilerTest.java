@@ -1,5 +1,6 @@
 package ua.com.jon.validator.compiler;
 
+
 import com.jon.tron.service.compiler.CompilationResult;
 import com.jon.tron.service.compiler.SourceCompiler;
 import org.junit.Before;
@@ -7,11 +8,13 @@ import org.junit.Test;
 
 import static junit.framework.Assert.*;
 
+
 /**
  * Created with IntelliJ IDEA.
  * User: al1
  * Date: 9/3/13
  */
+
 public class SourceCompilerTest {
     private SourceCompiler compiler;
 
@@ -68,3 +71,4 @@ public class SourceCompilerTest {
         compiler.compileSourceCode(className, classCode);
     }
 }
+

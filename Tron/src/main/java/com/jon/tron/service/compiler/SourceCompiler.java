@@ -9,6 +9,7 @@ package com.jon.tron.service.compiler;
  */
 public class SourceCompiler {
     public CompilationResult compileSourceCode(String className, String classCode) {
-        return null;  //To change body of created methods use File | Settings | File Templates.
+        CompilationResult result = new CompilationResult(true);
+        return result;
     }
 }
