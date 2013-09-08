@@ -25,6 +25,9 @@ public class TaskTemplate {
 
     private Blob materials;
 
+    @Column(name = "CLASS_NAME")
+    private String className;
+
     @OneToMany(mappedBy = "taskTemplate", cascade = CascadeType.ALL)
     private Set<Task> tasks = new HashSet<Task>();
 
@@ -43,12 +46,12 @@ public class TaskTemplate {
         this.taskText = taskText;
     }
 
-    public TaskTemplate(Long id, String taskText, String name, TaskType type) {
+    public TaskTemplate(Long id, String taskText, String name, TaskType type, String className) {
         this.id = id;
         this.taskText = taskText;
         this.name = name;
-        this.sprint = sprint;
         this.type = type;
+        this.className = className;
     }
 
     public String getName() {
@@ -99,11 +102,20 @@ public class TaskTemplate {
         this.type = type;
     }
 
+    public String getClassName() {
+        return className;
+    }
+
+    public void setClassName(String className) {
+        this.className = className;
+    }
+
     @Override
     public String toString() {
         return "TaskTemplate{" +
                 "id=" + (id != null?id:"") +
                 ", name='" + name + '\'' +
+                ", className='" + className + '\'' +
                 ", taskText='" + taskText + '\'' +
                 ", materials=" + (materials != null?materials:"") +
                 ", sprint=" + (sprint != null?sprint.getName():"") +

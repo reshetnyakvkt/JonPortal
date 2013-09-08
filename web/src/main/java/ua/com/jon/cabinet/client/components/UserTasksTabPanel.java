@@ -141,7 +141,7 @@ public class UserTasksTabPanel extends Composite {
         // Make the name column sortable.
         nameColumn.setSortable(true);
 
-        TextColumn<TaskDTO> addressColumn = new TextColumn<TaskDTO>() {
+        TextColumn<TaskDTO> textColumn = new TextColumn<TaskDTO>() {
             @Override
             public String getValue(TaskDTO contact) {
                 if(contact.getText() != null){
@@ -166,7 +166,7 @@ public class UserTasksTabPanel extends Composite {
 
         // Add the columns.
         cellTable.addColumn(nameColumn, "Название");
-        cellTable.addColumn(addressColumn, "Текст задания");
+        cellTable.addColumn(textColumn, "Текст задания");
         SelectionCell cell = new SelectionCell(getAcceptableValues()) {
 
             @Override

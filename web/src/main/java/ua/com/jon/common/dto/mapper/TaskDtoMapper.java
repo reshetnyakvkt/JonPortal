@@ -19,11 +19,13 @@ public class TaskDtoMapper {
         TaskTemplate taskTemplate = task.getTaskTemplate();
         String taskText = "";
         String taskName = "";
+        String className = "";
         TaskType taskType = TaskType.CLASS;
         if (task.getTaskTemplate() != null) {
             taskText = taskTemplate.getTaskText();
             taskName = taskTemplate.getName();
             taskType = taskTemplate.getType();
+            className = taskTemplate.getClassName();
         }
 
         return new TaskDTO(
@@ -34,7 +36,8 @@ public class TaskDtoMapper {
                 task.getResult(),
                 task.getCode(),
                 taskType.name(),
-                task.getUser().getLogin()
+                task.getUser().getLogin(),
+                className
         );
     }
 

@@ -1,7 +1,11 @@
 package ua.com.jon.common.dto.mapper;
 
+import ua.com.jon.admin.shared.SprintDTO;
 import ua.com.jon.admin.shared.TaskTemplateDTO;
+import ua.com.jon.common.domain.Sprint;
+import ua.com.jon.common.domain.SprintType;
 import ua.com.jon.common.domain.TaskTemplate;
+import ua.com.jon.common.domain.TaskType;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,7 +21,8 @@ public class TaskTemplateDtoMapper {
                 taskTemplate.getId(),
                 taskTemplate.getName(),
                 taskTemplate.getTaskText(),
-                taskTemplate.getType() == null? null: taskTemplate.getType().name()
+                taskTemplate.getType() == null? null: taskTemplate.getType().name(),
+                taskTemplate.getClassName()
         );
     }
 
@@ -30,5 +35,19 @@ public class TaskTemplateDtoMapper {
             taskDTOs.add(domainToDto(taskTemplate));
         }
         return taskDTOs;
+    }
+
+    public static List<TaskTemplate> convertTaskDtosToEntity(List<TaskTemplateDTO> tasks) {
+        List<TaskTemplate> taskTemplates = new ArrayList<TaskTemplate>(tasks.size());
+        for (TaskTemplateDTO task : tasks) {
+            TaskTemplate taskTemplate = new TaskTemplate(
+                    task.getId(),
+                    task.getText(),
+                    task.getName(),
+                    task.getType() == null? TaskType.SVN: TaskType.valueOf(task.getType()),
+                    task.getClassName());
+            taskTemplates.add(taskTemplate);
+        }
+        return taskTemplates;
     }
 }

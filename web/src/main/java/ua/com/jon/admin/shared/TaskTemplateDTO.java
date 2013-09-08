@@ -13,12 +13,10 @@ public class TaskTemplateDTO implements Serializable {
     private static final Long SerialVersionUID = 1L;
 
     private Long id;
-
     private String name;
-
     private String text;
-
     private String type;
+    private String className;
 
     public TaskTemplateDTO() {
     }
@@ -32,11 +30,12 @@ public class TaskTemplateDTO implements Serializable {
         this.text = text;
     }
 
-    public TaskTemplateDTO(Long id, String name, String text, String type) {
+    public TaskTemplateDTO(Long id, String name, String text, String type, String className) {
         this.id = id;
         this.name = name;
         this.text = text;
         this.type = type;
+        this.className = className;
     }
 
     public String getName() {
@@ -71,6 +70,14 @@ public class TaskTemplateDTO implements Serializable {
         this.type = type;
     }
 
+    public String getClassName() {
+        return className;
+    }
+
+    public void setClassName(String className) {
+        this.className = className;
+    }
+
     @Override
     public String toString() {
         return "TaskTemplateDTO{" +
@@ -78,6 +85,7 @@ public class TaskTemplateDTO implements Serializable {
                 ", name='" + name + '\'' +
                 ", text='" + text + '\'' +
                 ", type='" + type + '\'' +
+                ", className='" + className + '\'' +
                 '}';
     }
 }

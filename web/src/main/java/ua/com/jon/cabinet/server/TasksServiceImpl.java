@@ -1,6 +1,7 @@
 package ua.com.jon.cabinet.server;
 
 
+import com.jon.tron.service.ClassProcessor;
 import org.apache.log4j.Logger;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
@@ -19,6 +20,7 @@ import ua.com.jon.common.repository.TaskRepository;
 import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
 
 /**
@@ -29,6 +31,8 @@ import java.util.Random;
 @Service("tasksService")
 public class TasksServiceImpl implements TasksService {
     private static final Logger log = Logger.getLogger(TasksServiceImpl.class);
+
+    private ClassProcessor classProcessor = new ClassProcessor();
 
     @Resource
     private TaskRepository taskRepository;
@@ -105,7 +109,10 @@ public class TasksServiceImpl implements TasksService {
     @Override
     public String postForTest(TaskDTO taskDTO) {
         log.info("Post for test: " + taskDTO.getCode());
-        return new Random().nextInt(100)+"\n text test";
+        Map.Entry<String, String> resultEntry = classProcessor.processClass(taskDTO.getClassName(), taskDTO.getText());
+        String testResult = resultEntry.getKey() + '\n' + resultEntry.getValue();
+        log.info("Test result is " + testResult);
+        return testResult;
     }
 
     @Override

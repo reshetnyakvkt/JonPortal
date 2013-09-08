@@ -4,6 +4,7 @@ import ua.com.jon.admin.shared.SprintDTO;
 import ua.com.jon.admin.shared.TaskTemplateDTO;
 import ua.com.jon.auth.domain.AssemblaSpace;
 import ua.com.jon.common.domain.Sprint;
+import ua.com.jon.common.domain.SprintType;
 import ua.com.jon.common.domain.Task;
 
 import java.util.ArrayList;
@@ -47,5 +48,25 @@ public class SprintDtoMapper {
                 sprint.getActive(),
                 TaskDtoMapper.domainsToExamineDtos(tasks)
         );
+    }
+
+    public static List<Sprint> convertSprintDtosToEntity(List<Sprint> sprintList, List<SprintDTO> sprintDtoMap) {
+        List<Sprint> sprints = new ArrayList<Sprint>();
+        for (SprintDTO sprintDTO : sprintDtoMap) {
+            String sprintName = sprintDTO.getName();
+            int index = sprintList.indexOf(new Sprint(sprintDTO.getId(), sprintDTO.getName(), SprintType.IT_CENTRE, sprintDTO.isActive()));
+            Sprint sprint;
+            if(index >= 0) {
+                sprint = sprintList.get(index);
+                sprint.setId(sprintDTO.getId());
+                sprint.setName(sprintDTO.getName());
+                sprint.setActive(sprintDTO.isActive());
+                sprint.setTasks(TaskTemplateDtoMapper.convertTaskDtosToEntity(sprintDTO.getTasks()));
+            } else {
+                sprint = new Sprint(sprintDTO.getId(), sprintName, SprintType.IT_CENTRE, sprintDTO.isActive());
+            }
+            sprints.add(sprint);
+        }
+        return sprints;
     }
 }

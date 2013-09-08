@@ -91,22 +91,9 @@ public class TasksManageTabPanel extends Composite {
     public void buildTable() {
         cellTable.setEmptyTableWidget(new Label("Please add data."));
         dataProvider.addDataDisplay(cellTable);
-        Column<TaskTemplateDTO, String> nameColumn = new Column<TaskTemplateDTO, String>(new TextInputCell()) {
-            @Override
-            public String getValue(TaskTemplateDTO object) {
-                return object.getName() == null ? "" : object.getName();
-            }
-        };
-        nameColumn.setFieldUpdater(new FieldUpdater<TaskTemplateDTO, String>() {
-            @Override
-            public void update(int index, TaskTemplateDTO object, String value) {
-                Window.alert(value);
-                dataProvider.getList().get(index).setName(value);
-                dataProvider.flush();
-                dataProvider.refresh();
-            }
-        });
-        cellTable.addColumn(nameColumn, "Название");
+
+        createTaskNameColumn();
+        createClassNameColumn();
 
         cellTable.addColumn(new TextColumn<TaskTemplateDTO>() {
             @Override
@@ -114,12 +101,33 @@ public class TasksManageTabPanel extends Composite {
                 if(contact.getText() != null){
                     return String.valueOf(contact.getText().substring(0, 51));
                 }
-                    return "";
+                return "";
             }
         }, "Текст");
 
         cellTable.setSelectionModel(selectionModel);
 
+        createStatusDropdown();
+
+        createRemoveButton();
+
+        createSaveButton();
+
+//        final SingleSelectionModel<TaskTemplateDTO> selectionModel = new SingleSelectionModel<TaskTemplateDTO>();
+//        cellTable.setSelectionModel(selectionModel);
+        selectionModel.addSelectionChangeHandler(
+                new SelectionChangeEvent.Handler() {
+                    public void onSelectionChange(SelectionChangeEvent event) {
+                        TaskTemplateDTO selected = selectionModel.getSelectedObject();
+                        if (selected != null) {
+                            String text = selected.getText();
+                            textArea.setText(text);
+                        }
+                    }
+                });
+    }
+
+    private void createStatusDropdown() {
         SelectionCell cell = new SelectionCell(getAcceptableValues()) {
 
             @Override
@@ -170,6 +178,9 @@ public class TasksManageTabPanel extends Composite {
             }
         };
         cellTable.addColumn(statusCol, "Тип");
+    }
+
+    private void createRemoveButton() {
         Column<TaskTemplateDTO, String> buttonDelCol = new Column<TaskTemplateDTO, String>(new ButtonCell(IconType.REMOVE, ButtonType.DANGER)) {
             @Override
             public String getValue(TaskTemplateDTO object) {
@@ -186,7 +197,9 @@ public class TasksManageTabPanel extends Composite {
             }
         });
         cellTable.addColumn(buttonDelCol);
+    }
 
+    private void createSaveButton() {
         Column<TaskTemplateDTO, String> buttonSaveCol = new Column<TaskTemplateDTO, String>(new ButtonCell(IconType.SAVE, ButtonType.INFO)) {
             @Override
             public String getValue(TaskTemplateDTO object) {
@@ -202,19 +215,43 @@ public class TasksManageTabPanel extends Composite {
                 taskTemplateDTO.setText(textArea.getText());
             }
         });
+    }
 
-//        final SingleSelectionModel<TaskTemplateDTO> selectionModel = new SingleSelectionModel<TaskTemplateDTO>();
-//        cellTable.setSelectionModel(selectionModel);
-        selectionModel.addSelectionChangeHandler(
-                new SelectionChangeEvent.Handler() {
-                    public void onSelectionChange(SelectionChangeEvent event) {
-                        TaskTemplateDTO selected = selectionModel.getSelectedObject();
-                        if (selected != null) {
-                            String text = selected.getText();
-                            textArea.setText(text);
-                        }
-                    }
-                });
+    private void createTaskNameColumn() {
+        Column<TaskTemplateDTO, String> nameColumn = new Column<TaskTemplateDTO, String>(new TextInputCell()) {
+            @Override
+            public String getValue(TaskTemplateDTO object) {
+                return object.getName() == null ? "" : object.getName();
+            }
+        };
+        nameColumn.setFieldUpdater(new FieldUpdater<TaskTemplateDTO, String>() {
+            @Override
+            public void update(int index, TaskTemplateDTO object, String value) {
+                //Window.alert(value);
+                dataProvider.getList().get(index).setName(value);
+                dataProvider.flush();
+                dataProvider.refresh();
+            }
+        });
+        cellTable.addColumn(nameColumn, "Название");
+    }
+
+    private void createClassNameColumn() {
+        Column<TaskTemplateDTO, String> nameColumn = new Column<TaskTemplateDTO, String>(new TextInputCell()) {
+            @Override
+            public String getValue(TaskTemplateDTO object) {
+                return object.getClassName() == null ? "" : object.getClassName();
+            }
+        };
+        nameColumn.setFieldUpdater(new FieldUpdater<TaskTemplateDTO, String>() {
+            @Override
+            public void update(int index, TaskTemplateDTO object, String value) {
+                dataProvider.getList().get(index).setClassName(value);
+                dataProvider.flush();
+                dataProvider.refresh();
+            }
+        });
+        cellTable.addColumn(nameColumn, "Имя класса");
     }
 
     private void loadSprints() {

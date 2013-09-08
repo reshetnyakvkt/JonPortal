@@ -70,7 +70,6 @@ public class AdminServiceImpl implements AdminService {
         ArrayList<GroupDTO> groupDTOs = new ArrayList<GroupDTO>();
         Iterable<Group> groups = groupRepository.findAll();
         for (Group group : groups) {
-            //ArrayList<TaskTemplate> tasks = new ArrayList<TaskTemplate>();
             ArrayList<TaskTemplate> tasks = taskTemplateRepository.findByGroupName(group.getName());
             GroupDTO groupDTO = GroupDtoMapper.domainToDto(group, tasks);
             groupDTOs.add(groupDTO);
@@ -78,14 +77,6 @@ public class AdminServiceImpl implements AdminService {
         }
         log.info("= " + groupDTOs + " =");
         return groupDTOs;
-/*        List<GroupDTO> groups = new ArrayList<GroupDTO>();
-        GroupDTO group1 = new GroupDTO("Группа 1");
-        GroupDTO group2 = new GroupDTO("Группа 2");
-        GroupDTO group3 = new GroupDTO("Группа 3");
-
-        groups.add(group1);
-        groups.add(group2);
-        groups.add(group3);*/
 
     }
 
@@ -143,7 +134,7 @@ public class AdminServiceImpl implements AdminService {
             sprints = sprintRepository.findByIds(ids);
         }
 
-        List<Sprint> sprintsToSave = convertSprintDtosToEntity(sprints, sprintDTOs);
+        List<Sprint> sprintsToSave = SprintDtoMapper.convertSprintDtosToEntity(sprints, sprintDTOs);
         sprintRepository.save(sprintsToSave);
         log.info("-- saved sprints " + sprintsToSave);
     }
@@ -156,39 +147,6 @@ public class AdminServiceImpl implements AdminService {
             }
         }
         return keys;
-    }
-
-    private List<Sprint> convertSprintDtosToEntity(List<Sprint> sprintList, List<SprintDTO> sprintDtoMap) {
-        List<Sprint> sprints = new ArrayList<Sprint>();
-        for (SprintDTO sprintDTO : sprintDtoMap) {
-            String sprintName = sprintDTO.getName();
-            int index = sprintList.indexOf(new Sprint(sprintDTO.getId(), sprintDTO.getName(), SprintType.IT_CENTRE, sprintDTO.isActive()));
-            Sprint sprint;
-            if(index >= 0) {
-                sprint = sprintList.get(index);
-                sprint.setId(sprintDTO.getId());
-                sprint.setName(sprintDTO.getName());
-                sprint.setActive(sprintDTO.isActive());
-                sprint.setTasks(convertTaskDtosToEntity(sprintDTO.getTasks()));
-            } else {
-                sprint = new Sprint(sprintDTO.getId(), sprintName, SprintType.IT_CENTRE, sprintDTO.isActive());
-            }
-            sprints.add(sprint);
-        }
-        return sprints;
-    }
-
-    private List<TaskTemplate> convertTaskDtosToEntity(List<TaskTemplateDTO> tasks) {
-        List<TaskTemplate> taskTemplates = new ArrayList<TaskTemplate>(tasks.size());
-        for (TaskTemplateDTO task : tasks) {
-            TaskTemplate taskTemplate = new TaskTemplate(
-                    task.getId(),
-                    task.getName(),
-                    task.getText(),
-                    task.getType() == null? TaskType.SVN: TaskType.valueOf(task.getType()));
-            taskTemplates.add(taskTemplate);
-        }
-        return taskTemplates;
     }
 
     private Set<String> userToNamesWithTrim(ArrayList<UserDTO> users) {
