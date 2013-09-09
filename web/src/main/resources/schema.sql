@@ -21,6 +21,8 @@ INSERT INTO `cources`.`SPRINTS`(`active`,`name`,`sprint_type`)VALUES
 (true, 'Weekend4 home', 'IT_CENTRE'),
 (true, 'Weekend5 class', 'IT_CENTRE'),
 (true, 'Weekend5 home', 'IT_CENTRE'),
+(true, 'Base Weekend1 class', 'IT_CENTRE'),
+(true, 'Base Weekend1 home', 'IT_CENTRE'),
 (true, 'variables', 'ANONYMOUS'),
 (true, 'conditions', 'ANONYMOUS');
 
@@ -82,7 +84,11 @@ INSERT INTO `cources`.`TASK_TEMPLATES`(`materials`,`TASK_TEMPLATE_ID`, `name`,`t
 Сделать конфигурацию через .properties файл:
 процент прохождения, балл за правильный ответ, время на ответ
 Выводить историю прохождения тестов: дата, ответы, бал.
-');
+'),
+(null,
+ (SELECT id FROM `cources`.`SPRINTS` WHERE `name` = 'Base Weekend1 class'),
+ 'Hello world','Написать приложения, выводящее в консоль сообщение Hello World!')
+;
 
 INSERT INTO `cources`.`TASKS`
 (`status`,`taskTemplate_id`,`user_id`,`result`, `sprint_id`)VALUES
