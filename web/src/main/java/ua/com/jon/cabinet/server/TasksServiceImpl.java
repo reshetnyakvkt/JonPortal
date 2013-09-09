@@ -32,7 +32,7 @@ import java.util.Random;
 public class TasksServiceImpl implements TasksService {
     private static final Logger log = Logger.getLogger(TasksServiceImpl.class);
 
-    private ClassProcessor classProcessor = new ClassProcessor();
+    private ClassProcessor classProcessor = ClassProcessor.getInstance();
 
     @Resource
     private TaskRepository taskRepository;
