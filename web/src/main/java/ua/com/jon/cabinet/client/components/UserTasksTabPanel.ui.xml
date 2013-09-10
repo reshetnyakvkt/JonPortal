@@ -29,10 +29,10 @@
         <b:FluidRow>
           <!--<b:Heading size="3">Result description</b:Heading>-->
           <b:Row>
-            <b:Column size="8">
+            <b:Column size="6">
               <b:TextArea ui:field='taskText' readOnly="true" width="100%" height="40%" visible="true"/>
             </b:Column>
-            <b:Column size="4">
+            <b:Column size="6">
               <b:TextArea ui:field='result' readOnly="true" width="100%" height="40%" visible="true"/>
             </b:Column>
           </b:Row>

@@ -117,6 +117,8 @@ public class TasksServiceImpl implements TasksService {
             resultEntry = classProcessor.processClass(taskDTO.getClassName(), taskDTO.getCode());
         } catch (CompilationException e) {
             resultEntry = e.getResult();
+        } catch (Exception e) {
+
         }
         String testResult = resultEntry.getKey() + '\n' + resultEntry.getValue();
         log.info("Test result is " + testResult);

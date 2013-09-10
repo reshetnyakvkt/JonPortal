@@ -1,10 +1,12 @@
 package ua.com.jon.tests;
 
 import com.jon.tron.service.junit.Unit;
+import com.jon.tron.service.reflect.ReflectionUtil;
 import org.junit.Before;
 import org.junit.Test;
 
 import static junit.framework.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 /**
  * Created with IntelliJ IDEA.
@@ -31,12 +33,12 @@ public class HelloWorldTest {
     }
 
     @Test
-    public void testExists() {
-        assertNotNull(unitClass);
+    public void testMainPresent() {
+        assertTrue("Метод main должен быть 'public static void main(String[] args)'", ReflectionUtil.isCorrectMainPresent(unitClass));
     }
 
     @Test
-    public void testInstance() {
-        assertNotNull(instance);
+    public void testMessagePresent() {
+        assertTrue(ReflectionUtil.isCorrectMainPresent(unitClass));
     }
 }
