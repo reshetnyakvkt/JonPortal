@@ -285,7 +285,7 @@ public class TasksManageTabPanel extends Composite {
                     currentSprint = sprintDTO;
                 }
                 Window.alert(sprintsListBox.getValue().getTasks().toString());
-                addSprintsToTable(sprintsListBox.getValue().getTasks());
+                addSprintsToTable(sprintsListBox.getValue().getTasks(), true);
             }
         };
 
@@ -293,41 +293,27 @@ public class TasksManageTabPanel extends Composite {
 
     }
 
-    private void addSprintsToTable(List<TaskTemplateDTO> tasks) {
-//        cellTable.setRowData(tasks);
-
-
-        // Connect the table to the data provider.
-//        Window.alert("remove old tasks " + dataProvider.getList());
+    private void addSprintsToTable(List<TaskTemplateDTO> tasks, boolean isSelectedLast) {
         final List<TaskTemplateDTO> list = dataProvider.getList();
 //        Window.alert("tasks to delete " + list);
 //        Window.alert("iterator " + list.iterator());
         for (Iterator<TaskTemplateDTO> itr = list.iterator(); itr.hasNext(); ) {
             TaskTemplateDTO next = itr.next();
-//            Window.alert("removable element " + next);
             itr.remove();
             dataProvider.flush();
-//            dataProvider.refresh();
         }
-//        dataProvider.setList(tasks);
+        TaskTemplateDTO last = null;
         for (TaskTemplateDTO taskTemplateDTO : tasks) {
             list.add(taskTemplateDTO);
+            last = taskTemplateDTO;
         }
-//        Window.alert("added new tasks: " + tasks);
-        dataProvider.flush();
-//        dataProvider.refresh();
-//        cellTable.flush();
-    }
 
-//    private void addTasksToSprintNavList(List<TaskTemplateDTO> tasks) {
-//        if (tasks != null) {
-//            for (TaskTemplateDTO userDTO : tasks) {
-//                NavLink userNL = new NavLink(userDTO.getName());
-////                userNL.addClickHandler(handler);
-//                sprintTasks.add(userNL);
-//            }
-//        }
-//    }
+        if(isSelectedLast && last != null) {
+            selectionModel.setSelected(last, true);
+        }
+
+        dataProvider.flush();
+    }
 
     @UiHandler("sprintsListBox")
     public void onChangeSprintPosition(ValueChangeEvent<SprintDTO> sprintEvent) {
@@ -344,7 +330,7 @@ public class TasksManageTabPanel extends Composite {
             }
             currentSprint = sprint;
 //            Window.alert("New tasks: " + Arrays.toString(sprint.getTasks().toArray()));
-            addSprintsToTable(sprint.getTasks());
+            addSprintsToTable(sprint.getTasks(), true);
         } catch (Exception e) {
 
             Window.alert(e.getMessage() + e.getCause().toString());
@@ -362,10 +348,9 @@ public class TasksManageTabPanel extends Composite {
             Window.alert("Sprint with name is already exists: " + task.getName());
         } else {
             taskTemplateDTOs.add(task);
+            selectionModel.setSelected(task, true);
             dataProvider.flush();
         }
-
-//        dataProvider.refresh();
     }
 
     @UiHandler("saveSprintsBtn")

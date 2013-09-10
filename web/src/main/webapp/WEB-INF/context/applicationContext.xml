@@ -11,6 +11,7 @@
         http://www.springframework.org/schema/context
         http://www.springframework.org/schema/context/spring-context-3.0.xsd">
 
+    <bean class="com.jon.tron.context.AppConfig"/>
     <!--<import resource="security.xml"/>-->
     <!--<annotation-driven />-->
     <context:component-scan base-package="ua.com.jon.common.controller"/>
@@ -19,7 +20,6 @@
     <context:component-scan base-package="ua.com.jon.examinator.controller"/>
     <context:component-scan base-package="ua.com.jon.tasks.validator.controller"/>
     <context:component-scan base-package="ua.com.jon.tasks.validator.codeValidator"/>
-    <context:component-scan base-package="ua.com.jon.validator.service"/>
     <context:component-scan base-package="ua.com.jon.utils"/>
     <context:component-scan base-package="ua.com.jon.cabinet.server"/>
     <context:component-scan base-package="ua.com.jon.auth.controller"/>

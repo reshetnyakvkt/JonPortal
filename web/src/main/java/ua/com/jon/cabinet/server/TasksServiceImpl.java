@@ -3,6 +3,7 @@ package ua.com.jon.cabinet.server;
 
 import com.jon.tron.service.ClassProcessor;
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import ua.com.jon.auth.domain.SpringUser;
@@ -32,7 +33,8 @@ import java.util.Random;
 public class TasksServiceImpl implements TasksService {
     private static final Logger log = Logger.getLogger(TasksServiceImpl.class);
 
-    private ClassProcessor classProcessor = ClassProcessor.getInstance();
+    @Autowired
+    private ClassProcessor classProcessor;
 
     @Resource
     private TaskRepository taskRepository;
@@ -109,7 +111,7 @@ public class TasksServiceImpl implements TasksService {
     @Override
     public String postForTest(TaskDTO taskDTO) {
         log.info("Post for test: " + taskDTO.getCode());
-        Map.Entry<String, String> resultEntry = classProcessor.processClass(taskDTO.getClassName(), taskDTO.getText());
+        Map.Entry<String, String> resultEntry = classProcessor.processClass(taskDTO.getClassName(), taskDTO.getCode());
         String testResult = resultEntry.getKey() + '\n' + resultEntry.getValue();
         log.info("Test result is " + testResult);
         return testResult;
