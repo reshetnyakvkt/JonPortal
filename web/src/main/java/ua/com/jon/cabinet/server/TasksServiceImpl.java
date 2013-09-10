@@ -1,6 +1,7 @@
 package ua.com.jon.cabinet.server;
 
 
+import com.jon.tron.exception.CompilationException;
 import com.jon.tron.service.ClassProcessor;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -111,7 +112,12 @@ public class TasksServiceImpl implements TasksService {
     @Override
     public String postForTest(TaskDTO taskDTO) {
         log.info("Post for test: " + taskDTO.getCode());
-        Map.Entry<String, String> resultEntry = classProcessor.processClass(taskDTO.getClassName(), taskDTO.getCode());
+        Map.Entry<String, String> resultEntry = null;
+        try {
+            resultEntry = classProcessor.processClass(taskDTO.getClassName(), taskDTO.getCode());
+        } catch (CompilationException e) {
+            resultEntry = e.getResult();
+        }
         String testResult = resultEntry.getKey() + '\n' + resultEntry.getValue();
         log.info("Test result is " + testResult);
         return testResult;
