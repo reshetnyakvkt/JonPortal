@@ -20,13 +20,13 @@ import static org.junit.Assert.assertTrue;
  */
 @Unit(testName = "Hello world", value = "weekend1.task1")
 public class HelloWorldTest {
-    private static final Logger log = Logger.getLogger(HelloWorldTest.class);
+    //private static final Logger log = Logger.getLogger(HelloWorldTest.class);
 
     @Unit
     private static Class unitClass;
 
 //    private Reader in;
-    private PrintStream out;
+    private ByteArrayOutputStream baos;
     EvaluationUtil evaluationUtil;
     private Object instance;
 
@@ -34,7 +34,7 @@ public class HelloWorldTest {
     public void setUp() {
         try {
             evaluationUtil = new EvaluationUtil();
-            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+            baos = new ByteArrayOutputStream();
             evaluationUtil.setInOut("", baos);
             instance = unitClass.newInstance();
         } catch (InstantiationException e) {

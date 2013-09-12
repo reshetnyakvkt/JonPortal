@@ -12,6 +12,9 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import java.util.Map;
 
+import static junit.framework.Assert.assertNotNull;
+import static junit.framework.Assert.assertNull;
+import static junit.framework.Assert.assertTrue;
 
 
 /**
@@ -35,7 +38,7 @@ public class HelloWorldTestTest {
     }
 
     @Test
-    public void testCompile() throws Exception {
+    public void testEmpty() throws Exception {
         final String className = "HelloWorld";
         final String classCode = "public class HelloWorld{}";
         final String testName = "Hello world";
@@ -44,7 +47,37 @@ public class HelloWorldTestTest {
 
         Class unitClass = compilationResult.getClassByName(className);
         Map<String,String> stringStringMap = testsRunner.testSingleClass(unitClass, testName);
-        System.out.println(stringStringMap);
+        assertNotNull(stringStringMap.get("testMainPresent"));
+        assertNull(stringStringMap.get("testMessagePresent"));
+    }
+
+    @Test
+    public void testWrongMain() throws Exception {
+        final String className = "HelloWorld";
+        final String classCode = "public class HelloWorld{public void main(){}}";
+        final String testName = "Hello world";
+        CompilationResult compilationResult;
+        compilationResult = compiler.compileSourceCode(className, classCode);
+
+        Class unitClass = compilationResult.getClassByName(className);
+        Map<String,String> stringStringMap = testsRunner.testSingleClass(unitClass, testName);
+        assertNotNull(stringStringMap.get("testMainPresent"));
+        assertNull(stringStringMap.get("testMessagePresent"));
+    }
+
+    @Test
+    public void testMainCorrect() throws Exception {
+        final String className = "HelloWorld";
+        final String classCode = "public class HelloWorld{public static void main(String[] args){}}";
+        final String testName = "Hello world";
+        CompilationResult compilationResult;
+        compilationResult = compiler.compileSourceCode(className, classCode);
+
+        Class unitClass = compilationResult.getClassByName(className);
+        // TODO processor.processClass(className, classCode, testName);
+        Map<String,String> stringStringMap = testsRunner.testSingleClass(unitClass, testName);
+        assertNull(stringStringMap.get("testMainPresent"));
+        assertNotNull(stringStringMap.get("testMessagePresent"));
     }
 }
 
