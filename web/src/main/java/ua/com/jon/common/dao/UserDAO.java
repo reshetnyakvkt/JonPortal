@@ -58,6 +58,8 @@ public class UserDAO implements UserDAOInterface {
         try {
             session = sessionFactory.openSession();
             session.getTransaction().begin();
+//            User user = (User)session.get(User.class, 1l);
+//            Hibernate.initialize(user.getDeps());
             List<User> users =  session.createCriteria(User.class).add(Restrictions.and(Restrictions.eq("nickName", nickname), Restrictions.eq("eMail", eMail))).list();
             if(users.isEmpty()) return null;
             else return users.get(0);
