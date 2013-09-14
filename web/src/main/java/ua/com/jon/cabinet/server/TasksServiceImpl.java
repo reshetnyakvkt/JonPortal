@@ -2,7 +2,7 @@ package ua.com.jon.cabinet.server;
 
 
 import com.jon.tron.exception.CompilationException;
-import com.jon.tron.service.ClassProcessor;
+import com.jon.tron.service.processor.ClassProcessor;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -114,7 +114,7 @@ public class TasksServiceImpl implements TasksService {
         log.info("Post for test: " + taskDTO.getCode());
         Map.Entry<String, String> resultEntry = null;
         try {
-            resultEntry = classProcessor.processClass(taskDTO.getClassName(), taskDTO.getCode());
+            resultEntry = classProcessor.processClass(taskDTO.getClassName(), taskDTO.getCode(),taskDTO.getName());
         } catch (CompilationException e) {
             resultEntry = e.getResult();
         } catch (Exception e) {

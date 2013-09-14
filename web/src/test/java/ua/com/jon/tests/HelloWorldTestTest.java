@@ -1,5 +1,6 @@
 package ua.com.jon.tests;
 
+import com.jon.tron.service.processor.ClassProcessor;
 import com.jon.tron.service.compiler.CompilationResult;
 import com.jon.tron.service.compiler.SourceCompiler;
 import com.jon.tron.service.junit.UnitTestsRunner;
@@ -32,6 +33,9 @@ public class HelloWorldTestTest {
     @Autowired
     private UnitTestsRunner testsRunner;
 
+    @Autowired
+    private ClassProcessor classProcessor;
+
     @Before
     public void setUp() {
         //testsRunner = new UnitTestsRunner();
@@ -42,13 +46,9 @@ public class HelloWorldTestTest {
         final String className = "HelloWorld";
         final String classCode = "public class HelloWorld{}";
         final String testName = "Hello world";
-        CompilationResult compilationResult;
-        compilationResult = compiler.compileSourceCode(className, classCode);
-
-        Class unitClass = compilationResult.getClassByName(className);
-        Map<String,String> stringStringMap = testsRunner.testSingleClass(unitClass, testName);
-        assertNotNull(stringStringMap.get("testMainPresent"));
-        assertNull(stringStringMap.get("testMessagePresent"));
+        Map.Entry<String,String> processResult = classProcessor.processClass(className, classCode, testName);
+        String resultString = processResult.getValue();
+        assertTrue(resultString.contains("Метод main должен быть 'public static void main(String[] args)"));
     }
 
     @Test
@@ -56,28 +56,23 @@ public class HelloWorldTestTest {
         final String className = "HelloWorld";
         final String classCode = "public class HelloWorld{public void main(){}}";
         final String testName = "Hello world";
-        CompilationResult compilationResult;
-        compilationResult = compiler.compileSourceCode(className, classCode);
 
-        Class unitClass = compilationResult.getClassByName(className);
-        Map<String,String> stringStringMap = testsRunner.testSingleClass(unitClass, testName);
-        assertNotNull(stringStringMap.get("testMainPresent"));
-        assertNull(stringStringMap.get("testMessagePresent"));
+        Map.Entry<String,String> processResult = classProcessor.processClass(className, classCode, testName);
+        String resultString = processResult.getValue();
+        assertTrue(resultString.contains("Метод main должен быть 'public static void main(String[] args)"));
     }
 
     @Test
-    public void testMainCorrect() throws Exception {
+    public void testMainWithoutMessage() throws Exception {
         final String className = "HelloWorld";
         final String classCode = "public class HelloWorld{public static void main(String[] args){}}";
         final String testName = "Hello world";
-        CompilationResult compilationResult;
-        compilationResult = compiler.compileSourceCode(className, classCode);
 
-        Class unitClass = compilationResult.getClassByName(className);
-        // TODO processor.processClass(className, classCode, testName);
-        Map<String,String> stringStringMap = testsRunner.testSingleClass(unitClass, testName);
-        assertNull(stringStringMap.get("testMainPresent"));
-        assertNotNull(stringStringMap.get("testMessagePresent"));
+        Map.Entry<String,String> processResult = classProcessor.processClass(className, classCode, testName);
+        String resultString = processResult.getValue();
+        assertTrue(resultString.contains("Метод main должен выводить в консоль сообщение'Hello world'"));
+
+        assertNotNull(processResult.getValue());
     }
 }
 

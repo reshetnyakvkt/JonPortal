@@ -46,7 +46,7 @@ public class HelloWorldTest {
 
     @After
     public void tearDown() {
-
+        evaluationUtil.restoreInOut();
     }
 
     @Test
@@ -56,6 +56,7 @@ public class HelloWorldTest {
 
     @Test
     public void testMessagePresent() {
-        assertTrue(ReflectionUtil.isCorrectMainPresent(unitClass));
+        ReflectionUtil.invokeMain(instance, new String[0]);
+        assertTrue("Метод main должен выводить в консоль сообщение\'Hello world\'", "Hello world".equals(baos.toString()));
     }
 }
