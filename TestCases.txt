@@ -1,0 +1,42 @@
+Case1: Hello world
+Preconfition:
+    class A {
+
+    }
+Result:
+    0
+    Ошибка компиляции: Нет класса с таким именем
+
+Case2: Hello world
+Preconfition:
+    class HelloWorld {
+
+    }
+Result:
+    55
+    Метод main должен быть 'public static void main(String[] args)'
+
+Case3: Hello world
+Preconfition:
+    class HelloWorld {
+        public static void main() {
+        }
+    }
+Result:
+    55
+    Метод main должен быть 'public static void main(String[] args)'
+
+Case4: Hello world
+Preconfition:
+    class HelloWorld {
+        public static void main(String[] args) {
+        }
+    }
+Result:
+    55
+    Метод main должен быть 'public static void main(String[] args)'
+
+CaseX:
+Preconfition:
+
+Result:
