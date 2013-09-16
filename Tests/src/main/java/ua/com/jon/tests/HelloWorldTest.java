@@ -58,7 +58,8 @@ public class HelloWorldTest {
 /*        } catch (Exception e) {
             e.printStackTrace();
         }*/
-        assertTrue("Метод main должен выводить в консоль сообщение \'Hello world\'", "Hello world\n".equals(baos.toString()));
+        String lineSeparator = System.lineSeparator();
+        assertTrue("Метод main должен выводить в консоль сообщение \'Hello world\'", ("Hello world" + lineSeparator).equals(baos.toString()));
         System.out.println(baos);
     }
 }
