@@ -13,9 +13,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import java.util.Map;
 
-import static junit.framework.Assert.assertNotNull;
-import static junit.framework.Assert.assertNull;
-import static junit.framework.Assert.assertTrue;
+import static junit.framework.Assert.*;
 
 
 /**
@@ -70,9 +68,51 @@ public class HelloWorldTestTest {
 
         Map.Entry<String,String> processResult = classProcessor.processClass(className, classCode, testName);
         String resultString = processResult.getValue();
-        assertTrue(resultString.contains("Метод main должен выводить в консоль сообщение'Hello world'"));
+        assertTrue(resultString.contains("Метод main должен выводить в консоль сообщение 'Hello world'"));
+    }
 
-        assertNotNull(processResult.getValue());
+
+    @Test
+    public void testNonPublicClass() throws Exception {
+        final String className = "HelloWorld";
+        final String classCode =
+                "    class HelloWorld {\n" +
+                        "        public static void main(String[] args) {\n" +
+                        "        }\n" +
+                        "    }";
+        final String testName = "Hello world";
+
+        Map.Entry<String,String> processResult = classProcessor.processClass(className, classCode, testName);
+        String resultString = processResult.getValue();
+        String resultMarkString = processResult.getKey();
+        assertEquals("", resultMarkString, "10");
+        assertTrue(resultString.contains("Класс должен быть public\n"));
+    }
+
+    @Test
+    public void testMainWrongMessage() throws Exception {
+        final String className = "HelloWorld";
+        final String classCode = "public class HelloWorld{public static void main(String[] args){" +
+                "System.out.println(\"hello world\");}}";
+        final String testName = "Hello world";
+
+        Map.Entry<String,String> processResult = classProcessor.processClass(className, classCode, testName);
+        String resultString = processResult.getValue();
+        assertTrue(resultString.contains("Метод main должен выводить в консоль сообщение 'Hello world'"));
+    }
+
+    @Test
+    public void testMainCorrectMessage() throws Exception {
+        final String className = "HelloWorld";
+        final String classCode = "public class HelloWorld{public static void main(String[] args){" +
+                "System.out.println(\"Hello world\");}}";
+        final String testName = "Hello world";
+
+        Map.Entry<String,String> processResult = classProcessor.processClass(className, classCode, testName);
+        String resultString = processResult.getValue();
+        String resultMarkString = processResult.getKey();
+        assertTrue(resultString.isEmpty());
+        assertTrue("100".equals(resultMarkString));
     }
 }
 

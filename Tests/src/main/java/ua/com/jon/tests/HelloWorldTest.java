@@ -50,13 +50,15 @@ public class HelloWorldTest {
     }
 
     @Test
-    public void testMainPresent() {
+    public void testClassMainMessage() {
         assertTrue("Метод main должен быть 'public static void main(String[] args)'", ReflectionUtil.isCorrectMainPresent(unitClass));
-    }
-
-    @Test
-    public void testMessagePresent() {
+        assertTrue("Класс должен быть public", instance != null);
+//        try {
         ReflectionUtil.invokeMain(instance, new String[0]);
-        assertTrue("Метод main должен выводить в консоль сообщение\'Hello world\'", "Hello world".equals(baos.toString()));
+/*        } catch (Exception e) {
+            e.printStackTrace();
+        }*/
+        assertTrue("Метод main должен выводить в консоль сообщение \'Hello world\'", "Hello world\n".equals(baos.toString()));
+        System.out.println(baos);
     }
 }
