@@ -1,12 +1,10 @@
 package ua.com.jon.tests;
 
 import com.jon.tron.service.evaluation.EvaluationUtil;
-import com.jon.tron.service.junit.Unit;
 import com.jon.tron.service.reflect.ReflectionUtil;
-import org.junit.After;
-import org.junit.Before;
 
 import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
 
 import static org.junit.Assert.assertTrue;
 
@@ -16,15 +14,17 @@ import static org.junit.Assert.assertTrue;
  * Date: 19.09.13
  */
 public class BaseTast {
-
-    private ByteArrayOutputStream baos;
+    private PrintStream in;
+    private ByteArrayOutputStream out;
     private EvaluationUtil evaluationUtil;
 
     public Object setUpAndInstanciate(Class unitClass) {
         try {
             evaluationUtil = new EvaluationUtil();
-            baos = new ByteArrayOutputStream();
-            evaluationUtil.setInOut("", baos);
+            out = new ByteArrayOutputStream();
+            ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+            in = new PrintStream(outputStream);
+            evaluationUtil.setInOut(outputStream, out);
             return unitClass.newInstance();
         } catch (InstantiationException e) {
             e.printStackTrace();
@@ -50,7 +50,11 @@ public class BaseTast {
         }
     }
 
-    public ByteArrayOutputStream getBaos() {
-        return baos;
+    public ByteArrayOutputStream getOut() {
+        return out;
+    }
+
+    public PrintStream getIn() {
+        return in;
     }
 }

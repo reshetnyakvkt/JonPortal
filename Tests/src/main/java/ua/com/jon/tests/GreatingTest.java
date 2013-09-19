@@ -1,9 +1,12 @@
 package ua.com.jon.tests;
 
 import com.jon.tron.service.junit.Unit;
+import junit.framework.Assert;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+
+import java.io.PrintStream;
 
 /**
  * Created with IntelliJ IDEA.
@@ -28,6 +31,14 @@ public class GreatingTest extends BaseTast {
 
     @Test
     public void testSuccess() {
+        PrintStream printStream = getIn();
+        String name = "Oksana";
+        printStream.print(name);
         invokeMain(unitClass, instance);
+        String expectedString = "Здравствуйте " + name;
+        String actualString = getOut().toString();
+        Assert.assertEquals("Ожидается строка " + expectedString + ", но выводится " + actualString,
+                expectedString, actualString);
+        System.out.println(actualString);
     }
 }

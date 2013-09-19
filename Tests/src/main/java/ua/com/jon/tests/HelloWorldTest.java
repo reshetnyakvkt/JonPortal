@@ -15,7 +15,7 @@ import static org.junit.Assert.assertTrue;
 @Unit(testName = "Hello world", value = "weekend1.task1")
 public class HelloWorldTest extends BaseTast {
     public static void main(String[] args) {
-
+        System.out.println("Hello world");
     }
     @Unit
     private static Class unitClass;
@@ -35,7 +35,7 @@ public class HelloWorldTest extends BaseTast {
     public void testClassMainMessage() {
         invokeMain(unitClass, instance);
         String lineSeparator = System.lineSeparator();
-        assertTrue("Метод main должен выводить в консоль сообщение \'Hello world\'", ("Hello world" + lineSeparator).equals(getBaos().toString()));
-        System.out.println(getBaos());
+        assertTrue("Метод main должен выводить в консоль сообщение \'Hello world\'", ("Hello world" + lineSeparator).equals(getOut().toString()));
+        System.out.println(getOut());
     }
 }
