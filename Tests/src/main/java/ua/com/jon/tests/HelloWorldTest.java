@@ -1,16 +1,10 @@
 package ua.com.jon.tests;
 
-import com.jon.tron.service.evaluation.EvaluationUtil;
 import com.jon.tron.service.junit.Unit;
-import com.jon.tron.service.reflect.ReflectionUtil;
-import org.apache.log4j.Logger;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.io.*;
-
-import static junit.framework.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
 /**
@@ -19,47 +13,29 @@ import static org.junit.Assert.assertTrue;
  * Date: 3/8/13
  */
 @Unit(testName = "Hello world", value = "weekend1.task1")
-public class HelloWorldTest {
-    //private static final Logger log = Logger.getLogger(HelloWorldTest.class);
+public class HelloWorldTest extends BaseTast {
+    public static void main(String[] args) {
 
+    }
     @Unit
     private static Class unitClass;
-
-//    private Reader in;
-    private ByteArrayOutputStream baos;
-    EvaluationUtil evaluationUtil;
     private Object instance;
 
     @Before
     public void setUp() {
-        try {
-            evaluationUtil = new EvaluationUtil();
-            baos = new ByteArrayOutputStream();
-            evaluationUtil.setInOut("", baos);
-            instance = unitClass.newInstance();
-        } catch (InstantiationException e) {
-            e.printStackTrace();
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
-        }
+        instance = super.setUpAndInstanciate(unitClass);
     }
 
     @After
     public void tearDown() {
-        evaluationUtil.restoreInOut();
+        super.tearDown();
     }
 
     @Test
     public void testClassMainMessage() {
-        assertTrue("Метод main должен быть 'public static void main(String[] args)'", ReflectionUtil.isCorrectMainPresent(unitClass));
-        assertTrue("Класс должен быть public", instance != null);
-//        try {
-        ReflectionUtil.invokeMain(instance, new String[0]);
-/*        } catch (Exception e) {
-            e.printStackTrace();
-        }*/
+        invokeMain(unitClass, instance);
         String lineSeparator = System.lineSeparator();
-        assertTrue("Метод main должен выводить в консоль сообщение \'Hello world\'", ("Hello world" + lineSeparator).equals(baos.toString()));
-        System.out.println(baos);
+        assertTrue("Метод main должен выводить в консоль сообщение \'Hello world\'", ("Hello world" + lineSeparator).equals(getBaos().toString()));
+        System.out.println(getBaos());
     }
 }
