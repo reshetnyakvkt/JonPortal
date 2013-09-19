@@ -1,11 +1,6 @@
 package ua.com.jon.cabinet.client.components;
 
-import com.github.gwtbootstrap.client.ui.Button;
-import com.github.gwtbootstrap.client.ui.CellTable;
-import com.github.gwtbootstrap.client.ui.Label;
-import com.github.gwtbootstrap.client.ui.ProgressBar;
-import com.github.gwtbootstrap.client.ui.TextArea;
-import com.google.gwt.cell.client.TextInputCell;
+import com.github.gwtbootstrap.client.ui.*;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.uibinder.client.UiBinder;
@@ -25,7 +20,6 @@ import ua.com.jon.cabinet.shared.SprintDTO;
 import ua.com.jon.cabinet.shared.TaskDTO;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -61,13 +55,13 @@ public class GroupTasksTabPanel extends Composite {
 
     public void buildTable() {
         cellTable.setEmptyTableWidget(new Label("Please add data."));
-        dataProvider.addDataDisplay(cellTable);
-        com.google.gwt.user.cellview.client.Column<TaskDTO, String> nameColumn = new com.google.gwt.user.cellview.client.Column<TaskDTO, String>(new TextInputCell()) {
+        //dataProvider.addDataDisplay(cellTable);
+/*        com.google.gwt.user.cellview.client.Column<TaskDTO, String> nameColumn = new com.google.gwt.user.cellview.client.Column<TaskDTO, String>(new TextInputCell()) {
             @Override
             public String getValue(TaskDTO object) {
                 return object.getName() == null ? "" : object.getName();
             }
-        };
+        };*/
 
         cellTable.addColumn(new TextColumn<TaskDTO>() {
             @Override
@@ -99,13 +93,11 @@ public class GroupTasksTabPanel extends Composite {
                     public void onSelectionChange(SelectionChangeEvent event) {
                         TaskDTO selected = selectionModel.getSelectedObject();
                         if (selected != null) {
-                            String text = selected.getText();
-                            textArea.setText(text);
+                            String code = selected.getCode();
+                            textArea.setText(code);
                         }
                     }
                 });
-
-
     }
 
     private void loadTasks() {
@@ -118,9 +110,10 @@ public class GroupTasksTabPanel extends Composite {
             }
 
             @Override
-            public void onSuccess(ArrayList<TaskDTO> sprintDTOs) {
+            public void onSuccess(ArrayList<TaskDTO> taskDTOs) {
                 sprintsProgress.setVisible(false);
-                Window.alert(sprintDTOs.toString());
+                addSprintsToTable(taskDTOs);
+                Window.alert(taskDTOs.toString());
             }
         };
 
@@ -129,26 +122,23 @@ public class GroupTasksTabPanel extends Composite {
     }
 
     private void addSprintsToTable(List<TaskDTO> tasks) {
-
+        dataProvider.addDataDisplay(cellTable);
         final List<TaskDTO> list = dataProvider.getList();
-
-        for (Iterator<TaskDTO> itr = list.iterator(); itr.hasNext(); ) {
-            TaskDTO next = itr.next();
-            itr.remove();
-            dataProvider.flush();
+        TaskDTO last = null;
+        for (TaskDTO task : tasks) {
+            list.add(task);
+            last = task;
         }
-
-        for (TaskDTO taskTemplateDTO : tasks) {
-            list.add(taskTemplateDTO);
-        }
-
-        dataProvider.flush();
+//        if(isSelectLast && last != null) {
+//            selectionModel.setSelected(last, true);
+//        }
     }
 
     @UiHandler("refreshTasksBtn")
-    public void refreshSprintsHandler(ClickEvent e){
+    public void refreshSprintsHandler(ClickEvent e) {
         loadTasks();
     }
+
     private void relocateTasks(List<SprintDTO> loadedSprints) {
         for (SprintDTO loadedSprint : loadedSprints) {
             List<TaskDTO> newTasks = new ArrayList<TaskDTO>(loadedSprint.getTasks().size());

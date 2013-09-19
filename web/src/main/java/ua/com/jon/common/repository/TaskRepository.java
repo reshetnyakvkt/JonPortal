@@ -21,6 +21,9 @@ public interface TaskRepository extends JpaRepository<Task, Long> {
     @Query("select t from ua.com.jon.common.domain.Task t where t.user.login = :userName")
     List<Task> findByUserName(@Param("userName") String userName);
 
+    @Query("select t from ua.com.jon.common.domain.Task t where t.user.group.id = :groupId")
+    List<Task> findByGroupId(@Param("groupId") Long groupId);
+
     //@Query("select t from ua.com.jon.common.domain.Task t where t.user.login = :userName and t.sprint.name = :sprintName")
     @Query("select t from ua.com.jon.common.domain.Task t JOIN FETCH t.taskTemplate where t.user.login = :userName and t.sprint.name = :sprintName")
     List<Task> findByUserAndSprint(@Param("userName") String userName, @Param("sprintName") String name);

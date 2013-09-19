@@ -14,10 +14,12 @@ import ua.com.jon.cabinet.shared.TaskDTO;
 import ua.com.jon.common.domain.Sprint;
 import ua.com.jon.common.domain.Status;
 import ua.com.jon.common.domain.Task;
+import ua.com.jon.common.domain.User;
 import ua.com.jon.common.dto.mapper.SprintDtoMapper;
 import ua.com.jon.common.dto.mapper.TaskDtoMapper;
 import ua.com.jon.common.repository.SprintRepository;
 import ua.com.jon.common.repository.TaskRepository;
+import ua.com.jon.common.repository.UserRepository;
 
 import javax.annotation.Resource;
 import java.util.ArrayList;
@@ -39,6 +41,9 @@ public class TasksServiceImpl implements TasksService {
 
     @Resource
     private TaskRepository taskRepository;
+
+    @Resource
+    private UserRepository userRepository;
 
     @Resource
     private SprintRepository sprintRepository;
@@ -127,6 +132,20 @@ public class TasksServiceImpl implements TasksService {
 
     @Override
     public ArrayList<TaskDTO> getTasksByUserGroup() {
-        return  null;
+        Object authentication = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        SpringUser springUser;
+        if(authentication instanceof String) {
+            throw new SecurityException("can't grant access to anonymus ");
+        }
+        springUser = (SpringUser)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        String userName = springUser.getUsername();
+        User user = userRepository.findByUserName(userName);
+        Long groupId = user.getGroup().getId();
+        List<Task> tasks = taskRepository.findByGroupId(groupId);
+        ArrayList<TaskDTO> list = new ArrayList<TaskDTO>();
+        list.addAll(TaskDtoMapper.domainsToDtos(tasks));
+//        list.add(new TaskDTO(1L, "task1", "task1", "", "", "", "", "", ""));
+//        list.add(new TaskDTO(1L, "task2", "task2", "", "", "", "", "", ""));
+        return list;
     }
 }

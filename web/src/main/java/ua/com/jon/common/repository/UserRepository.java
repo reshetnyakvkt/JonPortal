@@ -22,4 +22,7 @@ public interface UserRepository extends CrudRepository<User, Long> {
     @Query("select u from User u where u.login in (:names)")
     List<User> findByNames(@Param("names") Collection<String> names);
 
+    @Query("select u from User u where u.login = :name")
+    User findByUserName(@Param("name") String name);
+
 }
