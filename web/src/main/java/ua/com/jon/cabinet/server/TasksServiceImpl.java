@@ -123,10 +123,14 @@ public class TasksServiceImpl implements TasksService {
         } catch (CompilationException e) {
             resultEntry = e.getResult();
         } catch (Exception e) {
-
+            log.error(e);
         }
         String testResult = resultEntry.getKey() + '\n' + resultEntry.getValue();
         log.info("Test result is " + testResult);
+        Task task = taskRepository.findOne(taskDTO.getId());
+        task.setCode(taskDTO.getCode());
+        task.setResult(testResult);
+        taskRepository.save(task);
         return testResult;
     }
 
@@ -135,13 +139,13 @@ public class TasksServiceImpl implements TasksService {
         Object authentication = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         SpringUser springUser;
         if(authentication instanceof String) {
-            throw new SecurityException("can't grant access to anonymus ");
+            throw new SecurityException("can't grant access to anonymous ");
         }
         springUser = (SpringUser)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         String userName = springUser.getUsername();
         User user = userRepository.findByUserName(userName);
         Long groupId = user.getGroup().getId();
-        List<Task> tasks = taskRepository.findByGroupId(groupId);
+        List<Task> tasks = taskRepository.findEvaluatedByGroupId(groupId);
         ArrayList<TaskDTO> list = new ArrayList<TaskDTO>();
         list.addAll(TaskDtoMapper.domainsToDtos(tasks));
 //        list.add(new TaskDTO(1L, "task1", "task1", "", "", "", "", "", ""));

@@ -284,7 +284,7 @@ public class UserTasksTabPanel extends Composite {
             if(taskName == null || nameText.contains(taskName)){
                 int columnIndex = TEST_COLUMN;
                 TaskDTO taskDTO = cellTable.getVisibleItem(i);
-                Window.alert("taskDTO = "+taskDTO.toString());
+                //Window.alert("taskDTO = "+taskDTO.toString());
                 if(TaskType.CLASS.name().equals(taskDTO.getType())) {
                     columnIndex = STATUS_COLUMN;
                 }
