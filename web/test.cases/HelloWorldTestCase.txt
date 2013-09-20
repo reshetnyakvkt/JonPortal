@@ -1,5 +1,5 @@
 Case1: Hello world
-Preconfition:
+Precondition:
     class A {
 
     }
@@ -8,35 +8,45 @@ Result:
     Ошибка компиляции: Нет класса с таким именем
 
 Case2: Hello world
-Preconfition:
+Precondition:
     class HelloWorld {
 
     }
 Result:
-    55
+    10
     Метод main должен быть 'public static void main(String[] args)'
 
 Case3: Hello world
-Preconfition:
+Precondition:
     class HelloWorld {
         public static void main() {
         }
     }
 Result:
-    55
+    10
     Метод main должен быть 'public static void main(String[] args)'
 
 Case4: Hello world
-Preconfition:
+Precondition:
     class HelloWorld {
         public static void main(String[] args) {
         }
     }
 Result:
-    55
+    10
     Метод main должен быть 'public static void main(String[] args)'
 
+Case5:
+Precondition:
+        public class HelloWorld {
+            public static void main(String[] args) {
+                System.out.println("Hello world");
+            }
+        }
+Result:
+    100
+
 CaseX:
-Preconfition:
+Precondition:
 
 Result:

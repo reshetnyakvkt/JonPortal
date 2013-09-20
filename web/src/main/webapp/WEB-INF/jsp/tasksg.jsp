@@ -3,7 +3,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <%@include file="includes.jsp"%>
+    <%@include file="includes.jsp" %>
 </head>
 <body>
 
@@ -13,48 +13,11 @@
 
 
     <div class="well">
-        <div class="bar-info">
-            Возможности удаленной работы:
-        </div>
-        <ul class="well nav nav-pills nav-stacked">
-            <li>
-                <a href="#">Задания</a>
-            </li>
-        </ul>
-        <div class="bar-info">
-            Задания для домашней работы:
+        <div class="alert alert-success">
+            Здесь можно выполнить тренировочные задания
         </div>
 
-        <ul class="well nav nav-pills nav-stacked">
-            <li class="slideable">
-                <a href="#">Проверка заданий</a>
-                <ul class="nav nav-pills nav-stacked">
-                    <li>
-                        <a href="#">
-                            <iframe class="well" id="ftpIframe" width="90%" height="500px" src="examine/index.html"></iframe>
-                        </a>
-                    </li>
-                </ul>
-            </li>
-            <li class="slideable">
-                <a htef="#">TaskGroup3</a>
-                <ul class="well nav nav-pills nav-stacked">
-                    <li>
-                        <a href="#">SubStub 1</a>
-                    </li>
-                    <li>
-                        <a href="#">SubStub 2</a>
-                    </li>
-                    <li>
-                        <a href="#">SubStub 3</a>
-                    </li>
-                    <li>
-                        <a href="#">SubStub 4</a>
-                    </li>
-                </ul>
-            </li>
-        </ul>
-
+        <iframe id="tasksIframe" width="100%" height="700px" src="examine/index.html"></iframe>
     </div>
 
     <footer id="footer"></footer>

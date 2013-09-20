@@ -24,7 +24,7 @@ public class BaseTast {
             out = new ByteArrayOutputStream();
             ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
             in = new PrintStream(outputStream);
-            evaluationUtil.setInOut(null, out);
+            evaluationUtil.setInOut(outputStream, out);
             return unitClass.newInstance();
         } catch (InstantiationException e) {
             e.printStackTrace();
