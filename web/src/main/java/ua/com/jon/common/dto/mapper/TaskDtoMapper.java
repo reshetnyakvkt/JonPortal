@@ -63,7 +63,11 @@ public class TaskDtoMapper {
                 task.getTaskTemplate().getTaskText(),
                 task.getTaskTemplate().getName(),
                 task.getStatus().name(),
-                task.getResult()
+                task.getResult(),
+                task.getCode(),
+                task.getTaskTemplate().getType().name(),
+                task.getUser().getLogin(),
+                task.getTaskTemplate().getClassName()
         );
     }
 }

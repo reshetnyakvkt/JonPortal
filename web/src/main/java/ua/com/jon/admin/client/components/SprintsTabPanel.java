@@ -84,6 +84,7 @@ public class SprintsTabPanel extends Composite {
 
             @Override
             public void onSuccess(ArrayList<SprintDTO> sprintDTOs) {
+                Window.alert("Sprints " + sprintDTOs);
                 addSprintsToTable(sprintDTOs);
             }
         };
@@ -179,7 +180,6 @@ public class SprintsTabPanel extends Composite {
         });
         cellTable.addColumn(buttonCol);
 
-        final SingleSelectionModel<SprintDTO> selectionModel = new SingleSelectionModel<SprintDTO>();
         cellTable.setSelectionModel(selectionModel);
         selectionModel.addSelectionChangeHandler(
                 new SelectionChangeEvent.Handler() {
@@ -190,8 +190,6 @@ public class SprintsTabPanel extends Composite {
                     }
                 });
 
-
-
     }
 
     private void addSprintsToTable(List<SprintDTO> tasks) {
@@ -200,7 +198,7 @@ public class SprintsTabPanel extends Composite {
     }
 
     private List<String> getAcceptableValues() {
-        return Arrays.asList("SVN", "OPEN");
+        return Arrays.asList("IT_CENTRE", "ANONYMOUS");
     }
 
     @UiHandler("refreshSprintsBtn")

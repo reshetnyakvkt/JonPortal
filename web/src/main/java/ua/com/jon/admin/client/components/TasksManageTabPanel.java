@@ -98,7 +98,7 @@ public class TasksManageTabPanel extends Composite {
         cellTable.addColumn(new TextColumn<TaskTemplateDTO>() {
             @Override
             public String getValue(TaskTemplateDTO contact) {
-                if(contact.getText() != null){
+                if (contact.getText() != null) {
                     return String.valueOf(contact.getText().substring(0, 51));
                 }
                 return "";
@@ -141,11 +141,11 @@ public class TasksManageTabPanel extends Composite {
                     String newValue = select.getValue();
 
                     TaskTemplateDTO dto = selectionModel.getSelectedObject();
-                    if(dto == null){
+                    if (dto == null) {
                         Window.alert("Не выбрано ни одного задания!");
                         return;
                     }
-                    if(dto.getType().equals(TaskType.CLASS.name())) {
+                    if (dto.getType().equals(TaskType.CLASS.name())) {
                         Window.alert("Для проверки измените статус задания на \"TEST\"");
                         return;
                     }
@@ -170,7 +170,7 @@ public class TasksManageTabPanel extends Composite {
             }
         };
 
-        Column<TaskTemplateDTO, String> statusCol =  new Column<TaskTemplateDTO, String>(cell) {
+        Column<TaskTemplateDTO, String> statusCol = new Column<TaskTemplateDTO, String>(cell) {
 
             @Override
             public String getValue(TaskTemplateDTO taskTemplateDTO) {
@@ -308,7 +308,7 @@ public class TasksManageTabPanel extends Composite {
             last = taskTemplateDTO;
         }
 
-        if(isSelectedLast && last != null) {
+        if (isSelectedLast && last != null) {
             selectionModel.setSelected(last, true);
         }
 
@@ -344,13 +344,14 @@ public class TasksManageTabPanel extends Composite {
         TaskTemplateDTO task = new TaskTemplateDTO("", "");
 
         List<TaskTemplateDTO> taskTemplateDTOs = dataProvider.getList();
-        if (taskTemplateDTOs.contains(task)) {
+/*        if (taskTemplateDTOs.contains(task)) {
             Window.alert("Sprint with name is already exists: " + task.getName());
-        } else {
-            taskTemplateDTOs.add(task);
-            selectionModel.setSelected(task, true);
-            dataProvider.flush();
-        }
+            return;
+        }*/
+
+        taskTemplateDTOs.add(task);
+        selectionModel.setSelected(task, true);
+        dataProvider.flush();
     }
 
     @UiHandler("saveSprintsBtn")
@@ -387,9 +388,10 @@ public class TasksManageTabPanel extends Composite {
     }
 
     @UiHandler("refreshSprintsBtn")
-    public void refreshSprintsHandler(ClickEvent e){
-       loadSprints();
+    public void refreshSprintsHandler(ClickEvent e) {
+        loadSprints();
     }
+
     private void relocateTasks(List<SprintDTO> loadedSprints) {
         for (SprintDTO loadedSprint : loadedSprints) {
             List<TaskTemplateDTO> newTasks = new ArrayList<TaskTemplateDTO>(loadedSprint.getTasks().size());

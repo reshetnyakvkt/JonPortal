@@ -10,23 +10,42 @@ import java.io.Serializable;
  * Date: 4/10/13
  */
 public class TaskDTO implements Serializable {
-
     private Long id;
     private String text;
     private String name;
     private String status;
     private String result;
+    private String code;
+    private String type;
+    private String userName;
+    private String className;
 
-    public TaskDTO(Long id, String text, String name, String status, String result) {
+    public TaskDTO(Long id, String text, String name, String status, String result, String code, String type, String userName, String className) {
         this.id = id;
         this.text = text;
         this.name = name;
         this.status = status;
         this.result = result;
+        this.code = code;
+        this.type = type;
+        this.userName = userName;
+        this.className = className;
     }
 
     public TaskDTO() {
 
+    }
+
+    public TaskDTO(TaskDTO taskDTO) {
+        this(taskDTO.getId(),
+                taskDTO.getText(),
+                taskDTO.getName(),
+                taskDTO.getStatus(),
+                taskDTO.getResult(),
+                taskDTO.getCode(),
+                taskDTO.getType(),
+                taskDTO.getUserName(),
+                taskDTO.getUserName());
     }
 
     public Long getId() {
@@ -69,6 +88,38 @@ public class TaskDTO implements Serializable {
         this.result = result;
     }
 
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+    public String getClassName() {
+        return className;
+    }
+
+    public void setClassName(String className) {
+        this.className = className;
+    }
+
     @Override
     public String toString() {
         return "TaskDTO{" +
@@ -77,6 +128,10 @@ public class TaskDTO implements Serializable {
                 ", name='" + name + '\'' +
                 ", status='" + status + '\'' +
                 ", result='" + result + '\'' +
+                ", code='" + code + '\'' +
+                ", type='" + type + '\'' +
+                ", userName='" + userName + '\'' +
+                ", className='" + className + '\'' +
                 '}';
     }
 }

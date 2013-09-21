@@ -183,7 +183,12 @@ public class AdminServiceImpl implements AdminService {
     @Override
     public void sprintTypeChanged(SprintDTO dto) {
         log.info("sprintTypeChanged: " + dto);
-        throw new UnsupportedOperationException();
+        Sprint sprint = sprintRepository.findOne(dto.getId());
+        SprintType newType = SprintType.valueOf(dto.getType());
+        sprint.setType(newType);
+        sprintRepository.save(sprint);
+
+        System.out.println("Changed sprint is " + dto);
     }
 
     @Override

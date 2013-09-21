@@ -1,6 +1,10 @@
 package ua.com.jon.examinator.server;
 
 
+import com.jon.tron.exception.CompilationException;
+import com.jon.tron.service.processor.ClassProcessor;
+import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import ua.com.jon.auth.domain.SpringUser;
@@ -18,6 +22,7 @@ import ua.com.jon.examinator.shared.TaskDTO;
 import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created with IntelliJ IDEA.
@@ -26,11 +31,16 @@ import java.util.List;
  */
 @Service("examineService")
 public class ExamineServiceImpl implements ExamineService {
+    private static final Logger log = Logger.getLogger(ExamineServiceImpl.class);
+
     @Resource
     private TaskRepository taskRepository;
 
     @Resource
     private SprintRepository sprintRepository;
+
+    @Autowired
+    private ClassProcessor classProcessor;
 
     @Override
     public String greet(String name) {
@@ -40,7 +50,7 @@ public class ExamineServiceImpl implements ExamineService {
 
     @Override
     public ArrayList<TaskDTO> getUserTasks() {
-        SpringUser springUser = (SpringUser)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        SpringUser springUser = (SpringUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         String userName = springUser.getUsername();
         List<Task> tasks = taskRepository.findByUserName(userName);
         ArrayList<TaskDTO> taskDtos = new ArrayList<TaskDTO>();
@@ -63,7 +73,7 @@ public class ExamineServiceImpl implements ExamineService {
 
     @Override
     public ArrayList<SprintDTO> getSprints() {
-        Object authentication = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+/*        Object authentication = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         SpringUser springUser;
         String userName;
         if(authentication instanceof String) {
@@ -72,11 +82,11 @@ public class ExamineServiceImpl implements ExamineService {
         } else {
             springUser = (SpringUser)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
             userName = springUser.getUsername();
-        }
-        Iterable<Sprint> sprintIterable = sprintRepository.findByType(SprintType.ANONYMOUS.name());
+        }*/
+        Iterable<Sprint> sprintIterable = sprintRepository.findByType(SprintType.ANONYMOUS);
         ArrayList<SprintDTO> sprints = new ArrayList<SprintDTO>();
         for (Sprint sprint : sprintIterable) {
-            List<Task> tasks = taskRepository.findByUserAndSprint(userName, sprint.getName());
+            List<Task> tasks = taskRepository.findBySprintName(sprint.getName());
             sprints.add(SprintDtoMapper.cabinetDtoToExamine(tasks, sprint));
         }
 
@@ -97,5 +107,27 @@ public class ExamineServiceImpl implements ExamineService {
 //
 //        System.out.println("Sprints: " + sprints);
 //        return sprints;
+    }
+
+    @Override
+    public String postForTest(TaskDTO taskDTO) {
+        log.info("Examinator post for test: " + taskDTO.getCode());
+        Map.Entry<String, String> resultEntry = null;
+        try {
+            resultEntry = classProcessor.processClass(taskDTO.getClassName(), taskDTO.getCode(), taskDTO.getName());
+        } catch (CompilationException e) {
+            resultEntry = e.getResult();
+        } catch (Exception e) {
+            log.error(e);
+            throw new RuntimeException("Внутренняя ошибка. Обратитесь к разработчикам", e);
+        }
+        String testResult = resultEntry.getKey() + '\n' + resultEntry.getValue();
+        log.info("Examinator test result is " + testResult);
+        Task task = taskRepository.findOne(taskDTO.getId());
+        task.setCode(taskDTO.getCode());
+        task.setResult(testResult);
+        taskRepository.save(task);
+
+        return testResult;
     }
 }

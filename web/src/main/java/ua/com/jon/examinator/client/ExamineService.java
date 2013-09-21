@@ -18,4 +18,5 @@ public interface ExamineService extends RemoteService {
     ArrayList<TaskDTO> getUserTasks();
     void taskStatusChanged(TaskDTO dto);
     ArrayList<SprintDTO> getSprints();
+    String postForTest(TaskDTO taskDTO);
 }

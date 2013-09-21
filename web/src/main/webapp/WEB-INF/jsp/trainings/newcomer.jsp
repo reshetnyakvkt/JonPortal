@@ -57,6 +57,15 @@
                     <li>Общайтесь с целеустремленными, ответственными студентами</li>
                 </ul>
 
+                <p>Полезные ссылки:</p>
+
+                <ul>
+                    <li><a href="http://www.eclipse.org/downloads/packages/eclipse-ide-java-developers/keplerr">Eclipse</a></li>
+                    <li><a href="https://netbeans.org/downloads/">NetBeans</a></li>
+                    <li><a href="http://www.jetbrains.com/idea/download/">Intellij Idea</a></li>
+                    <li><a href="http://www.oracle.com/technetwork/java/codeconventions-150003.pdf">Стандарт именования идентификаторов</a></li>
+                </ul>
+
                 <br/>
 
             </div>

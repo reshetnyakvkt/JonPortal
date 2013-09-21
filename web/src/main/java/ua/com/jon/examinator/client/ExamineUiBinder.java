@@ -1,16 +1,12 @@
 package ua.com.jon.examinator.client;
 
+import com.github.gwtbootstrap.client.ui.ButtonCell;
 import com.github.gwtbootstrap.client.ui.CellTable;
 import com.github.gwtbootstrap.client.ui.TextArea;
 import com.github.gwtbootstrap.client.ui.ValueListBox;
-import com.google.gwt.cell.client.ButtonCell;
-import com.google.gwt.cell.client.SelectionCell;
-import com.google.gwt.cell.client.ValueUpdater;
+import com.github.gwtbootstrap.client.ui.constants.ButtonType;
+import com.google.gwt.cell.client.FieldUpdater;
 import com.google.gwt.core.client.GWT;
-import com.google.gwt.dom.client.BrowserEvents;
-import com.google.gwt.dom.client.Element;
-import com.google.gwt.dom.client.NativeEvent;
-import com.google.gwt.dom.client.SelectElement;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.logical.shared.ValueChangeEvent;
 import com.google.gwt.text.shared.AbstractRenderer;
@@ -47,6 +43,9 @@ public class ExamineUiBinder extends Composite {
     @UiField
     TextArea taskText;
 
+    @UiField
+    TextArea code;
+
     @UiField(provided=true)
     ValueListBox<SprintDTO> sprintsListBox = new ValueListBox<SprintDTO>(new AbstractRenderer<SprintDTO>() {
         @Override
@@ -64,6 +63,7 @@ public class ExamineUiBinder extends Composite {
 
     private static ExampleUiBinderUiBinder ourUiBinder = GWT.create(ExampleUiBinderUiBinder.class);
     private ua.com.jon.examinator.client.ExamineServiceAsync tasksService = GWT.create(ExamineService.class);
+    private ListDataProvider<TaskDTO> dataProvider = new ListDataProvider<TaskDTO>();
 
     public ExamineUiBinder() {
         initWidget(ourUiBinder.createAndBindUi(this));
@@ -111,12 +111,12 @@ public class ExamineUiBinder extends Composite {
 
             @Override
             public void onFailure(Throwable caught) {
-                Window.alert("Error async get sprints");
+                Window.alert("Ошибка загрузки задач с сервера");
             }
 
             @Override
             public void onSuccess(ArrayList<SprintDTO> sprints) {
-//                Window.alert("loadSprintsAndTasks sprints " + sprints);
+                //Window.alert("loadSprintsAndTasks sprints " + sprints);
 
                 for (SprintDTO sprint : sprints) {
                     if(sprint.isActive()) {
@@ -153,7 +153,7 @@ public class ExamineUiBinder extends Composite {
 
     private void addTasksToTable(List<TaskDTO> tasks, boolean isSelectLast) {
         cellTable.setRowData(tasks);
-        ListDataProvider<TaskDTO> dataProvider = new ListDataProvider<TaskDTO>();
+
 
         // Connect the table to the data provider.
         dataProvider.addDataDisplay(cellTable);
@@ -179,16 +179,6 @@ public class ExamineUiBinder extends Composite {
         // Make the name column sortable.
         nameColumn.setSortable(true);
 
-        TextColumn<TaskDTO> addressColumn = new TextColumn<TaskDTO>() {
-            @Override
-            public String getValue(TaskDTO contact) {
-                return contact.getText();
-            }
-        };
-
-        ButtonCell buttonCell1 = new ButtonCell();
-
-
         cellTable.setSelectionModel(selectionModel);
         selectionModel.addSelectionChangeHandler(
                 new SelectionChangeEvent.Handler() {
@@ -203,50 +193,56 @@ public class ExamineUiBinder extends Composite {
 
         // Add the columns.
         cellTable.addColumn(nameColumn, "Название");
-        cellTable.addColumn(addressColumn, "Текст задания");
-        SelectionCell cell = new SelectionCell(getAcceptableValues()) {
 
+/*        TextColumn<TaskDTO> addressColumn = new TextColumn<TaskDTO>() {
             @Override
-            public void onBrowserEvent(Context context, Element parent, String value, NativeEvent event, ValueUpdater<String> valueUpdater) {
+            public String getValue(TaskDTO contact) {
+                return contact.getText();
+            }
+        };
+        cellTable.addColumn(addressColumn, "Текст задания");*/
 
-                super.onBrowserEvent(context, parent, value, event, valueUpdater);
-
-                if (BrowserEvents.CHANGE.equals(event.getType())) {
-
-                    SelectElement select = parent.getFirstChild().cast();
-                    String newValue = select.getValue();
-
-                    TaskDTO dto = selectionModel.getSelectedObject();
-
-                    if(dto == null){
-                        Window.alert("Не выбрано ни одного задания!");
-                        return;
-                    }
-                    dto.setStatus(newValue);
-
-
-                    tasksService.taskStatusChanged(dto, new AsyncCallback<Void>() {
-                        @Override
-                        public void onFailure(Throwable throwable) {
-                            Window.alert("Status changed with error");
-                        }
-
-                        @Override
-                        public void onSuccess(Void aVoid) {
-                            Window.alert("Status changed successfully");
-                        }
-                    });
-                }
+        Column<TaskDTO, String> buttonTestCol = new Column<TaskDTO, String>(new ButtonCell(ButtonType.WARNING)) {
+            @Override
+            public String getValue(TaskDTO object) {
+                return "Проверить";
             }
         };
 
-        cellTable.addColumn(new Column<TaskDTO, String>(cell) {
-
+        buttonTestCol.setFieldUpdater(new FieldUpdater<TaskDTO, String>() {
             @Override
-            public String getValue(TaskDTO taskDto) {
-                return taskDto.getStatus();
+            public void update(int index, final TaskDTO taskDTO, String value) {
+                if(!taskDTO.getType().equals(TaskType.CLASS.name())) {
+                    Window.alert("Для проверки нажмите кнопку \"Проверить\"");
+                    return;
+                }
+
+                taskDTO.setCode(code.getText());
+                final AsyncCallback<String> callback = new AsyncCallback<String>() {
+
+                    @Override
+                    public void onFailure(Throwable caught) {
+                        Window.alert("Внутренняя ошибка. Обратитесь к разработчикам");
+                    }
+
+                    @Override
+                    public void onSuccess(String testResult) {
+                        // Window.alert(testResult.toString());
+                        taskDTO.setResult(testResult);
+                        result.setText(testResult);
+                        //dataProvider.flush();
+                        dataProvider.refresh();
+                        //restructureTable(null);
+                    }
+                };
+                taskDTO.setText("");
+                taskDTO.setResult("");
+
+                tasksService.postForTest(taskDTO, callback);
             }
-        }, "Статус");
+        });
+
+        cellTable.addColumn(buttonTestCol, "Проверка");
 
         TextColumn<TaskDTO> resultColumn = new TextColumn<TaskDTO>() {
 
@@ -260,8 +256,8 @@ public class ExamineUiBinder extends Composite {
         cellTable.addColumn(resultColumn, "Результат");
     }
 
-    private List<String> getAcceptableValues() {
-        return Arrays.asList("NEW", "IN_PROGRESS", "TEST", "RESOLVED");
+    public enum TaskType {
+        SVN, CLASS
     }
 }
 

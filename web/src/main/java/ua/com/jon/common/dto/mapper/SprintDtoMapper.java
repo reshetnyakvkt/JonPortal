@@ -46,7 +46,8 @@ public class SprintDtoMapper {
         return new ua.com.jon.examinator.shared.SprintDTO(
                 sprint.getName(),
                 sprint.getActive(),
-                TaskDtoMapper.domainsToExamineDtos(tasks)
+                TaskDtoMapper.domainsToExamineDtos(tasks),
+                sprint.getType().toString()
         );
     }
 

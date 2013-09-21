@@ -26,32 +26,24 @@
         <!--<b:Alert ui:field='alert' type="SUCCESS" visible="false" close="false" animation="true">-->
 
         <!--</b:Alert>-->
-        <b:FluidRow>
-          <!--<b:Heading size="3">Result description</b:Heading>-->
-          <b:TextArea ui:field='taskText' readOnly="true" width="100%" height="40%"  visible="true">
-          </b:TextArea>
-          <b:TextArea ui:field='result' readOnly="true" width="100%" height="40%"  visible="true">
-          </b:TextArea>
-          <!--
-                              <b:Column  size="4">
-                                  <b:Paragraph>
-                                      By default, GWT-Bootstrap's thumbnails are designed to showcase linked images with minimal
-                                      required markup.
-                                  </b:Paragraph>
-                              </b:Column>
-                              <b:Column size="4">
-                                  <g:HTMLPanel>
-                                      <pre>
-                                          public class Name {
-                                          private int t = 4;
-                                          }
-                                          &lt;b:ProgressBar percent=&quot;20&quot;/&gt;
-                                      </pre>
-                                  </g:HTMLPanel>
-                              </b:Column>
-          -->
+          <b:FluidRow>
+              <!--<b:Heading size="3">Result description</b:Heading>-->
+              <b:Row>
+                  <b:Column size="6">
+                      <b:TextArea ui:field='taskText' readOnly="true" width="100%" height="40%" visible="true"/>
+                  </b:Column>
+                  <b:Column size="6">
+                      <b:TextArea ui:field='result' readOnly="true" width="100%" height="40%" visible="true"/>
+                  </b:Column>
+              </b:Row>
+              <b:Row>
+                  <b:Column size="12">
+                      <b:TextArea ui:field='code' readOnly="false" width="100%" height="40%" visible="true"/>
+                  </b:Column>
+              </b:Row>
 
-        </b:FluidRow>
+
+          </b:FluidRow>
 
       </b:Well>
       <!--</b:Column>-->
