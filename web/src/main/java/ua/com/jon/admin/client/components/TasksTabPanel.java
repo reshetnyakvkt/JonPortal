@@ -275,7 +275,7 @@ public class TasksTabPanel extends Composite {
 
             @Override
             public void onSuccess(Void aVoid) {
-                loadGroupsAndTasks();
+                //loadGroupsAndTasks();
                 Window.alert("CabinetMain tasks posted successfully");
             }
         };
@@ -338,6 +338,8 @@ public class TasksTabPanel extends Composite {
             @Override
             public void onSuccess(List<GroupDTO> groupDTOs) {
                 //Window.alert("groups: " + groupDTOs);
+
+                groupsListBox.setValue(null);
                 groupsListBox.setAcceptableValues(groupDTOs);
                 if (groupDTOs.size() > 0) {
                     GroupDTO group = groupDTOs.get(0);

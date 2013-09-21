@@ -15,7 +15,7 @@ public class EvaluationUtil {
 
     }
 
-    public void setInOut(String str, ByteArrayOutputStream baos) {
+    public void setInOut(ByteArrayOutputStream str, ByteArrayOutputStream baos) {
 
     }
 }
