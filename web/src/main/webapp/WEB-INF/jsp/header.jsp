@@ -7,8 +7,8 @@
             <li id="item1"><a href="/index.html">Главная</a></li>
             <li id="item2"><a href="/trainings/index.html">Статьи</a></li>
             <li id="item3"><a href="/lessons.html">Занятия</a></li>
-            <li id="item4"><a href="/codeValidator/index">Задания</a></li>
-            <li id="item6"><a href="/tasksg.html">Задания g</a></li>
+            <%--<li id="item4"><a href="/codeValidator/index">Задания</a></li>--%>
+            <li id="item6"><a href="/tasksg.html">Задачи</a></li>
             <li id="item5"><a href="/download.html">Скачать</a></li>
         </ul>
     </div>

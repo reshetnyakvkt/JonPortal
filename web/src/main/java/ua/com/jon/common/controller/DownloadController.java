@@ -31,8 +31,8 @@ public class DownloadController {
 
     public DownloadController() {
         files = new HashMap<String, String>();
-        files.put("jdk-7u17-windows-i586", "/install/jdk-7u25-windows-i586.exe");
-        files.put("jdk-7u17-windows-x64", "/install/jdk-7u25-windows-x64.exe");
+        files.put("jdk-7u25-windows-i586", "/install/jdk-7u25-windows-i586.exe");
+        files.put("jdk-7u25-windows-x64", "/install/jdk-7u25-windows-x64.exe");
         files.put("ideaIU-12_1_4", "/install/ideaIU-12.1.4.exe");
 //        files.put("ojdbc14", "/libs/Oracle JDBC Driver/ojdbc14.jar");
         files.put("OracleXE", "/install/OracleXE.exe");
@@ -40,6 +40,10 @@ public class DownloadController {
         files.put("spring-framework-reference", "/docs/spring-framework-reference.pdf");
         files.put("apache-tomcat-7_0_41", "/install/apache-tomcat-7.0.41.zip");
         files.put("apache-maven-2_2_1-bin", "/install/apache-maven-2.2.1-bin.zip");
+        files.put("eclipse-java-kepler-R-win32", "/install/eclipse-java-kepler-R-win32.zip");
+        files.put("eclipse-java-kepler-R-win32-x86_64", "/install/eclipse-java-kepler-R-win32-x86_64.zip");
+        files.put("netbeans-7_3_1-javase-windows", "/install/netbeans-7.3.1-javase-windows.exe");
+        files.put("ideaIU-12_0_4", "/install/ideaIU-12.0.4.exe");
     }
 
     @RequestMapping("/download.html")
@@ -56,7 +60,7 @@ public class DownloadController {
     public FileSystemResource getStreamFromPath(@PathVariable("file_name") String fileName) {
         log.info("File download request: " + fileName);
         return new FileSystemResource(getFileFor(fileName));
-    }
+    }java.io.FileNotFoundException: File found but not exists, contact to admin: /home/al1/work/It-centre_old/share/install/jdk-7u25-windows-i586.exe
 */
 
     @RequestMapping(value = "/files/{file_name}", method = RequestMethod.GET)
@@ -68,7 +72,12 @@ public class DownloadController {
             try {
                 String pathName = getPathName(fileName);
                 preparedFileName = prepareFileName(pathName);
-                is = getStreamFromClassPath(pathName);
+                try {
+                    is = getStreamFromClassPath(pathName);
+                } catch (FileNotFoundException e) {
+                    log.error(e);
+                    is = getStreamFromPath(pathName);
+                }
             } catch (FileNotFoundException e) {
                 log.error(e);
                 response.getWriter().print(e.getMessage());
@@ -109,7 +118,7 @@ public class DownloadController {
     private InputStream getStreamFromClassPath(String pathname) throws FileNotFoundException {
         InputStream is = getClass().getResourceAsStream(pathname);
         if (is == null) {
-            throw new FileNotFoundException("File found but not exists, contact to admin: " + filesBaseUrl + pathname);
+            throw new FileNotFoundException("File found in classpath but not exists, contact to admin: " + pathname);
         }
         return is;
     }

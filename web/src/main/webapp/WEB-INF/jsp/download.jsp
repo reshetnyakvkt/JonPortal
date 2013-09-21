@@ -40,19 +40,30 @@
 
         <ul class="well nav nav-pills nav-stacked">
             <li>
-                <a href="http://www.jetbrains.com/idea/download/download_thanks.jsp">Idea Community Edition</a>
+                <a href="files/jdk-7u25-windows-i586">jdk 7u25 windows i586</a>
+            </li>
+            <li>
+                <a href="files/jdk-7u25-windows-x64">jdk 7u25 windows x64</a>
+            </li>
+            <li>
+                <a href="files/eclipse-java-kepler-R-win32">Eclipse kepler 32bit</a>
+            </li>
+            <li>
+                <a href="files/eclipse-java-kepler-R-win32-x86_64">Eclipse kepler 64bit</a>
+            </li>
+            <li>
+                <a href="files/netbeans-7_3_1-javase-windows">NetBeans 7.3.1</a>
+                <a href="https://netbeans.org/downloads/">NetBeans link</a>
+            </li>
+            <li>
+                <a href="files/ideaIU-12_0_4">Idea Community Edition 12.0.4</a>
+                <a href="http://www.jetbrains.com/idea/download/download_thanks.jsp">Idea link</a>
             </li>
             <li>
                 <a href="files/hibernate_reference">Документация Hibernate 3.6</a>
             </li>
             <li>
                 <a href="files/spring-framework-reference">Документация Spring 3.2</a>
-            </li>
-            <li>
-                <a href="files/jdk-7u17-windows-i586">jdk 7u25 windows i586</a>
-            </li>
-            <li>
-                <a href="files/jdk-7u17-windows-x64">jdk 7u17 windows x64</a>
             </li>
             <li>
                 <a href="files/ideaIU-12_1_4">Idea Ultimate 12.1.4</a>
