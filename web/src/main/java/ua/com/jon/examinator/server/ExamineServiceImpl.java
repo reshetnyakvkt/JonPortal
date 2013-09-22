@@ -112,7 +112,7 @@ public class ExamineServiceImpl implements ExamineService {
     @Override
     public String postForTest(TaskDTO taskDTO) {
         log.info("Examinator post for test: " + taskDTO.getCode());
-        Map.Entry<String, String> resultEntry = null;
+        Map.Entry<String, String> resultEntry;
         try {
             resultEntry = classProcessor.processClass(taskDTO.getClassName(), taskDTO.getCode(), taskDTO.getName());
         } catch (CompilationException e) {

@@ -24,10 +24,53 @@ public class GreatingTestTest {
     private ClassProcessor classProcessor;
 
     @Test
-    public void testEmpty() throws Exception {
+    public void testSuccess() throws Exception {
         final String className = "Greating";
         final String classCode =
-                "public class Greating{" +
+                "package lesson;" +
+                "import java.util.Scanner;" +
+                "public class Greating {" +
+                "   public static void main(String[] args) {" +
+                "       Scanner scan = new Scanner(System.in);" +
+                "       String name = scan.nextLine();" +
+                "       System.out.println(\"Здравствуйте \" + name);" +
+                "   }" +
+                "}";
+        final String testName = "Greating";
+        Map.Entry<String,String> processResult = classProcessor.processClass(className, classCode, testName);
+        String resultString = processResult.getValue();
+        String markString = processResult.getKey();
+        assertEquals("Задание выполнено", resultString);
+        assertEquals("100", markString);
+    }
+
+    @Test
+    public void testThrowException() throws Exception {
+        final String className = "Greating";
+        final String classCode =
+                "package lesson;" +
+                        "import java.util.Scanner;" +
+                        "public class Greating {" +
+                        "   public static void main(String[] args) {" +
+                        "       Scanner scan = new Scanner(System.in);" +
+                        "       String name = scan.nextLine();" +
+                        "       System.out.println(\"Здравствуйте \" + name);" +
+                        "       throw new RuntimeException();" +
+                        "   }" +
+                        "}";
+        final String testName = "Greating";
+        Map.Entry<String,String> processResult = classProcessor.processClass(className, classCode, testName);
+        String resultString = processResult.getValue();
+        String markString = processResult.getKey();
+        assertEquals("Задание выполнено", resultString);
+        assertEquals("100", markString);
+    }
+
+    @Test
+    public void testInfinitLoop() throws Exception {
+        final String className = "Greating";
+        final String classCode =
+                "public class Greating {" +
                 "   public static void main(String[] args) {" +
                 "       System.out.println(\"Здравствуйте Светлана\");" +
                 "   }" +
@@ -36,7 +79,7 @@ public class GreatingTestTest {
         Map.Entry<String,String> processResult = classProcessor.processClass(className, classCode, testName);
         String resultString = processResult.getValue();
         String markString = processResult.getKey();
-        assertTrue(resultString.isEmpty());
+        assertEquals("Задание выполнено", resultString);
         assertEquals("100", markString);
     }
 }

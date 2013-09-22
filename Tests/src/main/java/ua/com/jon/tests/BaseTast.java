@@ -4,7 +4,9 @@ import com.jon.tron.service.evaluation.EvaluationUtil;
 import com.jon.tron.service.reflect.ReflectionUtil;
 
 import java.io.ByteArrayOutputStream;
+import java.io.OutputStream;
 import java.io.PrintStream;
+import java.util.Random;
 
 import static org.junit.Assert.assertTrue;
 
@@ -14,17 +16,18 @@ import static org.junit.Assert.assertTrue;
  * Date: 19.09.13
  */
 public class BaseTast {
-    private PrintStream in;
-    private ByteArrayOutputStream out;
+    private PrintStream out;
+    private ByteArrayOutputStream in;
     private EvaluationUtil evaluationUtil;
+
+    public static String lineSeparator = System.lineSeparator();
+    public static Random rnd = new Random();
 
     public Object setUpAndInstanciate(Class unitClass) {
         try {
             evaluationUtil = new EvaluationUtil();
-            out = new ByteArrayOutputStream();
-            ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-            in = new PrintStream(outputStream);
-            evaluationUtil.setInOut(outputStream, out);
+            in = new ByteArrayOutputStream();
+            out = new PrintStream(evaluationUtil.setInGetOut(in));
             return unitClass.newInstance();
         } catch (InstantiationException e) {
             e.printStackTrace();
@@ -50,11 +53,11 @@ public class BaseTast {
         }
     }
 
-    public ByteArrayOutputStream getOut() {
+    public PrintStream getOut() {
         return out;
     }
 
-    public PrintStream getIn() {
+    public OutputStream getIn() {
         return in;
     }
 }

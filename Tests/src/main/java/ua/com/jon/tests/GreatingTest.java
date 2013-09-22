@@ -15,9 +15,16 @@ import java.io.PrintStream;
  */
 @Unit(testName = "Greating", value = "weekend1.task3")
 public class GreatingTest extends BaseTast {
+    public static void main(String[] args) {
+        java.util.Scanner scan = new java.util.Scanner(System.in);
+        String name = scan.nextLine();
+        System.out.println("Здравствуйте " + name);
+    }
+
     @Unit
     private static Class unitClass;
     private Object instance;
+    private String[] names = {"Oksana", "Vampu", "Sinaps", "Maika"};
 
     @Before
     public void setUp() {
@@ -31,12 +38,11 @@ public class GreatingTest extends BaseTast {
 
     @Test
     public void testSuccess() {
-        PrintStream printStream = getIn();
-        String name = "Oksana";
-        printStream.print(name);
+        String name = names[rnd.nextInt(names.length)];
+        getOut().print(name);
         invokeMain(unitClass, instance);
-        String expectedString = "Здравствуйте " + name;
-        String actualString = getOut().toString();
+        String expectedString = "Здравствуйте " + name + lineSeparator;
+        String actualString = getIn().toString();
         Assert.assertEquals("Ожидается строка " + expectedString + ", но выводится " + actualString,
                 expectedString, actualString);
         System.out.println(actualString);
