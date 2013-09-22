@@ -1,12 +1,6 @@
 package ua.com.jon.admin.client.components;
 
-import com.github.gwtbootstrap.client.ui.Button;
-import com.github.gwtbootstrap.client.ui.ButtonCell;
-import com.github.gwtbootstrap.client.ui.CellTable;
-import com.github.gwtbootstrap.client.ui.Label;
-import com.github.gwtbootstrap.client.ui.ProgressBar;
-import com.github.gwtbootstrap.client.ui.TextArea;
-import com.github.gwtbootstrap.client.ui.ValueListBox;
+import com.github.gwtbootstrap.client.ui.*;
 import com.github.gwtbootstrap.client.ui.constants.ButtonType;
 import com.github.gwtbootstrap.client.ui.constants.IconType;
 import com.google.gwt.cell.client.FieldUpdater;
@@ -25,7 +19,6 @@ import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.uibinder.client.UiHandler;
 import com.google.gwt.user.cellview.client.Column;
-import com.google.gwt.user.cellview.client.TextColumn;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Composite;
@@ -38,7 +31,9 @@ import ua.com.jon.admin.client.AdminServiceAsync;
 import ua.com.jon.admin.shared.SprintDTO;
 import ua.com.jon.admin.shared.TaskTemplateDTO;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 
 /**
  * Created with IntelliJ IDEA.
@@ -95,17 +90,7 @@ public class TasksManageTabPanel extends Composite {
         createTaskNameColumn();
         createClassNameColumn();
 
-        cellTable.addColumn(new TextColumn<TaskTemplateDTO>() {
-            @Override
-            public String getValue(TaskTemplateDTO contact) {
-                if (contact.getText() != null) {
-                    return String.valueOf(contact.getText().substring(0, 51));
-                }
-                return "";
-            }
-        }, "Текст");
-
-        cellTable.setSelectionModel(selectionModel);
+        createTestNameDropdown();
 
         createStatusDropdown();
 
@@ -127,8 +112,53 @@ public class TasksManageTabPanel extends Composite {
                 });
     }
 
+    private void createTestNameDropdown(){
+        SelectionCell cell = new SelectionCell(getAvailableTaskNames()) {
+
+            @Override
+            public void onBrowserEvent(Context context, Element parent, String value, NativeEvent event, ValueUpdater<String> valueUpdater) {
+
+                super.onBrowserEvent(context, parent, value, event, valueUpdater);
+
+                if (BrowserEvents.CHANGE.equals(event.getType())) {
+
+                    SelectElement select = parent.getFirstChild().cast();
+                    String newValue = select.getValue();
+
+                    TaskTemplateDTO dto = selectionModel.getSelectedObject();
+                    if (dto == null) {
+                        Window.alert("Не выбрано ни одного задания!");
+                        return;
+                    }
+                    if (dto.getType().equals(TaskType.CLASS.name())) {
+                        Window.alert("Для проверки измените статус задания на \"TEST\"");
+                        return;
+                    }
+                    dto.setTestName(newValue);
+                }
+            }
+        };
+
+        Column<TaskTemplateDTO, String> statusCol = new Column<TaskTemplateDTO, String>(cell) {
+
+            @Override
+            public String getValue(TaskTemplateDTO taskTemplateDTO) {
+                return taskTemplateDTO.getTestName();
+            }
+        };
+        cellTable.addColumn(statusCol, "Имя теста");
+
+    }
+
+    private ArrayList<String> getAvailableTaskNames() {
+        ArrayList<String> arrayList = new ArrayList<String>();
+        arrayList.add("Str1");
+        arrayList.add("Str2");
+        return arrayList;
+    }
+
     private void createStatusDropdown() {
-        SelectionCell cell = new SelectionCell(getAcceptableValues()) {
+        SelectionCell cell = new SelectionCell(getTaskTypesAsString()) {
 
             @Override
             public void onBrowserEvent(Context context, Element parent, String value, NativeEvent event, ValueUpdater<String> valueUpdater) {
@@ -150,22 +180,6 @@ public class TasksManageTabPanel extends Composite {
                         return;
                     }
                     dto.setType(newValue);
-
-
-/*
-                    adminService.taskStatusChanged(dto, new AsyncCallback<Void>() {
-                        @Override
-                        public void onFailure(Throwable throwable) {
-                            Window.alert("Status changed with error");
-                        }
-
-                        @Override
-                        public void onSuccess(Void aVoid) {
-                            Window.alert("Status changed successfully");
-
-                        }
-                    });
-*/
                 }
             }
         };
@@ -402,7 +416,7 @@ public class TasksManageTabPanel extends Composite {
         }
     }
 
-    private List<String> getAcceptableValues() {
+    private List<String> getTaskTypesAsString() {
         List<String> values = new ArrayList<String>(TaskType.values().length);
         for (TaskType taskType : TaskType.values()) {
             values.add(taskType.name());

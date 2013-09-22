@@ -1,9 +1,6 @@
 package ua.com.jon.common.dto.mapper;
 
-import ua.com.jon.admin.shared.SprintDTO;
 import ua.com.jon.admin.shared.TaskTemplateDTO;
-import ua.com.jon.common.domain.Sprint;
-import ua.com.jon.common.domain.SprintType;
 import ua.com.jon.common.domain.TaskTemplate;
 import ua.com.jon.common.domain.TaskType;
 
@@ -22,7 +19,8 @@ public class TaskTemplateDtoMapper {
                 taskTemplate.getName(),
                 taskTemplate.getTaskText(),
                 taskTemplate.getType() == null? null: taskTemplate.getType().name(),
-                taskTemplate.getClassName()
+                taskTemplate.getClassName(),
+                taskTemplate.getTestName()
         );
     }
 

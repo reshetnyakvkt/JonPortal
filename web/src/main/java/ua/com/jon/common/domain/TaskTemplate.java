@@ -38,6 +38,8 @@ public class TaskTemplate {
     @Enumerated(EnumType.STRING)
     private TaskType type;
 
+    private String testName;
+
     public TaskTemplate() {
     }
 
@@ -110,15 +112,26 @@ public class TaskTemplate {
         this.className = className;
     }
 
+    public String getTestName() {
+        return testName;
+    }
+
+    public void setTestName(String testName) {
+        this.testName = testName;
+    }
+
     @Override
     public String toString() {
         return "TaskTemplate{" +
-                "id=" + (id != null?id:"") +
-                ", name='" + name + '\'' +
-                ", className='" + className + '\'' +
+                "id=" + id +
                 ", taskText='" + taskText + '\'' +
-                ", materials=" + (materials != null?materials:"") +
-                ", sprint=" + (sprint != null?sprint.getName():"") +
+                ", name='" + name + '\'' +
+                ", materials=" + materials +
+                ", className='" + className + '\'' +
+                ", tasks=" + tasks +
+                ", sprint=" + sprint +
+                ", type=" + type +
+                ", testName='" + testName + '\'' +
                 '}';
     }
 }

@@ -1,6 +1,7 @@
 package com.jon.tron.service.evaluation;
 
 import java.io.ByteArrayOutputStream;
+import java.io.OutputStream;
 
 /**
  * Created with IntelliJ IDEA.
@@ -17,5 +18,9 @@ public class EvaluationUtil {
 
     public void setInOut(ByteArrayOutputStream str, ByteArrayOutputStream baos) {
 
+    }
+
+    public OutputStream setInGetOut(ByteArrayOutputStream in) {
+        return null;
     }
 }
