@@ -110,8 +110,26 @@ public class HelloWorldTestTest {
         Map.Entry<String,String> processResult = classProcessor.processClass(className, classCode, testName);
         String resultString = processResult.getValue();
         String resultMarkString = processResult.getKey();
-        assertTrue(resultString.isEmpty());
-        assertTrue("100".equals(resultMarkString));
+        assertEquals("Метод main должен выводить в консоль сообщение 'Hello world'\n", resultString);
+        assertTrue("10".equals(resultMarkString));
+    }
+
+
+    @Test
+    public void testThrowException() throws Exception {
+        final String className = "HelloWorld";
+        final String classCode = "package a;" +
+                "import java.util.Scanner;" +
+                "public class HelloWorld{public static void main(String[] args){" +
+                "   throw new RuntimeException();\n" +
+                "}}";
+        final String testName = "Hello world";
+
+        Map.Entry<String,String> processResult = classProcessor.processClass(className, classCode, testName);
+        String resultString = processResult.getValue();
+        String resultMarkString = processResult.getKey();
+        assertEquals("Во время выполнения метода main произошла ошибка java.lang.RuntimeException\n", resultString);
+        assertTrue("10".equals(resultMarkString));
     }
 }
 

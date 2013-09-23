@@ -13,7 +13,7 @@ import java.io.PrintStream;
  * User: Admin
  * Date: 19.09.13
  */
-@Unit(testName = "Greating", value = "weekend1.task3")
+@Unit(testName = "Greeting", value = "weekend1.task3")
 public class GreatingTest extends BaseTast {
     public static void main(String[] args) {
         java.util.Scanner scan = new java.util.Scanner(System.in);
@@ -36,15 +36,14 @@ public class GreatingTest extends BaseTast {
         super.tearDown();
     }
 
-    @Test
+    @Test(timeout = 1000)
     public void testSuccess() {
         String name = names[rnd.nextInt(names.length)];
         getOut().print(name);
         invokeMain(unitClass, instance);
         String expectedString = "Здравствуйте " + name + lineSeparator;
         String actualString = getIn().toString();
-        Assert.assertEquals("Ожидается строка " + expectedString + ", но выводится " + actualString,
+        Assert.assertEquals("Ожидается строка " + expectedString + ", но выводится [" + actualString + "]",
                 expectedString, actualString);
-        System.out.println(actualString);
     }
 }

@@ -50,6 +50,7 @@ public class ExamineServiceImpl implements ExamineService {
 
     @Override
     public ArrayList<TaskDTO> getUserTasks() {
+        log.info("-== getUserTasks() ==-");
         SpringUser springUser = (SpringUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         String userName = springUser.getUsername();
         List<Task> tasks = taskRepository.findByUserName(userName);
@@ -57,22 +58,24 @@ public class ExamineServiceImpl implements ExamineService {
         for (Task task : tasks) {
 //            taskDtos.add(TaskDtoMapper.domainToDto(task));
         }
-//        System.out.println(tasks);
+        log.info("-== " + taskDtos + " ==-");
         return taskDtos;
     }
 
     @Override
     public void taskStatusChanged(TaskDTO dto) {
+        log.info("-== taskStatusChanged() ==-");
         Task task = taskRepository.findOne(dto.getId());
         Status newStatus = Status.valueOf(dto.getStatus());
         task.setStatus(newStatus);
         taskRepository.save(task);
 
-        System.out.println("taskStatusChanged " + dto);
+        log.info("-== " + dto + " ==-");
     }
 
     @Override
     public ArrayList<SprintDTO> getSprints() {
+        log.info("-== getSprints() ==-");
 /*        Object authentication = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         SpringUser springUser;
         String userName;
@@ -87,9 +90,9 @@ public class ExamineServiceImpl implements ExamineService {
         ArrayList<SprintDTO> sprints = new ArrayList<SprintDTO>();
         for (Sprint sprint : sprintIterable) {
             List<Task> tasks = taskRepository.findBySprintName(sprint.getName());
-            sprints.add(SprintDtoMapper.cabinetDtoToExamine(tasks, sprint));
+            sprints.add(SprintDtoMapper.cabinetDtoToExamine(tasks, sprint, true));
         }
-
+        log.info("-== " + sprints + " ==-");
         return sprints;
 //        List<TaskDTO> tasks1 = getUserTasks();
 //        List<TaskDTO> tasks2 = new ArrayList<TaskDTO>();
@@ -111,7 +114,7 @@ public class ExamineServiceImpl implements ExamineService {
 
     @Override
     public String postForTest(TaskDTO taskDTO) {
-        log.info("Examinator post for test: " + taskDTO.getCode());
+        log.info("-== Examinator post for test: " + taskDTO.getCode());
         Map.Entry<String, String> resultEntry;
         try {
             resultEntry = classProcessor.processClass(taskDTO.getClassName(), taskDTO.getCode(), taskDTO.getName());

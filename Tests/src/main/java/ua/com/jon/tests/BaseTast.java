@@ -9,6 +9,7 @@ import java.io.PrintStream;
 import java.util.Random;
 
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 /**
  * Created with IntelliJ IDEA.
@@ -47,9 +48,10 @@ public class BaseTast {
 
         try {
             ReflectionUtil.invokeMain(instance, new String[0]);
-        } catch (Exception e) {
-            System.out.println("'main' method invocation error for " + instance);
-            e.printStackTrace();
+        } catch (Throwable throwable) {
+            //System.out.println("Во время выполнения метода main произошла ошибка");
+            throwable.printStackTrace();
+            fail("Во время выполнения метода main произошла ошибка " + throwable.toString());
         }
     }
 
@@ -59,5 +61,4 @@ public class BaseTast {
 
     public OutputStream getIn() {
         return in;
-    }
-}
+    }}

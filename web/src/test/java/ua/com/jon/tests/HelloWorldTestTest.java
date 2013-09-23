@@ -110,8 +110,8 @@ public class HelloWorldTestTest {
         Map.Entry<String,String> processResult = classProcessor.processClass(className, classCode, testName);
         String resultString = processResult.getValue();
         String resultMarkString = processResult.getKey();
-        assertTrue(resultString.isEmpty());
-        assertTrue("100".equals(resultMarkString));
+        assertEquals("Метод main должен выводить в консоль сообщение 'Hello world'\n", resultString);
+        assertTrue("10".equals(resultMarkString));
     }
 }
 

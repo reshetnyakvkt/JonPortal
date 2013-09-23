@@ -42,11 +42,11 @@ public class SprintDtoMapper {
         );
     }
 
-    public static ua.com.jon.examinator.shared.SprintDTO cabinetDtoToExamine(List<Task> tasks, Sprint sprint) {
+    public static ua.com.jon.examinator.shared.SprintDTO cabinetDtoToExamine(List<Task> tasks, Sprint sprint, boolean isClearResult) {
         return new ua.com.jon.examinator.shared.SprintDTO(
                 sprint.getName(),
                 sprint.getActive(),
-                TaskDtoMapper.domainsToExamineDtos(tasks),
+                TaskDtoMapper.domainsToExamineDtos(tasks, isClearResult),
                 sprint.getType().toString()
         );
     }

@@ -17,6 +17,7 @@ public class HelloWorldTest extends BaseTast {
     public static void main(String[] args) {
         System.out.println("Hello world");
     }
+
     @Unit
     private static Class unitClass;
     private Object instance;
@@ -31,7 +32,7 @@ public class HelloWorldTest extends BaseTast {
         super.tearDown();
     }
 
-    @Test
+    @Test(timeout = 1000)
     public void testClassMainMessage() {
         invokeMain(unitClass, instance);
         String lineSeparator = System.lineSeparator();

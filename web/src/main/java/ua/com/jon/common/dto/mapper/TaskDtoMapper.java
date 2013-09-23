@@ -49,21 +49,21 @@ public class TaskDtoMapper {
         return taskDTOs;
     }
 
-    public static List<ua.com.jon.examinator.shared.TaskDTO> domainsToExamineDtos(List<Task> tasks) {
+    public static List<ua.com.jon.examinator.shared.TaskDTO> domainsToExamineDtos(List<Task> tasks, boolean isClearResult) {
         List<ua.com.jon.examinator.shared.TaskDTO> taskDTOs = new ArrayList<ua.com.jon.examinator.shared.TaskDTO>(tasks.size());
         for (Task task : tasks) {
-            taskDTOs.add(domainToExamDto(task));
+            taskDTOs.add(domainToExamDto(task, isClearResult));
         }
         return taskDTOs;
     }
 
-    private static ua.com.jon.examinator.shared.TaskDTO domainToExamDto(Task task) {
+    private static ua.com.jon.examinator.shared.TaskDTO domainToExamDto(Task task, boolean isClearResult) {
         return new ua.com.jon.examinator.shared.TaskDTO(
                 task.getId(),
                 task.getTaskTemplate().getTaskText(),
                 task.getTaskTemplate().getName(),
                 task.getStatus().name(),
-                task.getResult(),
+                isClearResult ? "" : task.getResult(),
                 task.getCode(),
                 task.getTaskTemplate().getType().name(),
                 task.getUser().getLogin(),

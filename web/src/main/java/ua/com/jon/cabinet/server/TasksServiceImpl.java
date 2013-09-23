@@ -62,7 +62,9 @@ public class TasksServiceImpl implements TasksService {
         List<Task> tasks = taskRepository.findByUserName(userName);
         ArrayList<TaskDTO> taskDtos = new ArrayList<TaskDTO>();
         for (Task task : tasks) {
+            task.setResult("");
             taskDtos.add(TaskDtoMapper.domainToDto(task));
+
         }
         log.info("--- " + taskDtos + " ---");
         return taskDtos;
