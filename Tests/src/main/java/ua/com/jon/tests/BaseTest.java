@@ -16,12 +16,12 @@ import static org.junit.Assert.fail;
  * User: Admin
  * Date: 19.09.13
  */
-public class BaseTast {
+public class BaseTest {
     private PrintStream out;
     private ByteArrayOutputStream in;
     private EvaluationUtil evaluationUtil;
 
-    public static String lineSeparator = System.lineSeparator();
+    public static String lineSeparator = System.getProperty("line.separator");
     public static Random rnd = new Random();
 
     public Object setUpAndInstanciate(Class unitClass) {

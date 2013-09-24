@@ -205,7 +205,7 @@ public class AdminServiceImpl implements AdminService {
                 for (User user : usersInGroup) {
                     Task task = new Task(user, taskTemplate, sprint, Status.NEW, "", "");
                     taskRepository.save(task);
-                    log.info("-- Posted task " + task);
+                    //log.info("-- Posted task " + task);
                 }
             }
         } catch (Exception e) {

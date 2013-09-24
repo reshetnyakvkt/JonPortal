@@ -13,6 +13,7 @@
         <module>web</module>
         <module>Tests</module>
         <module>Tron</module>
+        <module>Database</module>
     </modules>
 
     <properties>
@@ -33,11 +34,28 @@
         <xstream.version>1.3.1</xstream.version>
         <maven-compiler-plugin.version>3.0</maven-compiler-plugin.version>
         <mysql.connector.version>5.1.21</mysql.connector.version>
-        <junit.version>4.10</junit.version>
-        <testeron.version>1.0-SNAPSHOT</testeron.version>
-        <!--<testeron.version>1.0-MOCK</testeron.version>-->
+        <junit.version>4.11</junit.version>
         <tests.version>1.0-SNAPSHOT</tests.version>
     </properties>
+
+    <profiles>
+        <profile>
+            <id>dev</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <properties>
+                <testeron.version>1.0-MOCK</testeron.version>
+            </properties>
+        </profile>
+
+        <profile>
+            <id>prod</id>
+            <properties>
+                <testeron.version>1.0-SNAPSHOT</testeron.version>
+            </properties>
+        </profile>
+    </profiles>
 
     <dependencies>
         <dependency>

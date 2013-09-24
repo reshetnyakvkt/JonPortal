@@ -15,7 +15,7 @@ import static org.junit.Assert.fail;
  * Date: 9/22/13
  */
 @Unit(testName = "MaxOfTwo", value = "weekend1.task1")
-public class MaxOfTwoTest extends BaseTast {
+public class MaxOfTwoTest extends BaseTest {
     public static void main(String[] args) {
         java.util.Scanner scan = new java.util.Scanner(System.in);
         int first = scan.nextInt();

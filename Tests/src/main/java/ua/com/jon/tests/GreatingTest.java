@@ -6,15 +6,13 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.io.PrintStream;
-
 /**
  * Created with IntelliJ IDEA.
  * User: Admin
  * Date: 19.09.13
  */
 @Unit(testName = "Greeting", value = "weekend1.task3")
-public class GreatingTest extends BaseTast {
+public class GreatingTest extends BaseTest {
     public static void main(String[] args) {
         java.util.Scanner scan = new java.util.Scanner(System.in);
         String name = scan.nextLine();

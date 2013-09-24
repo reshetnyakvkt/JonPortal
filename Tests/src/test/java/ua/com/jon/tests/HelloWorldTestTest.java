@@ -85,7 +85,7 @@ public class HelloWorldTestTest {
         String resultString = processResult.getValue();
         String resultMarkString = processResult.getKey();
         assertEquals("", resultMarkString, "10");
-        assertTrue(resultString.contains("Класс должен быть public\n"));
+        assertTrue(resultString.contains("Класс должен быть public"));
     }
 
     @Test
@@ -110,7 +110,7 @@ public class HelloWorldTestTest {
         Map.Entry<String,String> processResult = classProcessor.processClass(className, classCode, testName);
         String resultString = processResult.getValue();
         String resultMarkString = processResult.getKey();
-        assertEquals("Метод main должен выводить в консоль сообщение 'Hello world'\n", resultString);
+        assertEquals("Метод main должен выводить в консоль сообщение 'Hello world'", resultString);
         assertTrue("10".equals(resultMarkString));
     }
 
@@ -128,7 +128,7 @@ public class HelloWorldTestTest {
         Map.Entry<String,String> processResult = classProcessor.processClass(className, classCode, testName);
         String resultString = processResult.getValue();
         String resultMarkString = processResult.getKey();
-        assertEquals("Во время выполнения метода main произошла ошибка java.lang.RuntimeException\n", resultString);
+        assertEquals("Во время выполнения метода main произошла ошибка java.lang.RuntimeException", resultString);
         assertTrue("10".equals(resultMarkString));
     }
 }

@@ -53,23 +53,13 @@
             <div class="well">
                 Этот портал предназначен для тех кто изучает Java.<br/>
 
-                <p>В разделе <span class="label">Cкачать</span> находятся нужные для занятий файлы.</p>
+                <p>В разделе <span class="label">Cкачать</span> находятся нужные для занятий файлы</p>
 
-                <p>Сейчас доступ для скачивания возможен через:</p>
-                <ul class="nav nav-pills nav-stacked">
-                    <li>
-                        <a htef="#"><strong>HTTP</strong></a>
-                    </li>
-                    <li>
-                        <a htef="#"><strong>FTP</strong></a>
-                    </li>
-                    <li>
-                        <a htef="#"><strong>SMB</strong></a>
-                    </li>
-                </ul>
-                <p>В разделе <span class="label">Занятия</span> находятся полезные материалы</p>
+                <p>В разделе <span class="label">Статьи</span> находятся полезные для обучающихся статьи</p>
 
-                <p>В разделе <span class="label">Задания</span> можно выполнять учебные задания</p>
+                <p>В разделе <span class="label">Занятия</span> находится литература для профильного курса</p>
+
+                <p>В разделе <span class="label">Задания</span> можно проверять сделанные задачи</p>
             </div>
 
         </div>

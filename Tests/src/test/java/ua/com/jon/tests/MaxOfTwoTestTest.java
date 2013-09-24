@@ -62,7 +62,7 @@ public class MaxOfTwoTestTest {
         Map.Entry<String,String> processResult = classProcessor.processClass(className, classCode, testName);
         String resultString = processResult.getValue();
         String markString = processResult.getKey();
-        assertEquals("Результат должен быть числом, но выведено []\n", resultString);
+        assertEquals("Результат должен быть числом, но выведено []", resultString);
         assertEquals("10", markString);
     }
 
@@ -79,7 +79,7 @@ public class MaxOfTwoTestTest {
         Map.Entry<String,String> processResult = classProcessor.processClass(className, classCode, testName);
         String resultString = processResult.getValue();
         String markString = processResult.getKey();
-        assertEquals("test timed out after 1000 milliseconds\n", resultString);
+        assertEquals("test timed out after 1000 milliseconds", resultString);
         assertEquals("10", markString);
     }
 }

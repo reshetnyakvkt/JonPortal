@@ -62,7 +62,7 @@ public class GreatingTestTest {
         Map.Entry<String,String> processResult = classProcessor.processClass(className, classCode, testName);
         String resultString = processResult.getValue();
         String markString = processResult.getKey();
-        assertEquals("Во время выполнения метода main произошла ошибка java.lang.RuntimeException\n", resultString);
+        assertEquals("Во время выполнения метода main произошла ошибка java.lang.RuntimeException", resultString);
         assertEquals("10", markString);
     }
 
@@ -79,7 +79,7 @@ public class GreatingTestTest {
         Map.Entry<String,String> processResult = classProcessor.processClass(className, classCode, testName);
         String resultString = processResult.getValue();
         String markString = processResult.getKey();
-        assertEquals("test timed out after 1000 milliseconds\n", resultString);
+        assertEquals("test timed out after 1000 milliseconds", resultString);
         assertEquals("10", markString);
     }
 
