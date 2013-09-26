@@ -90,7 +90,7 @@ public class TasksManageTabPanel extends Composite {
         createTaskNameColumn();
         createClassNameColumn();
 
-        createTestNameDropdown();
+        //createTestNameDropdown();
 
         createStatusDropdown();
 

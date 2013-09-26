@@ -1,6 +1,7 @@
 package ua.com.jon.tests;
 
 import com.jon.tron.service.processor.ClassProcessor;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,17 +19,17 @@ import static junit.framework.Assert.assertEquals;
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {"/testContext.xml"})
-public class MaxOfTwoTestTest {
+public class SumOfTwoTestTest {
     @Autowired
     private ClassProcessor classProcessor;
 
     @Test
     public void testSuccess() throws Exception {
-        final String className = "MaxOfTwo";
+        final String className = "SumOfTwo";
         final String classCode =
                 "package lesson;" +
                         "import java.util.Scanner;" +
-                        "public class MaxOfTwo {" +
+                        "public class SumOfTwo {" +
                         "   public static void main(String[] args) {" +
                         "       Scanner scan = new Scanner(System.in);" +
                         "       int first = scan.nextInt();" +
@@ -36,7 +37,7 @@ public class MaxOfTwoTestTest {
                         "       System.out.println(first + second);" +
                         "   }" +
                         "}";
-        final String testName = "MaxOfTwo";
+        final String testName = "SumOfTwo";
         Map.Entry<String,String> processResult = classProcessor.processClass(className, classCode, testName);
         String resultString = processResult.getValue();
         String markString = processResult.getKey();
@@ -44,13 +45,36 @@ public class MaxOfTwoTestTest {
         assertEquals("100", markString);
     }
 
+    @Ignore
     @Test
-    public void testNoOut() throws Exception {
-        final String className = "MaxOfTwo";
+    public void testIllegal() throws Exception {
+        final String className = "SumOfTwo";
         final String classCode =
                 "package lesson;" +
                         "import java.util.Scanner;" +
-                        "public class MaxOfTwo {" +
+                        "public class SumOfTwo {" +
+                        "   public static void main(String[] args) {" +
+                        "       Scanner scan = new Scanner(System.in);" +
+                        "       int first = scan.nextInt();" +
+                        "       int second = scan.nextInt();" +
+                        "       System.out.println(first - second);" +
+                        "   }" +
+                        "}";
+        final String testName = "SumOfTwo";
+        Map.Entry<String,String> processResult = classProcessor.processClass(className, classCode, testName);
+        String resultString = processResult.getValue();
+        String markString = processResult.getKey();
+        assertEquals("Задание выполнено", resultString);
+        assertEquals("10", markString);
+    }
+
+    @Test
+    public void testNoOut() throws Exception {
+        final String className = "SumOfTwo";
+        final String classCode =
+                "package lesson;" +
+                        "import java.util.Scanner;" +
+                        "public class SumOfTwo {" +
                         "   public static void main(String[] args) {" +
                         "       Scanner scan = new Scanner(System.in);" +
                         "       int first = scan.nextInt();" +
@@ -58,7 +82,7 @@ public class MaxOfTwoTestTest {
                         "       //System.out.println(first + second);\n" +
                         "   }" +
                         "}";
-        final String testName = "MaxOfTwo";
+        final String testName = "SumOfTwo";
         Map.Entry<String,String> processResult = classProcessor.processClass(className, classCode, testName);
         String resultString = processResult.getValue();
         String markString = processResult.getKey();
@@ -68,14 +92,14 @@ public class MaxOfTwoTestTest {
 
     @Test
     public void testInfinitLoop() throws Exception {
-        final String className = "MaxOfTwo";
+        final String className = "SumOfTwo";
         final String classCode =
-                "public class MaxOfTwo {" +
+                "public class SumOfTwo {" +
                         "   public static void main(String[] args) {" +
                         "       while(true);" +
                         "   }" +
                         "}";
-        final String testName = "MaxOfTwo";
+        final String testName = "SumOfTwo";
         Map.Entry<String,String> processResult = classProcessor.processClass(className, classCode, testName);
         String resultString = processResult.getValue();
         String markString = processResult.getKey();

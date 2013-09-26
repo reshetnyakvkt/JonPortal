@@ -36,7 +36,6 @@ public class HelloWorldTest extends BaseTest {
     public void testClassMainMessage() {
         invokeMain(unitClass, instance);
         String lineSeparator = System.lineSeparator();
-        assertTrue("Метод main должен выводить в консоль сообщение \'Hello world\'", ("Hello world" + lineSeparator).equals(getOut().toString()));
-        System.out.println(getOut());
+        assertTrue("Метод main должен выводить в консоль сообщение \'Hello world\'", ("Hello world" + lineSeparator).equals(getIn().toString()));
     }
 }

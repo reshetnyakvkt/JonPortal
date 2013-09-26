@@ -94,10 +94,11 @@ public class SprintDTO implements Serializable, Nameble {
     @Override
     public String toString() {
         return "SprintDTO{" +
-                "tasks=" + tasks +
-                ", active=" + active +
+                "id=" + id +
                 ", name='" + name + '\'' +
-                ", id=" + id +
+                ", type='" + type + '\'' +
+                ", active=" + active +
+                ", tasks=" + tasks +
                 '}';
     }
 }

@@ -2,7 +2,7 @@ Case1: Success
 Precondition:
     package lesson;
     import java.util.Scanner;
-    public class MaxOfTwo {
+    public class SumOfTwo {
         public static void main(String[] args) {
             Scanner scan = new Scanner(System.in);
             System.out.println(scan.nextInt() + scan.nextInt());

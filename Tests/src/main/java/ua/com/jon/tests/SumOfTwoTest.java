@@ -1,8 +1,9 @@
 package ua.com.jon.tests;
 
 import com.jon.tron.service.junit.Unit;
-import junit.framework.Assert;
+
 import org.junit.After;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -14,8 +15,8 @@ import static org.junit.Assert.fail;
  * User: al1
  * Date: 9/22/13
  */
-@Unit(testName = "MaxOfTwo", value = "weekend1.task1")
-public class MaxOfTwoTest extends BaseTest {
+@Unit(testName = "SumOfTwo", value = "weekend1.task1")
+public class SumOfTwoTest extends BaseTest {
     public static void main(String[] args) {
         java.util.Scanner scan = new java.util.Scanner(System.in);
         int first = scan.nextInt();
