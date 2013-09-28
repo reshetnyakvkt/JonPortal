@@ -9,6 +9,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import java.util.Map;
 
+import static de.regnis.q.sequence.core.QSequenceAssert.assertTrue;
 import static junit.framework.Assert.assertEquals;
 
 /**
@@ -18,17 +19,17 @@ import static junit.framework.Assert.assertEquals;
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {"/testContext.xml"})
-public class FactIterTest {
+public class FactorialIterTestTest {
     @Autowired
     private ClassProcessor classProcessor;
 
     @Test
     public void testSuccess() throws Exception {
-        final String className = "FactIter";
+        final String className = "FactorialIter";
         final String classCode =
                 "package lesson;" +
                         "import java.util.Scanner;" +
-                        "public class FactIter {" +
+                        "public class FactorialIter {" +
                         "public static void main(String[] args) {" +
                         "Scanner scan = new Scanner(System.in);\n" +
                         "        if(!scan.hasNextInt()) {\n" +
@@ -43,7 +44,7 @@ public class FactIterTest {
                         "        System.out.println(fib);" +
                         "}" +
                  "}";
-        final String testName = "FactIter";
+        final String testName = "FactorialIter";
         Map.Entry<String,String> processResult = classProcessor.processClass(className, classCode, testName);
         String resultString = processResult.getValue();
         String markString = processResult.getKey();
@@ -52,12 +53,41 @@ public class FactIterTest {
     }
 
     @Test
-    public void testThrowException() throws Exception {
-        final String className = "FactIter";
+    public void testWrong() throws Exception {
+        final String className = "FactorialIter";
         final String classCode =
                 "package lesson;" +
                         "import java.util.Scanner;" +
-                        "public class FactIter {" +
+                        "public class FactorialIter {" +
+                        "public static void main(String[] args) {" +
+                        "Scanner scan = new Scanner(System.in);\n" +
+                        "        if(!scan.hasNextInt()) {\n" +
+                        "            System.out.println(\"Неправильный ввод\");\n" +
+                        "            return;\n" +
+                        "        }\n" +
+                        "        int number = scan.nextInt();\n" +
+                        "        int fib = 1;\n" +
+                        "        for(int i=1; i<=number; i++) {\n" +
+                        "            fib *= 12;\n" +
+                        "        }\n" +
+                        "        System.out.println(fib);" +
+                        "}" +
+                 "}";
+        final String testName = "FactorialIter";
+        Map.Entry<String,String> processResult = classProcessor.processClass(className, classCode, testName);
+        String resultString = processResult.getValue();
+        String markString = processResult.getKey();
+        assertTrue(resultString.contains("Ожидаемый результат"));
+        assertEquals("55", markString);
+    }
+
+    @Test
+    public void testThrowException() throws Exception {
+        final String className = "FactorialIter";
+        final String classCode =
+                "package lesson;" +
+                        "import java.util.Scanner;" +
+                        "public class FactorialIter {" +
                         "   public static void main(String[] args) {" +
                         "       Scanner scan = new Scanner(System.in);" +
                         "       String name = scan.nextLine();" +
@@ -65,7 +95,7 @@ public class FactIterTest {
                         "       throw new RuntimeException();" +
                         "   }" +
                         "}";
-        final String testName = "FactIter";
+        final String testName = "FactorialIter";
         Map.Entry<String,String> processResult = classProcessor.processClass(className, classCode, testName);
         String resultString = processResult.getValue();
         String markString = processResult.getKey();

@@ -23,7 +23,7 @@ public class TaskTemplate {
 
     private String name;
 
-    private Blob materials;
+    private String materials;
 
     @Column(name = "CLASS_NAME")
     private String className;
@@ -72,11 +72,11 @@ public class TaskTemplate {
         this.taskText = taskText;
     }
 
-    public Blob getMaterials() {
+    public String getMaterials() {
         return materials;
     }
 
-    public void setMaterials(Blob materials) {
+    public void setMaterials(String materials) {
         this.materials = materials;
     }
 

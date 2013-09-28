@@ -5,6 +5,8 @@ import com.jon.tron.service.junit.Unit;
 import org.junit.*;
 import org.junit.runners.MethodSorters;
 
+import java.util.Scanner;
+
 import static org.junit.Assert.fail;
 
 /**
@@ -15,6 +17,14 @@ import static org.junit.Assert.fail;
 @Unit(testName = "Line", value = "weekend1.task1")
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class LineTest extends BaseTest {
+    public static void main(String[] args) {
+       Scanner scan = new Scanner(System.in);
+       int length = scan.nextInt();
+       for(int i=0; i < length; i++) {
+           System.out.print('*');
+       }
+    }
+
     @Unit
     private static Class unitClass;
     private Object instance;

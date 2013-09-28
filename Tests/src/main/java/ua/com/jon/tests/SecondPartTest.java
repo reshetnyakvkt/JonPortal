@@ -11,7 +11,7 @@ import org.junit.runners.MethodSorters;
  */
 @Unit(testName = "Line", value = "weekend1.task1")
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
-public class FirstPart extends BaseTest {
+public class SecondPartTest extends BaseTest {
     @Unit
     private static Class unitClass;
     private Object instance;

@@ -11,9 +11,9 @@ import java.util.Scanner;
  * User: al1
  * Date: 9/27/13
  */
-@Unit(testName = "FactIter", value = "weekend1.task1")
+@Unit(testName = "FactorialIter", value = "weekend1.task1")
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
-public class FactorialIter extends BaseTest {
+public class FactorialIterTest extends BaseTest {
     public static void main(String[] args) {
         Scanner scan = new Scanner(System.in);
         if(!scan.hasNextInt()) {
