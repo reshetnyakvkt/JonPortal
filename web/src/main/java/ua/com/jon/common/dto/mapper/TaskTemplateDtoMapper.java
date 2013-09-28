@@ -20,7 +20,8 @@ public class TaskTemplateDtoMapper {
                 taskTemplate.getTaskText(),
                 taskTemplate.getType() == null? null: taskTemplate.getType().name(),
                 taskTemplate.getClassName(),
-                taskTemplate.getTestName()
+                taskTemplate.getTestName(),
+                taskTemplate.getMaterials()
         );
     }
 
@@ -43,7 +44,8 @@ public class TaskTemplateDtoMapper {
                     task.getText(),
                     task.getName(),
                     task.getType() == null? TaskType.SVN: TaskType.valueOf(task.getType()),
-                    task.getClassName());
+                    task.getClassName(),
+                    task.getMaterials());
             taskTemplates.add(taskTemplate);
         }
         return taskTemplates;
