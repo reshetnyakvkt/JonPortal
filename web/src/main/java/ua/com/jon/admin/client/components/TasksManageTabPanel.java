@@ -58,6 +58,9 @@ public class TasksManageTabPanel extends Composite {
     @UiField
     TextArea textArea = new TextArea();
 
+    @UiField
+    TextArea materials = new TextArea();
+
     private SprintDTO currentSprint;
     private List<SprintDTO> loadedSprints = new ArrayList<SprintDTO>();
 
@@ -99,14 +102,14 @@ public class TasksManageTabPanel extends Composite {
         createSaveButton();
 
 //        final SingleSelectionModel<TaskTemplateDTO> selectionModel = new SingleSelectionModel<TaskTemplateDTO>();
-//        cellTable.setSelectionModel(selectionModel);
+        cellTable.setSelectionModel(selectionModel);
         selectionModel.addSelectionChangeHandler(
                 new SelectionChangeEvent.Handler() {
                     public void onSelectionChange(SelectionChangeEvent event) {
                         TaskTemplateDTO selected = selectionModel.getSelectedObject();
                         if (selected != null) {
-                            String text = selected.getText();
-                            textArea.setText(text);
+                            textArea.setText(selected.getText());
+                            materials.setText(selected.getMaterials());
                         }
                     }
                 });
@@ -227,6 +230,7 @@ public class TasksManageTabPanel extends Composite {
             @Override
             public void update(int index, TaskTemplateDTO taskTemplateDTO, String value) {
                 taskTemplateDTO.setText(textArea.getText());
+                taskTemplateDTO.setMaterials(materials.getText());
             }
         });
     }

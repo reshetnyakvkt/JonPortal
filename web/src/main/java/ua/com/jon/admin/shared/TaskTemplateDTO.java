@@ -18,6 +18,7 @@ public class TaskTemplateDTO implements Serializable {
     private String type;
     private String className;
     private String testName;
+    private String materials;
 
     public TaskTemplateDTO() {
     }
@@ -31,13 +32,14 @@ public class TaskTemplateDTO implements Serializable {
         this.text = text;
     }
 
-    public TaskTemplateDTO(Long id, String name, String text, String type, String className, String testName) {
+    public TaskTemplateDTO(Long id, String name, String text, String type, String className, String testName, String materials) {
         this.id = id;
         this.name = name;
         this.text = text;
         this.type = type;
         this.className = className;
         this.testName = testName;
+        this.materials = materials;
     }
 
     public String getName() {
@@ -88,6 +90,14 @@ public class TaskTemplateDTO implements Serializable {
         this.testName = testName;
     }
 
+    public String getMaterials() {
+        return materials;
+    }
+
+    public void setMaterials(String materials) {
+        this.materials = materials;
+    }
+
     @Override
     public String toString() {
         return "TaskTemplateDTO{" +
@@ -97,6 +107,7 @@ public class TaskTemplateDTO implements Serializable {
                 ", type='" + type + '\'' +
                 ", className='" + className + '\'' +
                 ", testName='" + testName + '\'' +
+                ", materials='" + materials + '\'' +
                 '}';
     }
 }

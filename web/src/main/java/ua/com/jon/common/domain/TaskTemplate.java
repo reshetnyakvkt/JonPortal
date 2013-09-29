@@ -1,7 +1,16 @@
 package ua.com.jon.common.domain;
 
-import javax.persistence.*;
-import java.sql.Blob;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -48,12 +57,13 @@ public class TaskTemplate {
         this.taskText = taskText;
     }
 
-    public TaskTemplate(Long id, String taskText, String name, TaskType type, String className) {
+    public TaskTemplate(Long id, String taskText, String name, TaskType type, String className, String materials) {
         this.id = id;
         this.taskText = taskText;
         this.name = name;
         this.type = type;
         this.className = className;
+        this.materials = materials;
     }
 
     public String getName() {
