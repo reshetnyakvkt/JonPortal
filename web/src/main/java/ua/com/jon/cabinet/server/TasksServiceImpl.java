@@ -25,7 +25,6 @@ import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.Random;
 
 /**
  * Created with IntelliJ IDEA.
@@ -121,7 +120,7 @@ public class TasksServiceImpl implements TasksService {
         log.info("Post for test: " + taskDTO.getCode());
         Map.Entry<String, String> resultEntry = null;
         try {
-            resultEntry = classProcessor.processClass(taskDTO.getClassName(), taskDTO.getCode(),taskDTO.getName(), false);
+            resultEntry = classProcessor.processClass(taskDTO.getClassName(), taskDTO.getCode(),taskDTO.getName());
         } catch (CompilationException e) {
             resultEntry = e.getResult();
         } catch (Exception e) {

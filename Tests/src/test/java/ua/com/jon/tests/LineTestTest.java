@@ -39,11 +39,11 @@ public class LineTestTest {
                         "   }" +
                         "}";
         final String testName = "Line";
-        Map.Entry<String,String> processResult = classProcessor.processClass(className, classCode, testName, false);
+        Map.Entry<String,String> processResult = classProcessor.processClass(className, classCode, testName);
         String resultString = processResult.getValue();
         String markString = processResult.getKey();
         assertEquals("Во время выполнения метода main произошла ошибка java.util.NoSuchElementException", resultString);
-        assertEquals("55", markString);
+        assertEquals("10", markString);
     }
 
     @Test
@@ -62,7 +62,7 @@ public class LineTestTest {
                         "   }" +
                         "}";
         final String testName = "Line";
-        Map.Entry<String,String> processResult = classProcessor.processClass(className, classCode, testName, false);
+        Map.Entry<String,String> processResult = classProcessor.processClass(className, classCode, testName);
         String resultString = processResult.getValue();
         String markString = processResult.getKey();
         assertTrue("Задание выполнено", resultString.contains("Ожидаемый результат"));
@@ -90,7 +90,7 @@ public class LineTestTest {
                         "   }" +
                         "}";
         final String testName = "Line";
-        Map.Entry<String,String> processResult = classProcessor.processClass(className, classCode, testName, false);
+        Map.Entry<String,String> processResult = classProcessor.processClass(className, classCode, testName);
         String resultString = processResult.getValue();
         String markString = processResult.getKey();
         assertTrue(resultString.contains("Задание выполнено"));

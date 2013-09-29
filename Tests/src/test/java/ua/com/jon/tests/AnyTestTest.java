@@ -25,8 +25,7 @@ public class AnyTestTest {
 
     @Test
     public void testSuccess()  {
-        Collection c;
-        final String className = "FactorialIterE12344___________";
+        final String className = "";
         final String classCode =
                 "package lesson;" +
                         "import java.util.Scanner;" +
@@ -46,7 +45,7 @@ public class AnyTestTest {
                         "}" +
                         "}";
         final String testName = "Any";
-        Map.Entry<String,String> processResult = classProcessor.processClass(className, classCode, testName, true);
+        Map.Entry<String,String> processResult = classProcessor.processClass(className, classCode, testName);
         String resultString = processResult.getValue();
         String markString = processResult.getKey();
         assertEquals("Задание выполнено", resultString);
@@ -55,10 +54,10 @@ public class AnyTestTest {
 
     @Test
     public void testEmpty() {
-        final String className = "FactorialIterE12344___________";
+        final String className = "";
         final String classCode = "public class A{}";
         String testName = "Any";
-        Map.Entry<String,String> processResult = classProcessor.processClass(className, classCode, testName, true);
+        Map.Entry<String,String> processResult = classProcessor.processClass(className, classCode, testName);
         String resultString = processResult.getValue();
         String markString = processResult.getKey();
         assertEquals("Метод main должен быть 'public static void main(String[] args)'", resultString);
@@ -67,14 +66,14 @@ public class AnyTestTest {
 
     @Test
     public void testInfinitLoop() {
-        final String className = "FactorialIterE12344___________";
+        final String className = "";
         final String classCode = "public class A {" +
                 "public static void main(String[] args) {" +
                 "while(true){}" +
                 "}" +
                 "}";
         String testName = "Any";
-        Map.Entry<String,String> processResult = classProcessor.processClass(className, classCode, testName, true);
+        Map.Entry<String,String> processResult = classProcessor.processClass(className, classCode, testName);
         String resultString = processResult.getValue();
         String markString = processResult.getKey();
         assertEquals("test timed out after 1000 milliseconds", resultString);
