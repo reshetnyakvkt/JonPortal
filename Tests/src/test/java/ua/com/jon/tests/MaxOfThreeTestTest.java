@@ -69,7 +69,7 @@ public class MaxOfThreeTestTest {
                         "        }\n" +
                         "    }";
         final String testName = "MaxOfThree";
-        Map.Entry<String,String> processResult = classProcessor.processClass(className, classCode, testName);
+        Map.Entry<String,String> processResult = classProcessor.processClass(className, classCode, testName, false);
         String resultString = processResult.getValue();
         String markString = processResult.getKey();
         assertEquals("Задание выполнено", resultString);
@@ -121,7 +121,7 @@ public class MaxOfThreeTestTest {
                         "        }\n" +
                         "    }";
         final String testName = "MaxOfThree";
-        Map.Entry<String,String> processResult = classProcessor.processClass(className, classCode, testName);
+        Map.Entry<String,String> processResult = classProcessor.processClass(className, classCode, testName, false);
         String resultString = processResult.getValue();
         String markString = processResult.getKey();
         assertTrue(resultString.contains("Ожидаемый результат"));
@@ -143,7 +143,7 @@ public class MaxOfThreeTestTest {
                         "   }" +
                         "}";
         final String testName = "MaxOfThree";
-        Map.Entry<String,String> processResult = classProcessor.processClass(className, classCode, testName);
+        Map.Entry<String,String> processResult = classProcessor.processClass(className, classCode, testName, false);
         String resultString = processResult.getValue();
         String markString = processResult.getKey();
         assertEquals("Первым должно быть выведено наибольшее число, но выведено []", resultString);
@@ -160,7 +160,7 @@ public class MaxOfThreeTestTest {
                         "   }" +
                         "}";
         final String testName = "MaxOfThree";
-        Map.Entry<String,String> processResult = classProcessor.processClass(className, classCode, testName);
+        Map.Entry<String,String> processResult = classProcessor.processClass(className, classCode, testName, false);
         String resultString = processResult.getValue();
         String markString = processResult.getKey();
         assertEquals("test timed out after 1000 milliseconds", resultString);

@@ -12,7 +12,7 @@ import java.util.Map;
  */
 @Service
 public class ClassProcessor {
-    public Map.Entry<String, String> processClass(String name, String className, String classCode) {
+    public Map.Entry<String, String> processClass(String name, String className, String classCode, boolean b) {
         return new AbstractMap.SimpleEntry<String, String>("25", "Задание проверено виртуально");
     }
 }

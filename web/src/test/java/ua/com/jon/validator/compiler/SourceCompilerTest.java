@@ -28,7 +28,7 @@ public class SourceCompilerTest {
         String className = "Simple";
         String classCode = "public class Simple{}";
         CompilationResult compilationResult;
-        compilationResult = compiler.compileSourceCode(className, classCode);
+        compilationResult = compiler.compileSourceCode(className, classCode, false);
         assertTrue(compilationResult.isSuccess());
     }
 
@@ -37,7 +37,7 @@ public class SourceCompilerTest {
         String className = "Pimpimple";
         String classCode = "public class Simple{}";
         CompilationResult compilationResult;
-        compilationResult = compiler.compileSourceCode(className, classCode);
+        compilationResult = compiler.compileSourceCode(className, classCode, false);
         assertFalse(compilationResult.isSuccess());
     }
 
@@ -46,7 +46,7 @@ public class SourceCompilerTest {
         String className = "";
         String classCode = "public class Simple{}";
         CompilationResult compilationResult;
-        compilationResult = compiler.compileSourceCode(className, classCode);
+        compilationResult = compiler.compileSourceCode(className, classCode, false);
         assertFalse(compilationResult.isSuccess());
     }
 
@@ -54,21 +54,21 @@ public class SourceCompilerTest {
     public void testEmptyClassCode() throws Exception {
         String className = "Simple";
         String classCode = "";
-        compiler.compileSourceCode(className, classCode);
+        compiler.compileSourceCode(className, classCode, false);
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void testNullClassName() throws Exception {
         String className = null;
         String classCode = "public class Simple{}";
-        compiler.compileSourceCode(className, classCode);
+        compiler.compileSourceCode(className, classCode, false);
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void testNullClassCode() throws Exception {
         String className = "Pimpimple";
         String classCode = null;
-        compiler.compileSourceCode(className, classCode);
+        compiler.compileSourceCode(className, classCode, false);
     }
 }
 

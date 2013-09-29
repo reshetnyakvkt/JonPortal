@@ -38,7 +38,7 @@ public class SumOfTwoTestTest {
                         "   }" +
                         "}";
         final String testName = "SumOfTwo";
-        Map.Entry<String,String> processResult = classProcessor.processClass(className, classCode, testName);
+        Map.Entry<String,String> processResult = classProcessor.processClass(className, classCode, testName, false);
         String resultString = processResult.getValue();
         String markString = processResult.getKey();
         assertEquals("Задание выполнено", resultString);
@@ -61,7 +61,7 @@ public class SumOfTwoTestTest {
                         "   }" +
                         "}";
         final String testName = "SumOfTwo";
-        Map.Entry<String,String> processResult = classProcessor.processClass(className, classCode, testName);
+        Map.Entry<String,String> processResult = classProcessor.processClass(className, classCode, testName, false);
         String resultString = processResult.getValue();
         String markString = processResult.getKey();
         assertEquals("Задание выполнено", resultString);
@@ -83,7 +83,7 @@ public class SumOfTwoTestTest {
                         "   }" +
                         "}";
         final String testName = "SumOfTwo";
-        Map.Entry<String,String> processResult = classProcessor.processClass(className, classCode, testName);
+        Map.Entry<String,String> processResult = classProcessor.processClass(className, classCode, testName, false);
         String resultString = processResult.getValue();
         String markString = processResult.getKey();
         assertEquals("Результат должен быть числом, но выведено []", resultString);
@@ -100,7 +100,7 @@ public class SumOfTwoTestTest {
                         "   }" +
                         "}";
         final String testName = "SumOfTwo";
-        Map.Entry<String,String> processResult = classProcessor.processClass(className, classCode, testName);
+        Map.Entry<String,String> processResult = classProcessor.processClass(className, classCode, testName, false);
         String resultString = processResult.getValue();
         String markString = processResult.getKey();
         assertEquals("test timed out after 1000 milliseconds", resultString);

@@ -121,7 +121,7 @@ public class TasksServiceImpl implements TasksService {
         log.info("Post for test: " + taskDTO.getCode());
         Map.Entry<String, String> resultEntry = null;
         try {
-            resultEntry = classProcessor.processClass(taskDTO.getClassName(), taskDTO.getCode(),taskDTO.getName());
+            resultEntry = classProcessor.processClass(taskDTO.getClassName(), taskDTO.getCode(),taskDTO.getName(), false);
         } catch (CompilationException e) {
             resultEntry = e.getResult();
         } catch (Exception e) {
