@@ -34,4 +34,6 @@ public interface AdminService extends RemoteService {
     ArrayList<SprintDTO> getSprintsAndTasks();
 
     void sprintTypeChanged(SprintDTO dto);
+
+    ArrayList<String> getAvailableTestNames();
 }

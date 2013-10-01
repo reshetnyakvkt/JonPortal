@@ -45,7 +45,8 @@ public class TaskTemplateDtoMapper {
                     task.getName(),
                     task.getType() == null? TaskType.SVN: TaskType.valueOf(task.getType()),
                     task.getClassName(),
-                    task.getMaterials());
+                    task.getMaterials(),
+                    task.getTestName());
             taskTemplates.add(taskTemplate);
         }
         return taskTemplates;

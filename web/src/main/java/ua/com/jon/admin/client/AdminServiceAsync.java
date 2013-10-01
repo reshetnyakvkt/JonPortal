@@ -34,5 +34,7 @@ public interface AdminServiceAsync {
     void saveSprints(List<SprintDTO> newSprints, AsyncCallback groupCallback);
 
     void sprintTypeChanged(SprintDTO dto, AsyncCallback<Void> asyncCallback);
+
+    void getAvailableTestNames(AsyncCallback<ArrayList<String>> async);
 }
 

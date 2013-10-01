@@ -1,6 +1,7 @@
 package ua.com.jon.tron;
 
 import com.jon.tron.service.processor.ClassProcessor;
+import org.junit.Ignore;
 import org.junit.Test;
 
 
@@ -12,6 +13,7 @@ import org.junit.Test;
 public class ClassProcessorTest {
     private ClassProcessor classProcessor = new ClassProcessor();
 
+    @Ignore
     @Test
     public void testProcess() {
         classProcessor.processClass("", "", "");

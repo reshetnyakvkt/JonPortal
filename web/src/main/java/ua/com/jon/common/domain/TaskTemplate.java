@@ -57,13 +57,14 @@ public class TaskTemplate {
         this.taskText = taskText;
     }
 
-    public TaskTemplate(Long id, String taskText, String name, TaskType type, String className, String materials) {
+    public TaskTemplate(Long id, String taskText, String name, TaskType type, String className, String materials, String testName) {
         this.id = id;
         this.taskText = taskText;
         this.name = name;
         this.type = type;
         this.className = className;
         this.materials = materials;
+        this.testName = testName;
     }
 
     public String getName() {

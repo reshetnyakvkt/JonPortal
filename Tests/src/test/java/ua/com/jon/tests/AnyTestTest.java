@@ -31,7 +31,7 @@ public class AnyTestTest {
                         "import java.util.Scanner;" +
                         "public class FactorialIter {" +
                         "public static void main(String[] args) {" +
-                        "Scanner scan = new Scanner(System.in);\n" +
+                        "       Scanner scan = new Scanner(System.in);\n" +
                         "        if(!scan.hasNextInt()) {\n" +
                         "            System.out.println(\"Неправильный ввод\");\n" +
                         "            return;\n" +

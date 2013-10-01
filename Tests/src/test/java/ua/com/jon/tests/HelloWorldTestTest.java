@@ -42,7 +42,7 @@ public class HelloWorldTestTest {
     public void testEmpty() throws Exception {
         final String className = "HelloWorld";
         final String classCode = "public class HelloWorld{}";
-        final String testName = "Hello world";
+        final String testName = "HelloWorld";
         Map.Entry<String,String> processResult = classProcessor.processClass(className, classCode, testName);
         String resultString = processResult.getValue();
         assertTrue(resultString.contains("Метод main должен быть 'public static void main(String[] args)"));
@@ -52,7 +52,7 @@ public class HelloWorldTestTest {
     public void testWrongMain() throws Exception {
         final String className = "HelloWorld";
         final String classCode = "public class HelloWorld{public void main(){}}";
-        final String testName = "Hello world";
+        final String testName = "HelloWorld";
 
         Map.Entry<String,String> processResult = classProcessor.processClass(className, classCode, testName);
         String resultString = processResult.getValue();
@@ -63,7 +63,7 @@ public class HelloWorldTestTest {
     public void testMainWithoutMessage() throws Exception {
         final String className = "HelloWorld";
         final String classCode = "public class HelloWorld{public static void main(String[] args){}}";
-        final String testName = "Hello world";
+        final String testName = "HelloWorld";
 
         Map.Entry<String,String> processResult = classProcessor.processClass(className, classCode, testName);
         String resultString = processResult.getValue();
@@ -79,7 +79,7 @@ public class HelloWorldTestTest {
                         "        public static void main(String[] args) {\n" +
                         "        }\n" +
                         "    }";
-        final String testName = "Hello world";
+        final String testName = "HelloWorld";
 
         Map.Entry<String,String> processResult = classProcessor.processClass(className, classCode, testName);
         String resultString = processResult.getValue();
@@ -93,7 +93,7 @@ public class HelloWorldTestTest {
         final String className = "HelloWorld";
         final String classCode = "public class HelloWorld{public static void main(String[] args){" +
                 "System.out.println(\"hello world\");}}";
-        final String testName = "Hello world";
+        final String testName = "HelloWorld";
 
         Map.Entry<String,String> processResult = classProcessor.processClass(className, classCode, testName);
         String resultString = processResult.getValue();
@@ -105,7 +105,7 @@ public class HelloWorldTestTest {
         final String className = "HelloWorld";
         final String classCode = "public class HelloWorld{public static void main(String[] args){" +
                 "System.out.println(\"Hello world\");}}";
-        final String testName = "Hello world";
+        final String testName = "HelloWorld";
 
         Map.Entry<String,String> processResult = classProcessor.processClass(className, classCode, testName);
         String resultString = processResult.getValue();
@@ -123,7 +123,7 @@ public class HelloWorldTestTest {
                 "public class HelloWorld{public static void main(String[] args){" +
                 "   throw new RuntimeException();\n" +
                 "}}";
-        final String testName = "Hello world";
+        final String testName = "HelloWorld";
 
         Map.Entry<String,String> processResult = classProcessor.processClass(className, classCode, testName);
         String resultString = processResult.getValue();

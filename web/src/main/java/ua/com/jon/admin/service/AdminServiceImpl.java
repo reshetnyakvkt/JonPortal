@@ -1,7 +1,9 @@
 package ua.com.jon.admin.service;
 
+import com.jon.tron.service.reflect.ReflectionUtil;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import ua.com.jon.admin.client.AdminService;
 import ua.com.jon.admin.shared.*;
@@ -15,6 +17,7 @@ import ua.com.jon.common.dto.mapper.SprintDtoMapper;
 import ua.com.jon.common.repository.*;
 
 import javax.annotation.Resource;
+import java.io.IOException;
 import java.util.*;
 
 /**
@@ -45,6 +48,9 @@ public class AdminServiceImpl implements AdminService {
 
     @Autowired
     private AuthService authService;
+
+    @Value( "${tests.package}" )
+    private String testsPackage;
 
     @Override
     public List<TaskTemplateDTO> getTaskTemplates() {
@@ -170,6 +176,7 @@ public class AdminServiceImpl implements AdminService {
     @Override
     public ArrayList<SprintDTO> getSprintsAndTasks() {
         log.info("-- getSprintsAndTasks() ");
+
         Iterable<Sprint> sprintIterable = sprintRepository.findAll();
         ArrayList<SprintDTO> sprints = new ArrayList<SprintDTO>();
         for (Sprint sprint : sprintIterable) {
@@ -189,6 +196,19 @@ public class AdminServiceImpl implements AdminService {
         sprintRepository.save(sprint);
 
         System.out.println("Changed sprint is " + dto);
+    }
+
+    @Override
+    public ArrayList<String> getAvailableTestNames() {
+        try {
+            return ReflectionUtil.findAllTests(testsPackage);
+        } catch (IOException e) {
+            log.error("Get tests error ", e);
+            throw new RuntimeException(e);
+        } catch (ClassNotFoundException e) {
+            log.error("No tests found ", e);
+            throw new RuntimeException(e);
+        }
     }
 
     @Override

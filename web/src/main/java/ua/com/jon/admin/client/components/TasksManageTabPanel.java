@@ -41,6 +41,7 @@ import java.util.List;
  * Date: 7/4/13
  */
 public class TasksManageTabPanel extends Composite {
+    public static final int TEST_NAME_INDEX = 2;
     @UiField
     Button refreshSprintsBtn = new Button();
 
@@ -93,7 +94,7 @@ public class TasksManageTabPanel extends Composite {
         createTaskNameColumn();
         createClassNameColumn();
 
-        //createTestNameDropdown();
+        loadTestNamesToDropbox();
 
         createStatusDropdown();
 
@@ -115,8 +116,8 @@ public class TasksManageTabPanel extends Composite {
                 });
     }
 
-    private void createTestNameDropdown(){
-        SelectionCell cell = new SelectionCell(getAvailableTaskNames()) {
+    private void insertTestNameDropdown(final int beforeIndex, final ArrayList<String> availableTestNames){
+        SelectionCell cell = new SelectionCell(availableTestNames) {
 
             @Override
             public void onBrowserEvent(Context context, Element parent, String value, NativeEvent event, ValueUpdater<String> valueUpdater) {
@@ -133,31 +134,39 @@ public class TasksManageTabPanel extends Composite {
                         Window.alert("Не выбрано ни одного задания!");
                         return;
                     }
-                    if (dto.getType().equals(TaskType.CLASS.name())) {
-                        Window.alert("Для проверки измените статус задания на \"TEST\"");
-                        return;
-                    }
+
                     dto.setTestName(newValue);
                 }
             }
         };
 
-        Column<TaskTemplateDTO, String> statusCol = new Column<TaskTemplateDTO, String>(cell) {
+        Column<TaskTemplateDTO, String> testNameCol = new Column<TaskTemplateDTO, String>(cell) {
 
             @Override
             public String getValue(TaskTemplateDTO taskTemplateDTO) {
                 return taskTemplateDTO.getTestName();
             }
         };
-        cellTable.addColumn(statusCol, "Имя теста");
+
+        cellTable.insertColumn(beforeIndex, testNameCol, "Имя теста");
 
     }
 
-    private ArrayList<String> getAvailableTaskNames() {
-        ArrayList<String> arrayList = new ArrayList<String>();
-        arrayList.add("Str1");
-        arrayList.add("Str2");
-        return arrayList;
+    private void loadTestNamesToDropbox() {
+        final AsyncCallback<ArrayList<String>> testsCallback = new AsyncCallback<ArrayList<String>>() {
+
+            @Override
+            public void onFailure(Throwable caught) {
+                Window.alert("Test names loading error");
+            }
+
+            @Override
+            public void onSuccess(ArrayList<String> result) {
+                insertTestNameDropdown(TEST_NAME_INDEX, result);
+            }
+        };
+        adminService.getAvailableTestNames(testsCallback);
+
     }
 
     private void createStatusDropdown() {
@@ -245,7 +254,7 @@ public class TasksManageTabPanel extends Composite {
         nameColumn.setFieldUpdater(new FieldUpdater<TaskTemplateDTO, String>() {
             @Override
             public void update(int index, TaskTemplateDTO object, String value) {
-                //Window.alert(value);
+//                Window.alert(value);
                 dataProvider.getList().get(index).setName(value);
                 dataProvider.flush();
                 dataProvider.refresh();
@@ -264,6 +273,7 @@ public class TasksManageTabPanel extends Composite {
         nameColumn.setFieldUpdater(new FieldUpdater<TaskTemplateDTO, String>() {
             @Override
             public void update(int index, TaskTemplateDTO object, String value) {
+//                Window.alert(value);
                 dataProvider.getList().get(index).setClassName(value);
                 dataProvider.flush();
                 dataProvider.refresh();
@@ -312,25 +322,30 @@ public class TasksManageTabPanel extends Composite {
     }
 
     private void addSprintsToTable(List<TaskTemplateDTO> tasks, boolean isSelectedLast) {
-        final List<TaskTemplateDTO> list = dataProvider.getList();
+//        final List<TaskTemplateDTO> list = dataProvider.getList();
 //        Window.alert("tasks to delete " + list);
 //        Window.alert("iterator " + list.iterator());
-        for (Iterator<TaskTemplateDTO> itr = list.iterator(); itr.hasNext(); ) {
+/*        for (Iterator<TaskTemplateDTO> itr = list.iterator(); itr.hasNext(); ) {
             TaskTemplateDTO next = itr.next();
             itr.remove();
             dataProvider.flush();
-        }
+        }*/
+        dataProvider.setList(tasks);
+
         TaskTemplateDTO last = null;
-        for (TaskTemplateDTO taskTemplateDTO : tasks) {
+/*        for (TaskTemplateDTO taskTemplateDTO : tasks) {
             list.add(taskTemplateDTO);
             last = taskTemplateDTO;
         }
+*/
 
-        if (isSelectedLast && last != null) {
+        if (isSelectedLast && tasks.iterator().hasNext() &&
+                (last = tasks.iterator().next()) != null) {
             selectionModel.setSelected(last, true);
         }
 
         dataProvider.flush();
+        dataProvider.refresh();
     }
 
     @UiHandler("sprintsListBox")
@@ -397,7 +412,7 @@ public class TasksManageTabPanel extends Composite {
 //        GroupDTO groupDTO = groupsListBox.getValue();
 //        SprintDTO sprintDTO = currentSprint;
         sprintsListBox.getValue().setTasks(dataProvider.getList());
-        //currentSprint.setTasks(dataProvider.getList());
+        currentSprint.setTasks(dataProvider.getList());
 //        ArrayList<SprintDTO> newSprints = new ArrayList<SprintDTO>();
 //        newSprints.add(currentSprint);
         relocateTasks(loadedSprints);
