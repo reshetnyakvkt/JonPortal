@@ -33,6 +33,7 @@ import ua.com.jon.cabinet.shared.TaskDTO;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Iterator;
 import java.util.List;
 
 public class UserTasksTabPanel extends Composite {
@@ -89,6 +90,7 @@ public class UserTasksTabPanel extends Composite {
     public void onChangeTabPosition(ValueChangeEvent<SprintDTO> sprint) {
         result.setText("");
         taskText.setText("");
+        Window.alert(sprint.getValue().getTasks().toString());
         addTasksToTable(sprint.getValue().getTasks(), true);
     }
 
@@ -97,20 +99,21 @@ public class UserTasksTabPanel extends Composite {
 
             @Override
             public void onFailure(Throwable caught) {
-                Window.alert("Error async get sprints");
+                Window.alert("Ошибка загрузки этапов в сервера");
             }
 
             @Override
             public void onSuccess(ArrayList<SprintDTO> sprints) {
-               // Window.alert("loadSprintsAndTasks sprints " + sprints);
 
-                for (SprintDTO sprint : sprints) {
-                    if(sprint.isActive()) {
-                        addTasksToTable(sprint.getTasks(), true);
-                        sprintsListBox.setValue(sprint);
-                    }
-                }
+                SprintDTO currentSprint;
                 sprintsListBox.setAcceptableValues(sprints);
+                Iterator<SprintDTO> iterator = sprints.iterator();
+                if(iterator.hasNext()) {
+                    currentSprint = iterator.next();
+                    addTasksToTable(currentSprint.getTasks(), true);
+                    sprintsListBox.setValue(currentSprint);
+                }
+//                Window.alert("loadSprintsAndTasks sprints " + sprints);
             }
         };
 
@@ -118,7 +121,6 @@ public class UserTasksTabPanel extends Composite {
     }
 
     private void addTasksToTable(List<TaskDTO> tasks, boolean isSelectLast) {
-        dataProvider.addDataDisplay(cellTable);
         final List<TaskDTO> list = dataProvider.getList();
         TaskDTO last = null;
         for (TaskDTO task : tasks) {
@@ -131,7 +133,7 @@ public class UserTasksTabPanel extends Composite {
     }
 
     public void buildTable() {
-
+        dataProvider.addDataDisplay(cellTable);
         TextColumn<TaskDTO> nameColumn = new TextColumn<TaskDTO>() {
             @Override
             public String getValue(TaskDTO contact) {
