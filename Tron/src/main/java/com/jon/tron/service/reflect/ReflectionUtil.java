@@ -1,5 +1,8 @@
 package com.jon.tron.service.reflect;
 
+import java.io.IOException;
+import java.util.ArrayList;
+
 /**
  * Created with IntelliJ IDEA.
  * User: sergey
@@ -15,5 +18,9 @@ public class ReflectionUtil {
 
     public static boolean isCorrectMainPresent(Class clazz) {
         return false;
+    }
+
+    public static ArrayList<String> findAllTests(String testsPackage) throws IOException, ClassNotFoundException{
+        return new ArrayList<String>();
     }
 }
