@@ -56,7 +56,7 @@ public class TasksServiceImpl implements TasksService {
     @Override
     public ArrayList<TaskDTO> getUserTasks() {
         log.info("--- getUserTasks() ---");
-        SpringUser springUser = (SpringUser)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        SpringUser springUser = (SpringUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         String userName = springUser.getUsername();
         List<Task> tasks = taskRepository.findByUserName(userName);
         ArrayList<TaskDTO> taskDtos = new ArrayList<TaskDTO>();
@@ -84,10 +84,10 @@ public class TasksServiceImpl implements TasksService {
         log.info("--- getSprints() ---");
         Object authentication = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         SpringUser springUser;
-        if(authentication instanceof String) {
+        if (authentication instanceof String) {
             throw new SecurityException("can't grant access to anonymus ");
         }
-        springUser = (SpringUser)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        springUser = (SpringUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         String userName = springUser.getUsername();
         Iterable<Sprint> sprintIterable = sprintRepository.findAll();
         ArrayList<SprintDTO> sprints = new ArrayList<SprintDTO>();
@@ -120,7 +120,7 @@ public class TasksServiceImpl implements TasksService {
         log.info("Post for test: " + taskDTO.getCode());
         Map.Entry<String, String> resultEntry = null;
         try {
-            resultEntry = classProcessor.processClass(taskDTO.getClassName(), taskDTO.getCode(),taskDTO.getName());
+            resultEntry = classProcessor.processClass(taskDTO.getClassName(), taskDTO.getCode(), taskDTO.getName());
         } catch (CompilationException e) {
             resultEntry = e.getResult();
         } catch (Exception e) {
@@ -136,21 +136,23 @@ public class TasksServiceImpl implements TasksService {
     }
 
     @Override
-    public ArrayList<TaskDTO> getTasksByUserGroup() {
+    public ArrayList<TaskDTO> getTasksByUserGroup(Long id) {
         Object authentication = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         SpringUser springUser;
-        if(authentication instanceof String) {
+        if (authentication instanceof String) {
             throw new SecurityException("can't grant access to anonymous ");
         }
-        springUser = (SpringUser)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        springUser = (SpringUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         String userName = springUser.getUsername();
-        User user = userRepository.findByUserName(userName);
-        Long groupId = user.getGroup().getId();
-        List<Task> tasks = taskRepository.findEvaluatedByGroupId(groupId);
         ArrayList<TaskDTO> list = new ArrayList<TaskDTO>();
-        list.addAll(TaskDtoMapper.domainsToDtos(tasks));
+        User user = userRepository.findByUserName(userName);
+        if (user != null) {
+            Long groupId = user.getGroup().getId();
+            List<Task> tasks = taskRepository.findEvaluatedByGroupId(groupId);
+            list.addAll(TaskDtoMapper.domainsToDtos(tasks));
 //        list.add(new TaskDTO(1L, "task1", "task1", "", "", "", "", "", ""));
 //        list.add(new TaskDTO(1L, "task2", "task2", "", "", "", "", "", ""));
+        }
         return list;
     }
 }

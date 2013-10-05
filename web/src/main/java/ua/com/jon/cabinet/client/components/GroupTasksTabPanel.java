@@ -47,7 +47,10 @@ public class GroupTasksTabPanel extends Composite {
 
     private TasksServiceAsync adminService = GWT.create(TasksService.class);
 
-    public GroupTasksTabPanel(final UiBinder<Widget, GroupTasksTabPanel> binder) {
+    private UserTasksTabPanel userPanel;
+
+    public GroupTasksTabPanel(final UiBinder<Widget, GroupTasksTabPanel> binder, UserTasksTabPanel userPanel) {
+        this.userPanel = userPanel;
         initWidget(binder.createAndBindUi(this));
         buildTable();
         loadTasks();
@@ -117,7 +120,7 @@ public class GroupTasksTabPanel extends Composite {
             }
         };
 
-        adminService.getTasksByUserGroup(groupCallback);
+        adminService.getTasksByUserGroup(userPanel.getSelectedTaskTemplateId(), groupCallback);
 
     }
 

@@ -18,6 +18,6 @@ public interface TasksServiceAsync {
     void taskStatusChanged(TaskDTO dto, AsyncCallback<Void> async);
     void getSprints(AsyncCallback<ArrayList<SprintDTO>> callback);
     void postForTest(TaskDTO taskDTO, AsyncCallback<String> callback);
-    void getTasksByUserGroup(AsyncCallback<ArrayList<TaskDTO>> async);
+    void getTasksByUserGroup(Long id, AsyncCallback<ArrayList<TaskDTO>> async);
 }
 

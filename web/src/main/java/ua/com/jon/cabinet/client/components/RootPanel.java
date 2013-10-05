@@ -40,7 +40,7 @@ public class RootPanel extends Composite {
         initWidget(rootUIBinder.createAndBindUi(this));
 
         UserTasksTabPanel userTasksTabPanel = new UserTasksTabPanel(userTasksUIBinder);
-        GroupTasksTabPanel groupTasksTabPanel = new GroupTasksTabPanel(groupTasksUIBinder);
+        GroupTasksTabPanel groupTasksTabPanel = new GroupTasksTabPanel(groupTasksUIBinder, userTasksTabPanel);
 
         userTasksHolderPanel.add(userTasksTabPanel);
         groupTasksHolderPanel.add(groupTasksTabPanel);

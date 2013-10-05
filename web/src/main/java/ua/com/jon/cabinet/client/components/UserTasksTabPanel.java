@@ -42,6 +42,8 @@ public class UserTasksTabPanel extends Composite {
 
     final SingleSelectionModel<TaskDTO> selectionModel = new SingleSelectionModel<TaskDTO>();
 
+    private Long selectedTaskTemplateId;
+
     @UiField
     TextArea result;
 
@@ -90,7 +92,6 @@ public class UserTasksTabPanel extends Composite {
     public void onChangeTabPosition(ValueChangeEvent<SprintDTO> sprint) {
         result.setText("");
         taskText.setText("");
-        Window.alert(sprint.getValue().getTasks().toString());
         addTasksToTable(sprint.getValue().getTasks(), true);
     }
 
@@ -191,7 +192,7 @@ public class UserTasksTabPanel extends Composite {
                         return;
                     }
                     dto.setStatus(newValue);
-
+                    selectedTaskTemplateId = dto.getTaskTemplateId();
 
                     tasksService.taskStatusChanged(dto, new AsyncCallback<Void>() {
                         @Override
@@ -302,6 +303,14 @@ public class UserTasksTabPanel extends Composite {
 
     public enum TaskType {
         SVN, CLASS
+    }
+
+    public Long getSelectedTaskTemplateId() {
+        return selectedTaskTemplateId;
+    }
+
+    public void setSelectedTaskTemplateId(Long selectedTaskTemplateId) {
+        this.selectedTaskTemplateId = selectedTaskTemplateId;
     }
 }
 
