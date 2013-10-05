@@ -1,8 +1,6 @@
 package ua.com.jon.common.dto.mapper;
 
 import ua.com.jon.admin.shared.SprintDTO;
-import ua.com.jon.admin.shared.TaskTemplateDTO;
-import ua.com.jon.auth.domain.AssemblaSpace;
 import ua.com.jon.common.domain.Sprint;
 import ua.com.jon.common.domain.SprintType;
 import ua.com.jon.common.domain.Task;
@@ -21,6 +19,7 @@ public class SprintDtoMapper {
                 sprint.getId(),
                 sprint.getName(),
                 sprint.getActive(),
+                sprint.getType().name(),
                 TaskTemplateDtoMapper.domainsToDtos(sprint.getTasks())
         );
     }
@@ -30,6 +29,7 @@ public class SprintDtoMapper {
                 sprint.getId(),
                 sprint.getName(),
                 sprint.getActive(),
+                sprint.getType().name(),
                 TaskConverter.convertToTaskTemplate(tasks)
         );
     }

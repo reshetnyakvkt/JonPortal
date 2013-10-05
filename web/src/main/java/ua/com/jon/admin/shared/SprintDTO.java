@@ -27,10 +27,11 @@ public class SprintDTO implements Serializable, Nameble {
         this.name = name;
     }
 
-    public SprintDTO(Long id, String name, boolean active, List<TaskTemplateDTO> tasks) {
+    public SprintDTO(Long id, String name, boolean active, String type, List<TaskTemplateDTO> tasks) {
         this.id = id;
         this.name = name;
         this.active = active;
+        this.type = type;
         this.tasks = tasks;
     }
 

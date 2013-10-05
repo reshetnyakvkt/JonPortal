@@ -31,7 +31,6 @@ import com.google.gwt.view.client.SingleSelectionModel;
 import ua.com.jon.admin.client.AdminService;
 import ua.com.jon.admin.client.AdminServiceAsync;
 import ua.com.jon.admin.shared.SprintDTO;
-import ua.com.jon.admin.shared.TaskTemplateDTO;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -95,6 +94,7 @@ public class SprintsTabPanel extends Composite {
 
     public void buildTable() {
         cellTable.setEmptyTableWidget(new Label("Please add data."));
+        dataProvider.addDataDisplay(cellTable);
 
         Column<SprintDTO, String> nameColumn = new Column<SprintDTO, String>(new TextInputCell()) {
             @Override
@@ -105,7 +105,7 @@ public class SprintsTabPanel extends Composite {
         nameColumn.setFieldUpdater(new FieldUpdater<SprintDTO, String>() {
             @Override
             public void update(int index, SprintDTO object, String value) {
-                Window.alert(value);
+        //        Window.alert(value);
                 dataProvider.getList().get(index).setName(value);
                 dataProvider.flush();
                 dataProvider.refresh();
@@ -192,9 +192,16 @@ public class SprintsTabPanel extends Composite {
 
     }
 
-    private void addSprintsToTable(List<SprintDTO> tasks) {
-        dataProvider.addDataDisplay(cellTable);
-        dataProvider.setList(tasks);
+    private void addSprintsToTable(List<SprintDTO> sprints) {
+
+        dataProvider.setList(sprints);
+        SprintDTO last = null;
+        if (sprints.iterator().hasNext() &&
+                (last = sprints.iterator().next()) != null) {
+            selectionModel.setSelected(last, true);
+        }
+        dataProvider.flush();
+        dataProvider.refresh();
     }
 
     private List<String> getAcceptableValues() {
@@ -209,7 +216,7 @@ public class SprintsTabPanel extends Composite {
     @UiHandler("createSprintBtn")
     void handleCreateClick(ClickEvent e) {
         String sprintName = INITIAL_SPRINT_NAME;
-        SprintDTO sprint = new SprintDTO(null, sprintName, true, null);
+        SprintDTO sprint = new SprintDTO(null, sprintName, true, "IT_CENTRE", null);
 
         List<SprintDTO> sprintDTOs = dataProvider.getList();
         if(sprintDTOs.contains(sprint)) {
