@@ -136,7 +136,7 @@ public class TasksServiceImpl implements TasksService {
     }
 
     @Override
-    public ArrayList<TaskDTO> getTasksByUserGroup(Long id) {
+    public ArrayList<TaskDTO> getTasksByUserGroup(Long taskTemplateId) {
         Object authentication = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         SpringUser springUser;
         if (authentication instanceof String) {
@@ -148,7 +148,7 @@ public class TasksServiceImpl implements TasksService {
         User user = userRepository.findByUserName(userName);
         if (user != null) {
             Long groupId = user.getGroup().getId();
-            List<Task> tasks = taskRepository.findEvaluatedByGroupId(groupId);
+            List<Task> tasks = taskRepository.findEvaluatedByGroupIdAndTaskId(groupId, taskTemplateId);
             list.addAll(TaskDtoMapper.domainsToDtos(tasks));
 //        list.add(new TaskDTO(1L, "task1", "task1", "", "", "", "", "", ""));
 //        list.add(new TaskDTO(1L, "task2", "task2", "", "", "", "", "", ""));

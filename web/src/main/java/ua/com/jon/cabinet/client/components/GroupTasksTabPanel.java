@@ -115,8 +115,8 @@ public class GroupTasksTabPanel extends Composite {
             @Override
             public void onSuccess(ArrayList<TaskDTO> taskDTOs) {
                 sprintsProgress.setVisible(false);
+                Window.alert(taskDTOs.toString());
                 addSprintsToTable(taskDTOs);
-                //Window.alert(taskDTOs.toString());
             }
         };
 

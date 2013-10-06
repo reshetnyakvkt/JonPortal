@@ -123,6 +123,7 @@ public class UserTasksTabPanel extends Composite {
 
     private void addTasksToTable(List<TaskDTO> tasks, boolean isSelectLast) {
         final List<TaskDTO> list = dataProvider.getList();
+        list.clear();
         TaskDTO last = null;
         for (TaskDTO task : tasks) {
             list.add(task);
@@ -163,6 +164,7 @@ public class UserTasksTabPanel extends Composite {
                             restructureTable(selected.getName());
                             result.setText(selected.getResult());
                             taskText.setText(selected.getText());
+                            selectedTaskTemplateId = selected.getTaskTemplateId();
                         }
                     }
                 });
@@ -192,7 +194,6 @@ public class UserTasksTabPanel extends Composite {
                         return;
                     }
                     dto.setStatus(newValue);
-                    selectedTaskTemplateId = dto.getTaskTemplateId();
 
                     tasksService.taskStatusChanged(dto, new AsyncCallback<Void>() {
                         @Override

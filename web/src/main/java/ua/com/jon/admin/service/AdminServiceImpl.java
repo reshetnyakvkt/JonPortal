@@ -214,6 +214,7 @@ public class AdminServiceImpl implements AdminService {
     @Override
     public void postTasksByNames(GroupDTO groupDto, ArrayList<Long> taskIds, SprintDTO sprintDto) {
         log.info("-- Post tasks " + taskIds + " to groupDto " + groupDto);
+     //   System.out.println("-- Post tasks " + taskIds + " to groupDto " + groupDto);
 //        System.out.println("Post tasks " + taskNames + " to groupDto " + groupName);
         Sprint sprint = sprintRepository.findOne(sprintDto.getId());
         try {
