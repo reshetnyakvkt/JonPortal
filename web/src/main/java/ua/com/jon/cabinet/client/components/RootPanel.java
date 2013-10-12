@@ -1,6 +1,8 @@
 package ua.com.jon.cabinet.client.components;
 
 import com.google.gwt.core.client.GWT;
+import com.google.gwt.event.shared.EventBus;
+import com.google.gwt.event.shared.SimpleEventBus;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.uibinder.client.UiTemplate;
@@ -35,6 +37,7 @@ public class RootPanel extends Composite {
 
     private static UserTasksTabPanelUiBinder userTasksUIBinder = GWT.create(UserTasksTabPanelUiBinder.class);
     private static GroupTasksTabPanelUiBinder groupTasksUIBinder = GWT.create(GroupTasksTabPanelUiBinder.class);
+    public static EventBus CABINET_EVENT_BUS = GWT.create(SimpleEventBus.class);
 
     public RootPanel() {
         initWidget(rootUIBinder.createAndBindUi(this));

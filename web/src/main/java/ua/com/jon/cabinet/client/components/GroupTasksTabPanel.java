@@ -1,13 +1,16 @@
 package ua.com.jon.cabinet.client.components;
 
-import com.github.gwtbootstrap.client.ui.*;
+import com.github.gwtbootstrap.client.ui.Button;
+import com.github.gwtbootstrap.client.ui.CellTable;
+import com.github.gwtbootstrap.client.ui.Label;
+import com.github.gwtbootstrap.client.ui.ProgressBar;
+import com.github.gwtbootstrap.client.ui.TextArea;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.uibinder.client.UiHandler;
 import com.google.gwt.user.cellview.client.TextColumn;
-import com.google.gwt.user.client.Event;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Composite;
@@ -17,6 +20,8 @@ import com.google.gwt.view.client.SelectionChangeEvent;
 import com.google.gwt.view.client.SingleSelectionModel;
 import ua.com.jon.cabinet.client.TasksService;
 import ua.com.jon.cabinet.client.TasksServiceAsync;
+import ua.com.jon.cabinet.shared.NotificationEvent;
+import ua.com.jon.cabinet.shared.NotificationEventHandler;
 import ua.com.jon.cabinet.shared.SprintDTO;
 import ua.com.jon.cabinet.shared.TaskDTO;
 
@@ -55,6 +60,13 @@ public class GroupTasksTabPanel extends Composite {
         initWidget(binder.createAndBindUi(this));
         buildTable();
         loadTasks();
+
+        RootPanel.CABINET_EVENT_BUS.addHandler(NotificationEvent.TYPE, new NotificationEventHandler()     {
+            @Override
+            public void onNotificationChanged(NotificationEvent authenticationEvent) {
+                loadTasks();
+            }
+        });
     }
 
     public void buildTable() {

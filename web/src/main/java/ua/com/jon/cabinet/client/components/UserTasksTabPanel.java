@@ -9,7 +9,10 @@ import com.google.gwt.cell.client.FieldUpdater;
 import com.google.gwt.cell.client.SelectionCell;
 import com.google.gwt.cell.client.ValueUpdater;
 import com.google.gwt.core.client.GWT;
-import com.google.gwt.dom.client.*;
+import com.google.gwt.dom.client.BrowserEvents;
+import com.google.gwt.dom.client.Element;
+import com.google.gwt.dom.client.NativeEvent;
+import com.google.gwt.dom.client.SelectElement;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.logical.shared.ValueChangeEvent;
 import com.google.gwt.text.shared.AbstractRenderer;
@@ -28,6 +31,7 @@ import com.google.gwt.view.client.SelectionChangeEvent;
 import com.google.gwt.view.client.SingleSelectionModel;
 import ua.com.jon.cabinet.client.TasksService;
 import ua.com.jon.cabinet.client.TasksServiceAsync;
+import ua.com.jon.cabinet.shared.NotificationEvent;
 import ua.com.jon.cabinet.shared.SprintDTO;
 import ua.com.jon.cabinet.shared.TaskDTO;
 
@@ -76,6 +80,9 @@ public class UserTasksTabPanel extends Composite {
     private TasksServiceAsync tasksService = GWT.create(TasksService.class);
 
     public UserTasksTabPanel(final UiBinder<Widget, UserTasksTabPanel> binder) {
+
+
+
         initWidget(binder.createAndBindUi(this));
         buildTable();
         loadSprintsAndTasks();
@@ -171,6 +178,7 @@ public class UserTasksTabPanel extends Composite {
                                 code.setText(selected.getMaterial());
                             }
                             selectedTaskTemplateId = selected.getTaskTemplateId();
+                            RootPanel.CABINET_EVENT_BUS.fireEvent(new NotificationEvent());
                         }
                     }
                 });
