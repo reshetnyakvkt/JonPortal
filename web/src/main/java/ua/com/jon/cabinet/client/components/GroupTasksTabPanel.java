@@ -7,6 +7,7 @@ import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.uibinder.client.UiHandler;
 import com.google.gwt.user.cellview.client.TextColumn;
+import com.google.gwt.user.client.Event;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Composite;
@@ -58,7 +59,7 @@ public class GroupTasksTabPanel extends Composite {
 
     public void buildTable() {
         cellTable.setEmptyTableWidget(new Label("Please add data."));
-        //dataProvider.addDataDisplay(cellTable);
+        dataProvider.addDataDisplay(cellTable);
 /*        com.google.gwt.user.cellview.client.Column<TaskDTO, String> nameColumn = new com.google.gwt.user.cellview.client.Column<TaskDTO, String>(new TextInputCell()) {
             @Override
             public String getValue(TaskDTO object) {
@@ -115,23 +116,25 @@ public class GroupTasksTabPanel extends Composite {
             @Override
             public void onSuccess(ArrayList<TaskDTO> taskDTOs) {
                 sprintsProgress.setVisible(false);
-                Window.alert(taskDTOs.toString());
+                //Window.alert(taskDTOs.toString());
                 addSprintsToTable(taskDTOs);
             }
         };
-
-        adminService.getTasksByUserGroup(userPanel.getSelectedTaskTemplateId(), groupCallback);
-
+        if(userPanel.getSelectedTaskTemplateId() != null) {
+            adminService.getTasksByUserGroup(userPanel.getSelectedTaskTemplateId(), groupCallback);
+        }
     }
 
     private void addSprintsToTable(List<TaskDTO> tasks) {
-        dataProvider.addDataDisplay(cellTable);
-        final List<TaskDTO> list = dataProvider.getList();
+//        dataProvider.addDataDisplay(cellTable);
+        dataProvider.setList(tasks);
+/*
         TaskDTO last = null;
         for (TaskDTO task : tasks) {
             list.add(task);
             last = task;
         }
+*/
 //        if(isSelectLast && last != null) {
 //            selectionModel.setSelected(last, true);
 //        }

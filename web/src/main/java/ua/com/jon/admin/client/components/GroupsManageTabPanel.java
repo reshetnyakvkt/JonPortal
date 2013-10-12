@@ -47,12 +47,6 @@ public class GroupsManageTabPanel extends Composite {
 //    @UiField
 //    TextArea taskText = new TextArea();
 
-//    @UiField
-//    WellNavList sprintTasks = new WellNavList();
-
-//    @UiField
-//    TextBox sprintNameTextBox;
-
     @UiField
     ProgressBar sprintsProgress;
 
@@ -181,15 +175,9 @@ public class GroupsManageTabPanel extends Composite {
                 Window.alert(sprintDTOs.toString());
                 sprintsListBox.setAcceptableValues(sprintDTOs);
                 loadedSprints = sprintDTOs;
-//                for (SpaceDTO sprintDTO : spaceDTOs) {
-//                    addTasksToSprintNavList(sprintDTO.getUsers());
-//                    spacesListBox.setValue(sprintDTO);
-//                }
                 Iterator<SprintDTO> itr = sprintDTOs.iterator();
                 if (itr.hasNext()) {
                     SprintDTO sprintDTO = itr.next();
-//                    Window.alert(sprintDTO.toString());
-//                    addTasksToSprintNavList(spaceDTO.getTasks());
                     sprintsListBox.setValue(sprintDTO);
                     currentSprint = sprintDTO;
                 }
@@ -202,7 +190,6 @@ public class GroupsManageTabPanel extends Composite {
     }
 
     private void addSprintsToTable(List<TaskTemplateDTO> tasks) {
-//        cellTable.setRowData(tasks);
 
 
         // Connect the table to the data provider.

@@ -7,6 +7,7 @@ import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Component;
+import org.springframework.web.client.ResourceAccessException;
 import org.springframework.web.client.RestTemplate;
 import ua.com.jon.auth.domain.AssemblaSpace;
 import ua.com.jon.auth.domain.AssemblaSpaces;
@@ -122,6 +123,8 @@ public class RestClient {
                     requestEntity,
                     responseType,
                     uriVariables);
+        } catch (ResourceAccessException e) {
+            throw e;
         } catch (Exception e) {
             throw new RestException("An error when call to {"+ restUri +"}, " + Arrays.toString(uriVariables), e);
         }

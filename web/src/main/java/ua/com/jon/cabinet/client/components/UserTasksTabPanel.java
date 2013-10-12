@@ -164,6 +164,12 @@ public class UserTasksTabPanel extends Composite {
                             restructureTable(selected.getName());
                             result.setText(selected.getResult());
                             taskText.setText(selected.getText());
+                            //Window.alert("Select: " + selected);
+                            if(selected.getResult() != null && !selected.getResult().isEmpty()) {
+                                code.setText(selected.getCode());
+                            } else {
+                                code.setText(selected.getMaterial());
+                            }
                             selectedTaskTemplateId = selected.getTaskTemplateId();
                         }
                     }
@@ -203,7 +209,7 @@ public class UserTasksTabPanel extends Composite {
 
                         @Override
                         public void onSuccess(Void resTaskDto) {
-                            Window.alert("Status changed successfully");
+                            //Window.alert("Status changed successfully");
                         }
                     });
                 }

@@ -150,9 +150,18 @@ public class TasksServiceImpl implements TasksService {
             Long groupId = user.getGroup().getId();
             List<Task> tasks = taskRepository.findEvaluatedByGroupIdAndTaskId(groupId, taskTemplateId);
             list.addAll(TaskDtoMapper.domainsToDtos(tasks));
+            removeCurrentUser(list, user.getLogin());
 //        list.add(new TaskDTO(1L, "task1", "task1", "", "", "", "", "", ""));
 //        list.add(new TaskDTO(1L, "task2", "task2", "", "", "", "", "", ""));
         }
         return list;
+    }
+
+    private void removeCurrentUser(ArrayList<TaskDTO> list, String userName) {
+        for (int i = 0; i < list.size(); i++) {
+            if(list.get(i).getUserName().equals(userName)) {
+                list.remove(i);
+            }
+        }
     }
 }

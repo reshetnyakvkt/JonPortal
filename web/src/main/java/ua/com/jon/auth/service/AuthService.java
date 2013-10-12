@@ -6,6 +6,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.ResourceAccessException;
 import ua.com.jon.auth.domain.AssemblaSpace;
 import ua.com.jon.auth.domain.AssemblaSpaces;
 import ua.com.jon.auth.domain.AssemblaUser;
@@ -36,6 +37,8 @@ public class AuthService implements UserDetailsService {
         try {
             AssemblaUser assemblaUser = restClient.getUser(userName);
             user = UserMapper.convertAssemblaToSpring(assemblaUser);
+        } catch (ResourceAccessException e) {
+            user = new SpringUser(userName, userName);
         } catch (Exception e) {
             log.error("Error user authentication " + userName, e);
             throw new UsernameNotFoundException("User/Password incorrect");
@@ -63,6 +66,8 @@ public class AuthService implements UserDetailsService {
         AssemblaUser assemblaUser = null;
         try {
             assemblaUser = restClient.getUserBySpaceAndUName(space, userName);
+        } catch (ResourceAccessException e) {
+            assemblaUser = new AssemblaUser(userName);
         } catch (RestException e) {
             log.error(e);
         }
@@ -94,6 +99,7 @@ public class AuthService implements UserDetailsService {
     public List<AssemblaSpace> getSpaces() {
         List<AssemblaSpace> spacesList = new ArrayList<AssemblaSpace>();
         try {
+
             AssemblaSpaces spaces = restClient.getSpaces();
             return spaces.getSpaces();
         } catch (RestException e) {
