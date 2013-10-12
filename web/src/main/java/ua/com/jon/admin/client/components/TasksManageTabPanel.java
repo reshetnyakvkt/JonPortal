@@ -297,7 +297,7 @@ public class TasksManageTabPanel extends Composite {
                 sprintsProgress.setVisible(false);
                 sprintsListBox.setVisible(true);
 
-                //Window.alert(sprintDTOs.toString());
+//                Window.alert(sprintDTOs.toString());
                 sprintsListBox.setAcceptableValues(sprintDTOs);
                 loadedSprints = sprintDTOs;
 //                for (SpaceDTO sprintDTO : spaceDTOs) {
@@ -307,7 +307,7 @@ public class TasksManageTabPanel extends Composite {
                 Iterator<SprintDTO> itr = sprintDTOs.iterator();
                 if (itr.hasNext()) {
                     SprintDTO sprintDTO = itr.next();
-//                    Window.alert(sprintDTO.toString());
+                    Window.alert(sprintDTO.toString());
 //                    addTasksToSprintNavList(spaceDTO.getTasks());
                     sprintsListBox.setValue(sprintDTO);
                     currentSprint = sprintDTO;
@@ -411,8 +411,10 @@ public class TasksManageTabPanel extends Composite {
         };
 //        GroupDTO groupDTO = groupsListBox.getValue();
 //        SprintDTO sprintDTO = currentSprint;
-        sprintsListBox.getValue().setTasks(dataProvider.getList());
-        currentSprint.setTasks(dataProvider.getList());
+        List<TaskTemplateDTO> newTaskTemplateDtos = new ArrayList<TaskTemplateDTO>(dataProvider.getList());
+//        newTaskTemplateDtos.addAll(taskTemplateDTOs);
+        sprintsListBox.getValue().setTasks(newTaskTemplateDtos);
+        currentSprint.setTasks(newTaskTemplateDtos);
 //        ArrayList<SprintDTO> newSprints = new ArrayList<SprintDTO>();
 //        newSprints.add(currentSprint);
         relocateTasks(loadedSprints);
