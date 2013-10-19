@@ -1,6 +1,7 @@
 package ua.com.jon.admin.client.components;
 
 import com.github.gwtbootstrap.client.ui.Button;
+import com.github.gwtbootstrap.client.ui.CellTable;
 import com.github.gwtbootstrap.client.ui.NavHeader;
 import com.github.gwtbootstrap.client.ui.NavLink;
 import com.github.gwtbootstrap.client.ui.NavList;
@@ -14,15 +15,20 @@ import com.google.gwt.text.shared.AbstractRenderer;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.uibinder.client.UiHandler;
+import com.google.gwt.user.cellview.client.TextColumn;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HasWidgets;
 import com.google.gwt.user.client.ui.Widget;
+import com.google.gwt.view.client.ListDataProvider;
+import com.google.gwt.view.client.SelectionChangeEvent;
+import com.google.gwt.view.client.SingleSelectionModel;
 import ua.com.jon.admin.client.AdminService;
 import ua.com.jon.admin.client.AdminServiceAsync;
 import ua.com.jon.admin.shared.GroupDTO;
 import ua.com.jon.admin.shared.SprintDTO;
+import ua.com.jon.admin.shared.TaskDTO;
 import ua.com.jon.admin.shared.TaskTemplateDTO;
 
 import java.util.ArrayList;
@@ -43,6 +49,8 @@ public class TasksTabPanel extends Composite {
 //    @UiField
 //    com.google.gwt.user.client.ui.HTMLPanel tasksHolderPanel;
 
+    private ListDataProvider<TaskDTO> dataProvider = new ListDataProvider<TaskDTO>();
+
     @UiField
     WellNavList availableTasks = new WellNavList();
 
@@ -54,6 +62,9 @@ public class TasksTabPanel extends Composite {
 
     @UiField
     Button remove = new Button();
+
+    @UiField
+    CellTable<TaskDTO> cellTable = new CellTable<TaskDTO>(5, GWT.<CellTable.SelectableResources>create(CellTable.SelectableResources.class));
 
 //    @UiField
 //    DropdownButton groupsListBox = new DropdownButton();
@@ -104,6 +115,7 @@ public class TasksTabPanel extends Composite {
 
     public TasksTabPanel(final UiBinder<Widget, TasksTabPanel> binder) {
         initWidget(binder.createAndBindUi(this));
+        buildTable();
 /*        handler = new ClickHandler() {
             @Override
             public void onClick(ClickEvent clickEvent) {
@@ -142,6 +154,7 @@ public class TasksTabPanel extends Composite {
     public void onChangeGroupPosition(ValueChangeEvent<GroupDTO> group) {
         clearGroupTasksList();
         addTaskToGroupNavList(group.getValue().getTasks());
+        fillCellTable();
     }
 
     private void clearGroupTasksList() {
@@ -377,4 +390,58 @@ public class TasksTabPanel extends Composite {
 //        return tasksHolderPanel;
 //    }
 
+    public void buildTable() {
+        dataProvider.addDataDisplay(cellTable);
+/*        com.google.gwt.user.cellview.client.Column<TaskDTO, String> nameColumn = new com.google.gwt.user.cellview.client.Column<TaskDTO, String>(new TextInputCell()) {
+            @Override
+            public String getValue(TaskDTO object) {
+                return object.getName() == null ? "" : object.getName();
+            }
+        };*/
+
+        cellTable.addColumn(new TextColumn<TaskDTO>() {
+            @Override
+            public String getValue(TaskDTO taskDTO) {
+                return String.valueOf(taskDTO.getName());
+            }
+        }, "Название");
+
+        cellTable.addColumn(new TextColumn<TaskDTO>() {
+            @Override
+            public String getValue(TaskDTO taskDTO) {
+                return String.valueOf(taskDTO.getUserName());
+            }
+        }, "Студент");
+
+        cellTable.addColumn(new TextColumn<TaskDTO>() {
+            @Override
+            public String getValue(TaskDTO taskDTO) {
+                String result = taskDTO.getResult();
+                int newLinePos = result.indexOf('\n');
+                return String.valueOf(taskDTO.getResult().substring(0, newLinePos));
+            }
+        }, "Оценка");
+
+        final SingleSelectionModel<TaskDTO> selectionModel = new SingleSelectionModel<TaskDTO>();
+        cellTable.setSelectionModel(selectionModel);
+        selectionModel.addSelectionChangeHandler(
+                new SelectionChangeEvent.Handler() {
+                    public void onSelectionChange(SelectionChangeEvent event) {
+                        TaskDTO selected = selectionModel.getSelectedObject();
+                        if (selected != null) {
+                            String code = selected.getCode();
+                            //textArea.setText(code);
+                        }
+                    }
+                });
+    }
+
+    public void fillCellTable() {
+        TaskDTO taskDto = new TaskDTO();
+        taskDto.setUserName("rerfr ffbbg");
+        dataProvider.getList().add(taskDto);
+
+        dataProvider.flush();
+        dataProvider.refresh();
+    }
 }
