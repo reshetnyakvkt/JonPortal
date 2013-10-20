@@ -26,7 +26,7 @@ public class MaxOfThreeTest extends BaseTest {
     }
 
     @Unit
-    private static Class unitClass = MaxOfThreeTest.class;
+    private static Class unitClass;
     private Object instance;
 
     @Before

@@ -13,6 +13,10 @@
     <artifactId>Testeron</artifactId>
     <version>1.0-MOCK</version>
 
+    <!--
+    mvn install:install-file -DgroupId=Testeron -DartifactId=Testeron -Dversion=1.0-SNAPSHOT -Dpackaging=jar -Dfile=C:\Users\Julia\Downloads\Testeron-1.0-SNAPSHOT.jar -DgeneratePom=true
+    -->
+
     <build>
         <plugins>
             <plugin>
