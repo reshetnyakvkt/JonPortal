@@ -14,6 +14,7 @@ import ua.com.jon.common.domain.*;
 import ua.com.jon.common.dto.mapper.GroupDtoMapper;
 import ua.com.jon.common.dto.mapper.SpaceDtoMapper;
 import ua.com.jon.common.dto.mapper.SprintDtoMapper;
+import ua.com.jon.common.dto.mapper.TaskDtoMapper;
 import ua.com.jon.common.repository.*;
 
 import javax.annotation.Resource;
@@ -209,6 +210,13 @@ public class AdminServiceImpl implements AdminService {
             log.error("No tests found ", e);
             throw new RuntimeException(e);
         }
+    }
+
+    @Override
+    public List<TaskDTO> getTasksbyGroup(String name) {
+        Group group = groupRepository.findByName(name);
+        List<Task> tasks = taskRepository.findByGroupId(group.getId());
+        return TaskDtoMapper.domainsToAdminDtos(tasks);
     }
 
     @Override

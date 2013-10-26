@@ -65,7 +65,6 @@ public class TasksTabPanel extends Composite {
 
     @UiField
     CellTable<TaskDTO> cellTable = new CellTable<TaskDTO>(5, GWT.<CellTable.SelectableResources>create(CellTable.SelectableResources.class));
-
 //    @UiField
 //    DropdownButton groupsListBox = new DropdownButton();
 
@@ -154,7 +153,7 @@ public class TasksTabPanel extends Composite {
     public void onChangeGroupPosition(ValueChangeEvent<GroupDTO> group) {
         clearGroupTasksList();
         addTaskToGroupNavList(group.getValue().getTasks());
-        fillCellTable();
+        fillCellTable(group.getValue().getName());
     }
 
     private void clearGroupTasksList() {
@@ -391,17 +390,13 @@ public class TasksTabPanel extends Composite {
 //    }
 
     public void buildTable() {
-        dataProvider.addDataDisplay(cellTable);
-/*        com.google.gwt.user.cellview.client.Column<TaskDTO, String> nameColumn = new com.google.gwt.user.cellview.client.Column<TaskDTO, String>(new TextInputCell()) {
-            @Override
-            public String getValue(TaskDTO object) {
-                return object.getName() == null ? "" : object.getName();
-            }
-        };*/
 
         cellTable.addColumn(new TextColumn<TaskDTO>() {
             @Override
             public String getValue(TaskDTO taskDTO) {
+                if (taskDTO.getName() == null) {
+                    return "null";
+                }
                 return String.valueOf(taskDTO.getName());
             }
         }, "Название");
@@ -409,6 +404,9 @@ public class TasksTabPanel extends Composite {
         cellTable.addColumn(new TextColumn<TaskDTO>() {
             @Override
             public String getValue(TaskDTO taskDTO) {
+                if (taskDTO.getUserName() == null) {
+                    return "null";
+                }
                 return String.valueOf(taskDTO.getUserName());
             }
         }, "Студент");
@@ -417,6 +415,9 @@ public class TasksTabPanel extends Composite {
             @Override
             public String getValue(TaskDTO taskDTO) {
                 String result = taskDTO.getResult();
+                if (result == null) {
+                    return "null";
+                }
                 int newLinePos = result.indexOf('\n');
                 return String.valueOf(taskDTO.getResult().substring(0, newLinePos));
             }
@@ -436,12 +437,32 @@ public class TasksTabPanel extends Composite {
                 });
     }
 
-    public void fillCellTable() {
-        TaskDTO taskDto = new TaskDTO();
-        taskDto.setUserName("rerfr ffbbg");
-        dataProvider.getList().add(taskDto);
+    public void fillCellTable(String name) {
+        Window.alert("fillCellTable");
 
-        dataProvider.flush();
-        dataProvider.refresh();
+        final AsyncCallback<List<TaskDTO>> callback = new AsyncCallback<List<TaskDTO>>() {
+
+            @Override
+            public void onFailure(Throwable throwable) {
+                Window.alert("!!! Error async save tasks" + throwable);
+            }
+
+            @Override
+            public void onSuccess(List<TaskDTO> taskDTOs) {
+                //loadGroupsAndTasks();
+                for (TaskDTO taskDto : taskDTOs) {
+                    taskDto.setMaterial("material");
+                    taskDto.setClassName("className");
+                    dataProvider.getList().add(taskDto);
+                }
+                dataProvider.flush();
+                dataProvider.refresh();
+                Window.alert("taskDTOs getted successfully" + taskDTOs);
+            }
+        };
+
+        adminService.getTasksbyGroup(name, callback);
+
+
     }
 }

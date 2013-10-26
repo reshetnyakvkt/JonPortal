@@ -5,10 +5,10 @@ import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
 import ua.com.jon.admin.shared.GroupDTO;
 import ua.com.jon.admin.shared.SpaceDTO;
 import ua.com.jon.admin.shared.SprintDTO;
+import ua.com.jon.admin.shared.TaskDTO;
 import ua.com.jon.admin.shared.TaskTemplateDTO;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 
 /**
@@ -36,4 +36,6 @@ public interface AdminService extends RemoteService {
     void sprintTypeChanged(SprintDTO dto);
 
     ArrayList<String> getAvailableTestNames();
+
+    List<TaskDTO> getTasksbyGroup(String name);
 }

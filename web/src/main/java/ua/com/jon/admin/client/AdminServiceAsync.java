@@ -36,5 +36,7 @@ public interface AdminServiceAsync {
     void sprintTypeChanged(SprintDTO dto, AsyncCallback<Void> asyncCallback);
 
     void getAvailableTestNames(AsyncCallback<ArrayList<String>> async);
+
+    void getTasksbyGroup(String name, AsyncCallback<List<ua.com.jon.admin.shared.TaskDTO>> async);
 }
 

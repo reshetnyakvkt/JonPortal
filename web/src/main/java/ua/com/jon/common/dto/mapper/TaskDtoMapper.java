@@ -47,10 +47,51 @@ public class TaskDtoMapper {
         );
     }
 
+    public static ua.com.jon.admin.shared.TaskDTO domainToAdminDto(Task task) {
+
+        TaskTemplate taskTemplate = task.getTaskTemplate();
+        String taskText = "";
+        String taskName = "";
+        String className = "";
+        Long templateId = 0L;
+        String materials = "";
+        TaskType taskType = TaskType.CLASS;
+        if (task.getTaskTemplate() != null) {
+            taskText = taskTemplate.getTaskText();
+            taskName = taskTemplate.getName();
+            taskType = taskTemplate.getType();
+            className = taskTemplate.getClassName();
+            templateId = taskTemplate.getId();
+            materials = taskTemplate.getMaterials();
+        }
+
+        return new ua.com.jon.admin.shared.TaskDTO(
+                task.getId(),
+                taskText,
+                taskName,
+                task.getStatus().name(),
+                task.getResult(),
+                task.getCode(),
+                taskType.name(),
+                task.getUser().getLogin(),
+                className,
+                templateId,
+                materials
+        );
+    }
+
     public static List<TaskDTO> domainsToDtos(List<Task> tasks) {
         List<TaskDTO> taskDTOs = new ArrayList<TaskDTO>(tasks.size());
         for (Task task : tasks) {
             taskDTOs.add(domainToDto(task));
+        }
+        return taskDTOs;
+    }
+
+    public static List<ua.com.jon.admin.shared.TaskDTO> domainsToAdminDtos(List<Task> tasks) {
+        List<ua.com.jon.admin.shared.TaskDTO> taskDTOs = new ArrayList<ua.com.jon.admin.shared.TaskDTO>(tasks.size());
+        for (Task task : tasks) {
+            taskDTOs.add(domainToAdminDto(task));
         }
         return taskDTOs;
     }
