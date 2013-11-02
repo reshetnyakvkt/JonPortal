@@ -1,12 +1,17 @@
 package ua.com.jon.admin.client.components;
 
 import com.github.gwtbootstrap.client.ui.Button;
+import com.github.gwtbootstrap.client.ui.ButtonCell;
 import com.github.gwtbootstrap.client.ui.CellTable;
+import com.github.gwtbootstrap.client.ui.Label;
 import com.github.gwtbootstrap.client.ui.NavHeader;
 import com.github.gwtbootstrap.client.ui.NavLink;
 import com.github.gwtbootstrap.client.ui.NavList;
 import com.github.gwtbootstrap.client.ui.ValueListBox;
 import com.github.gwtbootstrap.client.ui.WellNavList;
+import com.github.gwtbootstrap.client.ui.constants.ButtonType;
+import com.github.gwtbootstrap.client.ui.constants.IconType;
+import com.google.gwt.cell.client.FieldUpdater;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
@@ -115,21 +120,77 @@ public class TasksTabPanel extends Composite {
     public TasksTabPanel(final UiBinder<Widget, TasksTabPanel> binder) {
         initWidget(binder.createAndBindUi(this));
         buildTable();
-/*        handler = new ClickHandler() {
-            @Override
-            public void onClick(ClickEvent clickEvent) {
-
-                Widget icon = (Widget) clickEvent.getSource();
-                NavLink navLink = (NavLink) icon.getParent();
-                if (navLink.isActive()) {
-                    navLink.setActive(false);
-                } else {
-                    navLink.setActive(true);
-                }
-            }
-        };*/
         loadGroupsAndTasks();
         loadSprintsAndTasks();
+    }
+
+    public void buildTable() {
+
+        cellTable.setEmptyTableWidget(new Label("Please add data."));
+        dataProvider.addDataDisplay(cellTable);
+
+        cellTable.addColumn(new TextColumn<TaskDTO>() {
+            @Override
+            public String getValue(TaskDTO taskDTO) {
+                if (taskDTO.getName() == null) {
+                    return "null";
+                }
+                return String.valueOf(taskDTO.getName());
+            }
+        }, "Название");
+
+        cellTable.addColumn(new TextColumn<TaskDTO>() {
+            @Override
+            public String getValue(TaskDTO taskDTO) {
+                if (taskDTO.getUserName() == null) {
+                    return "null";
+                }
+                return String.valueOf(taskDTO.getUserName());
+            }
+        }, "Студент");
+
+        cellTable.addColumn(new TextColumn<TaskDTO>() {
+            @Override
+            public String getValue(TaskDTO taskDTO) {
+                String result = taskDTO.getResult();
+                if (result == null) {
+                    return "null";
+                }
+                int newLinePos = result.indexOf('\n');
+                return String.valueOf(taskDTO.getResult().substring(0, newLinePos));
+            }
+        }, "Оценка");
+
+        com.google.gwt.user.cellview.client.Column<TaskDTO, String> buttonDelCol = new com.google.gwt.user.cellview.client.Column<TaskDTO, String>(new ButtonCell(IconType.REMOVE, ButtonType.DANGER)) {
+            @Override
+            public String getValue(TaskDTO object) {
+                return "";
+            }
+        };
+
+        buttonDelCol.setFieldUpdater(new FieldUpdater<TaskDTO, String>() {
+            @Override
+            public void update(int index, TaskDTO object, String value) {
+                dataProvider.getList().remove(object);
+                dataProvider.flush();
+                dataProvider.refresh();
+            }
+        });
+        cellTable.addColumn(buttonDelCol);
+
+
+        final SingleSelectionModel<TaskDTO> selectionModel = new SingleSelectionModel<TaskDTO>();
+        cellTable.setSelectionModel(selectionModel);
+        selectionModel.addSelectionChangeHandler(
+                new SelectionChangeEvent.Handler() {
+                    public void onSelectionChange(SelectionChangeEvent event) {
+                        TaskDTO selected = selectionModel.getSelectedObject();
+                        if (selected != null) {
+                            String text = selected.getText();
+                            //textArea.setText(text);
+                        }
+                    }
+                });
     }
 
     public void addWidgetToList(WellNavList list, Widget widget) {
@@ -357,6 +418,7 @@ public class TasksTabPanel extends Composite {
                     GroupDTO group = groupDTOs.get(0);
                     //addTaskToGroupNavList(groupTextBox.getTasks());
                     groupsListBox.setValue(group);
+                    fillCellTable(group.getName());
                 }
             }
         };
@@ -389,7 +451,7 @@ public class TasksTabPanel extends Composite {
 //        return tasksHolderPanel;
 //    }
 
-    public void buildTable() {
+    public void buildTable1() {
 
         cellTable.addColumn(new TextColumn<TaskDTO>() {
             @Override
@@ -435,10 +497,11 @@ public class TasksTabPanel extends Composite {
                         }
                     }
                 });
+
+
     }
 
     public void fillCellTable(String name) {
-        Window.alert("fillCellTable");
 
         final AsyncCallback<List<TaskDTO>> callback = new AsyncCallback<List<TaskDTO>>() {
 
@@ -449,15 +512,12 @@ public class TasksTabPanel extends Composite {
 
             @Override
             public void onSuccess(List<TaskDTO> taskDTOs) {
-                //loadGroupsAndTasks();
+                dataProvider.getList().clear();
                 for (TaskDTO taskDto : taskDTOs) {
-                    taskDto.setMaterial("material");
-                    taskDto.setClassName("className");
                     dataProvider.getList().add(taskDto);
                 }
                 dataProvider.flush();
                 dataProvider.refresh();
-                Window.alert("taskDTOs getted successfully" + taskDTOs);
             }
         };
 
