@@ -5,14 +5,15 @@
         <b:Container>
 
                 <b:ButtonGroup>
-                    <b:Button ui:field='refreshSprintsBtn'>Обновить этапы</b:Button>
-                    <b:Button ui:field='createTaskBtn'>Создать задание</b:Button>
-                    <b:Button ui:field='saveSprintsBtn'>Сохранить этапы</b:Button>
+                    <b:Button ui:field='refreshGroupsBtn'>Обновить группы</b:Button>
+                    <b:Button ui:field='createStudentBtn'>Создать студента</b:Button>
+                    <b:Button ui:field='saveGroupBtn'>Сохранить группу</b:Button>
+                    <b:Button ui:field='delGroupBtn'>Удалить группу</b:Button>
                 </b:ButtonGroup>
                 <b:Well>
                     <b:FluidRow>
                         <b:Column size="12">
-                            <b:ValueListBox ui:field="sprintsListBox" visible="false"/>
+                            <b:ValueListBox ui:field="groupsListBox" visible="false"/>
                             <b:ProgressBar ui:field="sprintsProgress" type="ANIMATED" percent="100"/>
                             <b:CellTable ui:field='cellTable' title=''
                                          bordered="true" condensed="true" striped="true">

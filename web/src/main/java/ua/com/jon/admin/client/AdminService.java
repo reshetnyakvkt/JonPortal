@@ -1,7 +1,9 @@
 package ua.com.jon.admin.client;
 
+import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.rpc.RemoteService;
 import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
+import ua.com.jon.admin.shared.GroupAndUsersDTO;
 import ua.com.jon.admin.shared.GroupDTO;
 import ua.com.jon.admin.shared.SpaceDTO;
 import ua.com.jon.admin.shared.SprintDTO;
@@ -31,6 +33,8 @@ public interface AdminService extends RemoteService {
 
     void saveSprints(List<SprintDTO> newSprints);
 
+    void saveGroups(ArrayList<GroupAndUsersDTO> newSprints);
+
     ArrayList<SprintDTO> getSprintsAndTasks();
 
     void sprintTypeChanged(SprintDTO dto);
@@ -38,4 +42,6 @@ public interface AdminService extends RemoteService {
     ArrayList<String> getAvailableTestNames();
 
     List<TaskDTO> getTasksbyGroup(String name);
+
+    ArrayList<GroupAndUsersDTO> getGroupsAndUsers();
 }

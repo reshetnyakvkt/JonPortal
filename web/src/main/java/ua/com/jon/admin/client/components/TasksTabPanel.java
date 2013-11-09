@@ -267,27 +267,7 @@ public class TasksTabPanel extends Composite {
 
     @UiHandler("remove")
     void handleRemoveClick(ClickEvent e) {
-        // if remove flag setted then remove all active elements
         getActiveElementsFromNavList(groupTasks, true);
-/*        List<Widget> children = getChildren(widget);
-        WellNavList newChildren = new WellNavList();
-        for (Widget child : children) {
-            if (child instanceof NavLink) {
-                NavLink navLink = (NavLink) child;
-
-//                if (navLink.isActive()) {
-//                    groupTasks.remove(navLink);
-//                }
-
-                if (!navLink.isActive()) {
-                    newChildren.add(navLink);
-                }
-            } else {
-                newChildren.add(child);
-            }
-        }*/
-//        groupTasks.clear();
-//        groupTasks.add(newChildren);
     }
 
     private ArrayList<NavLink> getActiveElementsFromNavList(WellNavList navList, boolean isRemove) {
@@ -295,20 +275,15 @@ public class TasksTabPanel extends Composite {
         Widget widget = navList.getWidget(0);
         if (widget instanceof NavList) {
             NavList list = (NavList) widget;
-//            Window.alert("widget " + widget);
             Iterator<Widget> itr = list.iterator();
             while (itr.hasNext()) {
                 Widget el = itr.next();
                 if (el instanceof NavLink) {
                     NavLink navLink = (NavLink) el;
-//                    Window.alert("Element " + navLink + ", class " + navLink.getClass().getName() + ", " + navLink.isActive());
-//                    if (navLink.isActive()) {
                     elements.add(navLink);
                     if (isRemove) {
                         itr.remove();
                     }
-//                        Window.alert("Added " + el);
-//                    }
                 }
             }
         }
@@ -316,7 +291,7 @@ public class TasksTabPanel extends Composite {
     }
 
 
-    @UiHandler("refresAllBtn")
+    @UiHandler("refreshAllBtn")
     void refresh(ClickEvent e) {
         clearSprints();
         loadGroupsAndTasks();
@@ -356,6 +331,25 @@ public class TasksTabPanel extends Composite {
         SprintDTO sprintDTO = sprintsListBox.getValue();
         // TODO: replace taskNames by tasks
         adminService.postTasksByNames(groupDTO, taskNames, sprintDTO, callback);
+    }
+
+    @UiHandler("saveGroupsBtn")
+    void saveGroups(ClickEvent e) {
+
+        final AsyncCallback<Void> callback = new AsyncCallback<Void>() {
+
+            @Override
+            public void onFailure(Throwable throwable) {
+                Window.alert("!!! Error async save groups" + throwable);
+            }
+
+            @Override
+            public void onSuccess(Void aVoid) {
+                Window.alert("Groups are saved successfully");
+            }
+        };
+        //groupsListBox.getValue().setTasks(dataProvider.getList());
+
     }
 
     List<Widget> getChildren(Widget parent) {
@@ -446,60 +440,6 @@ public class TasksTabPanel extends Composite {
 
         adminService.getTaskTemplates(callback);
     }
-//
-//    public HTMLPanel getGroupPanel() {
-//        return tasksHolderPanel;
-//    }
-
-    public void buildTable1() {
-
-        cellTable.addColumn(new TextColumn<TaskDTO>() {
-            @Override
-            public String getValue(TaskDTO taskDTO) {
-                if (taskDTO.getName() == null) {
-                    return "null";
-                }
-                return String.valueOf(taskDTO.getName());
-            }
-        }, "Название");
-
-        cellTable.addColumn(new TextColumn<TaskDTO>() {
-            @Override
-            public String getValue(TaskDTO taskDTO) {
-                if (taskDTO.getUserName() == null) {
-                    return "null";
-                }
-                return String.valueOf(taskDTO.getUserName());
-            }
-        }, "Студент");
-
-        cellTable.addColumn(new TextColumn<TaskDTO>() {
-            @Override
-            public String getValue(TaskDTO taskDTO) {
-                String result = taskDTO.getResult();
-                if (result == null) {
-                    return "null";
-                }
-                int newLinePos = result.indexOf('\n');
-                return String.valueOf(taskDTO.getResult().substring(0, newLinePos));
-            }
-        }, "Оценка");
-
-        final SingleSelectionModel<TaskDTO> selectionModel = new SingleSelectionModel<TaskDTO>();
-        cellTable.setSelectionModel(selectionModel);
-        selectionModel.addSelectionChangeHandler(
-                new SelectionChangeEvent.Handler() {
-                    public void onSelectionChange(SelectionChangeEvent event) {
-                        TaskDTO selected = selectionModel.getSelectedObject();
-                        if (selected != null) {
-                            String code = selected.getCode();
-                            //textArea.setText(code);
-                        }
-                    }
-                });
-
-
-    }
 
     public void fillCellTable(String name) {
 
@@ -522,7 +462,5 @@ public class TasksTabPanel extends Composite {
         };
 
         adminService.getTasksbyGroup(name, callback);
-
-
     }
 }

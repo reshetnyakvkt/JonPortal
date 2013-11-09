@@ -1,6 +1,12 @@
 package ua.com.jon.admin.client.components;
 
-import com.github.gwtbootstrap.client.ui.*;
+import com.github.gwtbootstrap.client.ui.Button;
+import com.github.gwtbootstrap.client.ui.ButtonCell;
+import com.github.gwtbootstrap.client.ui.CellTable;
+import com.github.gwtbootstrap.client.ui.Label;
+import com.github.gwtbootstrap.client.ui.ProgressBar;
+import com.github.gwtbootstrap.client.ui.TextArea;
+import com.github.gwtbootstrap.client.ui.ValueListBox;
 import com.github.gwtbootstrap.client.ui.constants.ButtonType;
 import com.github.gwtbootstrap.client.ui.constants.IconType;
 import com.google.gwt.cell.client.FieldUpdater;
@@ -22,10 +28,11 @@ import com.google.gwt.view.client.SelectionChangeEvent;
 import com.google.gwt.view.client.SingleSelectionModel;
 import ua.com.jon.admin.client.AdminService;
 import ua.com.jon.admin.client.AdminServiceAsync;
-import ua.com.jon.admin.shared.SprintDTO;
-import ua.com.jon.admin.shared.TaskTemplateDTO;
+import ua.com.jon.admin.shared.GroupAndUsersDTO;
+import ua.com.jon.admin.shared.UserDTO;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 
@@ -36,41 +43,41 @@ import java.util.List;
  */
 public class GroupsManageTabPanel extends Composite {
     @UiField
-    Button refreshSprintsBtn = new Button();
-
-//    @UiField
-//    Button createTaskBtn = new Button();
+    Button refreshGroupsBtn = new Button();
 
     @UiField
-    Button saveSprintsBtn = new Button();
+    Button delGroupBtn = new Button();
 
-//    @UiField
-//    TextArea taskText = new TextArea();
+    @UiField
+    Button createStudentBtn = new Button();
+
+    @UiField
+    Button saveGroupBtn = new Button();
 
     @UiField
     ProgressBar sprintsProgress;
 
     @UiField
-    CellTable<TaskTemplateDTO> cellTable = new CellTable<TaskTemplateDTO>(5, GWT.<CellTable.SelectableResources>create(CellTable.SelectableResources.class));
+    CellTable<UserDTO> cellTable = new CellTable<UserDTO>(5, GWT.<CellTable.SelectableResources>create(CellTable.SelectableResources.class));
 
     @UiField
     TextArea textArea = new TextArea();
 
-    private SprintDTO currentSprint;
-    private List<SprintDTO> loadedSprints = new ArrayList<SprintDTO>();
+    private GroupAndUsersDTO currentGroup;
+    private ArrayList<GroupAndUsersDTO> loadedGroups = new ArrayList<GroupAndUsersDTO>();
 
-    private ListDataProvider<TaskTemplateDTO> dataProvider = new ListDataProvider<TaskTemplateDTO>();
+    private ListDataProvider<UserDTO> dataProvider = new ListDataProvider<UserDTO>();
 
     private AdminServiceAsync adminService = GWT.create(AdminService.class);
 
     @UiField(provided = true)
-    ValueListBox<SprintDTO> sprintsListBox = new ValueListBox<SprintDTO>(new AbstractRenderer<SprintDTO>() {
+    ValueListBox<GroupAndUsersDTO> groupsListBox = new ValueListBox<GroupAndUsersDTO>(new AbstractRenderer<GroupAndUsersDTO>() {
         @Override
-        public String render(SprintDTO sprintDTO) {
-            if (sprintDTO == null) {
+        public String render(GroupAndUsersDTO GroupAndUsersDTO) {
+            if (GroupAndUsersDTO == null) {
                 return "";
             } else {
-                return sprintDTO.getName();
+                return GroupAndUsersDTO.getName();
             }
         }
     });
@@ -78,21 +85,21 @@ public class GroupsManageTabPanel extends Composite {
     public GroupsManageTabPanel(final UiBinder<Widget, GroupsManageTabPanel> binder) {
         initWidget(binder.createAndBindUi(this));
         buildTable();
-        loadSprints();
+        loadGroups();
     }
 
     public void buildTable() {
         cellTable.setEmptyTableWidget(new Label("Please add data."));
         dataProvider.addDataDisplay(cellTable);
-        com.google.gwt.user.cellview.client.Column<TaskTemplateDTO, String> nameColumn = new com.google.gwt.user.cellview.client.Column<TaskTemplateDTO, String>(new TextInputCell()) {
+        com.google.gwt.user.cellview.client.Column<UserDTO, String> nameColumn = new com.google.gwt.user.cellview.client.Column<UserDTO, String>(new TextInputCell()) {
             @Override
-            public String getValue(TaskTemplateDTO object) {
+            public String getValue(UserDTO object) {
                 return object.getName() == null ? "" : object.getName();
             }
         };
-        nameColumn.setFieldUpdater(new FieldUpdater<TaskTemplateDTO, String>() {
+        nameColumn.setFieldUpdater(new FieldUpdater<UserDTO, String>() {
             @Override
-            public void update(int index, TaskTemplateDTO object, String value) {
+            public void update(int index, UserDTO object, String value) {
                 Window.alert(value);
                 dataProvider.getList().get(index).setName(value);
                 dataProvider.flush();
@@ -101,23 +108,23 @@ public class GroupsManageTabPanel extends Composite {
         });
         cellTable.addColumn(nameColumn, "Название");
 
-        cellTable.addColumn(new TextColumn<TaskTemplateDTO>() {
+        cellTable.addColumn(new TextColumn<UserDTO>() {
             @Override
-            public String getValue(TaskTemplateDTO contact) {
-                return String.valueOf(contact.getText());
+            public String getValue(UserDTO contact) {
+                return String.valueOf(contact.getName());
             }
         }, "Текст");
 
-        com.google.gwt.user.cellview.client.Column<TaskTemplateDTO, String> buttonDelCol = new com.google.gwt.user.cellview.client.Column<TaskTemplateDTO, String>(new ButtonCell(IconType.REMOVE, ButtonType.DANGER)) {
+        com.google.gwt.user.cellview.client.Column<UserDTO, String> buttonDelCol = new com.google.gwt.user.cellview.client.Column<UserDTO, String>(new ButtonCell(IconType.REMOVE, ButtonType.DANGER)) {
             @Override
-            public String getValue(TaskTemplateDTO object) {
+            public String getValue(UserDTO object) {
                 return "";
             }
         };
 
-        buttonDelCol.setFieldUpdater(new FieldUpdater<TaskTemplateDTO, String>() {
+        buttonDelCol.setFieldUpdater(new FieldUpdater<UserDTO, String>() {
             @Override
-            public void update(int index, TaskTemplateDTO object, String value) {
+            public void update(int index, UserDTO object, String value) {
                 dataProvider.getList().remove(object);
                 dataProvider.flush();
                 dataProvider.refresh();
@@ -125,30 +132,30 @@ public class GroupsManageTabPanel extends Composite {
         });
         cellTable.addColumn(buttonDelCol);
 
-        com.google.gwt.user.cellview.client.Column<TaskTemplateDTO, String> buttonSaveCol = new com.google.gwt.user.cellview.client.Column<TaskTemplateDTO, String>(new ButtonCell(IconType.SAVE, ButtonType.INFO)) {
+        com.google.gwt.user.cellview.client.Column<UserDTO, String> buttonSaveCol = new com.google.gwt.user.cellview.client.Column<UserDTO, String>(new ButtonCell(IconType.SAVE, ButtonType.INFO)) {
             @Override
-            public String getValue(TaskTemplateDTO object) {
+            public String getValue(UserDTO object) {
                 return "";
             }
         };
 
         cellTable.addColumn(buttonSaveCol);
 
-        buttonSaveCol.setFieldUpdater(new FieldUpdater<TaskTemplateDTO, String>() {
+        buttonSaveCol.setFieldUpdater(new FieldUpdater<UserDTO, String>() {
             @Override
-            public void update(int index, TaskTemplateDTO taskTemplateDTO, String value) {
-                taskTemplateDTO.setText(textArea.getText());
+            public void update(int index, UserDTO taskTemplateDTO, String value) {
+                taskTemplateDTO.setName(textArea.getText());
             }
         });
 
-        final SingleSelectionModel<TaskTemplateDTO> selectionModel = new SingleSelectionModel<TaskTemplateDTO>();
+        final SingleSelectionModel<UserDTO> selectionModel = new SingleSelectionModel<UserDTO>();
         cellTable.setSelectionModel(selectionModel);
         selectionModel.addSelectionChangeHandler(
                 new SelectionChangeEvent.Handler() {
                     public void onSelectionChange(SelectionChangeEvent event) {
-                        TaskTemplateDTO selected = selectionModel.getSelectedObject();
+                        UserDTO selected = selectionModel.getSelectedObject();
                         if (selected != null) {
-                            String text = selected.getText();
+                            String text = selected.getName();
                             textArea.setText(text);
                         }
                     }
@@ -157,55 +164,55 @@ public class GroupsManageTabPanel extends Composite {
 
     }
 
-    private void loadSprints() {
-        final AsyncCallback<ArrayList<SprintDTO>> groupCallback = new AsyncCallback<ArrayList<SprintDTO>>() {
+    private void loadGroups() {
+        final AsyncCallback<ArrayList<GroupAndUsersDTO>> groupCallback = new AsyncCallback<ArrayList<GroupAndUsersDTO>>() {
 
             @Override
             public void onFailure(Throwable caught) {
                 sprintsProgress.setVisible(false);
-                sprintsListBox.setVisible(true);
+                groupsListBox.setVisible(true);
                 Window.alert("Error callback groupsListBox");
             }
 
             @Override
-            public void onSuccess(ArrayList<SprintDTO> sprintDTOs) {
+            public void onSuccess(ArrayList<GroupAndUsersDTO> GroupAndUsersDTOs) {
                 sprintsProgress.setVisible(false);
-                sprintsListBox.setVisible(true);
+                groupsListBox.setVisible(true);
 
-                Window.alert(sprintDTOs.toString());
-                sprintsListBox.setAcceptableValues(sprintDTOs);
-                loadedSprints = sprintDTOs;
-                Iterator<SprintDTO> itr = sprintDTOs.iterator();
+                Window.alert(GroupAndUsersDTOs.toString());
+                groupsListBox.setAcceptableValues(GroupAndUsersDTOs);
+                loadedGroups = GroupAndUsersDTOs;
+                Iterator<GroupAndUsersDTO> itr = GroupAndUsersDTOs.iterator();
                 if (itr.hasNext()) {
-                    SprintDTO sprintDTO = itr.next();
-                    sprintsListBox.setValue(sprintDTO);
-                    currentSprint = sprintDTO;
+                    GroupAndUsersDTO GroupAndUsersDTO = itr.next();
+                    groupsListBox.setValue(GroupAndUsersDTO);
+                    currentGroup = GroupAndUsersDTO;
                 }
-                addSprintsToTable(sprintsListBox.getValue().getTasks());
+                //addSprintsToTable(groupsListBox.getValue().getTasks());
             }
         };
 
-        adminService.getSprintsAndTasks(groupCallback);
+        adminService.getGroupsAndUsers(groupCallback);
 
     }
 
-    private void addSprintsToTable(List<TaskTemplateDTO> tasks) {
+    private void addSprintsToTable(HashSet<UserDTO> tasks) {
 
 
         // Connect the table to the data provider.
 //        Window.alert("remove old tasks " + dataProvider.getList());
-        final List<TaskTemplateDTO> list = dataProvider.getList();
+        final List<UserDTO> list = dataProvider.getList();
 //        Window.alert("tasks to delete " + list);
 //        Window.alert("iterator " + list.iterator());
-        for (Iterator<TaskTemplateDTO> itr = list.iterator(); itr.hasNext(); ) {
-            TaskTemplateDTO next = itr.next();
+        for (Iterator<UserDTO> itr = list.iterator(); itr.hasNext(); ) {
+            UserDTO next = itr.next();
 //            Window.alert("removable element " + next);
             itr.remove();
             dataProvider.flush();
 //            dataProvider.refresh();
         }
 //        dataProvider.setList(tasks);
-        for (TaskTemplateDTO taskTemplateDTO : tasks) {
+        for (UserDTO taskTemplateDTO : tasks) {
             list.add(taskTemplateDTO);
         }
 //        Window.alert("added new tasks: " + tasks);
@@ -224,35 +231,35 @@ public class GroupsManageTabPanel extends Composite {
 //        }
 //    }
 
-    @UiHandler("sprintsListBox")
-    public void onChangeSprintPosition(ValueChangeEvent<SprintDTO> sprintEvent) {
+    @UiHandler("groupsListBox")
+    public void onChangeSprintPosition(ValueChangeEvent<GroupAndUsersDTO> groupEvent) {
 //        clearSprintTasksList();
         try {
-            SprintDTO sprint = sprintEvent.getValue();
+            GroupAndUsersDTO group = groupEvent.getValue();
 //            Window.alert("Selected sprint: " + sprint.toString());
 //        addTasksToSprintNavList(sprintEvent.getValue().getTasks());
 
-            List<TaskTemplateDTO> currentTasks = dataProvider.getList();
-            if (currentSprint != null) {
-                currentSprint.setTasks(new ArrayList<TaskTemplateDTO>(currentTasks));
+            List<UserDTO> currentGroups = dataProvider.getList();
+            if (currentGroup != null) {
+                currentGroup.setUsers(new HashSet<UserDTO>(currentGroups));
 //                Window.alert("CabinetMain from table: " + Arrays.toString(currentTasks.toArray()));
             }
-            currentSprint = sprint;
+            currentGroup = group;
 //            Window.alert("New tasks: " + Arrays.toString(sprint.getTasks().toArray()));
-            addSprintsToTable(sprint.getTasks());
+            addSprintsToTable(group.getUsers());
         } catch (Exception e) {
 
             Window.alert(e.getMessage() + e.getCause().toString());
         }
     }
 
-    @UiHandler("createTaskBtn")
+    @UiHandler("createStudentBtn")
     public void createTaskHandler(ClickEvent e) {
 //        String sprintName = INITIAL_SPRINT_NAME;
 //        sprintNameTextBox.setText(sprintName);
-        TaskTemplateDTO task = new TaskTemplateDTO("", "");
+        UserDTO task = new UserDTO();
 
-        List<TaskTemplateDTO> taskTemplateDTOs = dataProvider.getList();
+        List<UserDTO> taskTemplateDTOs = dataProvider.getList();
         if (taskTemplateDTOs.contains(task)) {
             Window.alert("Sprint with name is already exists: " + task.getName());
         } else {
@@ -263,7 +270,7 @@ public class GroupsManageTabPanel extends Composite {
 //        dataProvider.refresh();
     }
 
-    @UiHandler("saveSprintsBtn")
+    @UiHandler("saveGroupBtn")
     public void saveSprintsHandler(ClickEvent e) {
 /*
         ArrayList<NavLink> links = getActiveElementsFromNavList(groupTasks, false);
@@ -281,32 +288,32 @@ public class GroupsManageTabPanel extends Composite {
 
             @Override
             public void onSuccess(Void aVoid) {
-                loadSprints();
+                loadGroups();
                 Window.alert("CabinetMain posted successfully");
             }
         };
-//        GroupDTO groupDTO = groupsListBox.getValue();
-//        SprintDTO sprintDTO = currentSprint;
-        sprintsListBox.getValue().setTasks(dataProvider.getList());
-        //currentSprint.setTasks(dataProvider.getList());
+//        GroupAndUsersDTO GroupAndUsersDTO = groupsListBox.getValue();
+//        SprintDTO sprintDTO = currentGroup;
+        groupsListBox.getValue().getUsers().addAll(dataProvider.getList());
+        //currentGroup.setTasks(dataProvider.getList());
 //        ArrayList<SprintDTO> newSprints = new ArrayList<SprintDTO>();
-//        newSprints.add(currentSprint);
-        relocateTasks(loadedSprints);
-        Window.alert("Sprints to save: " + loadedSprints);
-        adminService.saveSprints(loadedSprints, callback);
+//        newSprints.add(currentGroup);
+        relocateTasks(loadedGroups);
+        Window.alert("Sprints to save: " + loadedGroups);
+        adminService.saveGroups(loadedGroups, callback);
     }
 
-    @UiHandler("refreshSprintsBtn")
+    @UiHandler("refreshGroupsBtn")
     public void refreshSprintsHandler(ClickEvent e){
-        loadSprints();
+        loadGroups();
     }
-    private void relocateTasks(List<SprintDTO> loadedSprints) {
-        for (SprintDTO loadedSprint : loadedSprints) {
-            List<TaskTemplateDTO> newTasks = new ArrayList<TaskTemplateDTO>(loadedSprint.getTasks().size());
-            for (TaskTemplateDTO taskTemplateDTO : loadedSprint.getTasks()) {
-                newTasks.add(taskTemplateDTO);
+    private void relocateTasks(List<GroupAndUsersDTO> loadedSprints) {
+        for (GroupAndUsersDTO loadedSprint : loadedSprints) {
+            HashSet<UserDTO> newTasks = new HashSet<UserDTO>(loadedSprint.getUsers().size());
+            for (UserDTO userDTO : loadedSprint.getUsers()) {
+                newTasks.add(userDTO);
             }
-            loadedSprint.setTasks(newTasks);
+            loadedSprint.setUsers(newTasks);
         }
     }
 }

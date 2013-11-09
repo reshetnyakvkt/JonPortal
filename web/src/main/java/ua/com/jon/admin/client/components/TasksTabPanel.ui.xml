@@ -6,8 +6,9 @@
         <!--    <b:Container> -->
 
                 <b:ButtonGroup>
-                    <b:Button ui:field='refresAllBtn'>Обновить все задания</b:Button>
+                    <b:Button ui:field='refreshAllBtn'>Обновить все задания</b:Button>
                     <b:Button ui:field='sendTasksBtn'>Выдать задания</b:Button>
+                    <b:Button ui:field='saveGroupsBtn'>Сохранить группу</b:Button>
                 </b:ButtonGroup>
                 <b:Well>
                     <b:FluidRow>

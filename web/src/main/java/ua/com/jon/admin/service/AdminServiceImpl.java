@@ -6,20 +6,41 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import ua.com.jon.admin.client.AdminService;
-import ua.com.jon.admin.shared.*;
+import ua.com.jon.admin.shared.GroupAndUsersDTO;
+import ua.com.jon.admin.shared.GroupDTO;
+import ua.com.jon.admin.shared.SpaceDTO;
+import ua.com.jon.admin.shared.SprintDTO;
+import ua.com.jon.admin.shared.TaskDTO;
+import ua.com.jon.admin.shared.TaskTemplateDTO;
+import ua.com.jon.admin.shared.UserDTO;
 import ua.com.jon.auth.domain.AssemblaSpace;
 import ua.com.jon.auth.domain.AssemblaUser;
 import ua.com.jon.auth.service.AuthService;
-import ua.com.jon.common.domain.*;
+import ua.com.jon.common.domain.Group;
+import ua.com.jon.common.domain.Sprint;
+import ua.com.jon.common.domain.SprintType;
+import ua.com.jon.common.domain.Status;
+import ua.com.jon.common.domain.Task;
+import ua.com.jon.common.domain.TaskTemplate;
+import ua.com.jon.common.domain.User;
+import ua.com.jon.common.dto.mapper.GroupAndUsersDtoMapper;
 import ua.com.jon.common.dto.mapper.GroupDtoMapper;
 import ua.com.jon.common.dto.mapper.SpaceDtoMapper;
 import ua.com.jon.common.dto.mapper.SprintDtoMapper;
 import ua.com.jon.common.dto.mapper.TaskDtoMapper;
-import ua.com.jon.common.repository.*;
+import ua.com.jon.common.repository.GroupRepository;
+import ua.com.jon.common.repository.SprintRepository;
+import ua.com.jon.common.repository.TaskRepository;
+import ua.com.jon.common.repository.TaskTemplateRepository;
+import ua.com.jon.common.repository.UserRepository;
 
 import javax.annotation.Resource;
 import java.io.IOException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 /**
  * Created with IntelliJ IDEA.
@@ -146,6 +167,11 @@ public class AdminServiceImpl implements AdminService {
         log.info("-- saved sprints " + sprintsToSave);
     }
 
+    @Override
+    public void saveGroups(ArrayList<GroupAndUsersDTO> newSprints) {
+        //To change body of implemented methods use File | Settings | File Templates.
+    }
+
     private Set<Long> getIdsFromSprintsWithoutNull(List<SprintDTO> sprintDTOs) {
         Set<Long> keys = new HashSet<Long>();
         for(SprintDTO sprintDTO : sprintDTOs){
@@ -218,6 +244,13 @@ public class AdminServiceImpl implements AdminService {
         List<Task> tasks = taskRepository.findByGroupId(group.getId());
         return TaskDtoMapper.domainsToAdminDtos(tasks);
     }
+
+    @Override
+    public ArrayList<GroupAndUsersDTO> getGroupsAndUsers() {
+        List<Group> groups = groupRepository.findAllGroupsAndUsers();
+        return GroupAndUsersDtoMapper.domainsToDtos(groups);
+    }
+
 
     @Override
     public void postTasksByNames(GroupDTO groupDto, ArrayList<Long> taskIds, SprintDTO sprintDto) {

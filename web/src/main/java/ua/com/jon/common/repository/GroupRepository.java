@@ -14,4 +14,7 @@ public interface GroupRepository extends CrudRepository<Group, Long> {
 
     @Query("select g from Group g where g.name = ?1")
     Group findByName(String name);
+
+    @Query("select g from Group g JOIN FETCH g.users")
+    List<Group> findAllGroupsAndUsers ();
 }

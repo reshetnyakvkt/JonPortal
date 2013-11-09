@@ -1,6 +1,7 @@
 package ua.com.jon.admin.client;
 
 import com.google.gwt.user.client.rpc.AsyncCallback;
+import ua.com.jon.admin.shared.GroupAndUsersDTO;
 import ua.com.jon.admin.shared.GroupDTO;
 import ua.com.jon.admin.shared.SpaceDTO;
 import ua.com.jon.admin.shared.SprintDTO;
@@ -33,10 +34,14 @@ public interface AdminServiceAsync {
 
     void saveSprints(List<SprintDTO> newSprints, AsyncCallback groupCallback);
 
+    void saveGroups(ArrayList<GroupAndUsersDTO> newSprints, AsyncCallback groupCallback);
+
     void sprintTypeChanged(SprintDTO dto, AsyncCallback<Void> asyncCallback);
 
     void getAvailableTestNames(AsyncCallback<ArrayList<String>> async);
 
     void getTasksbyGroup(String name, AsyncCallback<List<ua.com.jon.admin.shared.TaskDTO>> async);
+
+    void getGroupsAndUsers(AsyncCallback<ArrayList<GroupAndUsersDTO>> async);
 }
 
