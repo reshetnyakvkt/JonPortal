@@ -16,6 +16,7 @@ import java.util.List;
 
 import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.fail;
+import static org.junit.Assert.assertTrue;
 
 /**
  * Created with IntelliJ IDEA.
@@ -125,7 +126,7 @@ public class ArrayListTest extends BaseTest {
 
 
     @Unit
-    private static Class unitClass = ArrayListTest.MyArrayList.class;
+    private static Class unitClass;
     private Object instance;
 
     @Before
@@ -196,9 +197,7 @@ public class ArrayListTest extends BaseTest {
         }
     }
 
-    @Test(timeout = 1000)
-    public void testAdd() {
-        Integer expectedResult = 12;
+    private void invokeAdd(Integer expectedResult){
         Method add = null;
         try {
             add = unitClass.getMethod("add", Integer.class);
@@ -210,6 +209,11 @@ public class ArrayListTest extends BaseTest {
         } catch (Exception e) {
             fail("Ошибка тестирования!, невозможно вызвать метод add");
         }
+    }
+    @Test(timeout = 1000)
+    public void testAdd() {
+        Integer expectedResult = 12;
+        invokeAdd(expectedResult);
         Integer actualResult = null;
         try {
             actualResult = getElementFromList();
@@ -249,16 +253,20 @@ public class ArrayListTest extends BaseTest {
         return (Integer)get.invoke(instance, 0);
     }
 
-    @Test//(timeout = 1000)
-    public void testGet() throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
-        //Method get = unitClass.getMethod("get", int.class);
-        // actualResult = get.invoke(instance, 0);
-        //assertTrue("Метод get должен возвращать значение типа Integer", expectedResult.getClass() == Integer.class);
-        //assertEquals("");
-//        Type[] types = get.getExceptionTypes();
-//        Type[] types1 = get.getParameterTypes();
-//        int m = get.getModifiers();
-//        get.getTypeParameters();
+    @Test(timeout = 1000)
+    public void testGet() {
+        Integer expectedResult = 21;
+        invokeAdd(expectedResult);
+        Integer actualResult = null;
+        try {
+            actualResult = invokeGet();
+        } catch (NoSuchMethodException e) {
+            fail("Метод get отсутствует");
+        } catch (Exception e){
+            fail("Невозможно вызвать метод get");
+        }
+        assertTrue("Метод get должен возвращать значение типа Integer", actualResult.getClass() == Integer.class);
+        assertEquals("Возвращаемое значение метода get должно быть "+expectedResult+", но получено "+actualResult,
+                expectedResult,actualResult);
     }
-
 }
