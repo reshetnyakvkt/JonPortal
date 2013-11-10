@@ -1,10 +1,8 @@
 package ua.com.jon.tests;
 
 import com.jon.tron.service.junit.Unit;
-import org.junit.After;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.*;
+import org.junit.runners.MethodSorters;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,6 +16,7 @@ import java.util.Scanner;
  * To change this template use File | Settings | File Templates.
  */
 @Unit(testName = "PairRemovalList", value = "weekend1.task1")
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class PairRemovalListTest extends BaseTest {
     public static void main(String[] args) {
         Scanner scan = new Scanner(System.in);
@@ -53,7 +52,7 @@ public class PairRemovalListTest extends BaseTest {
 
     @Unit
     private static Class unitClass;
-    private Object instance;//object, that must testing
+    private Object instance;
 
     @Before
     public void setUp() {
