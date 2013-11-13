@@ -22,8 +22,6 @@ import static org.junit.Assert.assertTrue;
  * Created with IntelliJ IDEA.
  * User: Julia
  * Date: 20.10.13
- * Time: 20:46
- * To change this template use File | Settings | File Templates.
  */
 @Unit(testName = "ArrayListTest", value = "weekend1.task1")
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)

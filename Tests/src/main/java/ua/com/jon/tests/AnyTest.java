@@ -4,6 +4,8 @@ import com.jon.tron.service.junit.Unit;
 import org.junit.*;
 import org.junit.runners.MethodSorters;
 
+import static org.junit.Assert.fail;
+
 /**
  * Created with IntelliJ IDEA.
  * User: al1
@@ -30,10 +32,10 @@ public class AnyTest extends BaseTest {
     @Test(timeout = 1000)
     public void test1IllegalInput() {
         //String expectedString = "Неправильный ввод\n";
-        getOut().println("1\n2\n3\n4\n1\n");
+        //getOut().println("1\n2\n3\n4\n1\n");
 
-        invokeMain(unitClass, instance);
-
+        //invokeMain(unitClass, instance);
+        fail("Задание принято");
         //String actualString = getIn().toString();
 
     /*    Assert.assertEquals("Неудачная проверка на неправильный ввод.\nОжидаемый результат [" + expectedString + "], " +

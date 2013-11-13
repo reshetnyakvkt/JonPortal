@@ -26,18 +26,6 @@ public class ArrayListTestTest {
     private ClassProcessor classProcessor;
 
     @Test
-    public void testSuccess() throws Exception {
-        final String className = "";
-        final String classCode = "";
-        final String testName = "ArrayListTest";
-        Map.Entry<String,String> processResult = classProcessor.processClass(className, classCode, testName);
-        String resultString = processResult.getValue();
-        String markString = processResult.getKey();
-        assertEquals("Задание выполнено", resultString);
-        assertEquals("100", markString);
-    }
-
-    @Test
     public void testInfinitLoop() throws Exception {
         // TODO : fix
         final String className = "MyArrayList";
@@ -51,7 +39,7 @@ public class ArrayListTestTest {
                         "        }\n" +
                         "\n" +
                         "        public MyArrayList() {\n" +
-                "while(true);\n"+
+//                "while(true);\n"+
                         "        }\n" +
                         "\n" +
                         "        public boolean add(Integer element){\n" +
@@ -76,9 +64,10 @@ public class ArrayListTestTest {
                         "        }\n" +
                         "\n" +
                         "        public void checkSize(){\n" +
-                        "            if(realSize == myArray.length){\n" +
-                        "                myArray = Arrays.copyOf(myArray, myArray.length + 16);\n" +
-                        "            }\n" +
+                                "while(true);\n"+
+//                        "            if(realSize == myArray.length){\n" +
+//                        "                myArray = Arrays.copyOf(myArray, myArray.length + 16);\n" +
+//                        "            }\n" +
                         "        }\n" +
                         "\n" +
                         "        public int size(){\n" +
@@ -142,7 +131,7 @@ public class ArrayListTestTest {
         String resultString = processResult.getValue();
         String markString = processResult.getKey();
         assertEquals("test timed out after 1000 milliseconds", resultString);
-        assertEquals("10", markString);
+        assertEquals("40", markString);
     }
 
     @Test
@@ -202,7 +191,6 @@ public class ArrayListTestTest {
     public void testGetIncorrect(){
         final String className = "MyArrayList";
         final String classCode ="    public class MyArrayList {\n" +
-
                 "        public Integer get(int index){\n" +
                 "            return 12345;\n" +
                 "        }\n" +
@@ -220,7 +208,6 @@ public class ArrayListTestTest {
         final String className = "MyArrayList";
         final String classCode ="import java.util.Arrays;\n"+
                 "    public class MyArrayList {\n" +
-
                 "        private Integer[] myArray;\n" +
                 "        private int realSize = 0;\n" +
                 "\n" +

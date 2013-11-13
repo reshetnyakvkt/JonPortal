@@ -11,14 +11,12 @@ import ua.com.jon.auth.domain.SpringUser;
 import ua.com.jon.cabinet.client.TasksService;
 import ua.com.jon.cabinet.shared.SprintDTO;
 import ua.com.jon.cabinet.shared.TaskDTO;
-import ua.com.jon.common.domain.Sprint;
-import ua.com.jon.common.domain.Status;
-import ua.com.jon.common.domain.Task;
-import ua.com.jon.common.domain.User;
+import ua.com.jon.common.domain.*;
 import ua.com.jon.common.dto.mapper.SprintDtoMapper;
 import ua.com.jon.common.dto.mapper.TaskDtoMapper;
 import ua.com.jon.common.repository.SprintRepository;
 import ua.com.jon.common.repository.TaskRepository;
+import ua.com.jon.common.repository.TaskTemplateRepository;
 import ua.com.jon.common.repository.UserRepository;
 
 import javax.annotation.Resource;
@@ -46,6 +44,9 @@ public class TasksServiceImpl implements TasksService {
 
     @Resource
     private SprintRepository sprintRepository;
+
+    @Resource
+    private TaskTemplateRepository templateRepository;
 
     @Override
     public String greet(String name) {
@@ -117,17 +118,19 @@ public class TasksServiceImpl implements TasksService {
 
     @Override
     public String postForTest(TaskDTO taskDTO) {
-        log.info("Post for test: " + taskDTO.getCode());
-        Map.Entry<String, String> resultEntry = null;
+        log.info("-== Examinator post for test: " + taskDTO.getCode());
+        Map.Entry<String, String> resultEntry;
         try {
-            resultEntry = classProcessor.processClass(taskDTO.getClassName(), taskDTO.getCode(), taskDTO.getName());
+            TaskTemplate template = templateRepository.findOne(taskDTO.getTaskTemplateId());
+            resultEntry = classProcessor.processClass(taskDTO.getClassName(), taskDTO.getCode(), template.getTestName());
         } catch (CompilationException e) {
             resultEntry = e.getResult();
         } catch (Exception e) {
             log.error(e);
+            throw new RuntimeException("Внутренняя ошибка. Обратитесь к разработчикам", e);
         }
         String testResult = resultEntry.getKey() + '\n' + resultEntry.getValue();
-        log.info("Test result is " + testResult);
+        log.info("Examinator test result is " + testResult);
         Task task = taskRepository.findOne(taskDTO.getId());
         task.setCode(taskDTO.getCode());
         task.setResult(testResult);
