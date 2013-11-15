@@ -65,7 +65,7 @@ public class LineTestTest {
         Map.Entry<String,String> processResult = classProcessor.processClass(className, classCode, testName);
         String resultString = processResult.getValue();
         String markString = processResult.getKey();
-        assertTrue("Задание выполнено", resultString.contains("Во время выполнения метода main произошла ошибка java.util.NoSuchElementException"));
+        assertTrue(resultString.contains("Ожидаемый результат"));
         assertEquals("10", markString);
     }
 

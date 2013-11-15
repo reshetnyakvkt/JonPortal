@@ -9,7 +9,7 @@ import org.junit.runners.MethodSorters;
  * User: al1
  * Date: 9/27/13
  */
-@Unit(testName = "Line", value = "weekend1.task1")
+@Unit(testName = "FirstPart", value = "weekend1.task1")
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class FirstPartTest extends BaseTest {
     @Unit
