@@ -8,10 +8,7 @@ import com.google.gwt.cell.client.SelectionCell;
 import com.google.gwt.cell.client.TextInputCell;
 import com.google.gwt.cell.client.ValueUpdater;
 import com.google.gwt.core.client.GWT;
-import com.google.gwt.dom.client.BrowserEvents;
-import com.google.gwt.dom.client.Element;
-import com.google.gwt.dom.client.NativeEvent;
-import com.google.gwt.dom.client.SelectElement;
+import com.google.gwt.dom.client.*;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.logical.shared.ValueChangeEvent;
 import com.google.gwt.text.shared.AbstractRenderer;
@@ -89,6 +86,7 @@ public class TasksManageTabPanel extends Composite {
 
     public void buildTable() {
         cellTable.setEmptyTableWidget(new Label("Please add data."));
+        cellTable.setWidth("100%", true);
         dataProvider.addDataDisplay(cellTable);
 
         createTaskNameColumn();
@@ -149,7 +147,7 @@ public class TasksManageTabPanel extends Composite {
         };
 
         cellTable.insertColumn(beforeIndex, testNameCol, "Имя теста");
-
+        cellTable.setColumnWidth(testNameCol, 10.0, Style.Unit.PCT);
     }
 
     private void loadTestNamesToDropbox() {
@@ -223,6 +221,7 @@ public class TasksManageTabPanel extends Composite {
             }
         });
         cellTable.addColumn(buttonDelCol);
+        cellTable.setColumnWidth(buttonDelCol, 10.0, Style.Unit.PCT);
     }
 
     private void createSaveButton() {
@@ -242,6 +241,7 @@ public class TasksManageTabPanel extends Composite {
                 taskTemplateDTO.setMaterials(materials.getText());
             }
         });
+        cellTable.setColumnWidth(buttonSaveCol, 10.0, Style.Unit.PCT);
     }
 
     private void createTaskNameColumn() {
@@ -280,6 +280,7 @@ public class TasksManageTabPanel extends Composite {
             }
         });
         cellTable.addColumn(nameColumn, "Имя класса");
+        cellTable.setColumnWidth(nameColumn, 10.0, Style.Unit.PCT);
     }
 
     private void loadSprints() {

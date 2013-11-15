@@ -43,7 +43,7 @@ public class LineTestTest {
         String resultString = processResult.getValue();
         String markString = processResult.getKey();
         assertEquals("Во время выполнения метода main произошла ошибка java.util.NoSuchElementException", resultString);
-        assertEquals("10", markString);
+        assertEquals("55", markString);
     }
 
     @Test
