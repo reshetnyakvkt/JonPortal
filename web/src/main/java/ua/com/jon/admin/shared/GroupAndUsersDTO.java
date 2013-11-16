@@ -1,5 +1,6 @@
 package ua.com.jon.admin.shared;
 
+import java.io.Serializable;
 import java.util.HashSet;
 
 /**
@@ -9,7 +10,7 @@ import java.util.HashSet;
  * Time: 21:44
  * To change this template use File | Settings | File Templates.
  */
-public class GroupAndUsersDTO {
+public class GroupAndUsersDTO implements Serializable {
 
     private static final Long SerialVersionUID = 1L;
 
@@ -41,5 +42,13 @@ public class GroupAndUsersDTO {
 
     public void setUsers(HashSet<UserDTO> users) {
         this.users = users;
+    }
+
+    @Override
+    public String toString() {
+        return "GroupAndUsersDTO{" +
+                "name='" + name + '\'' +
+                ", users=" + users +
+                '}';
     }
 }

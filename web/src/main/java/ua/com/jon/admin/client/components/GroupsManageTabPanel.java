@@ -32,6 +32,7 @@ import ua.com.jon.admin.shared.GroupAndUsersDTO;
 import ua.com.jon.admin.shared.UserDTO;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
@@ -175,19 +176,23 @@ public class GroupsManageTabPanel extends Composite {
             }
 
             @Override
-            public void onSuccess(ArrayList<GroupAndUsersDTO> GroupAndUsersDTOs) {
+            public void onSuccess(ArrayList<GroupAndUsersDTO> groupAndUsersDTOs) {
                 sprintsProgress.setVisible(false);
                 groupsListBox.setVisible(true);
 
-                Window.alert(GroupAndUsersDTOs.toString());
-                groupsListBox.setAcceptableValues(GroupAndUsersDTOs);
-                loadedGroups = GroupAndUsersDTOs;
-                Iterator<GroupAndUsersDTO> itr = GroupAndUsersDTOs.iterator();
+                Window.alert(groupAndUsersDTOs.toString());
+                groupsListBox.setAcceptableValues(groupAndUsersDTOs);
+                Window.alert(groupAndUsersDTOs.toString());
+                loadedGroups = groupAndUsersDTOs;
+                Iterator<GroupAndUsersDTO> itr = groupAndUsersDTOs.iterator();
+                /*
                 if (itr.hasNext()) {
-                    GroupAndUsersDTO GroupAndUsersDTO = itr.next();
-                    groupsListBox.setValue(GroupAndUsersDTO);
-                    currentGroup = GroupAndUsersDTO;
+                    GroupAndUsersDTO groupAndUsersDTO = itr.next();
+                    groupsListBox.setValue(groupAndUsersDTO);
+                    currentGroup = groupAndUsersDTO;
+
                 }
+                */
                 //addSprintsToTable(groupsListBox.getValue().getTasks());
             }
         };
@@ -235,20 +240,20 @@ public class GroupsManageTabPanel extends Composite {
     public void onChangeSprintPosition(ValueChangeEvent<GroupAndUsersDTO> groupEvent) {
 //        clearSprintTasksList();
         try {
+            Window.alert("loadedGroups " + loadedGroups.toString());
             GroupAndUsersDTO group = groupEvent.getValue();
-//            Window.alert("Selected sprint: " + sprint.toString());
+            Window.alert("Selected group: " + group.toString());
 //        addTasksToSprintNavList(sprintEvent.getValue().getTasks());
 
-            List<UserDTO> currentGroups = dataProvider.getList();
+            List<UserDTO> currentGroupUsers = dataProvider.getList();
             if (currentGroup != null) {
-                currentGroup.setUsers(new HashSet<UserDTO>(currentGroups));
+                currentGroup.setUsers(new HashSet<UserDTO>(currentGroupUsers));
 //                Window.alert("CabinetMain from table: " + Arrays.toString(currentTasks.toArray()));
             }
             currentGroup = group;
-//            Window.alert("New tasks: " + Arrays.toString(sprint.getTasks().toArray()));
+            Window.alert("New users: " + Arrays.toString(group.getUsers().toArray()));
             addSprintsToTable(group.getUsers());
         } catch (Exception e) {
-
             Window.alert(e.getMessage() + e.getCause().toString());
         }
     }

@@ -247,8 +247,11 @@ public class AdminServiceImpl implements AdminService {
 
     @Override
     public ArrayList<GroupAndUsersDTO> getGroupsAndUsers() {
-        List<Group> groups = groupRepository.findAllGroupsAndUsers();
-        return GroupAndUsersDtoMapper.domainsToDtos(groups);
+        Set<Group> groups = new HashSet();
+        groups.addAll(groupRepository.findAllGroupsAndUsers());
+        List<Group> groupsList = new ArrayList<Group>(groups.size());
+        groupsList.addAll(groups);
+        return GroupAndUsersDtoMapper.domainsToDtos(groupsList);
     }
 
 
