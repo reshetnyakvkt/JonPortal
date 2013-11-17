@@ -447,6 +447,6 @@ public class TasksManageTabPanel extends Composite {
     }
 
     public enum TaskType {
-        SVN, CLASS
+        CLASS, SVN
     }
 }
