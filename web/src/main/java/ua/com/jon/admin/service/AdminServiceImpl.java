@@ -169,7 +169,7 @@ public class AdminServiceImpl implements AdminService {
 
     @Override
     public void saveGroups(ArrayList<GroupAndUsersDTO> newSprints) {
-        //To change body of implemented methods use File | Settings | File Templates.
+
     }
 
     private Set<Long> getIdsFromSprintsWithoutNull(List<SprintDTO> sprintDTOs) {
@@ -252,6 +252,11 @@ public class AdminServiceImpl implements AdminService {
         List<Group> groupsList = new ArrayList<Group>(groups.size());
         groupsList.addAll(groups);
         return GroupAndUsersDtoMapper.domainsToDtos(groupsList);
+    }
+
+    @Override
+    public void deleteGroup(Long id) {
+        groupRepository.delete(id);
     }
 
 

@@ -44,4 +44,6 @@ public interface AdminService extends RemoteService {
     List<TaskDTO> getTasksbyGroup(String name);
 
     ArrayList<GroupAndUsersDTO> getGroupsAndUsers();
+
+    void deleteGroup(Long id);
 }

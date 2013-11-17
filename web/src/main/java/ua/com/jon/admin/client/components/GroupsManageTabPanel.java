@@ -172,7 +172,7 @@ public class GroupsManageTabPanel extends Composite {
             public void onFailure(Throwable caught) {
                 sprintsProgress.setVisible(false);
                 groupsListBox.setVisible(true);
-                Window.alert("Error callback groupsListBox");
+                Window.alert("Error load groups");
             }
 
             @Override
@@ -180,9 +180,9 @@ public class GroupsManageTabPanel extends Composite {
                 sprintsProgress.setVisible(false);
                 groupsListBox.setVisible(true);
 
-                Window.alert(groupAndUsersDTOs.toString());
+                //Window.alert(groupAndUsersDTOs.toString());
                 groupsListBox.setAcceptableValues(groupAndUsersDTOs);
-                Window.alert(groupAndUsersDTOs.toString());
+                //Window.alert(groupAndUsersDTOs.toString());
                 loadedGroups = groupAndUsersDTOs;
                 Iterator<GroupAndUsersDTO> itr = groupAndUsersDTOs.iterator();
                 /*
@@ -240,9 +240,9 @@ public class GroupsManageTabPanel extends Composite {
     public void onChangeSprintPosition(ValueChangeEvent<GroupAndUsersDTO> groupEvent) {
 //        clearSprintTasksList();
         try {
-            Window.alert("loadedGroups " + loadedGroups.toString());
+            //Window.alert("loadedGroups " + loadedGroups.toString());
             GroupAndUsersDTO group = groupEvent.getValue();
-            Window.alert("Selected group: " + group.toString());
+            //Window.alert("Selected group: " + group.toString());
 //        addTasksToSprintNavList(sprintEvent.getValue().getTasks());
 
             List<UserDTO> currentGroupUsers = dataProvider.getList();
@@ -251,7 +251,7 @@ public class GroupsManageTabPanel extends Composite {
 //                Window.alert("CabinetMain from table: " + Arrays.toString(currentTasks.toArray()));
             }
             currentGroup = group;
-            Window.alert("New users: " + Arrays.toString(group.getUsers().toArray()));
+            //Window.alert("New users: " + Arrays.toString(group.getUsers().toArray()));
             addSprintsToTable(group.getUsers());
         } catch (Exception e) {
             Window.alert(e.getMessage() + e.getCause().toString());
@@ -288,13 +288,13 @@ public class GroupsManageTabPanel extends Composite {
 
             @Override
             public void onFailure(Throwable throwable) {
-                Window.alert("!!! Error async save tasks" + throwable);
+                Window.alert("!!! Error save tasks" + throwable);
             }
 
             @Override
             public void onSuccess(Void aVoid) {
                 loadGroups();
-                Window.alert("CabinetMain posted successfully");
+                Window.alert("Group saved successfully");
             }
         };
 //        GroupAndUsersDTO GroupAndUsersDTO = groupsListBox.getValue();
@@ -304,7 +304,7 @@ public class GroupsManageTabPanel extends Composite {
 //        ArrayList<SprintDTO> newSprints = new ArrayList<SprintDTO>();
 //        newSprints.add(currentGroup);
         relocateTasks(loadedGroups);
-        Window.alert("Sprints to save: " + loadedGroups);
+        //Window.alert("Sprints to save: " + loadedGroups);
         adminService.saveGroups(loadedGroups, callback);
     }
 
@@ -312,6 +312,30 @@ public class GroupsManageTabPanel extends Composite {
     public void refreshSprintsHandler(ClickEvent e){
         loadGroups();
     }
+
+    @UiHandler("delGroupBtn")
+    public void deleteCurrentGroupHandler(ClickEvent e){
+        deleteCurrentGroup();
+    }
+
+    private void deleteCurrentGroup() {
+        final AsyncCallback<Void> callback = new AsyncCallback<Void>() {
+
+            @Override
+            public void onFailure(Throwable throwable) {
+                Window.alert("Error delete tasks" + throwable);
+            }
+
+            @Override
+            public void onSuccess(Void aVoid) {
+                loadGroups();
+                Window.alert("Group deleted successfully");
+            }
+        };
+
+        adminService.deleteGroup(currentGroup.getId(), callback);
+    }
+
     private void relocateTasks(List<GroupAndUsersDTO> loadedSprints) {
         for (GroupAndUsersDTO loadedSprint : loadedSprints) {
             HashSet<UserDTO> newTasks = new HashSet<UserDTO>(loadedSprint.getUsers().size());

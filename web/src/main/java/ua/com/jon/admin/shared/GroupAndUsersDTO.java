@@ -7,15 +7,13 @@ import java.util.HashSet;
  * Created with IntelliJ IDEA.
  * User: sergey
  * Date: 09.11.13
- * Time: 21:44
- * To change this template use File | Settings | File Templates.
  */
 public class GroupAndUsersDTO implements Serializable {
 
     private static final Long SerialVersionUID = 1L;
 
+    private Long id;
     private String name;
-
     private HashSet<UserDTO> users;
 
     public GroupAndUsersDTO() {
@@ -23,7 +21,8 @@ public class GroupAndUsersDTO implements Serializable {
         users = new HashSet<UserDTO>();
     }
 
-    public GroupAndUsersDTO(String name, HashSet<UserDTO> users) {
+    public GroupAndUsersDTO(Long id, String name, HashSet<UserDTO> users) {
+        this.id = id;
         this.name = name;
         this.users = users;
     }
@@ -44,10 +43,19 @@ public class GroupAndUsersDTO implements Serializable {
         this.users = users;
     }
 
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
     @Override
     public String toString() {
         return "GroupAndUsersDTO{" +
-                "name='" + name + '\'' +
+                "id=" + id +
+                ", name='" + name + '\'' +
                 ", users=" + users +
                 '}';
     }

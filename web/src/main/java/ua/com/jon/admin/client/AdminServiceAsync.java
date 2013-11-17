@@ -43,5 +43,7 @@ public interface AdminServiceAsync {
     void getTasksbyGroup(String name, AsyncCallback<List<ua.com.jon.admin.shared.TaskDTO>> async);
 
     void getGroupsAndUsers(AsyncCallback<ArrayList<GroupAndUsersDTO>> async);
+
+    void deleteGroup(Long id, AsyncCallback<Void> callback);
 }
 

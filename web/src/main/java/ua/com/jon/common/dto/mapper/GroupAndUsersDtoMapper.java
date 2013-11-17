@@ -10,8 +10,6 @@ import java.util.List;
  * Created with IntelliJ IDEA.
  * User: sergey
  * Date: 09.11.13
- * Time: 21:48
- * To change this template use File | Settings | File Templates.
  */
 public class GroupAndUsersDtoMapper {
 
@@ -24,6 +22,6 @@ public class GroupAndUsersDtoMapper {
     }
 
     public static GroupAndUsersDTO domainToDto(Group group) {
-        return new GroupAndUsersDTO(group.getName(), UserDtoMapper.domainsToAdminDtos(group.getUsers()));
+        return new GroupAndUsersDTO(group.getId(), group.getName(), UserDtoMapper.domainsToAdminDtos(group.getUsers()));
     }
 }
