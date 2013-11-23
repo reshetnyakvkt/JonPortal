@@ -1,10 +1,6 @@
 package ua.com.jon.cabinet.client.components;
 
-import com.github.gwtbootstrap.client.ui.Button;
-import com.github.gwtbootstrap.client.ui.CellTable;
-import com.github.gwtbootstrap.client.ui.Label;
-import com.github.gwtbootstrap.client.ui.ProgressBar;
-import com.github.gwtbootstrap.client.ui.TextArea;
+import com.github.gwtbootstrap.client.ui.*;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.uibinder.client.UiBinder;
@@ -43,8 +39,12 @@ public class GroupTasksTabPanel extends Composite {
     @UiField
     CellTable<TaskDTO> cellTable = new CellTable<TaskDTO>(5, GWT.<CellTable.SelectableResources>create(CellTable.SelectableResources.class));
 
-    @UiField
+    //@UiField
+    // TODO: remove it
     TextArea textArea = new TextArea();
+
+    @UiField
+    CodeBlock codeBlock = new CodeBlock();
 
     private SprintDTO currentSprint;
     private List<SprintDTO> loadedSprints = new ArrayList<SprintDTO>();
@@ -111,6 +111,8 @@ public class GroupTasksTabPanel extends Composite {
                         if (selected != null) {
                             String code = selected.getCode();
                             textArea.setText(code);
+                            codeBlock.setLinenums(true);
+                            codeBlock.setText(code);
                         }
                     }
                 });
