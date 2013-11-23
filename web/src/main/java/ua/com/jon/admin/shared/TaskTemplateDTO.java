@@ -27,9 +27,10 @@ public class TaskTemplateDTO implements Serializable {
         this.name = name;
     }
 
-    public TaskTemplateDTO(String name, String text) {
+    public TaskTemplateDTO(String name, String text, String type) {
         this.name = name;
         this.text = text;
+        this.type = type;
     }
 
     public TaskTemplateDTO(Long id, String name, String text, String type, String className, String testName, String materials) {

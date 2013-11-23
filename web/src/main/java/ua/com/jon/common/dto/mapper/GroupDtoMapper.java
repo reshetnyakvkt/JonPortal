@@ -14,6 +14,6 @@ import java.util.ArrayList;
 public class GroupDtoMapper {
 
     public static GroupDTO domainToDto(Group group, ArrayList<TaskTemplate> tasks) {
-        return new GroupDTO(group.getName(), TaskTemplateDtoMapper.domainsToDtos(tasks));
+        return new GroupDTO(group.getId(), group.getName(), TaskTemplateDtoMapper.domainsToDtos(tasks));
     }
 }

@@ -16,13 +16,16 @@ import java.util.Set;
  * Date: 6/27/13
  */
 public interface UserRepository extends CrudRepository<User, Long> {
-    @Query("select u from User u where u.group.name = :groupName")
+    @Query("select u from User u JOIN u.groups gs where gs.name = :groupName")
     List<User> findByGroupName(@Param("groupName") String groupName);
 
-    @Query("select u from User u where u.login in (:names)")
+    @Query("select distinct u from User u JOIN FETCH u.groups where u.login in (:names)")
+    List<User> findByNamesWithGroups(@Param("names") Collection<String> names);
+
+    @Query("select distinct u from User u where u.login in (:names)")
     List<User> findByNames(@Param("names") Collection<String> names);
 
-    @Query("select u from User u where u.login = :name")
+    @Query("select u from User u JOIN FETCH u.groups where u.login = :name")
     User findByUserName(@Param("name") String name);
 
 }

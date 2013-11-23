@@ -3,6 +3,8 @@ package ua.com.jon.common.domain;
 import javax.persistence.*;
 import java.util.Collection;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Date: 01.01.13
@@ -26,21 +28,21 @@ public class User {
     @Column(name = "REGISTER_DATE", nullable = false)
     private Date regDate;
 
-//    @OneToMany(mappedBy = "user")
-//    private Collection<Review> reviews;
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    private Set<Task> tasks = new HashSet<Task>();
 
-    @ManyToOne
+    @ManyToMany
     @JoinColumn(name = "GROUP_ID")
-    private Group group;
+    private Set<Group> groups = new HashSet<Group>();
 
     public User() {
     }
 
-    public User(String login, String password, Date regDate, Group group) {
+    public User(String login, String password, Date regDate, Set<Group> groups) {
         this.login = login;
         this.password = password;
         this.regDate = regDate;
-        this.group = group;
+        this.groups = groups;
     }
 
     public Long getId() {
@@ -83,12 +85,20 @@ public class User {
         this.reviews = reviews;
     }*/
 
-    public Group getGroup() {
-        return group;
+    public Set<Group> getGroups() {
+        return groups;
     }
 
-    public void setGroup(Group group) {
-        this.group = group;
+    public void setGroups(Set<Group> groups) {
+        this.groups = groups;
+    }
+
+    public Set<Task> getTasks() {
+        return tasks;
+    }
+
+    public void setTasks(Set<Task> tasks) {
+        this.tasks = tasks;
     }
 
     @Override

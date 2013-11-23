@@ -29,7 +29,7 @@ public class Group {
 
     private boolean active;
 
-    @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.REMOVE}, orphanRemoval = true, mappedBy = "group"/*, fetch = FetchType.EAGER*/)
+    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH}, mappedBy = "groups"/*, fetch = FetchType.EAGER*/)
     //@JoinColumn(name = "GROUP_ID")
     private Set<User> users = new HashSet<User>();
 

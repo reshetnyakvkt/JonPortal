@@ -19,10 +19,11 @@ public class TaskDTO implements Serializable {
     private String userName;
     private String className;
     private Long taskTemplateId;
+    private Long groupId;
     private String material;
 
     public TaskDTO(Long id, String text, String name, String status, String result, String code, String type,
-                   String userName, String className, Long taskTemplateId, String material) {
+                   String userName, String className, Long taskTemplateId, String material, Long groupId) {
         this.id = id;
         this.text = text;
         this.name = name;
@@ -34,6 +35,7 @@ public class TaskDTO implements Serializable {
         this.className = className;
         this.taskTemplateId = taskTemplateId;
         this.material = material;
+        this.groupId = groupId;
     }
 
     public TaskDTO() {
@@ -51,7 +53,8 @@ public class TaskDTO implements Serializable {
                 taskDTO.getUserName(),
                 taskDTO.getClassName(),
                 taskDTO.getTaskTemplateId(),
-                taskDTO.getMaterial());
+                taskDTO.getMaterial(),
+                taskDTO.getGroupId());
     }
 
     public Long getId() {
@@ -140,6 +143,14 @@ public class TaskDTO implements Serializable {
 
     public void setMaterial(String material) {
         this.material = material;
+    }
+
+    public Long getGroupId() {
+        return groupId;
+    }
+
+    public void setGroupId(Long groupId) {
+        this.groupId = groupId;
     }
 
     @Override

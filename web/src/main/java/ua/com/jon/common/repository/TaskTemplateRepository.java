@@ -20,6 +20,6 @@ public interface TaskTemplateRepository extends CrudRepository<TaskTemplate, Lon
     @Query("select tt from TaskTemplate tt where tt.name in (:names)")
     List<TaskTemplate> findByNames(@Param("names") Collection names);
 
-    @Query("select t.taskTemplate from ua.com.jon.common.domain.Task t where t.user.group.name = :groupName")
+    @Query("select t.taskTemplate from ua.com.jon.common.domain.Task t JOIN t.user.groups gs where gs.name = :groupName")
     ArrayList<TaskTemplate> findByGroupName(@Param("groupName") String groupName);
 }

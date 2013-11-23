@@ -21,16 +21,16 @@ public interface TaskRepository extends JpaRepository<Task, Long> {
     @Query("select t from ua.com.jon.common.domain.Task t where t.user.login = :userName")
     List<Task> findByUserName(@Param("userName") String userName);
 
-    @Query("select t from ua.com.jon.common.domain.Task t where t.user.group.id = :groupId and t.result <> ''")
+    @Query("select t from ua.com.jon.common.domain.Task t JOIN t.user.groups gs where gs.id = :groupId and t.result <> ''")
     List<Task> findEvaluatedByGroupId(@Param("groupId") Long groupId);
 
     //@Query("select t from ua.com.jon.common.domain.Task t where t.user.login = :userName and t.sprint.name = :sprintName")
-    @Query("select t from ua.com.jon.common.domain.Task t JOIN FETCH t.taskTemplate where t.user.login = :userName and t.sprint.name = :sprintName")
+    @Query("select t from ua.com.jon.common.domain.Task t JOIN FETCH t.taskTemplate JOIN FETCH t.group where t.user.login = :userName and t.sprint.name = :sprintName")
     List<Task> findByUserAndSprint(@Param("userName") String userName, @Param("sprintName") String name);
 
-    @Query("select t from ua.com.jon.common.domain.Task t where t.user.group.id = :groupId and t.taskTemplate.id = :templateId and t.result <> ''")
+    @Query("select t from ua.com.jon.common.domain.Task t JOIN t.user.groups gs where gs.id = :groupId and t.taskTemplate.id = :templateId and t.result <> ''")
     List<Task> findEvaluatedByGroupIdAndTaskId(@Param("groupId") Long groupId, @Param("templateId")Long templateId);
 
-    @Query("select t from ua.com.jon.common.domain.Task t where t.user.group.id = :groupId")
+    @Query("select t from ua.com.jon.common.domain.Task t JOIN t.group gs where gs.id = :groupId")
     List<Task> findByGroupId(@Param("groupId") Long groupId);
 }

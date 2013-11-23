@@ -26,6 +26,10 @@ public class Task {
     @ManyToOne
     private Sprint sprint;
 
+    @ManyToOne
+    @JoinColumn(name = "group_id")
+    private Group group;
+
     @Column
     @Enumerated(EnumType.STRING)
     private Status status;
@@ -38,13 +42,15 @@ public class Task {
     public Task() {
     }
 
-    public Task(User user, TaskTemplate taskTemplate, Sprint sprint, Status status, String result, String code) {
+    public Task(User user, TaskTemplate taskTemplate, Sprint sprint,
+                Status status, String result, String code, Group group) {
         this.user = user;
         this.taskTemplate = taskTemplate;
         this.sprint = sprint;
         this.status = status;
         this.result = result;
         this.code = code;
+        this.group = group;
     }
 
     public Long getId() {
@@ -103,6 +109,14 @@ public class Task {
         this.code = code;
     }
 
+    public Group getGroup() {
+        return group;
+    }
+
+    public void setGroup(Group group) {
+        this.group = group;
+    }
+
     @Override
     public String toString() {
         return "Task{" +
@@ -111,6 +125,7 @@ public class Task {
                 ", taskTemplate=" + taskTemplate +
                 ", sprint=" + sprint +
                 ", status=" + status +
+                ", group=" + group.getName() +
                 ", result='" + result + '\'' +
                 '}';
     }

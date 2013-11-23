@@ -100,7 +100,6 @@ public class TasksManageTabPanel extends Composite {
 
         createSaveButton();
 
-//        final SingleSelectionModel<TaskTemplateDTO> selectionModel = new SingleSelectionModel<TaskTemplateDTO>();
         cellTable.setSelectionModel(selectionModel);
         selectionModel.addSelectionChangeHandler(
                 new SelectionChangeEvent.Handler() {
@@ -375,7 +374,7 @@ public class TasksManageTabPanel extends Composite {
     public void createTaskHandler(ClickEvent e) {
 //        String sprintName = INITIAL_SPRINT_NAME;
 //        sprintNameTextBox.setText(sprintName);
-        TaskTemplateDTO task = new TaskTemplateDTO("", "");
+        TaskTemplateDTO task = new TaskTemplateDTO("", "", TaskType.CLASS.name());
 
         List<TaskTemplateDTO> taskTemplateDTOs = dataProvider.getList();
 /*        if (taskTemplateDTOs.contains(task)) {

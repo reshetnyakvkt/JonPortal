@@ -5,6 +5,7 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import ua.com.jon.admin.client.AdminService;
 import ua.com.jon.admin.shared.GroupAndUsersDTO;
 import ua.com.jon.admin.shared.GroupDTO;
@@ -77,11 +78,11 @@ public class AdminServiceImpl implements AdminService {
     @Override
     public List<TaskTemplateDTO> getTaskTemplates() {
         List<TaskTemplateDTO> taskTemplates = new ArrayList<TaskTemplateDTO>();
-        TaskTemplateDTO task1 = new TaskTemplateDTO("Задание 1", "Текст задания 1");
-        TaskTemplateDTO task2 = new TaskTemplateDTO("Задание 2", "Текст задания 2");
-        TaskTemplateDTO task3 = new TaskTemplateDTO("Задание 3", "Текст задания 3");
-        TaskTemplateDTO task4 = new TaskTemplateDTO("Задание 4", "Текст задания 4");
-        TaskTemplateDTO task5 = new TaskTemplateDTO("Задание 5", "Текст задания 4");
+        TaskTemplateDTO task1 = new TaskTemplateDTO("Задание 1", "Текст задания 1", "CLASS");
+        TaskTemplateDTO task2 = new TaskTemplateDTO("Задание 2", "Текст задания 2", "CLASS");
+        TaskTemplateDTO task3 = new TaskTemplateDTO("Задание 3", "Текст задания 3", "CLASS");
+        TaskTemplateDTO task4 = new TaskTemplateDTO("Задание 4", "Текст задания 4", "CLASS");
+        TaskTemplateDTO task5 = new TaskTemplateDTO("Задание 5", "Текст задания 4", "CLASS");
 
         taskTemplates.add(task1);
         taskTemplates.add(task2);
@@ -123,6 +124,7 @@ public class AdminServiceImpl implements AdminService {
     }
 
     @Override
+    @Transactional
     public void createGroup(SpaceDTO groupDto) throws Exception {
         log.info("-- createGroup() " + groupDto);
         try {
@@ -133,17 +135,21 @@ public class AdminServiceImpl implements AdminService {
                 nameSet.remove(user.getLogin());
             }
             Group group = new Group(groupDto.getName(), new Date(), false, new HashSet<User>());
+            Set<Group> groups = new HashSet<Group>();
+            groups.add(group);
             for (String userName : nameSet) {
-                users.add(new User(userName, userName, new Date(), null));
+                users.add(new User(userName, userName, new Date(), groups));
             }
             groupRepository.save(group);
-            userRepository.save(users);
+//            userRepository.save(users);
             for (User user : users) {
-                user.setGroup(group);
+                List<Group> tmpGroups = groupRepository.findByUsersIn(user.getLogin());
+                user.getGroups().addAll(tmpGroups);
+                user.getGroups().add(group);
             }
             group.getUsers().addAll(users);
             groupRepository.save(group);
-            userRepository.save(users);
+            //userRepository.save(users);
             log.info("-- created group " + group);
 //            }
         } catch (Exception e) {
@@ -255,8 +261,17 @@ public class AdminServiceImpl implements AdminService {
     }
 
     @Override
+    @Transactional
     public void deleteGroup(Long id) {
+        Group group = groupRepository.findOne(id);
+        for (User user : group.getUsers()) {
+            user.getGroups().remove(group);
+        }
+        group.getUsers().clear();
+        userRepository.save(group.getUsers());
+        groupRepository.save(group);
         groupRepository.delete(id);
+        log.info("-- Deleting group " + id + " was successfuly");
     }
 
 
@@ -266,14 +281,15 @@ public class AdminServiceImpl implements AdminService {
      //   System.out.println("-- Post tasks " + taskIds + " to groupDto " + groupDto);
 //        System.out.println("Post tasks " + taskNames + " to groupDto " + groupName);
         Sprint sprint = sprintRepository.findOne(sprintDto.getId());
+        Group group = groupRepository.findOne(groupDto.getId());
         try {
             //trimListElements(taskNames);
-            List<User> usersInGroup = userRepository.findByGroupName(groupDto.getName());
+            List<User> usersInGroup = userRepository.findByGroupName(group.getName());
             Iterable<TaskTemplate> taskTemplates = taskTemplateRepository.findAll(taskIds);
 
             for (TaskTemplate taskTemplate : taskTemplates) {
                 for (User user : usersInGroup) {
-                    Task task = new Task(user, taskTemplate, sprint, Status.NEW, "", "");
+                    Task task = new Task(user, taskTemplate, sprint, Status.NEW, "", "", group);
                     taskRepository.save(task);
                     //log.info("-- Posted task " + task);
                 }

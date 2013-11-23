@@ -23,6 +23,7 @@ public class TaskDtoMapper {
         Long templateId = 0L;
         String materials = "";
         TaskType taskType = TaskType.CLASS;
+        Long groupId = 0L;
         if (task.getTaskTemplate() != null) {
             taskText = taskTemplate.getTaskText();
             taskName = taskTemplate.getName();
@@ -30,6 +31,7 @@ public class TaskDtoMapper {
             className = taskTemplate.getClassName();
             templateId = taskTemplate.getId();
             materials = taskTemplate.getMaterials();
+            groupId = task.getGroup().getId();
         }
 
         return new TaskDTO(
@@ -43,7 +45,8 @@ public class TaskDtoMapper {
                 task.getUser().getLogin(),
                 className,
                 templateId,
-                materials
+                materials,
+                groupId
         );
     }
 

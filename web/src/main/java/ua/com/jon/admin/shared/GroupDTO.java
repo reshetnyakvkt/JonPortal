@@ -10,13 +10,12 @@ import java.util.List;
  * Created with IntelliJ IDEA.
  * User: sergey
  * Date: 20.04.13
- * Time: 21:29
- * To change this template use File | Settings | File Templates.
  */
 public class GroupDTO implements Serializable {
 
     private static final Long SerialVersionUID = 1L;
 
+    private  Long groupId;
     private String name;
     private ArrayList<TaskTemplateDTO> tasks;
 
@@ -25,7 +24,8 @@ public class GroupDTO implements Serializable {
         this.tasks = new ArrayList<TaskTemplateDTO>();
     }
 
-    public GroupDTO(String name, ArrayList<TaskTemplateDTO> tasks) {
+    public GroupDTO(Long id, String name, ArrayList<TaskTemplateDTO> tasks) {
+        this.groupId = id;
         this.name = name;
         this.tasks = tasks;
     }
@@ -50,10 +50,19 @@ public class GroupDTO implements Serializable {
         this.tasks = tasks;
     }
 
+    public Long getId() {
+        return groupId;
+    }
+
+    public void setId(Long groupId) {
+        this.groupId = groupId;
+    }
+
     @Override
     public String toString() {
         return "GroupDTO{" +
                 "name='" + name + '\'' +
+                ", id=" + groupId +
                 ", tasks=" + tasks +
                 '}';
     }
