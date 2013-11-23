@@ -10,14 +10,21 @@ import com.github.gwtbootstrap.client.ui.ValueListBox;
 import com.github.gwtbootstrap.client.ui.constants.ButtonType;
 import com.github.gwtbootstrap.client.ui.constants.IconType;
 import com.google.gwt.cell.client.FieldUpdater;
+import com.google.gwt.cell.client.SelectionCell;
 import com.google.gwt.cell.client.TextInputCell;
+import com.google.gwt.cell.client.ValueUpdater;
 import com.google.gwt.core.client.GWT;
+import com.google.gwt.dom.client.BrowserEvents;
+import com.google.gwt.dom.client.Element;
+import com.google.gwt.dom.client.NativeEvent;
+import com.google.gwt.dom.client.SelectElement;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.logical.shared.ValueChangeEvent;
 import com.google.gwt.text.shared.AbstractRenderer;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.uibinder.client.UiHandler;
+import com.google.gwt.user.cellview.client.Column;
 import com.google.gwt.user.cellview.client.TextColumn;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
@@ -29,10 +36,10 @@ import com.google.gwt.view.client.SingleSelectionModel;
 import ua.com.jon.admin.client.AdminService;
 import ua.com.jon.admin.client.AdminServiceAsync;
 import ua.com.jon.admin.shared.GroupAndUsersDTO;
+import ua.com.jon.admin.shared.SpaceDTO;
 import ua.com.jon.admin.shared.UserDTO;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
@@ -71,6 +78,10 @@ public class GroupsManageTabPanel extends Composite {
 
     private AdminServiceAsync adminService = GWT.create(AdminService.class);
 
+    private GlobalData globalData;
+
+    final SingleSelectionModel<SpaceDTO> spaceSelectionModel = new SingleSelectionModel<SpaceDTO>();
+
     @UiField(provided = true)
     ValueListBox<GroupAndUsersDTO> groupsListBox = new ValueListBox<GroupAndUsersDTO>(new AbstractRenderer<GroupAndUsersDTO>() {
         @Override
@@ -83,7 +94,8 @@ public class GroupsManageTabPanel extends Composite {
         }
     });
 
-    public GroupsManageTabPanel(final UiBinder<Widget, GroupsManageTabPanel> binder) {
+    public GroupsManageTabPanel(final UiBinder<Widget, GroupsManageTabPanel> binder, GlobalData globalData) {
+        this.globalData = globalData;
         initWidget(binder.createAndBindUi(this));
         buildTable();
         loadGroups();
@@ -92,7 +104,8 @@ public class GroupsManageTabPanel extends Composite {
     public void buildTable() {
         cellTable.setEmptyTableWidget(new Label("Please add data."));
         dataProvider.addDataDisplay(cellTable);
-        com.google.gwt.user.cellview.client.Column<UserDTO, String> nameColumn = new com.google.gwt.user.cellview.client.Column<UserDTO, String>(new TextInputCell()) {
+        com.google.gwt.user.cellview.client.Column<UserDTO, String> nameColumn =
+                new com.google.gwt.user.cellview.client.Column<UserDTO, String>(new TextInputCell()) {
             @Override
             public String getValue(UserDTO object) {
                 return object.getName() == null ? "" : object.getName();
@@ -107,14 +120,18 @@ public class GroupsManageTabPanel extends Composite {
                 dataProvider.refresh();
             }
         });
-        cellTable.addColumn(nameColumn, "Название");
 
+        createStudentDropdown();
+        /*
+        cellTable.addColumn(nameColumn, "Название");
+        */
         cellTable.addColumn(new TextColumn<UserDTO>() {
             @Override
             public String getValue(UserDTO contact) {
                 return String.valueOf(contact.getName());
             }
         }, "Текст");
+
 
         com.google.gwt.user.cellview.client.Column<UserDTO, String> buttonDelCol = new com.google.gwt.user.cellview.client.Column<UserDTO, String>(new ButtonCell(IconType.REMOVE, ButtonType.DANGER)) {
             @Override
@@ -165,6 +182,58 @@ public class GroupsManageTabPanel extends Composite {
 
     }
 
+    private void createStudentDropdown() {
+        Window.alert("globalData.getSpacesDtos(): " + globalData.getSpacesDtos());
+        SelectionCell cell = new SelectionCell(getStudentNamesFromSpaces(globalData.getSpacesDtos())) {
+
+            @Override
+            public void onBrowserEvent(Context context, Element parent, String value, NativeEvent event, ValueUpdater<String> valueUpdater) {
+
+                super.onBrowserEvent(context, parent, value, event, valueUpdater);
+
+                if (BrowserEvents.CHANGE.equals(event.getType())) {
+
+                    SelectElement select = parent.getFirstChild().cast();
+                    String newValue = select.getValue();
+                    Window.alert(newValue);
+                    /*
+                    TaskTemplateDTO dto = selectionModel.getSelectedObject();
+                    if (dto == null) {
+                        Window.alert("Не выбрано ни одного задания!");
+                        return;
+                    }
+                    if (dto.getType().equals(TaskType.CLASS.name())) {
+                        Window.alert("Для проверки измените статус задания на \"TEST\"");
+                        return;
+                    }
+                    dto.setType(newValue);
+                    */
+                }
+            }
+        };
+
+        Column<UserDTO, String> statusCol = new Column<UserDTO, String>(cell) {
+
+            @Override
+            public String getValue(UserDTO userDTO) {
+                return userDTO.getName();
+            }
+        };
+        cellTable.addColumn(statusCol, "Имя");
+
+    }
+
+    private ArrayList<String> getStudentNamesFromSpaces(List<SpaceDTO> spaceDTOs) {
+
+        ArrayList<String> studentNames = new ArrayList<String>(spaceDTOs.size());
+        for (SpaceDTO spaceDTO : spaceDTOs) {
+            Window.alert(spaceDTO.toString());
+            studentNames.add(spaceDTO.getName());
+        }
+
+        return studentNames;
+    }
+
     private void loadGroups() {
         final AsyncCallback<ArrayList<GroupAndUsersDTO>> groupCallback = new AsyncCallback<ArrayList<GroupAndUsersDTO>>() {
 
@@ -200,6 +269,8 @@ public class GroupsManageTabPanel extends Composite {
         adminService.getGroupsAndUsers(groupCallback);
 
     }
+
+
 
     private void addSprintsToTable(HashSet<UserDTO> tasks) {
 
@@ -266,7 +337,7 @@ public class GroupsManageTabPanel extends Composite {
 
         List<UserDTO> taskTemplateDTOs = dataProvider.getList();
         if (taskTemplateDTOs.contains(task)) {
-            Window.alert("Sprint with name is already exists: " + task.getName());
+            Window.alert("Student with name is already exists: " + task.getName());
         } else {
             taskTemplateDTOs.add(task);
             dataProvider.flush();

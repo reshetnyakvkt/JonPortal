@@ -54,6 +54,8 @@ public class UsersTabPanel extends Composite {
 
     private AdminServiceAsync adminService = GWT.create(AdminService.class);
 
+    private GlobalData globalData;
+
     @UiField(provided = true)
     ValueListBox<SpaceDTO> spacesListBox = new ValueListBox<SpaceDTO>(new AbstractRenderer<SpaceDTO>() {
         @Override
@@ -66,7 +68,8 @@ public class UsersTabPanel extends Composite {
         }
     });
 
-    public UsersTabPanel(final UiBinder<Widget, UsersTabPanel> binder) {
+    public UsersTabPanel(final UiBinder<Widget, UsersTabPanel> binder, GlobalData globalData) {
+        this.globalData = globalData;
         initWidget(binder.createAndBindUi(this));
         loadSpaces();
     }
@@ -128,6 +131,8 @@ public class UsersTabPanel extends Composite {
                 spacesListBox.setVisible(true);
 //                Window.alert(spaceDTOs.toString());
                 spacesListBox.setAcceptableValues(spaceDTOs);
+                globalData.setSpacesDtos(spaceDTOs);
+
 //                for (SpaceDTO spaceDTO : spaceDTOs) {
 //                    addTasksToSprintNavList(spaceDTO.getUsers());
 //                    spacesListBox.setValue(spaceDTO);

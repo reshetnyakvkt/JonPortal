@@ -59,15 +59,16 @@ public class RootPanel extends Composite {
     private static TasksManageTabPanelUiBinder tasksManageUIBinder = GWT.create(TasksManageTabPanelUiBinder.class);
     private static SprintsTabPanelUiBinder sprintsUIBinder = GWT.create(SprintsTabPanelUiBinder.class);
     private static GroupsManageTabPanelUiBinder groupsManageUIBinder = GWT.create(GroupsManageTabPanelUiBinder.class);
+    private static GlobalData globalData = new GlobalData();
 
     public RootPanel() {
         initWidget(rootUIBinder.createAndBindUi(this));
 
         TasksTabPanel tasksTabPanel = new TasksTabPanel(tasksUIBinder);
-        UsersTabPanel usersTabPanel = new UsersTabPanel(usersUIBinder);
+        UsersTabPanel usersTabPanel = new UsersTabPanel(usersUIBinder, globalData);
         TasksManageTabPanel tasksManageTabPanel = new TasksManageTabPanel(tasksManageUIBinder);
         SprintsTabPanel sprintsTabPanel = new SprintsTabPanel(sprintsUIBinder);
-        GroupsManageTabPanel groupsManageTabPanel = new GroupsManageTabPanel(groupsManageUIBinder);
+        GroupsManageTabPanel groupsManageTabPanel = new GroupsManageTabPanel(groupsManageUIBinder, globalData);
 
         tasksHolderPanel.add(tasksTabPanel);
         usersHolderPanel.add(usersTabPanel);
