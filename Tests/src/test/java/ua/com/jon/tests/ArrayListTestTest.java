@@ -245,4 +245,23 @@ public class ArrayListTestTest {
         assertTrue(resultString.contains("отсутствует"));
         assertEquals("70", markString);
     }
+
+    @Test
+    public void testInfinitLoopInConstractor() {
+        final String className = "";
+        final String classCode = "public class A {" +
+                "public A() {" +
+                "   while(true);" +
+                "}" +
+                "public static void main(String[] args) {" +
+                "   while(true);" +
+                "}" +
+                "}";
+        String testName = "ArrayListTest";
+        Map.Entry<String,String> processResult = classProcessor.processClass(className, classCode, testName);
+        String resultString = processResult.getValue();
+        String markString = processResult.getKey();
+        assertEquals("test timed out after 1000 milliseconds", resultString);
+        assertEquals("10", markString);
+    }
 }

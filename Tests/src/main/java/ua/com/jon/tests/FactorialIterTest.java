@@ -34,7 +34,7 @@ public class FactorialIterTest extends BaseTest {
 
     @Before
     public void setUp() {
-        instance = super.setUpAndInstanciate(unitClass);
+        super.setUp();
     }
 
     @After
@@ -44,6 +44,7 @@ public class FactorialIterTest extends BaseTest {
 
     @Test(timeout = 1000)
     public void test1IllegalInput() {
+        instance = instanciate(unitClass);
         String expectedString = "Неправильный ввод\n";
         getOut().println("q");
 
@@ -58,6 +59,7 @@ public class FactorialIterTest extends BaseTest {
 
     @Test(timeout = 1000)
     public void test2Success() {
+        instance = instanciate(unitClass);
         int number = rnd.nextInt(10);
         int fib = 1;
         for(int i=1; i<=number; i++) {

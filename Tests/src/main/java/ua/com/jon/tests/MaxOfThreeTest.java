@@ -31,7 +31,7 @@ public class MaxOfThreeTest extends BaseTest {
 
     @Before
     public void setUp() {
-        instance = super.setUpAndInstanciate(unitClass);
+        super.setUp();
     }
 
     @After
@@ -41,6 +41,7 @@ public class MaxOfThreeTest extends BaseTest {
 
     @Test(timeout = 1000)
     public void testSuccess() {
+        instance = instanciate(unitClass);
         int first = rnd.nextInt(100);
         int second = rnd.nextInt(100);
         int third = rnd.nextInt(100);

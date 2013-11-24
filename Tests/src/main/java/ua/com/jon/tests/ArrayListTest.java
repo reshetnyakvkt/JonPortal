@@ -129,7 +129,7 @@ public class ArrayListTest extends BaseTest {
 
     @Before
     public void setUp() {
-        instance = super.setUpAndInstanciate(unitClass);
+        super.setUp();
     }
 
     @After
@@ -140,6 +140,7 @@ public class ArrayListTest extends BaseTest {
     @Test(timeout = 1000)
     public void testMethodsExists() {
         try {
+            instance = instanciate(unitClass);
             Method methodAdd = unitClass.getMethod("add", Integer.class);
             Class returnType = methodAdd.getReturnType();
             if(returnType != boolean.class) {
@@ -205,18 +206,19 @@ public class ArrayListTest extends BaseTest {
         try {
             add.invoke(instance, expectedResult);
         } catch (Exception e) {
-            fail("Ошибка тестирования!, невозможно вызвать метод add");
+            fail("Ошибка тестирования! Невозможно вызвать метод add");
         }
     }
     @Test(timeout = 1000)
     public void testAdd() {
+        instance = instanciate(unitClass);
         Integer expectedResult = 12;
         invokeAdd(expectedResult);
         Integer actualResult = null;
         try {
             actualResult = getElementFromList();
         } catch (Exception e) {
-            fail("Ошибка тестирования!, невозможно получить добавленный элемент");
+            fail("Ошибка тестирования! Невозможно получить добавленный элемент");
         }
         assertEquals("В метод add передано "+expectedResult+", но в списке находится "+actualResult, expectedResult,actualResult);
     }
@@ -253,6 +255,7 @@ public class ArrayListTest extends BaseTest {
 
     @Test(timeout = 1000)
     public void testGet() {
+        instance = instanciate(unitClass);
         Integer expectedResult = 21;
         invokeAdd(expectedResult);
         Integer actualResult = null;

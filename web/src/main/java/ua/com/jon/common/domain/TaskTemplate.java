@@ -32,6 +32,7 @@ public class TaskTemplate {
 
     private String name;
 
+    @Column(length = 50000)
     private String materials;
 
     @Column(name = "CLASS_NAME")

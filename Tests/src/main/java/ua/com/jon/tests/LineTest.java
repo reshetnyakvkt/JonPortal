@@ -31,7 +31,7 @@ public class LineTest extends BaseTest {
 
     @Before
     public void setUp() {
-        instance = super.setUpAndInstanciate(unitClass);
+        super.setUp();
     }
 
     @After
@@ -41,6 +41,7 @@ public class LineTest extends BaseTest {
 
     @Test(timeout = 1000)
     public void test1IllegalInput() {
+        instance = instanciate(unitClass);
         String expectedString = "Неправильный ввод\n";
         getOut().println("\n");
 
@@ -55,6 +56,7 @@ public class LineTest extends BaseTest {
 
     @Test(timeout = 1000)
     public void test2Success() {
+        instance = instanciate(unitClass);
         int lineLength = rnd.nextInt(6);
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < lineLength; i++) {

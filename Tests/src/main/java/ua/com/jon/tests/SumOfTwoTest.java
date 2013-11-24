@@ -29,7 +29,7 @@ public class SumOfTwoTest extends BaseTest {
 
     @Before
     public void setUp() {
-        instance = super.setUpAndInstanciate(unitClass);
+        super.setUp();
     }
 
     @After
@@ -39,6 +39,7 @@ public class SumOfTwoTest extends BaseTest {
 
     @Test(timeout = 1000)
     public void testSuccess() {
+        instance = instanciate(unitClass);
         int first = rnd.nextInt(100);
         int second = rnd.nextInt(100);
         int expectedSum = first + second;

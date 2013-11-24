@@ -42,7 +42,7 @@ public class ArrayToArrayOccurrenceTest  extends BaseTest {
 
     @Before
     public void setUp() {
-        instance = super.setUpAndInstanciate(unitClass);
+        super.setUp();
     }
 
     @After
@@ -52,6 +52,7 @@ public class ArrayToArrayOccurrenceTest  extends BaseTest {
 
     @Test(timeout = 1000)
     public void testSuccess() {
+        instance = instanciate(unitClass);
         int listSize = rnd.nextInt(10) + 10;
         Integer[] firstList = new Integer[listSize];
         listSize = rnd.nextInt(10) + 10;

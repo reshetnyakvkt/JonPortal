@@ -24,7 +24,7 @@ public class HelloWorldTest extends BaseTest {
 
     @Before
     public void setUp() {
-        instance = super.setUpAndInstanciate(unitClass);
+        super.setUp();
     }
 
     @After
@@ -34,6 +34,7 @@ public class HelloWorldTest extends BaseTest {
 
     @Test(timeout = 1000)
     public void testClassMainMessage() {
+        instance = instanciate(unitClass);
         invokeMain(unitClass, instance);
         String lineSeparator = System.lineSeparator();
         assertTrue("Метод main должен выводить в консоль сообщение \'Hello world\'", ("Hello world" + lineSeparator).equals(getIn().toString()));

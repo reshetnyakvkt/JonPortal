@@ -6,6 +6,8 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import static junit.framework.Assert.assertEquals;
+
 /**
  * Created with IntelliJ IDEA.
  * User: Admin
@@ -26,7 +28,7 @@ public class GreatingTest extends BaseTest {
 
     @Before
     public void setUp() {
-        instance = super.setUpAndInstanciate(unitClass);
+        super.setUp();
     }
 
     @After
@@ -36,12 +38,13 @@ public class GreatingTest extends BaseTest {
 
     @Test(timeout = 1000)
     public void testSuccess() {
+        instance = instanciate(unitClass);
         String name = names[rnd.nextInt(names.length)];
         getOut().print(name);
         invokeMain(unitClass, instance);
         String expectedString = "Здравствуйте " + name + lineSeparator;
         String actualString = getIn().toString();
-        Assert.assertEquals("Ожидается строка " + expectedString + ", но выводится [" + actualString + "]",
+        assertEquals("Ожидается строка " + expectedString + ", но выводится [" + actualString + "]",
                 expectedString, actualString);
     }
 }

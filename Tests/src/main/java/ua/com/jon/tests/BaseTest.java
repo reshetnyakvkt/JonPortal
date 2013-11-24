@@ -24,11 +24,29 @@ public class BaseTest {
     public static String lineSeparator = System.getProperty("line.separator");
     public static Random rnd = new Random();
 
+    @Deprecated
     public Object setUpAndInstanciate(Class unitClass) {
         try {
             evaluationUtil = new EvaluationUtil();
             in = new ByteArrayOutputStream();
             out = new PrintStream(evaluationUtil.setInGetOut(in));
+            return unitClass.newInstance();
+        } catch (InstantiationException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public void setUp() {
+        evaluationUtil = new EvaluationUtil();
+        in = new ByteArrayOutputStream();
+        out = new PrintStream(evaluationUtil.setInGetOut(in));
+    }
+
+    public Object instanciate(Class unitClass) {
+        try {
             return unitClass.newInstance();
         } catch (InstantiationException e) {
             e.printStackTrace();
@@ -61,4 +79,5 @@ public class BaseTest {
 
     public OutputStream getIn() {
         return in;
-    }}
+    }
+}

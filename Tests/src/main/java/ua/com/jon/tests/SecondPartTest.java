@@ -18,7 +18,7 @@ public class SecondPartTest extends BaseTest {
 
     @Before
     public void setUp() {
-        instance = super.setUpAndInstanciate(unitClass);
+        super.setUp();
     }
 
     @After
@@ -28,6 +28,7 @@ public class SecondPartTest extends BaseTest {
 
     @Test(timeout = 1000)
     public void test1IllegalInput() {
+        instance = instanciate(unitClass);
         String expectedString = "Неправильный ввод\n";
         getOut().println("\n");
 

@@ -56,7 +56,7 @@ public class PairRemovalListTest extends BaseTest {
 
     @Before
     public void setUp() {
-        instance = super.setUpAndInstanciate(unitClass);
+        super.setUp();
     }
 
     @After
@@ -66,6 +66,7 @@ public class PairRemovalListTest extends BaseTest {
 
     @Test(timeout = 1000)
     public void testSuccess() {
+        instance = instanciate(unitClass);
         int listSize = rnd.nextInt(10) + 10;
         List<Integer> expactedNumbers = new ArrayList<Integer>(listSize);
         StringBuilder builder = new StringBuilder();

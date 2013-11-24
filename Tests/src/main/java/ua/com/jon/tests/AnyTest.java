@@ -21,7 +21,8 @@ public class AnyTest extends BaseTest {
 
     @Before
     public void setUp() {
-        instance = super.setUpAndInstanciate(unitClass);
+//        instance = super.setUpAndInstanciate(unitClass);
+        super.setUp();
     }
 
     @After
@@ -31,6 +32,7 @@ public class AnyTest extends BaseTest {
 
     @Test(timeout = 1000)
     public void test1IllegalInput() {
+        instance = instanciate(unitClass);
         //String expectedString = "Неправильный ввод\n";
         //getOut().println("1\n2\n3\n4\n1\n");
 
