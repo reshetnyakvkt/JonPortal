@@ -21,7 +21,6 @@ public class AnyTest extends BaseTest {
 
     @Before
     public void setUp() {
-//        instance = super.setUpAndInstanciate(unitClass);
         super.setUp();
     }
 
