@@ -1,0 +1,88 @@
+package ua.com.jon.tests;
+
+import com.jon.tron.service.junit.Unit;
+import com.jon.tron.service.reflect.ReflectionUtil;
+import org.junit.After;
+import org.junit.Before;
+import org.junit.FixMethodOrder;
+import org.junit.Test;
+import org.junit.runners.MethodSorters;
+
+import java.lang.reflect.Method;
+import java.util.Arrays;
+import java.util.Random;
+
+import static org.junit.Assert.*;
+
+/**
+ * Created with IntelliJ IDEA.
+ * User: al1
+ * Date: 11/24/13
+ */
+@Unit(testName = "Bubble", value = "weekend1.task1")
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
+public class BubbleSortTest extends BaseTest {
+    private Random rnd = new Random();
+
+    @Unit
+    private static Class unitClass;
+    private Object instance;
+
+    @Before
+    public void setUp() {
+        super.setUp();
+    }
+
+    @After
+    public void tearDown() {
+        super.tearDown();
+    }
+
+    @Test(timeout = 1000)
+    public void test1Success() {
+        final String signature = "int[] bubbleSort(int[] vector)";
+        instance = instanciate(unitClass);
+        Method methodSort = ReflectionUtil.getMethod(unitClass, "bubbleSort", int[].class);
+        assertNotNull("В классе отсутствует метод " + signature, methodSort);
+
+        Class returnType = methodSort.getReturnType();
+        if(returnType != int[].class) {
+            fail("Метод  не должен иметь возвращаемого значения");
+        }
+
+        int[] originalVector = generateVector(10, 10);
+        int[] expectedVector = bubbleSort(originalVector.clone());
+        int[] actualVector = null;
+        try {
+            actualVector = (int[])ReflectionUtil.invokeMethod(instance, "bubbleSort", int[].class, originalVector.clone());
+        } catch (Throwable throwable) {
+            fail(throwable.getMessage());
+        }
+        assertNotNull("Метод " + signature + " не должен возвращать null");
+
+        assertArrayEquals("После сортировки вектора " + Arrays.toString(actualVector) +
+                " ожидается вектор " + Arrays.toString(expectedVector), expectedVector, actualVector);
+
+    }
+
+    private int[] generateVector(int elementCount, int maxRandom) {
+        int[] vector = new int[elementCount];
+        for (int i = 0; i < vector.length; i++) {
+            vector[i] = rnd.nextInt(maxRandom);
+        }
+        return vector;
+    }
+
+    private int[] bubbleSort(int[] vector) {
+        for (int i = 0; i < vector.length; i++) {
+            for (int j = 0; j < vector.length - 1; j++) {
+                if(vector[j] > vector[j + 1]) {
+                    int tmp = vector[j];
+                    vector[j] = vector[j + 1];
+                    vector[j + 1] = tmp;
+                }
+            }
+        }
+        return vector;
+    }
+}
