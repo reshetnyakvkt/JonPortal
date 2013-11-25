@@ -45,15 +45,24 @@ public class BaseTest {
         out = new PrintStream(evaluationUtil.setInGetOut(in));
     }
 
-    public Object instanciate(Class unitClass) {
+    public Object instanciate(Class unitClass) throws Throwable {
+        String instantateErrorMEssage = "Ошибка создания объекта класса " + unitClass.getName();
+        Throwable throwable;
         try {
             return unitClass.newInstance();
         } catch (InstantiationException e) {
-            e.printStackTrace();
+            instantateErrorMEssage = e.getMessage();
+            throwable = e;
         } catch (IllegalAccessException e) {
-            e.printStackTrace();
+            instantateErrorMEssage = e.getMessage();
+            throwable = e;
+        } catch (Throwable t) {
+            instantateErrorMEssage = t.getMessage();
+            throwable = t;
         }
-        return null;
+        throwable.printStackTrace();
+        //fail(instantateErrorMEssage);
+        throw throwable;
     }
 
     public void tearDown() {

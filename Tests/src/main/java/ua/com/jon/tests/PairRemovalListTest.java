@@ -65,7 +65,7 @@ public class PairRemovalListTest extends BaseTest {
     }
 
     @Test(timeout = 1000)
-    public void testSuccess() {
+    public void testSuccess() throws Throwable {
         instance = instanciate(unitClass);
         int listSize = rnd.nextInt(10) + 10;
         List<Integer> expactedNumbers = new ArrayList<Integer>(listSize);

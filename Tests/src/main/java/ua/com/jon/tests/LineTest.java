@@ -40,7 +40,7 @@ public class LineTest extends BaseTest {
     }
 
     @Test(timeout = 1000)
-    public void test1IllegalInput() {
+    public void test1IllegalInput() throws Throwable {
         instance = instanciate(unitClass);
         String expectedString = "Неправильный ввод\n";
         getOut().println("\n");
@@ -55,7 +55,7 @@ public class LineTest extends BaseTest {
     }
 
     @Test(timeout = 1000)
-    public void test2Success() {
+    public void test2Success() throws Throwable {
         instance = instanciate(unitClass);
         int lineLength = rnd.nextInt(6);
         StringBuilder sb = new StringBuilder();

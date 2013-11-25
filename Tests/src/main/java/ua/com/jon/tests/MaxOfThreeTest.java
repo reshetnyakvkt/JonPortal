@@ -40,7 +40,7 @@ public class MaxOfThreeTest extends BaseTest {
     }
 
     @Test(timeout = 1000)
-    public void testSuccess() {
+    public void testSuccess() throws Throwable {
         instance = instanciate(unitClass);
         int first = rnd.nextInt(100);
         int second = rnd.nextInt(100);

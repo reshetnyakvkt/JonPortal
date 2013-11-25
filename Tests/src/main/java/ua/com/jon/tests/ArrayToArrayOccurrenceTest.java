@@ -51,7 +51,7 @@ public class ArrayToArrayOccurrenceTest  extends BaseTest {
     }
 
     @Test(timeout = 1000)
-    public void testSuccess() {
+    public void testSuccess() throws Throwable {
         instance = instanciate(unitClass);
         int listSize = rnd.nextInt(10) + 10;
         Integer[] firstList = new Integer[listSize];

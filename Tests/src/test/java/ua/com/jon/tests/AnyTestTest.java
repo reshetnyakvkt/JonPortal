@@ -98,4 +98,23 @@ public class AnyTestTest {
         assertEquals("test timed out after 1000 milliseconds", resultString);
         assertEquals("10", markString);
     }
+
+    @Test
+    public void testThrowExceptionInConstractor() {
+        final String className = "";
+        final String classCode = "public class A {" +
+                "public A() throws Throwable {" +
+                "   throw new Throwable();" +
+                "}" +
+                "public static void main(String[] args) {" +
+                "   while(true);" +
+                "}" +
+                "}";
+        String testName = "Any";
+        Map.Entry<String,String> processResult = classProcessor.processClass(className, classCode, testName);
+        String resultString = processResult.getValue();
+        String markString = processResult.getKey();
+        assertEquals("В результате выполнения, было выброшено исключение java.lang.Throwable null", resultString);
+        assertEquals("10", markString);
+    }
 }

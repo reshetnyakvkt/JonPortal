@@ -39,7 +39,7 @@ public class BubbleSortTest extends BaseTest {
     }
 
     @Test(timeout = 1000)
-    public void test1Success() {
+    public void test1Success() throws Throwable {
         final String signature = "int[] bubbleSort(int[] vector)";
         instance = instanciate(unitClass);
         Method methodSort = ReflectionUtil.getMethod(unitClass, "bubbleSort", int[].class);

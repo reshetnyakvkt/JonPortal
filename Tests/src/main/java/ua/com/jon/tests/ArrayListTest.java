@@ -138,7 +138,7 @@ public class ArrayListTest extends BaseTest {
     }
 
     @Test(timeout = 1000)
-    public void testMethodsExists() {
+    public void testMethodsExists() throws Throwable {
         try {
             instance = instanciate(unitClass);
             Method methodAdd = unitClass.getMethod("add", Integer.class);
@@ -210,7 +210,7 @@ public class ArrayListTest extends BaseTest {
         }
     }
     @Test(timeout = 1000)
-    public void testAdd() {
+    public void testAdd() throws Throwable {
         instance = instanciate(unitClass);
         Integer expectedResult = 12;
         invokeAdd(expectedResult);
@@ -254,7 +254,7 @@ public class ArrayListTest extends BaseTest {
     }
 
     @Test(timeout = 1000)
-    public void testGet() {
+    public void testGet() throws Throwable {
         instance = instanciate(unitClass);
         Integer expectedResult = 21;
         invokeAdd(expectedResult);

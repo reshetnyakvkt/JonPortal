@@ -43,7 +43,7 @@ public class FactorialIterTest extends BaseTest {
     }
 
     @Test(timeout = 1000)
-    public void test1IllegalInput() {
+    public void test1IllegalInput() throws Throwable {
         instance = instanciate(unitClass);
         String expectedString = "Неправильный ввод\n";
         getOut().println("q");
@@ -58,7 +58,7 @@ public class FactorialIterTest extends BaseTest {
     }
 
     @Test(timeout = 1000)
-    public void test2Success() {
+    public void test2Success() throws Throwable {
         instance = instanciate(unitClass);
         int number = rnd.nextInt(10);
         int fib = 1;

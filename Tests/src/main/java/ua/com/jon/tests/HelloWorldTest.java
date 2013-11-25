@@ -33,7 +33,7 @@ public class HelloWorldTest extends BaseTest {
     }
 
     @Test(timeout = 1000)
-    public void testClassMainMessage() {
+    public void testClassMainMessage() throws Throwable {
         instance = instanciate(unitClass);
         invokeMain(unitClass, instance);
         String lineSeparator = System.lineSeparator();

@@ -30,7 +30,7 @@ public class AnyTest extends BaseTest {
     }
 
     @Test(timeout = 1000)
-    public void test1IllegalInput() {
+    public void test1IllegalInput() throws Throwable {
         instance = instanciate(unitClass);
         //String expectedString = "Неправильный ввод\n";
         //getOut().println("1\n2\n3\n4\n1\n");

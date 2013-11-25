@@ -9,7 +9,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import java.util.Map;
 
-import static junit.framework.Assert.assertEquals;
+import static junit.framework.Assert.*;
 
 /**
  * Created with IntelliJ IDEA.
@@ -54,11 +54,11 @@ public class BubbleSortTestTest {
     public void testEmpty() {
         final String className = "";
         final String classCode = "public class A{}";
-        String testName = "Any";
+        String testName = "Bubble";
         Map.Entry<String,String> processResult = classProcessor.processClass(className, classCode, testName);
         String resultString = processResult.getValue();
         String markString = processResult.getKey();
-        assertEquals("Задание принято", resultString);
+        assertEquals("В классе отсутствует метод int[] bubbleSort(int[] vector)", resultString);
         assertEquals("10", markString);
     }
 
@@ -66,15 +66,74 @@ public class BubbleSortTestTest {
     public void testInfinitLoop() {
         final String className = "";
         final String classCode = "public class A {" +
-                "public static void main(String[] args) {" +
-                "while(true){}" +
+                "private int[] bubbleSort(int[] vector) {\n" +
+                "   while(true){}" +
                 "}" +
                 "}";
-        String testName = "Any";
+        String testName = "Bubble";
         Map.Entry<String,String> processResult = classProcessor.processClass(className, classCode, testName);
         String resultString = processResult.getValue();
         String markString = processResult.getKey();
-        assertEquals("Задание принято", resultString);
+        assertEquals("test timed out after 1000 milliseconds", resultString);
+        assertEquals("10", markString);
+    }
+
+    @Test
+    public void testEmptyMethod() {
+        final String className = "";
+        final String classCode = "public class A {" +
+                "private int[] bubbleSort(int[] vector) {\n" +
+                "   return vector;" +
+                "}" +
+                "}";
+        String testName = "Bubble";
+        Map.Entry<String,String> processResult = classProcessor.processClass(className, classCode, testName);
+        String resultString = processResult.getValue();
+        String markString = processResult.getKey();
+        assertTrue( resultString.contains("ожидается вектор"));
+        assertEquals("10", markString);
+    }
+
+    @Test
+    public void testEmptyStaticMethod() {
+        final String className = "";
+        final String classCode = "public class A {" +
+                "public static int[] bubbleSort(int[] vector) {\n" +
+                "   return vector;" +
+                "}" +
+                "}";
+        String testName = "Bubble";
+        Map.Entry<String,String> processResult = classProcessor.processClass(className, classCode, testName);
+        String resultString = processResult.getValue();
+        String markString = processResult.getKey();
+        assertTrue( resultString.contains("ожидается вектор"));
+        assertEquals("10", markString);
+    }
+
+    @Test
+    public void testIllegal() {
+        final String className = "";
+        final String classCode = "public class A {" +
+                "package lesson;" +
+                "public class BubbleSorter {" +
+                "    private int[] bubbleSort(int[] vector) {\n" +
+                "        for (int i = 0; i < vector.length; i++) {\n" +
+                "            for (int j = 0; j < vector.length; j++) {\n" +
+                "                if(vector[j] > vector[j + 1]) {\n" +
+                "                    int tmp = vector[j];\n" +
+                "                    vector[j] = vector[j + 1];\n" +
+                "                    vector[j + 1] = tmp;\n" +
+                "                }\n" +
+                "            }\n" +
+                "        }\n" +
+                "        return vector;\n" +
+                "    }" +
+                "}";
+        String testName = "Bubble";
+        Map.Entry<String,String> processResult = classProcessor.processClass(className, classCode, testName);
+        String resultString = processResult.getValue();
+        String markString = processResult.getKey();
+        assertTrue( resultString.contains("ожидается вектор"));
         assertEquals("10", markString);
     }
 
@@ -89,7 +148,7 @@ public class BubbleSortTestTest {
                 "   while(true);" +
                 "}" +
                 "}";
-        String testName = "Any";
+        String testName = "Bubble";
         Map.Entry<String,String> processResult = classProcessor.processClass(className, classCode, testName);
         String resultString = processResult.getValue();
         String markString = processResult.getKey();

@@ -27,7 +27,7 @@ public class SecondPartTest extends BaseTest {
     }
 
     @Test(timeout = 1000)
-    public void test1IllegalInput() {
+    public void test1IllegalInput() throws Throwable {
         instance = instanciate(unitClass);
         String expectedString = "Неправильный ввод\n";
         getOut().println("\n");
