@@ -90,7 +90,7 @@ public class BubbleSortTestTest {
         Map.Entry<String,String> processResult = classProcessor.processClass(className, classCode, testName);
         String resultString = processResult.getValue();
         String markString = processResult.getKey();
-        assertTrue( resultString.contains("ожидается вектор"));
+        assertTrue(resultString.contains("ожидается вектор"));
         assertEquals("10", markString);
     }
 
@@ -113,7 +113,7 @@ public class BubbleSortTestTest {
     @Test
     public void testIllegal() {
         final String className = "";
-        final String classCode = "public class A {" +
+        final String classCode =
                 "package lesson;" +
                 "public class BubbleSorter {" +
                 "    private int[] bubbleSort(int[] vector) {\n" +
@@ -133,7 +133,8 @@ public class BubbleSortTestTest {
         Map.Entry<String,String> processResult = classProcessor.processClass(className, classCode, testName);
         String resultString = processResult.getValue();
         String markString = processResult.getKey();
-        assertTrue( resultString.contains("ожидается вектор"));
+        System.out.println(resultString);
+        assertTrue(resultString.contains("Было выброшено исключение java.lang.ArrayIndexOutOfBoundsException:"));
         assertEquals("10", markString);
     }
 

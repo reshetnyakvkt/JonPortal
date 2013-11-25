@@ -54,8 +54,8 @@ public class BaseTest {
             instantateErrorMEssage = e.getMessage();
             throwable = e;
         } catch (IllegalAccessException e) {
-            instantateErrorMEssage = e.getMessage();
-            throwable = e;
+            instantateErrorMEssage = "Невозможно создать объект класса, возможно класс не public";
+            throwable = new IllegalAccessException(instantateErrorMEssage);
         } catch (Throwable t) {
             instantateErrorMEssage = t.getMessage();
             throwable = t;

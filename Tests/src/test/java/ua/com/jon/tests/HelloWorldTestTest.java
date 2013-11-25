@@ -85,7 +85,7 @@ public class HelloWorldTestTest {
         String resultString = processResult.getValue();
         String resultMarkString = processResult.getKey();
         assertEquals("", resultMarkString, "10");
-        assertTrue(resultString.contains("Класс должен быть public"));
+        assertTrue(resultString.contains("Невозможно создать объект класса, возможно класс не public"));
     }
 
     @Test
