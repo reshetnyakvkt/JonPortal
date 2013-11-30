@@ -1,6 +1,13 @@
 package ua.com.jon.admin.client.components;
 
-import com.github.gwtbootstrap.client.ui.*;
+import com.github.gwtbootstrap.client.ui.Button;
+import com.github.gwtbootstrap.client.ui.NavHeader;
+import com.github.gwtbootstrap.client.ui.NavLink;
+import com.github.gwtbootstrap.client.ui.NavList;
+import com.github.gwtbootstrap.client.ui.ProgressBar;
+import com.github.gwtbootstrap.client.ui.TextBox;
+import com.github.gwtbootstrap.client.ui.ValueListBox;
+import com.github.gwtbootstrap.client.ui.WellNavList;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
@@ -16,6 +23,7 @@ import com.google.gwt.user.client.ui.HasWidgets;
 import com.google.gwt.user.client.ui.Widget;
 import ua.com.jon.admin.client.AdminService;
 import ua.com.jon.admin.client.AdminServiceAsync;
+import ua.com.jon.admin.shared.AdminNotificationEvent;
 import ua.com.jon.admin.shared.SpaceDTO;
 import ua.com.jon.admin.shared.UserDTO;
 
@@ -132,7 +140,8 @@ public class UsersTabPanel extends Composite {
 //                Window.alert(spaceDTOs.toString());
                 spacesListBox.setAcceptableValues(spaceDTOs);
                 globalData.setSpacesDtos(spaceDTOs);
-
+                Window.alert("fireEvent");
+                RootPanel.ADMIN_EVENT_BUS.fireEvent(new AdminNotificationEvent());
 //                for (SpaceDTO spaceDTO : spaceDTOs) {
 //                    addTasksToSprintNavList(spaceDTO.getUsers());
 //                    spacesListBox.setValue(spaceDTO);

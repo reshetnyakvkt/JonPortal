@@ -1,6 +1,8 @@
 package ua.com.jon.admin.client.components;
 
 import com.google.gwt.core.client.GWT;
+import com.google.gwt.event.shared.EventBus;
+import com.google.gwt.event.shared.SimpleEventBus;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.uibinder.client.UiTemplate;
@@ -60,6 +62,7 @@ public class RootPanel extends Composite {
     private static SprintsTabPanelUiBinder sprintsUIBinder = GWT.create(SprintsTabPanelUiBinder.class);
     private static GroupsManageTabPanelUiBinder groupsManageUIBinder = GWT.create(GroupsManageTabPanelUiBinder.class);
     private static GlobalData globalData = new GlobalData();
+    public static EventBus ADMIN_EVENT_BUS = GWT.create(SimpleEventBus.class);
 
     public RootPanel() {
         initWidget(rootUIBinder.createAndBindUi(this));

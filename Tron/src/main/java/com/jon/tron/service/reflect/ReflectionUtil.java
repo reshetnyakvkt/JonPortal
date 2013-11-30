@@ -1,6 +1,7 @@
 package com.jon.tron.service.reflect;
 
 import java.io.IOException;
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 
 /**
@@ -22,5 +23,13 @@ public class ReflectionUtil {
 
     public static ArrayList<String> findAllTests(String testsPackage) throws IOException, ClassNotFoundException{
         return new ArrayList<String>();
+    }
+
+    public static Method getMethod(Class unitClass, String bubbleSort, Class<int[]> aClass) {
+        return null;  //To change body of created methods use File | Settings | File Templates.
+    }
+
+    public static Object invokeMethod(Object instance, String bubbleSort, Class<int[]> aClass, int[] clone) {
+        return null;  //To change body of created methods use File | Settings | File Templates.
     }
 }

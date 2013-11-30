@@ -35,11 +35,14 @@ import com.google.gwt.view.client.SelectionChangeEvent;
 import com.google.gwt.view.client.SingleSelectionModel;
 import ua.com.jon.admin.client.AdminService;
 import ua.com.jon.admin.client.AdminServiceAsync;
+import ua.com.jon.admin.shared.AdminNotificationEvent;
+import ua.com.jon.admin.shared.AdminNotificationEventHandler;
 import ua.com.jon.admin.shared.GroupAndUsersDTO;
 import ua.com.jon.admin.shared.SpaceDTO;
 import ua.com.jon.admin.shared.UserDTO;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
@@ -80,6 +83,8 @@ public class GroupsManageTabPanel extends Composite {
 
     private GlobalData globalData;
 
+    private SelectionCell cell;
+
     final SingleSelectionModel<SpaceDTO> spaceSelectionModel = new SingleSelectionModel<SpaceDTO>();
 
     @UiField(provided = true)
@@ -99,6 +104,16 @@ public class GroupsManageTabPanel extends Composite {
         initWidget(binder.createAndBindUi(this));
         buildTable();
         loadGroups();
+
+        RootPanel.ADMIN_EVENT_BUS.addHandler(AdminNotificationEvent.TYPE, new AdminNotificationEventHandler() {
+            @Override
+            public void onNotificationChanged(AdminNotificationEvent authenticationEvent) {
+                Window.alert("handler");
+                buildTable();
+                Window.alert("buildTable executed");
+            }
+        });
+
     }
 
     public void buildTable() {
@@ -106,15 +121,14 @@ public class GroupsManageTabPanel extends Composite {
         dataProvider.addDataDisplay(cellTable);
         com.google.gwt.user.cellview.client.Column<UserDTO, String> nameColumn =
                 new com.google.gwt.user.cellview.client.Column<UserDTO, String>(new TextInputCell()) {
-            @Override
-            public String getValue(UserDTO object) {
-                return object.getName() == null ? "" : object.getName();
-            }
-        };
+                    @Override
+                    public String getValue(UserDTO object) {
+                        return object.getName() == null ? "" : object.getName();
+                    }
+                };
         nameColumn.setFieldUpdater(new FieldUpdater<UserDTO, String>() {
             @Override
             public void update(int index, UserDTO object, String value) {
-                Window.alert(value);
                 dataProvider.getList().get(index).setName(value);
                 dataProvider.flush();
                 dataProvider.refresh();
@@ -183,8 +197,12 @@ public class GroupsManageTabPanel extends Composite {
     }
 
     private void createStudentDropdown() {
+
+        cell = new SelectionCell(Arrays.asList("1", "2", "3"));
+
+
         Window.alert("globalData.getSpacesDtos(): " + globalData.getSpacesDtos());
-        SelectionCell cell = new SelectionCell(getStudentNamesFromSpaces(globalData.getSpacesDtos())) {
+        cell = new SelectionCell(getStudentNamesFromSpaces(globalData.getSpacesDtos())) {
 
             @Override
             public void onBrowserEvent(Context context, Element parent, String value, NativeEvent event, ValueUpdater<String> valueUpdater) {
@@ -196,21 +214,10 @@ public class GroupsManageTabPanel extends Composite {
                     SelectElement select = parent.getFirstChild().cast();
                     String newValue = select.getValue();
                     Window.alert(newValue);
-                    /*
-                    TaskTemplateDTO dto = selectionModel.getSelectedObject();
-                    if (dto == null) {
-                        Window.alert("Не выбрано ни одного задания!");
-                        return;
-                    }
-                    if (dto.getType().equals(TaskType.CLASS.name())) {
-                        Window.alert("Для проверки измените статус задания на \"TEST\"");
-                        return;
-                    }
-                    dto.setType(newValue);
-                    */
                 }
             }
         };
+
 
         Column<UserDTO, String> statusCol = new Column<UserDTO, String>(cell) {
 
@@ -221,16 +228,38 @@ public class GroupsManageTabPanel extends Composite {
         };
         cellTable.addColumn(statusCol, "Имя");
 
+
+    }
+
+    private void restructureTable(String taskName) {
+        final int TEST_COLUMN = 1;
+        final int STATUS_COLUMN = 2;
+        for (int i = 0; i < cellTable.getRowCount(); i++) {
+            String nameText = cellTable.getRowElement(i).getInnerText();
+//            if(taskName == null || nameText.contains(taskName)){
+            int columnIndex = TEST_COLUMN;
+//                TaskDTO taskDTO = cellTable.getVisibleItem(i);
+            //Window.alert("taskDTO = "+taskDTO.toString());
+//                if(TaskType.CLASS.name().equals(taskDTO.getType())) {
+//                    columnIndex = STATUS_COLUMN;
+//                }
+            cellTable.getRowElement(i).deleteCell(columnIndex);
+            cellTable.getRowElement(i).insertCell(columnIndex);
+//            }
+        }
     }
 
     private ArrayList<String> getStudentNamesFromSpaces(List<SpaceDTO> spaceDTOs) {
-
-        ArrayList<String> studentNames = new ArrayList<String>(spaceDTOs.size());
+        ArrayList<String> studentNames;
+        if (spaceDTOs == null) {
+            studentNames = new ArrayList<String>();
+        } else {
+            studentNames = new ArrayList<String>(spaceDTOs.size());
+        }
         for (SpaceDTO spaceDTO : spaceDTOs) {
-            Window.alert(spaceDTO.toString());
             studentNames.add(spaceDTO.getName());
         }
-
+        Window.alert(studentNames.toString());
         return studentNames;
     }
 
@@ -269,7 +298,6 @@ public class GroupsManageTabPanel extends Composite {
         adminService.getGroupsAndUsers(groupCallback);
 
     }
-
 
 
     private void addSprintsToTable(HashSet<UserDTO> tasks) {
@@ -380,12 +408,12 @@ public class GroupsManageTabPanel extends Composite {
     }
 
     @UiHandler("refreshGroupsBtn")
-    public void refreshSprintsHandler(ClickEvent e){
+    public void refreshSprintsHandler(ClickEvent e) {
         loadGroups();
     }
 
     @UiHandler("delGroupBtn")
-    public void deleteCurrentGroupHandler(ClickEvent e){
+    public void deleteCurrentGroupHandler(ClickEvent e) {
         deleteCurrentGroup();
     }
 
