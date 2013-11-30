@@ -118,7 +118,7 @@ public class TasksServiceImpl implements TasksService {
 
     @Override
     public String postForTest(TaskDTO taskDTO) {
-        log.info("-== Examinator post for test: " + taskDTO.getCode());
+        log.info("-== Cabinet post task for test: " + taskDTO.getCode());
         Map.Entry<String, String> resultEntry;
         try {
             TaskTemplate template = templateRepository.findOne(taskDTO.getTaskTemplateId());
@@ -127,10 +127,10 @@ public class TasksServiceImpl implements TasksService {
             resultEntry = e.getResult();
         } catch (Exception e) {
             log.error(e);
-            throw new RuntimeException("Внутренняя ошибка. Обратитесь к разработчикам", e);
+            return "Ошибка проверки " + e.getMessage() + ". Обратитесь к разработчикам";
         }
         String testResult = resultEntry.getKey() + '\n' + resultEntry.getValue();
-        log.info("Examinator test result is " + testResult);
+        log.info("Cabinet test result is " + testResult);
         Task task = taskRepository.findOne(taskDTO.getId());
         task.setCode(taskDTO.getCode());
         task.setResult(testResult);
@@ -140,31 +140,42 @@ public class TasksServiceImpl implements TasksService {
 
     @Override
     public ArrayList<TaskDTO> getTasksByUserGroup(Long taskTemplateId) {
-        Object authentication = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        SpringUser springUser;
-        if (authentication instanceof String) {
-            throw new SecurityException("can't grant access to anonymous ");
-        }
-        springUser = (SpringUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        String userName = springUser.getUsername();
+        log.info("-== getTasksByUserGroup: " + taskTemplateId);
+        System.out.println("-== getTasksByUserGroup: " + taskTemplateId);
         ArrayList<TaskDTO> tasksList = new ArrayList<TaskDTO>();
-        User user = userRepository.findByUserName(userName);
-        if (user != null) {
-            for(Group group : user.getGroups()) {
-                Long groupId = group.getId();
-                List<Task> tasks = taskRepository.findEvaluatedByGroupIdAndTaskId(groupId, taskTemplateId);
-                tasksList.addAll(TaskDtoMapper.domainsToDtos(tasks));
-                removeTasksOfCurrentUser(tasksList, user.getLogin());
+        try {
+            Object authentication = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+            SpringUser springUser;
+            if (authentication instanceof String) {
+                throw new SecurityException("can't grant access to anonymous ");
             }
+            springUser = (SpringUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+            String userName = springUser.getUsername();
+            User user = userRepository.findByUserName(userName);
+            if (user != null) {
+                for (Group group : user.getGroups()) {
+                    Long groupId = group.getId();
+                    List<Task> tasks = taskRepository.findEvaluatedByGroupIdAndTaskId(groupId, taskTemplateId);
+                    tasksList.addAll(TaskDtoMapper.domainsToDtos(tasks));
+                    removeTasksOfCurrentUser(tasksList, user.getLogin());
+                }
 //        list.add(new TaskDTO(1L, "task1", "task1", "", "", "", "", "", ""));
 //        list.add(new TaskDTO(1L, "task2", "task2", "", "", "", "", "", ""));
+            }
+            System.out.println("Tasks for group " + tasksList);
+            for (TaskDTO taskDTO : tasksList) {
+                System.out.println(taskDTO.getName() + ", " + taskDTO.getResult());
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new RuntimeException(e);
         }
         return tasksList;
     }
 
     private void removeTasksOfCurrentUser(ArrayList<TaskDTO> list, String userName) {
         for (int i = 0; i < list.size(); i++) {
-            if(list.get(i).getUserName().equals(userName)) {
+            if (list.get(i).getUserName().equals(userName)) {
                 list.remove(i);
             }
         }

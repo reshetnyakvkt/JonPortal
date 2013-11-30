@@ -80,9 +80,6 @@ public class UserTasksTabPanel extends Composite {
     private TasksServiceAsync tasksService = GWT.create(TasksService.class);
 
     public UserTasksTabPanel(final UiBinder<Widget, UserTasksTabPanel> binder) {
-
-
-
         initWidget(binder.createAndBindUi(this));
         buildTable();
         loadSprintsAndTasks();
@@ -107,7 +104,14 @@ public class UserTasksTabPanel extends Composite {
 
             @Override
             public void onFailure(Throwable caught) {
-                Window.alert("Ошибка загрузки этапов в сервера");
+                Window.alert(caught.getClass().getName());
+                Throwable cause = caught.getCause();
+                String errorMessage = "";
+                if(cause == null) {
+                    errorMessage = caught.getCause().getMessage();
+                }
+                Window.alert("Ошибка загрузки этапов в сервера " + errorMessage);
+                Window.Location.reload();
             }
 
             @Override
@@ -156,7 +160,7 @@ public class UserTasksTabPanel extends Composite {
             @Override
             public String getValue(TaskDTO contact) {
                 if(contact.getText() != null){
-                    return contact.getText().substring(0, 51);
+                    return "(" + contact.getGroupId() + ")" + contact.getText().substring(0, 51);
                 }
                 return "";
             }
@@ -253,7 +257,7 @@ public class UserTasksTabPanel extends Composite {
 
                     @Override
                     public void onFailure(Throwable caught) {
-                        Window.alert("Error callback");
+                        Window.alert(caught.getMessage());
                     }
 
                     @Override

@@ -461,6 +461,6 @@ public class TasksTabPanel extends Composite {
             }
         };
 
-        adminService.getTasksbyGroup(name, callback);
+        adminService.getTasksByGroup(name, callback);
     }
 }

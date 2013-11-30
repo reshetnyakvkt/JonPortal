@@ -25,18 +25,8 @@ import static junit.framework.Assert.*;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {"/testContext.xml"})
 public class HelloWorldTestTest {
-    private SourceCompiler compiler = new SourceCompiler();
-
-    @Autowired
-    private UnitTestsRunner testsRunner;
-
     @Autowired
     private ClassProcessor classProcessor;
-
-    @Before
-    public void setUp() {
-        //testsRunner = new UnitTestsRunner();
-    }
 
     @Test
     public void testEmpty() throws Exception {

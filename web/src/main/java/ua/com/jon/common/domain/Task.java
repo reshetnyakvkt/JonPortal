@@ -37,6 +37,7 @@ public class Task {
     @Column(length = 20000)
     private String code;
 
+    @Column(length = 20000)
     private String result;
 
     public Task() {

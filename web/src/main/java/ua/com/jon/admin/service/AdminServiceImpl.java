@@ -222,7 +222,7 @@ public class AdminServiceImpl implements AdminService {
 
     @Override
     public void sprintTypeChanged(SprintDTO dto) {
-        log.info("sprintTypeChanged: " + dto);
+        log.info("-- sprintTypeChanged: " + dto);
         Sprint sprint = sprintRepository.findOne(dto.getId());
         SprintType newType = SprintType.valueOf(dto.getType());
         sprint.setType(newType);
@@ -245,7 +245,8 @@ public class AdminServiceImpl implements AdminService {
     }
 
     @Override
-    public List<TaskDTO> getTasksbyGroup(String name) {
+    public List<TaskDTO> getTasksByGroup(String name) {
+        log.info("-- getTasksByGroup: " + name);
         Group group = groupRepository.findByName(name);
         List<Task> tasks = taskRepository.findByGroupId(group.getId());
         return TaskDtoMapper.domainsToAdminDtos(tasks);
@@ -253,7 +254,7 @@ public class AdminServiceImpl implements AdminService {
 
     @Override
     public ArrayList<GroupAndUsersDTO> getGroupsAndUsers() {
-        Set<Group> groups = new HashSet();
+        Set<Group> groups = new HashSet<Group>();
         groups.addAll(groupRepository.findAllGroupsAndUsers());
         List<Group> groupsList = new ArrayList<Group>(groups.size());
         groupsList.addAll(groups);

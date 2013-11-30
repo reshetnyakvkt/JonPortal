@@ -40,7 +40,7 @@ public interface AdminServiceAsync {
 
     void getAvailableTestNames(AsyncCallback<ArrayList<String>> async);
 
-    void getTasksbyGroup(String name, AsyncCallback<List<ua.com.jon.admin.shared.TaskDTO>> async);
+    void getTasksByGroup(String name, AsyncCallback<List<ua.com.jon.admin.shared.TaskDTO>> async);
 
     void getGroupsAndUsers(AsyncCallback<ArrayList<GroupAndUsersDTO>> async);
 
