@@ -32,12 +32,12 @@ public class MaxHalfTest extends BaseTest {
             secondSum += vector[vector.length - 1 - i];
         }
         if (firstSum > secondSum) {
-            for (int i = 0; i < vector.length; i++) {
+            for (int i = 0; i < vector.length / 2; i++) {
                 System.out.print(vector[i] + " ");
             }
         } else {
-            for (int i = vector.length / 2; i >= 0; i--) {
-                System.out.print(vector[i] + " ");
+            for (int i = 0; i < vector.length / 2; i++) {
+                System.out.println(vector[vector.length - 1 - i] + " ");
             }
         }
     }
@@ -58,7 +58,7 @@ public class MaxHalfTest extends BaseTest {
         super.tearDown();
     }
 
-    @Test(timeout = 1000)
+    @Test//(timeout = 1000)
     public void test1Success() throws Throwable {
         final String signature = "void maxHalf(int[] vector)";
         instance = instanciate(unitClass);
@@ -72,16 +72,18 @@ public class MaxHalfTest extends BaseTest {
 
         int[] originalVector = generateVector(10, 10);
         String actualVector = maxHalfCheck(originalVector.clone());
-        String expectedVector = getIn().toString();
-        expectedVector.trim();
 
         try {
-                ReflectionUtil.invokeMethod(instance, "maxHalf", int[].class, originalVector.clone());
+            ReflectionUtil.invokeMethod(instance, "maxHalf", int[].class, originalVector.clone());
+            String expectedVector = getIn().toString();
+            expectedVector.trim();
+
+            assertEquals("Ожидается " + expectedVector + "но выведено " + actualVector, expectedVector, actualVector);
+
         } catch (Throwable throwable) {
             fail("Было выброшено исключение " + throwable.getClass().getName() + ": " + throwable.getMessage() + " при вызове метода " + signature);
         }
         assertNotNull("Метод " + signature + " не должен возвращать null");
-        assertEquals("Ожидается " + expectedVector + "но выведено " + actualVector, expectedVector, actualVector);
         //assertArrayEquals("После сортировки вектора " + Arrays.toString(actualVector) +
         //      " ожидается вектор " + Arrays.toString(expectedVector), expectedVector, actualVector);
 
@@ -104,12 +106,12 @@ public class MaxHalfTest extends BaseTest {
             secondSum += vector[vector.length - 1 - i];
         }
         if (firstSum > secondSum) {
-            for (int i = 0; i < vector.length; i++) {
+            for (int i = 0; i < vector.length / 2; i++) {
                 resultMaxHalf.append(vector[i]).append(" ");
             }
         } else {
-            for (int i = vector.length / 2; i >= 0; i--) {
-                resultMaxHalf.append(vector[i]).append(" ");
+            for (int i = 0; i < vector.length / 2; i++) {
+                resultMaxHalf.append(vector[vector.length - 1 - i]).append(" ");
             }
         }
         return resultMaxHalf.toString();
