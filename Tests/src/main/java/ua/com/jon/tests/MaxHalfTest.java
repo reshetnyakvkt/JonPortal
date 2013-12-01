@@ -37,7 +37,7 @@ public class MaxHalfTest extends BaseTest {
             }
         } else {
             for (int i = 0; i < vector.length / 2; i++) {
-                System.out.println(vector[vector.length - 1 - i] + " ");
+                System.out.print(vector[vector.length - 1 - i] + " ");
             }
         }
     }
@@ -58,7 +58,7 @@ public class MaxHalfTest extends BaseTest {
         super.tearDown();
     }
 
-    @Test//(timeout = 1000)
+    @Test(timeout = 1000)
     public void test1Success() throws Throwable {
         final String signature = "void maxHalf(int[] vector)";
         instance = instanciate(unitClass);
@@ -84,9 +84,6 @@ public class MaxHalfTest extends BaseTest {
             fail("Было выброшено исключение " + throwable.getClass().getName() + ": " + throwable.getMessage() + " при вызове метода " + signature);
         }
         assertNotNull("Метод " + signature + " не должен возвращать null");
-        //assertArrayEquals("После сортировки вектора " + Arrays.toString(actualVector) +
-        //      " ожидается вектор " + Arrays.toString(expectedVector), expectedVector, actualVector);
-
     }
 
     private int[] generateVector(int elementCount, int maxRandom) {
