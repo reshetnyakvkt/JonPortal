@@ -58,7 +58,7 @@ public class BubbleSortTestTest {
         Map.Entry<String,String> processResult = classProcessor.processClass(className, classCode, testName);
         String resultString = processResult.getValue();
         String markString = processResult.getKey();
-        assertEquals("В классе отсутствует метод int[] bubbleSort(int[] vector)", resultString);
+        assertEquals("В классе отсутствует метод int[] bubbleSort( int[] )", resultString);
         assertEquals("10", markString);
     }
 
@@ -67,7 +67,7 @@ public class BubbleSortTestTest {
         final String className = "";
         final String classCode = "public class A {" +
                 "private int[] bubbleSort(int[] vector) {\n" +
-                "   while(true){}" +
+                "   while(true);" +
                 "}" +
                 "}";
         String testName = "Bubble";
@@ -134,7 +134,7 @@ public class BubbleSortTestTest {
         String resultString = processResult.getValue();
         String markString = processResult.getKey();
         System.out.println(resultString);
-        assertTrue(resultString.contains("Было выброшено исключение java.lang.ArrayIndexOutOfBoundsException:"));
+        assertTrue(resultString.contains("было выброшено исключение java.lang.ArrayIndexOutOfBoundsException"));
         assertEquals("10", markString);
     }
 

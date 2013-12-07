@@ -62,19 +62,12 @@ public class MaxHalfTest extends BaseTest {
     public void test1Success() throws Throwable {
         final String signature = "void maxHalf(int[] vector)";
         instance = instanciate(unitClass);
-        Method methodSort = ReflectionUtil.getMethod(unitClass, "maxHalf", int[].class);
-        assertNotNull("В классе отсутствует метод " + signature, methodSort);
-
-        Class returnType = methodSort.getReturnType();
-        if (returnType != void.class) {
-            fail("Метод  не должен иметь возвращаемого значения");
-        }
 
         int[] originalVector = generateVector(10, 10);
         String actualVector = maxHalfCheck(originalVector.clone());
 
         try {
-            ReflectionUtil.invokeMethod(instance, "maxHalf", int[].class, originalVector.clone());
+            ReflectionUtil.invokeMethod(instance, "maxHalf", int[].class, void.class, originalVector.clone());
             String expectedVector = getIn().toString();
             expectedVector.trim();
 

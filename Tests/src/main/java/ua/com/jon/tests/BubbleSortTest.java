@@ -42,22 +42,17 @@ public class BubbleSortTest extends BaseTest {
     public void test1Success() throws Throwable {
         final String signature = "int[] bubbleSort(int[] vector)";
         instance = instanciate(unitClass);
-        Method methodSort = ReflectionUtil.getMethod(unitClass, "bubbleSort", int[].class);
-        assertNotNull("В классе отсутствует метод " + signature, methodSort);
-
-        Class returnType = methodSort.getReturnType();
-        if(returnType != int[].class) {
-            fail("Метод  не должен иметь возвращаемого значения");
-        }
 
         int[] originalVector = generateVector(10, 10);
         int[] expectedVector = bubbleSort(originalVector.clone());
         int[] actualVector = null;
-        try {
-            actualVector = (int[])ReflectionUtil.invokeMethod(instance, "bubbleSort", int[].class, originalVector.clone());
-        } catch (Throwable throwable) {
-            fail("Было выброшено исключение " + throwable.getClass().getName() + ": " + throwable.getMessage() + " при вызове метода " + signature);
-        }
+//        try {
+            actualVector = (int[])ReflectionUtil.invokeMethod(instance, "bubbleSort", int[].class, int[].class,
+                    originalVector.clone());
+/*        } catch (Throwable throwable) {
+            fail("Было выброшено исключение " + throwable.getClass().getName() + ": " + throwable.getMessage() +
+                    " при вызове метода " + signature);
+        }*/
         assertNotNull("Метод " + signature + " не должен возвращать null");
 
         assertArrayEquals("После сортировки вектора " + Arrays.toString(actualVector) +
