@@ -29,7 +29,7 @@ public class ReflectionUtil {
         return null;  //To change body of created methods use File | Settings | File Templates.
     }
 
-    public static Object invokeMethod(Object instance, String bubbleSort, Class<int[]> aClass, int[] clone) {
+    public static Object invokeMethod(Object instance, String bubbleSort, Class aClass1, Class aClass, int[] clone) {
         return null;  //To change body of created methods use File | Settings | File Templates.
     }
 }
