@@ -109,7 +109,10 @@ public class GroupsManageTabPanel extends Composite {
             @Override
             public void onNotificationChanged(AdminNotificationEvent authenticationEvent) {
                 Window.alert("handler");
+                cellTable = new CellTable<UserDTO>(5, GWT.<CellTable.SelectableResources>create(CellTable.SelectableResources.class));
+                dataProvider = new ListDataProvider<UserDTO>();
                 buildTable();
+                loadGroups();
                 Window.alert("buildTable executed");
             }
         });
@@ -119,12 +122,14 @@ public class GroupsManageTabPanel extends Composite {
     public void buildTable() {
         cellTable.setEmptyTableWidget(new Label("Please add data."));
         dataProvider.addDataDisplay(cellTable);
+
         com.google.gwt.user.cellview.client.Column<UserDTO, String> nameColumn =
                 new com.google.gwt.user.cellview.client.Column<UserDTO, String>(new TextInputCell()) {
                     @Override
                     public String getValue(UserDTO object) {
                         return object.getName() == null ? "" : object.getName();
                     }
+
                 };
         nameColumn.setFieldUpdater(new FieldUpdater<UserDTO, String>() {
             @Override
@@ -136,6 +141,7 @@ public class GroupsManageTabPanel extends Composite {
         });
 
         createStudentDropdown();
+
         /*
         cellTable.addColumn(nameColumn, "Название");
         */
@@ -145,7 +151,6 @@ public class GroupsManageTabPanel extends Composite {
                 return String.valueOf(contact.getName());
             }
         }, "Текст");
-
 
         com.google.gwt.user.cellview.client.Column<UserDTO, String> buttonDelCol = new com.google.gwt.user.cellview.client.Column<UserDTO, String>(new ButtonCell(IconType.REMOVE, ButtonType.DANGER)) {
             @Override
@@ -193,16 +198,23 @@ public class GroupsManageTabPanel extends Composite {
                     }
                 });
 
-
     }
 
     private void createStudentDropdown() {
 
+        List items = Arrays.asList("1", "2", "3");
+
         cell = new SelectionCell(Arrays.asList("1", "2", "3"));
 
 
-        Window.alert("globalData.getSpacesDtos(): " + globalData.getSpacesDtos());
-        cell = new SelectionCell(getStudentNamesFromSpaces(globalData.getSpacesDtos())) {
+        Window.alert("0 - globalData.getSpacesDtos(): " + globalData.getSpacesDtos());
+        List<String> names = getStudentNamesFromSpaces(globalData.getSpacesDtos());
+        Window.alert("1 - names: " + names);
+        ArrayList<String> test = new ArrayList<String>();
+        test.add("1");
+        test.add("2");
+        test.add("31");
+        cell = new SelectionCell(names) {
 
             @Override
             public void onBrowserEvent(Context context, Element parent, String value, NativeEvent event, ValueUpdater<String> valueUpdater) {
@@ -210,10 +222,11 @@ public class GroupsManageTabPanel extends Composite {
                 super.onBrowserEvent(context, parent, value, event, valueUpdater);
 
                 if (BrowserEvents.CHANGE.equals(event.getType())) {
-
+                    Window.alert("2 - value: " + value);
                     SelectElement select = parent.getFirstChild().cast();
+                    Window.alert("3: " + select);
                     String newValue = select.getValue();
-                    Window.alert(newValue);
+                    Window.alert("4: " +newValue);
                 }
             }
         };
@@ -249,17 +262,23 @@ public class GroupsManageTabPanel extends Composite {
         }
     }
 
-    private ArrayList<String> getStudentNamesFromSpaces(List<SpaceDTO> spaceDTOs) {
-        ArrayList<String> studentNames;
-        if (spaceDTOs == null) {
+    private List<String> getStudentNamesFromSpaces(List<SpaceDTO> spaceDTOs) {
+        ArrayList<String> studentNames = new ArrayList<String>();
+        /*if (spaceDTOs == null) {
             studentNames = new ArrayList<String>();
         } else {
             studentNames = new ArrayList<String>(spaceDTOs.size());
-        }
+        }*/
+
         for (SpaceDTO spaceDTO : spaceDTOs) {
-            studentNames.add(spaceDTO.getName());
+            String name = spaceDTO.getName();
+            if (name == null || name.isEmpty()) {
+                Window.alert("isEmpty");
+            }
+            //studentNames.add(spaceDTO.getName() + "a");
+            studentNames.add("a");
         }
-        Window.alert(studentNames.toString());
+        //Window.alert("3 - studentNames: " + studentNames.toString());
         return studentNames;
     }
 
@@ -283,15 +302,16 @@ public class GroupsManageTabPanel extends Composite {
                 //Window.alert(groupAndUsersDTOs.toString());
                 loadedGroups = groupAndUsersDTOs;
                 Iterator<GroupAndUsersDTO> itr = groupAndUsersDTOs.iterator();
-                /*
+
                 if (itr.hasNext()) {
                     GroupAndUsersDTO groupAndUsersDTO = itr.next();
-                    groupsListBox.setValue(groupAndUsersDTO);
-                    currentGroup = groupAndUsersDTO;
-
+                //    groupsListBox.setValue(groupAndUsersDTO);
+                //    currentGroup = groupAndUsersDTO;
+                    Window.alert("Users for adding to table: " + groupAndUsersDTO.getUsers());
+                    addSprintsToTable(groupAndUsersDTO.getUsers());
                 }
-                */
-                //addSprintsToTable(groupsListBox.getValue().getTasks());
+
+
             }
         };
 
@@ -350,7 +370,7 @@ public class GroupsManageTabPanel extends Composite {
 //                Window.alert("CabinetMain from table: " + Arrays.toString(currentTasks.toArray()));
             }
             currentGroup = group;
-            //Window.alert("New users: " + Arrays.toString(group.getUsers().toArray()));
+            Window.alert("New users: " + Arrays.toString(group.getUsers().toArray()));
             addSprintsToTable(group.getUsers());
         } catch (Exception e) {
             Window.alert(e.getMessage() + e.getCause().toString());
