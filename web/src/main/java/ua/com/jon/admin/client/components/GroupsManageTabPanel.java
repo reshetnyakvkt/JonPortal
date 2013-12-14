@@ -102,15 +102,10 @@ public class GroupsManageTabPanel extends Composite {
     public GroupsManageTabPanel(final UiBinder<Widget, GroupsManageTabPanel> binder, GlobalData globalData) {
         this.globalData = globalData;
         initWidget(binder.createAndBindUi(this));
-        buildTable();
-        loadGroups();
-
         RootPanel.ADMIN_EVENT_BUS.addHandler(AdminNotificationEvent.TYPE, new AdminNotificationEventHandler() {
             @Override
             public void onNotificationChanged(AdminNotificationEvent authenticationEvent) {
                 Window.alert("handler");
-                cellTable = new CellTable<UserDTO>(5, GWT.<CellTable.SelectableResources>create(CellTable.SelectableResources.class));
-                dataProvider = new ListDataProvider<UserDTO>();
                 buildTable();
                 loadGroups();
                 Window.alert("buildTable executed");
@@ -201,19 +196,7 @@ public class GroupsManageTabPanel extends Composite {
     }
 
     private void createStudentDropdown() {
-
-        List items = Arrays.asList("1", "2", "3");
-
-        cell = new SelectionCell(Arrays.asList("1", "2", "3"));
-
-
-        Window.alert("0 - globalData.getSpacesDtos(): " + globalData.getSpacesDtos());
         List<String> names = getStudentNamesFromSpaces(globalData.getSpacesDtos());
-        Window.alert("1 - names: " + names);
-        ArrayList<String> test = new ArrayList<String>();
-        test.add("1");
-        test.add("2");
-        test.add("31");
         cell = new SelectionCell(names) {
 
             @Override
@@ -222,11 +205,8 @@ public class GroupsManageTabPanel extends Composite {
                 super.onBrowserEvent(context, parent, value, event, valueUpdater);
 
                 if (BrowserEvents.CHANGE.equals(event.getType())) {
-                    Window.alert("2 - value: " + value);
                     SelectElement select = parent.getFirstChild().cast();
-                    Window.alert("3: " + select);
                     String newValue = select.getValue();
-                    Window.alert("4: " +newValue);
                 }
             }
         };
@@ -244,41 +224,15 @@ public class GroupsManageTabPanel extends Composite {
 
     }
 
-    private void restructureTable(String taskName) {
-        final int TEST_COLUMN = 1;
-        final int STATUS_COLUMN = 2;
-        for (int i = 0; i < cellTable.getRowCount(); i++) {
-            String nameText = cellTable.getRowElement(i).getInnerText();
-//            if(taskName == null || nameText.contains(taskName)){
-            int columnIndex = TEST_COLUMN;
-//                TaskDTO taskDTO = cellTable.getVisibleItem(i);
-            //Window.alert("taskDTO = "+taskDTO.toString());
-//                if(TaskType.CLASS.name().equals(taskDTO.getType())) {
-//                    columnIndex = STATUS_COLUMN;
-//                }
-            cellTable.getRowElement(i).deleteCell(columnIndex);
-            cellTable.getRowElement(i).insertCell(columnIndex);
-//            }
-        }
-    }
-
     private List<String> getStudentNamesFromSpaces(List<SpaceDTO> spaceDTOs) {
         ArrayList<String> studentNames = new ArrayList<String>();
-        /*if (spaceDTOs == null) {
-            studentNames = new ArrayList<String>();
-        } else {
-            studentNames = new ArrayList<String>(spaceDTOs.size());
-        }*/
-
         for (SpaceDTO spaceDTO : spaceDTOs) {
             String name = spaceDTO.getName();
             if (name == null || name.isEmpty()) {
                 Window.alert("isEmpty");
             }
-            //studentNames.add(spaceDTO.getName() + "a");
-            studentNames.add("a");
+            studentNames.add(spaceDTO.getName());
         }
-        //Window.alert("3 - studentNames: " + studentNames.toString());
         return studentNames;
     }
 
@@ -296,22 +250,15 @@ public class GroupsManageTabPanel extends Composite {
             public void onSuccess(ArrayList<GroupAndUsersDTO> groupAndUsersDTOs) {
                 sprintsProgress.setVisible(false);
                 groupsListBox.setVisible(true);
-
-                //Window.alert(groupAndUsersDTOs.toString());
                 groupsListBox.setAcceptableValues(groupAndUsersDTOs);
-                //Window.alert(groupAndUsersDTOs.toString());
                 loadedGroups = groupAndUsersDTOs;
                 Iterator<GroupAndUsersDTO> itr = groupAndUsersDTOs.iterator();
 
                 if (itr.hasNext()) {
                     GroupAndUsersDTO groupAndUsersDTO = itr.next();
-                //    groupsListBox.setValue(groupAndUsersDTO);
-                //    currentGroup = groupAndUsersDTO;
                     Window.alert("Users for adding to table: " + groupAndUsersDTO.getUsers());
                     addSprintsToTable(groupAndUsersDTO.getUsers());
                 }
-
-
             }
         };
 

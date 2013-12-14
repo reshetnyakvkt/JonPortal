@@ -174,8 +174,8 @@ public class AdminServiceImpl implements AdminService {
     }
 
     @Override
-    public void saveGroups(ArrayList<GroupAndUsersDTO> newSprints) {
-
+    public void saveGroups(ArrayList<GroupAndUsersDTO> newGroup) {
+         System.out.println(newGroup);
     }
 
     private Set<Long> getIdsFromSprintsWithoutNull(List<SprintDTO> sprintDTOs) {
