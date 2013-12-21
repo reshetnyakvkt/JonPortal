@@ -175,7 +175,8 @@ public class AdminServiceImpl implements AdminService {
 
     @Override
     public void saveGroups(ArrayList<GroupAndUsersDTO> newGroup) {
-         System.out.println(newGroup);
+         System.out.println("-- saveGroup " + newGroup);
+        // TODO save group
     }
 
     private Set<Long> getIdsFromSprintsWithoutNull(List<SprintDTO> sprintDTOs) {
@@ -267,6 +268,7 @@ public class AdminServiceImpl implements AdminService {
         Group group = groupRepository.findOne(id);
         for (User user : group.getUsers()) {
             user.getGroups().remove(group);
+            //TODO remove tasks by User from Group
         }
         group.getUsers().clear();
         userRepository.save(group.getUsers());

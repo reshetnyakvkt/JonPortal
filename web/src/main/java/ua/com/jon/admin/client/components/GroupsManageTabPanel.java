@@ -42,7 +42,6 @@ import ua.com.jon.admin.shared.SpaceDTO;
 import ua.com.jon.admin.shared.UserDTO;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
@@ -105,10 +104,8 @@ public class GroupsManageTabPanel extends Composite {
         RootPanel.ADMIN_EVENT_BUS.addHandler(AdminNotificationEvent.TYPE, new AdminNotificationEventHandler() {
             @Override
             public void onNotificationChanged(AdminNotificationEvent authenticationEvent) {
-                Window.alert("handler");
-                buildTable();
+                //buildTable();
                 loadGroups();
-                Window.alert("buildTable executed");
             }
         });
 
@@ -225,13 +222,24 @@ public class GroupsManageTabPanel extends Composite {
     }
 
     private List<String> getStudentNamesFromSpaces(List<SpaceDTO> spaceDTOs) {
+        String currentGroupName = groupsListBox.getValue().getName();
         ArrayList<String> studentNames = new ArrayList<String>();
+        SpaceDTO currentSpace = null;
+        Window.alert("spaceDTOs: " + spaceDTOs.toString());
+        Window.alert("name: " + currentGroupName);
         for (SpaceDTO spaceDTO : spaceDTOs) {
             String name = spaceDTO.getName();
-            if (name == null || name.isEmpty()) {
-                Window.alert("isEmpty");
+            if (name.equals(currentGroupName)) {
+                currentSpace = spaceDTO;
+                break;
             }
-            studentNames.add(spaceDTO.getName());
+        }
+        if (currentSpace != null) {
+            for (UserDTO userDTO : currentSpace.getUsers()) {
+                studentNames.add(userDTO.getName());
+            }
+        } else {
+            Window.alert("No sprints with name: " + currentGroupName);
         }
         return studentNames;
     }
@@ -303,7 +311,7 @@ public class GroupsManageTabPanel extends Composite {
 //    }
 
     @UiHandler("groupsListBox")
-    public void onChangeSprintPosition(ValueChangeEvent<GroupAndUsersDTO> groupEvent) {
+    public void onChangeGroupPosition(ValueChangeEvent<GroupAndUsersDTO> groupEvent) {
 //        clearSprintTasksList();
         try {
             //Window.alert("loadedGroups " + loadedGroups.toString());
@@ -317,7 +325,8 @@ public class GroupsManageTabPanel extends Composite {
 //                Window.alert("CabinetMain from table: " + Arrays.toString(currentTasks.toArray()));
             }
             currentGroup = group;
-            Window.alert("New users: " + Arrays.toString(group.getUsers().toArray()));
+            buildTable();
+            loadGroups();
             addSprintsToTable(group.getUsers());
         } catch (Exception e) {
             Window.alert(e.getMessage() + e.getCause().toString());

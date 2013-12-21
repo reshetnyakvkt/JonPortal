@@ -140,7 +140,7 @@ public class UsersTabPanel extends Composite {
 //                Window.alert(spaceDTOs.toString());
                 spacesListBox.setAcceptableValues(spaceDTOs);
                 globalData.setSpacesDtos(spaceDTOs);
-                Window.alert("fireEvent");
+/*                Window.alert("fireEvent");*/
                 RootPanel.ADMIN_EVENT_BUS.fireEvent(new AdminNotificationEvent());
 //                for (SpaceDTO spaceDTO : spaceDTOs) {
 //                    addTasksToSprintNavList(spaceDTO.getUsers());
