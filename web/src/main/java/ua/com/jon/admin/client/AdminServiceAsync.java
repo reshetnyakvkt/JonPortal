@@ -36,6 +36,8 @@ public interface AdminServiceAsync {
 
     void saveGroups(ArrayList<GroupAndUsersDTO> newSprints, AsyncCallback groupCallback);
 
+    void saveGroup(GroupAndUsersDTO newGroup, AsyncCallback groupCallback);
+
     void sprintTypeChanged(SprintDTO dto, AsyncCallback<Void> asyncCallback);
 
     void getAvailableTestNames(AsyncCallback<ArrayList<String>> async);
@@ -45,5 +47,7 @@ public interface AdminServiceAsync {
     void getGroupsAndUsers(AsyncCallback<ArrayList<GroupAndUsersDTO>> async);
 
     void deleteGroup(Long id, AsyncCallback<Void> callback);
+
+    void deleteUserFromGroup(Long groupId, Long userId, AsyncCallback<Void> callback);
 }
 

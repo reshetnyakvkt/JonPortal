@@ -176,6 +176,7 @@ public class AdminServiceImpl implements AdminService {
     @Override
     public void saveGroups(ArrayList<GroupAndUsersDTO> newGroup) {
          System.out.println("-- saveGroup " + newGroup);
+
         // TODO save group
     }
 
@@ -275,6 +276,49 @@ public class AdminServiceImpl implements AdminService {
         groupRepository.save(group);
         groupRepository.delete(id);
         log.info("-- Deleting group " + id + " was successfuly");
+    }
+
+    @Override
+    @Transactional
+    public void deleteUserFromGroup(Long groupId, Long userId) {
+
+    }
+
+    @Override
+    @Transactional
+    public void saveGroup(GroupAndUsersDTO newGroup) {
+        log.info("-- Saving group " + newGroup);
+        Group group = groupRepository.findOne(newGroup.getId());
+        //group.getUsers()
+
+        Set<UserDTO> users =  newGroup.getUsers();
+        Set<Long> userIds = new HashSet<Long>(users.size());
+        Set<User> newUsers = new HashSet<User>();
+        Set<Group> userGroups = new HashSet<Group>();
+        userGroups.add(group);
+        for (UserDTO user : users) {
+            if (user.getId() == null) {
+                User newUser = new User(user.getName(), "", new Date(), userGroups);
+                newUsers.add(newUser);
+                userRepository.save(newUser);
+            }
+            userIds.add(user.getId());
+        }
+        Iterable<User> userEntities = userRepository.findAll(userIds);
+        for (User user : userEntities) {
+            for (UserDTO userDTO : users) {
+                if (user.getId() == userDTO.getId()) {
+                    user.setLogin(userDTO.getName());
+                }
+            }
+            newUsers.add(user);
+        }
+
+        group.setUsers(newUsers);
+        groupRepository.save(group);
+/*
+        userRepository.save(userEntities);*/
+
     }
 
 

@@ -84,7 +84,9 @@ public class GroupsManageTabPanel extends Composite {
 
     private SelectionCell cell;
 
-    final SingleSelectionModel<SpaceDTO> spaceSelectionModel = new SingleSelectionModel<SpaceDTO>();
+    final SingleSelectionModel<UserDTO> selectionModel = new SingleSelectionModel<UserDTO>();
+
+    // final SingleSelectionModel<SpaceDTO> spaceSelectionModel = new SingleSelectionModel<SpaceDTO>();
 
     @UiField(provided = true)
     ValueListBox<GroupAndUsersDTO> groupsListBox = new ValueListBox<GroupAndUsersDTO>(new AbstractRenderer<GroupAndUsersDTO>() {
@@ -177,7 +179,7 @@ public class GroupsManageTabPanel extends Composite {
             }
         });
 
-        final SingleSelectionModel<UserDTO> selectionModel = new SingleSelectionModel<UserDTO>();
+        // final SingleSelectionModel<UserDTO> selectionModel = new SingleSelectionModel<UserDTO>();
         cellTable.setSelectionModel(selectionModel);
         selectionModel.addSelectionChangeHandler(
                 new SelectionChangeEvent.Handler() {
@@ -204,6 +206,16 @@ public class GroupsManageTabPanel extends Composite {
                 if (BrowserEvents.CHANGE.equals(event.getType())) {
                     SelectElement select = parent.getFirstChild().cast();
                     String newValue = select.getValue();
+                    Window.alert("newValue: " + newValue.toString());
+                    UserDTO selected = selectionModel.getSelectedObject();
+
+                    if (selected != null) {
+                        selected.setName(newValue);
+                        Window.alert("selected: " + selected);
+                        //textArea.setText(text);
+                    } else {
+                        Window.alert("Выберите студента из списка");
+                    }
                 }
             }
         };
@@ -335,6 +347,7 @@ public class GroupsManageTabPanel extends Composite {
 
     @UiHandler("createStudentBtn")
     public void createTaskHandler(ClickEvent e) {
+        Window.alert("Выберите имя студента");
 //        String sprintName = INITIAL_SPRINT_NAME;
 //        sprintNameTextBox.setText(sprintName);
         UserDTO task = new UserDTO();
@@ -372,15 +385,22 @@ public class GroupsManageTabPanel extends Composite {
                 Window.alert("Group saved successfully");
             }
         };
-//        GroupAndUsersDTO GroupAndUsersDTO = groupsListBox.getValue();
+        currentGroup = groupsListBox.getValue();
 //        SprintDTO sprintDTO = currentGroup;
-        groupsListBox.getValue().getUsers().addAll(dataProvider.getList());
-        //currentGroup.setTasks(dataProvider.getList());
+        currentGroup.getUsers().addAll(dataProvider.getList());
+//        currentGroup.setUsers(dataProvider.getList());
 //        ArrayList<SprintDTO> newSprints = new ArrayList<SprintDTO>();
 //        newSprints.add(currentGroup);
-        relocateTasks(loadedGroups);
+//        relocateTasks(loadedGroups);
         //Window.alert("Sprints to save: " + loadedGroups);
-        adminService.saveGroups(loadedGroups, callback);
+//        adminService.saveGroups(loadedGroups, callback);
+        for (UserDTO userDTO : currentGroup.getUsers()) {
+            if (userDTO.getName() == null) {
+                Window.alert("Не задано имя пользователя");
+                return;
+            }
+        }
+        adminService.saveGroup(currentGroup, callback);
     }
 
     @UiHandler("refreshGroupsBtn")

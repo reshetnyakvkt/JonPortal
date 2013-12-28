@@ -281,7 +281,7 @@ public class UsersTabPanel extends Composite {
 
         for (Widget child : children) {
             if (child instanceof NavLink) {
-                users.add(new UserDTO(((NavLink) child).getText()));
+                users.add(new UserDTO(null, ((NavLink) child).getText()));
             }
         }
         return users;

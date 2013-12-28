@@ -26,7 +26,7 @@ public class UserMapper {
     }
 
     public static UserDTO assemblaToDto(AssemblaUser assemblaUser) {
-        return new UserDTO(assemblaUser.getLogin());
+        return new UserDTO(null, assemblaUser.getLogin());
 
     }
 }

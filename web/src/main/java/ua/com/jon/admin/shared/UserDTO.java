@@ -8,13 +8,16 @@ import java.io.Serializable;
  * Date: 7/1/13
  */
 public class UserDTO implements Serializable {
+
+    private Long id;
     private String name;
 
     public UserDTO() {
     }
 
-    public UserDTO(String name) {
-        this.name = name;
+    public UserDTO(Long id, String login) {
+        this.id = id;
+        this.name = login;
     }
 
     public String getName() {
@@ -25,10 +28,19 @@ public class UserDTO implements Serializable {
         this.name = name;
     }
 
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
     @Override
     public String toString() {
         return "UserDTO{" +
-                "name='" + name + '\'' +
+                "id=" + id +
+                ", name='" + name + '\'' +
                 '}';
     }
 }

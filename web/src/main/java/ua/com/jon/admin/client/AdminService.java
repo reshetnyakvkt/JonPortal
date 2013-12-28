@@ -1,6 +1,5 @@
 package ua.com.jon.admin.client;
 
-import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.rpc.RemoteService;
 import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
 import ua.com.jon.admin.shared.GroupAndUsersDTO;
@@ -46,4 +45,8 @@ public interface AdminService extends RemoteService {
     ArrayList<GroupAndUsersDTO> getGroupsAndUsers();
 
     void deleteGroup(Long id);
+
+    void saveGroup(GroupAndUsersDTO newGroup);
+
+    void deleteUserFromGroup(Long groupId, Long userId);
 }

@@ -24,6 +24,6 @@ public class UserDtoMapper {
     }
 
     public static UserDTO domainToAdminDto(User user) {
-        return new UserDTO(user.getLogin());
+        return new UserDTO(user.getId(), user.getLogin());
     }
 }
