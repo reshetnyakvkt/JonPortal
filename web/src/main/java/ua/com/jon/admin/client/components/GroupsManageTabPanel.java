@@ -195,7 +195,9 @@ public class GroupsManageTabPanel extends Composite {
     }
 
     private void createStudentDropdown() {
+        Window.alert("spacesDtos: " + globalData.getSpacesDtos());
         List<String> names = getStudentNamesFromSpaces(globalData.getSpacesDtos());
+        Window.alert("names: " + names);
         cell = new SelectionCell(names) {
 
             @Override
@@ -237,15 +239,17 @@ public class GroupsManageTabPanel extends Composite {
         String currentGroupName = groupsListBox.getValue().getName();
         ArrayList<String> studentNames = new ArrayList<String>();
         SpaceDTO currentSpace = null;
-        Window.alert("spaceDTOs: " + spaceDTOs.toString());
-        Window.alert("name: " + currentGroupName);
+        Window.alert("currentGroupName: " + currentGroupName);
         for (SpaceDTO spaceDTO : spaceDTOs) {
             String name = spaceDTO.getName();
+
             if (name.equals(currentGroupName)) {
+                Window.alert("name: " + name);
                 currentSpace = spaceDTO;
                 break;
             }
         }
+        Window.alert("currentSpace: " + currentSpace);
         if (currentSpace != null) {
             for (UserDTO userDTO : currentSpace.getUsers()) {
                 studentNames.add(userDTO.getName());

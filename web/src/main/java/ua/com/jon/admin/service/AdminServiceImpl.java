@@ -40,6 +40,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
@@ -267,12 +268,21 @@ public class AdminServiceImpl implements AdminService {
     @Transactional
     public void deleteGroup(Long id) {
         Group group = groupRepository.findOne(id);
+        List<User> outGroupUsers = new ArrayList<User>(group.getUsers());
         for (User user : group.getUsers()) {
             user.getGroups().remove(group);
-            //TODO remove tasks by User from Group
+            Iterator<Task> taskIterator = user.getTasks().iterator();
+            while (taskIterator.hasNext()) {
+                Task task = taskIterator.next();
+                if (group.equals(task.getGroup())) {
+                    taskIterator.remove();
+                    task.setGroup(null);
+                    taskRepository.delete(task);
+                }
+            }
         }
         group.getUsers().clear();
-        userRepository.save(group.getUsers());
+        userRepository.save(outGroupUsers);
         groupRepository.save(group);
         groupRepository.delete(id);
         log.info("-- Deleting group " + id + " was successfuly");
@@ -307,7 +317,7 @@ public class AdminServiceImpl implements AdminService {
         Iterable<User> userEntities = userRepository.findAll(userIds);
         for (User user : userEntities) {
             for (UserDTO userDTO : users) {
-                if (user.getId() == userDTO.getId()) {
+                if (user.getId().equals(userDTO.getId())) {
                     user.setLogin(userDTO.getName());
                 }
             }
