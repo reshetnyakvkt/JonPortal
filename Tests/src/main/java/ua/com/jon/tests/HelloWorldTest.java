@@ -1,6 +1,7 @@
 package ua.com.jon.tests;
 
 import com.jon.tron.service.junit.Unit;
+import com.jon.tron.service.reflect.JavaProcessBuilder;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -19,8 +20,7 @@ public class HelloWorldTest extends BaseTest {
     }
 
     @Unit
-    private static Class unitClass;
-    private Object instance;
+    private static String unitName;
 
     @Before
     public void setUp() {
@@ -34,8 +34,9 @@ public class HelloWorldTest extends BaseTest {
 
     @Test(timeout = 1000)
     public void testClassMainMessage() throws Throwable {
-        instance = instanciate(unitClass);
-        invokeMain(unitClass, instance);
+        //instance = instanciate(unitClass);
+        JavaProcessBuilder.buildProcessAndInvokeMethod(unitName, null, "main", "/forbid.policy",
+                (Object) new String[0]);
         String lineSeparator = System.lineSeparator();
         assertTrue("Метод main должен выводить в консоль сообщение \'Hello world\'", ("Hello world" + lineSeparator).equals(getIn().toString()));
     }

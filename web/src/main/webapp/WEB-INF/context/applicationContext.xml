@@ -37,7 +37,7 @@
                 <property name="marshaller" ref="xstreamMarshaller" />
                 <property name="unmarshaller" ref="xstreamMarshaller" />
 <!--
-                <property name="supportedMediaTypes">
+                <property fileName="supportedMediaTypes">
                     <list>
                         <value>#{T(org.springframework.http.MediaType).TEXT_XML_VALUE}</value>
                     </list>

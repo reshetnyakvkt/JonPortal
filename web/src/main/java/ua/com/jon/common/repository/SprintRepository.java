@@ -27,6 +27,14 @@ public interface SprintRepository extends CrudRepository<Sprint, Long> {
     @Query("select s from Sprint s where s.id in (:ids)")
     List<Sprint> findByIds(@Param("ids") Collection<Long> ids);
 
+
     @Query("select s from Sprint s where s.type = (:type)")
     List<Sprint> findByType(@Param("type") SprintType type);
+
+    @Query("select distinct s from Sprint s JOIN FETCH s.tasks ts JOIN FETCH ts.tasks tss where EXISTS" +
+            "(select s1 FROM Sprint s1 JOIN s1.tasks ts1 WHERE s1.id = s.id AND tss.user.login = :userName " +
+                "AND tss.group.id = :groupId)")
+//    @Query("select g from Group g JOIN FETCH g.users us WHERE EXISTS " +
+//            "(select g1 FROM Group g1 JOIN g1.users us1 WHERE g1.id = g.id AND us.login = ?1)")
+    List<Sprint> findByUserAndGroup(@Param("userName") String userName, @Param("groupId") Long groupId);
 }

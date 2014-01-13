@@ -72,12 +72,7 @@ public class GroupTasksTabPanel extends Composite {
     public void buildTable() {
         cellTable.setEmptyTableWidget(new Label("Please add data."));
         dataProvider.addDataDisplay(cellTable);
-/*        com.google.gwt.user.cellview.client.Column<TaskDTO, String> nameColumn = new com.google.gwt.user.cellview.client.Column<TaskDTO, String>(new TextInputCell()) {
-            @Override
-            public String getValue(TaskDTO object) {
-                return object.getName() == null ? "" : object.getName();
-            }
-        };*/
+
 
         cellTable.addColumn(new TextColumn<TaskDTO>() {
             @Override

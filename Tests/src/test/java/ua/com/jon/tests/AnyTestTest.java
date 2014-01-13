@@ -44,7 +44,7 @@ public class AnyTestTest {
                         "        System.out.println(fib);" +
                         "}" +
                         "}";
-        final String testName = "Any";
+        final String testName = "AnyTest";
         Map.Entry<String,String> processResult = classProcessor.processClass(className, classCode, testName);
         String resultString = processResult.getValue();
         String markString = processResult.getKey();
@@ -56,7 +56,7 @@ public class AnyTestTest {
     public void testEmpty() {
         final String className = "";
         final String classCode = "public class A{}";
-        String testName = "Any";
+        String testName = "AnyTest";
         Map.Entry<String,String> processResult = classProcessor.processClass(className, classCode, testName);
         String resultString = processResult.getValue();
         String markString = processResult.getKey();
@@ -72,7 +72,7 @@ public class AnyTestTest {
                 "while(true){}" +
                 "}" +
                 "}";
-        String testName = "Any";
+        String testName = "AnyTest";
         Map.Entry<String,String> processResult = classProcessor.processClass(className, classCode, testName);
         String resultString = processResult.getValue();
         String markString = processResult.getKey();
@@ -91,11 +91,11 @@ public class AnyTestTest {
                 "   while(true);" +
                 "}" +
                 "}";
-        String testName = "Any";
+        String testName = "AnyTest";
         Map.Entry<String,String> processResult = classProcessor.processClass(className, classCode, testName);
         String resultString = processResult.getValue();
         String markString = processResult.getKey();
-        assertEquals("test timed out after 1000 milliseconds", resultString);
+        assertEquals("Задание принято", resultString);
         assertEquals("10", markString);
     }
 
@@ -110,11 +110,11 @@ public class AnyTestTest {
                 "   while(true);" +
                 "}" +
                 "}";
-        String testName = "Any";
+        String testName = "AnyTest";
         Map.Entry<String,String> processResult = classProcessor.processClass(className, classCode, testName);
         String resultString = processResult.getValue();
         String markString = processResult.getKey();
-        assertEquals("В результате выполнения, было выброшено исключение java.lang.Throwable null", resultString);
+        assertEquals("Задание принято", resultString);
         assertEquals("10", markString);
     }
 }

@@ -1,6 +1,7 @@
 package ua.com.jon.cabinet.client;
 
 import com.google.gwt.user.client.rpc.AsyncCallback;
+import ua.com.jon.cabinet.shared.GroupDTO;
 import ua.com.jon.cabinet.shared.SprintDTO;
 import ua.com.jon.cabinet.shared.TaskDTO;
 
@@ -16,8 +17,16 @@ public interface TasksServiceAsync {
     void greet(String name, AsyncCallback<String> callback);
     void getUserTasks(AsyncCallback<ArrayList<TaskDTO>> async);
     void taskStatusChanged(TaskDTO dto, AsyncCallback<Void> async);
-    void getSprints(AsyncCallback<ArrayList<SprintDTO>> callback);
+    void getSprints(GroupDTO selectedGroup, AsyncCallback<ArrayList<SprintDTO>> callback);
     void postForTest(TaskDTO taskDTO, AsyncCallback<String> callback);
     void getTasksByUserGroup(Long id, AsyncCallback<ArrayList<TaskDTO>> async);
+
+    void getSprintRate(Long taskTemplateId, String userName, AsyncCallback<Double> async);
+
+    void getCourseRate(Long taskTemplateId, String userName, AsyncCallback<Double> async);
+
+    void getSpringUserName(AsyncCallback<String> userCallback);
+
+    void getUserGroups(AsyncCallback<ArrayList<GroupDTO>> callback);
 }
 

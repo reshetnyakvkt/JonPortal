@@ -9,6 +9,7 @@ import java.util.List;
  * Date: 6/23/13
  */
 public class SprintDTO implements Serializable {
+    private Long id;
     private String name;
     private boolean active;
     private List<TaskDTO> tasks;
@@ -16,10 +17,19 @@ public class SprintDTO implements Serializable {
     public SprintDTO() {
     }
 
-    public SprintDTO(String name, boolean active, List<TaskDTO> tasks) {
+    public SprintDTO(Long id, String name, boolean active, List<TaskDTO> tasks) {
+        this.id = id;
         this.name = name;
         this.active = active;
         this.tasks = tasks;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getName() {
@@ -49,7 +59,8 @@ public class SprintDTO implements Serializable {
     @Override
     public String toString() {
         return "SprintDTO{" +
-                "name='" + name + '\'' +
+                "id=" + id +
+                ", name='" + name + '\'' +
                 ", active=" + active +
                 ", tasks=" + tasks +
                 '}';

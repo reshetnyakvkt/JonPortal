@@ -60,12 +60,12 @@
     <bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
         <property name="dataSource" ref="jpaDataSource" />
         <!--TODO: remove repsistance.xml-->
-        <!--<property name="persistenceXmlLocation" value="/WEB-INF/data/persistence.xml"/>-->
-        <!--<property name="persistenceUnitName" value="courcesPU"/>-->
+        <!--<property fileName="persistenceXmlLocation" value="/WEB-INF/data/persistence.xml"/>-->
+        <!--<property fileName="persistenceUnitName" value="courcesPU"/>-->
         <property name="packagesToScan" value="ua.com.jon.common.domain"/>
         <property name="jpaVendorAdapter">
             <bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
-                <!--<property name="generateDdl" value="true" />-->
+                <!--<property fileName="generateDdl" value="true" />-->
                 <property name="showSql" value="true"/>
             </bean>
         </property>

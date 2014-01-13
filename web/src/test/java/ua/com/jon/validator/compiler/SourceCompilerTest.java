@@ -2,7 +2,7 @@ package ua.com.jon.validator.compiler;
 
 
 import com.jon.tron.service.compiler.CompilationResult;
-import com.jon.tron.service.compiler.SourceCompiler;
+import com.jon.tron.service.compiler.InMemorySourceCompiler;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -16,11 +16,11 @@ import static junit.framework.Assert.*;
  */
 
 public class SourceCompilerTest {
-    private SourceCompiler compiler;
+    private InMemorySourceCompiler compiler;
 
     @Before
     public void setUp() {
-        compiler = new SourceCompiler();
+        compiler = new InMemorySourceCompiler();
     }
 
     @Test

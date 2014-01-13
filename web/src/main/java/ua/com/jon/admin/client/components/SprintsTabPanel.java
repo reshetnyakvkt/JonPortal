@@ -34,6 +34,7 @@ import ua.com.jon.admin.shared.SprintDTO;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -49,9 +50,6 @@ public class SprintsTabPanel extends Composite {
 
     @UiField
     Button createSprintBtn;
-
-//    @UiField
-//    Button deleteSprintBtn;
 
     @UiField
     Button saveSprintBtn;
@@ -216,7 +214,7 @@ public class SprintsTabPanel extends Composite {
     @UiHandler("createSprintBtn")
     void handleCreateClick(ClickEvent e) {
         String sprintName = INITIAL_SPRINT_NAME;
-        SprintDTO sprint = new SprintDTO(null, sprintName, true, "IT_CENTRE", null);
+        SprintDTO sprint = new SprintDTO(null, sprintName, true, "IT_CENTRE", null, new Date());
 
         List<SprintDTO> sprintDTOs = dataProvider.getList();
         if(sprintDTOs.contains(sprint)) {

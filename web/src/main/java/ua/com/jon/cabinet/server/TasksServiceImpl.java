@@ -9,17 +9,17 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import ua.com.jon.auth.domain.SpringUser;
 import ua.com.jon.cabinet.client.TasksService;
+import ua.com.jon.cabinet.shared.GroupDTO;
 import ua.com.jon.cabinet.shared.SprintDTO;
 import ua.com.jon.cabinet.shared.TaskDTO;
 import ua.com.jon.common.domain.*;
+import ua.com.jon.common.dto.mapper.GroupDtoMapper;
 import ua.com.jon.common.dto.mapper.SprintDtoMapper;
 import ua.com.jon.common.dto.mapper.TaskDtoMapper;
-import ua.com.jon.common.repository.SprintRepository;
-import ua.com.jon.common.repository.TaskRepository;
-import ua.com.jon.common.repository.TaskTemplateRepository;
-import ua.com.jon.common.repository.UserRepository;
+import ua.com.jon.common.repository.*;
 
 import javax.annotation.Resource;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -47,6 +47,9 @@ public class TasksServiceImpl implements TasksService {
 
     @Resource
     private TaskTemplateRepository templateRepository;
+
+    @Resource
+    private GroupRepository groupRepository;
 
     @Override
     public String greet(String name) {
@@ -81,19 +84,13 @@ public class TasksServiceImpl implements TasksService {
     }
 
     @Override
-    public ArrayList<SprintDTO> getSprints() {
+    public ArrayList<SprintDTO> getSprints(GroupDTO selectedGroup) {
         log.info("--- getSprints() ---");
-        Object authentication = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        SpringUser springUser;
-        if (authentication instanceof String) {
-            throw new SecurityException("can't grant access to anonymus ");
-        }
-        springUser = (SpringUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        String userName = springUser.getUsername();
-        Iterable<Sprint> sprintIterable = sprintRepository.findAll();
+        String userName = getSpringUserName();
+        Iterable<Sprint> sprintIterable = sprintRepository.findByUserAndGroup(userName, selectedGroup.getId());
         ArrayList<SprintDTO> sprints = new ArrayList<SprintDTO>();
         for (Sprint sprint : sprintIterable) {
-            List<Task> tasks = taskRepository.findByUserAndSprint(userName, sprint.getName());
+            List<Task> tasks = taskRepository.findByUserAndSprintAndGroup(userName, sprint.getId(), selectedGroup.getId());
             sprints.add(SprintDtoMapper.domainToDto(tasks, sprint));
         }
         log.info("--- " + sprints + " ---");
@@ -119,6 +116,9 @@ public class TasksServiceImpl implements TasksService {
     @Override
     public String postForTest(TaskDTO taskDTO) {
         log.info("-== Cabinet post task for test: " + taskDTO.getCode());
+        URL resource = this.getClass().getResource("/forbid.policy");
+        System.out.println(resource.getPath());
+
         Map.Entry<String, String> resultEntry;
         try {
             TaskTemplate template = templateRepository.findOne(taskDTO.getTaskTemplateId());
@@ -133,6 +133,9 @@ public class TasksServiceImpl implements TasksService {
         log.info("Cabinet test result is " + testResult);
         Task task = taskRepository.findOne(taskDTO.getId());
         task.setCode(taskDTO.getCode());
+/*        if(testResult.length() > 750) {
+            testResult = testResult.substring(0, 740);
+        }*/
         task.setResult(testResult);
         taskRepository.save(task);
         return testResult;
@@ -144,28 +147,22 @@ public class TasksServiceImpl implements TasksService {
         System.out.println("-== getTasksByUserGroup: " + taskTemplateId);
         ArrayList<TaskDTO> tasksList = new ArrayList<TaskDTO>();
         try {
-            Object authentication = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-            SpringUser springUser;
-            if (authentication instanceof String) {
-                throw new SecurityException("can't grant access to anonymous ");
-            }
-            springUser = (SpringUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-            String userName = springUser.getUsername();
+            String userName = getSpringUserName();
             User user = userRepository.findByUserName(userName);
             if (user != null) {
                 for (Group group : user.getGroups()) {
                     Long groupId = group.getId();
-                    List<Task> tasks = taskRepository.findEvaluatedByGroupIdAndTaskId(groupId, taskTemplateId);
+                    List<Task> tasks = taskRepository.findByGroupIdAndTaskId(groupId, taskTemplateId);
                     tasksList.addAll(TaskDtoMapper.domainsToDtos(tasks));
                     removeTasksOfCurrentUser(tasksList, user.getLogin());
                 }
 //        list.add(new TaskDTO(1L, "task1", "task1", "", "", "", "", "", ""));
 //        list.add(new TaskDTO(1L, "task2", "task2", "", "", "", "", "", ""));
             }
-            System.out.println("Tasks for group " + tasksList);
-            for (TaskDTO taskDTO : tasksList) {
+            System.out.println("Tasks for group " + tasksList.size());
+/*            for (TaskDTO taskDTO : tasksList) {
                 System.out.println(taskDTO.getName() + ", " + taskDTO.getResult());
-            }
+            }*/
         } catch (Exception e) {
             e.printStackTrace();
             throw new RuntimeException(e);
@@ -173,11 +170,63 @@ public class TasksServiceImpl implements TasksService {
         return tasksList;
     }
 
+
     private void removeTasksOfCurrentUser(ArrayList<TaskDTO> list, String userName) {
         for (int i = 0; i < list.size(); i++) {
             if (list.get(i).getUserName().equals(userName)) {
                 list.remove(i);
             }
         }
+    }
+
+    @Override
+    public double getSprintRate(Long sprintId, String userName) {
+        List<Task> tasks = taskRepository.findByUserAndSprint(userName, sprintId);
+        int doneCount = 0;
+        for (Task task : tasks) {
+            String resultStr = "0";
+            if(task.getResult() != null && !task.getResult().isEmpty()) {
+                String[] lines = task.getResult().split("\n");
+                if(lines.length > 0) {
+                    resultStr = lines[0];
+                } else {
+                    resultStr = task.getResult();
+                }
+            }
+            int result = 0;
+            try {
+                result = Integer.parseInt(resultStr);
+            } catch (Exception e) {
+               log.error(e);
+            }
+            if (result >= 10) {
+                doneCount++;
+            }
+        }
+
+        return 100 / tasks.size() * doneCount;
+    }
+
+    @Override
+    public double getCourseRate(Long taskTemplateId, String userName) {
+        return 0.1;
+    }
+
+    @Override
+    public String getSpringUserName() {
+        Object authentication = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        SpringUser springUser;
+        if (authentication instanceof String) {
+            throw new SecurityException("can't grant access to anonymous ");
+        }
+        springUser = (SpringUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        return springUser.getUsername();
+    }
+
+    @Override
+    public ArrayList<GroupDTO> getUserGroups() {
+        String userName = getSpringUserName();
+        List<Group> groups = groupRepository.findByUsersIn(userName);
+        return GroupDtoMapper.domainToAdminDtos(groups);
     }
 }

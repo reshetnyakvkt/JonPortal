@@ -3,6 +3,7 @@ package ua.com.jon.admin.shared;
 import ua.com.jon.admin.client.components.list.Nameble;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -18,6 +19,7 @@ public class SprintDTO implements Serializable, Nameble {
     private String name;
     private String type;
     private boolean active;
+    private Date endDate;
     private List<TaskTemplateDTO> tasks;
 
     public SprintDTO() {
@@ -27,12 +29,13 @@ public class SprintDTO implements Serializable, Nameble {
         this.name = name;
     }
 
-    public SprintDTO(Long id, String name, boolean active, String type, List<TaskTemplateDTO> tasks) {
+    public SprintDTO(Long id, String name, boolean active, String type, List<TaskTemplateDTO> tasks, Date endDate) {
         this.id = id;
         this.name = name;
         this.active = active;
         this.type = type;
         this.tasks = tasks;
+        this.endDate = endDate;
     }
 
     public String getName() {
@@ -75,6 +78,14 @@ public class SprintDTO implements Serializable, Nameble {
         this.id = id;
     }
 
+    public Date getEndDate() {
+        return endDate;
+    }
+
+    public void setEndDate(Date endDate) {
+        this.endDate = endDate;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -100,6 +111,7 @@ public class SprintDTO implements Serializable, Nameble {
                 ", type='" + type + '\'' +
                 ", active=" + active +
                 ", tasks=" + tasks +
+                ", endDate=" + endDate +
                 '}';
     }
 }

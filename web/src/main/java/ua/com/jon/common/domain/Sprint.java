@@ -1,6 +1,7 @@
 package ua.com.jon.common.domain;
 
 import javax.persistence.*;
+import java.util.Date;
 import java.util.List;
 import java.util.Set;
 
@@ -29,13 +30,17 @@ public class Sprint {
     @JoinColumn(name = "TASK_TEMPLATE_ID")
     private List<TaskTemplate> tasks;
 
+    @Temporal(TemporalType.DATE)
+    private Date endDate;
+
     public Sprint() {
     }
 
-    public Sprint(Long id, String name, SprintType type, Boolean active) {
+    public Sprint(Long id, String name, SprintType type, Date endDate, Boolean active) {
         this.id = id;
         this.name = name;
         this.type = type;
+        this.endDate = endDate;
         this.active = active;
     }
 
@@ -79,6 +84,14 @@ public class Sprint {
         this.tasks = tasks;
     }
 
+    public Date getEndDate() {
+        return endDate;
+    }
+
+    public void setEndDate(Date endDate) {
+        this.endDate = endDate;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -102,7 +115,7 @@ public class Sprint {
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", active=" + active +
-                ", tasks=" + tasks +
+                ", tasks=" + tasks.size() +
                 '}';
     }
 }

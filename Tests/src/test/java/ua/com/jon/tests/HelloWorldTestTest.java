@@ -1,10 +1,6 @@
 package ua.com.jon.tests;
 
 import com.jon.tron.service.processor.ClassProcessor;
-import com.jon.tron.service.compiler.CompilationResult;
-import com.jon.tron.service.compiler.SourceCompiler;
-import com.jon.tron.service.junit.UnitTestsRunner;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,28 +28,30 @@ public class HelloWorldTestTest {
     public void testEmpty() throws Exception {
         final String className = "HelloWorld";
         final String classCode = "public class HelloWorld{}";
-        final String testName = "HelloWorld";
+        final String testName = "HelloWorldTest";
         Map.Entry<String,String> processResult = classProcessor.processClass(className, classCode, testName);
         String resultString = processResult.getValue();
-        assertTrue(resultString.contains("Метод main должен быть 'public static void main(String[] args)"));
+        assertTrue(resultString.contains("В результате выполнения, было выброшено исключение java.lang.RuntimeException java.lang.NoSuchMethodException"));
+
     }
 
     @Test
     public void testWrongMain() throws Exception {
         final String className = "HelloWorld";
         final String classCode = "public class HelloWorld{public void main(){}}";
-        final String testName = "HelloWorld";
+        final String testName = "HelloWorldTest";
 
         Map.Entry<String,String> processResult = classProcessor.processClass(className, classCode, testName);
         String resultString = processResult.getValue();
-        assertTrue(resultString.contains("Метод main должен быть 'public static void main(String[] args)"));
+        assertTrue(resultString.contains("В результате выполнения, было выброшено исключение java.lang.RuntimeException java.lang.NoSuchMethodException"));
+
     }
 
     @Test
     public void testMainWithoutMessage() throws Exception {
         final String className = "HelloWorld";
         final String classCode = "public class HelloWorld{public static void main(String[] args){}}";
-        final String testName = "HelloWorld";
+        final String testName = "HelloWorldTest";
 
         Map.Entry<String,String> processResult = classProcessor.processClass(className, classCode, testName);
         String resultString = processResult.getValue();
@@ -69,7 +67,7 @@ public class HelloWorldTestTest {
                         "        public static void main(String[] args) {\n" +
                         "        }\n" +
                         "    }";
-        final String testName = "HelloWorld";
+        final String testName = "HelloWorldTest";
 
         Map.Entry<String,String> processResult = classProcessor.processClass(className, classCode, testName);
         String resultString = processResult.getValue();
@@ -83,7 +81,7 @@ public class HelloWorldTestTest {
         final String className = "HelloWorld";
         final String classCode = "public class HelloWorld{public static void main(String[] args){" +
                 "System.out.println(\"hello world\");}}";
-        final String testName = "HelloWorld";
+        final String testName = "HelloWorldTest";
 
         Map.Entry<String,String> processResult = classProcessor.processClass(className, classCode, testName);
         String resultString = processResult.getValue();
@@ -95,7 +93,7 @@ public class HelloWorldTestTest {
         final String className = "HelloWorld";
         final String classCode = "public class HelloWorld{public static void main(String[] args){" +
                 "System.out.println(\"Hello world\");}}";
-        final String testName = "HelloWorld";
+        final String testName = "HelloWorldTest";
 
         Map.Entry<String,String> processResult = classProcessor.processClass(className, classCode, testName);
         String resultString = processResult.getValue();
@@ -113,13 +111,14 @@ public class HelloWorldTestTest {
                 "public class HelloWorld{public static void main(String[] args){" +
                 "   throw new RuntimeException();\n" +
                 "}}";
-        final String testName = "HelloWorld";
+        final String testName = "HelloWorldTest";
 
         Map.Entry<String,String> processResult = classProcessor.processClass(className, classCode, testName);
         String resultString = processResult.getValue();
         String resultMarkString = processResult.getKey();
-        assertEquals("Во время выполнения метода main произошла ошибка java.lang.RuntimeException", resultString);
+        assertTrue(resultString.contains("В результате выполнения, было выброшено исключение java.lang.RuntimeException"));
         assertTrue("10".equals(resultMarkString));
+
     }
 }
 

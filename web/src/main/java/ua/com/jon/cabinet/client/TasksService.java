@@ -2,6 +2,7 @@ package ua.com.jon.cabinet.client;
 
 import com.google.gwt.user.client.rpc.RemoteService;
 import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
+import ua.com.jon.cabinet.shared.GroupDTO;
 import ua.com.jon.cabinet.shared.SprintDTO;
 import ua.com.jon.cabinet.shared.TaskDTO;
 
@@ -17,7 +18,11 @@ public interface TasksService extends RemoteService {
     String greet(String name);
     ArrayList<TaskDTO> getUserTasks();
     void taskStatusChanged(TaskDTO dto);
-    ArrayList<SprintDTO> getSprints();
+    ArrayList<SprintDTO> getSprints(GroupDTO selectedGroup);
     String postForTest(TaskDTO taskDTO);
     ArrayList<TaskDTO> getTasksByUserGroup(Long id);
+    double getSprintRate(Long taskTemplateId, String userName);
+    double getCourseRate(Long taskTemplateId, String userName);
+    String getSpringUserName();
+    ArrayList<GroupDTO> getUserGroups();
 }

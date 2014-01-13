@@ -36,7 +36,7 @@
   <!-- Maps the request through to a concrete controller instance -->
 <!--
   <beans:bean id="urlMapping" class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
-    <beans:property name="mappings">
+    <beans:property fileName="mappings">
       <beans:value>
         /**/quote.rpc=gwtRpcController
       </beans:value>
@@ -50,7 +50,7 @@
   <!-- TODO: Remove controller later -->
 <!--
   <beans:bean id="quoteController" class="ua.com.jon.gwt.server.GwtRpcController">
-    <beans:property name="remoteService">
+    <beans:property fileName="remoteService">
       <beans:bean class="ua.com.jon.gwt.server.QuoteServiceImpl" />
     </beans:property>
   </beans:bean>

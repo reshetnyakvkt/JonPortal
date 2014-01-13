@@ -20,7 +20,8 @@ public class SprintDtoMapper {
                 sprint.getName(),
                 sprint.getActive(),
                 sprint.getType().name(),
-                TaskTemplateDtoMapper.domainsToDtos(sprint.getTasks())
+                TaskTemplateDtoMapper.domainsToDtos(sprint.getTasks()),
+                sprint.getEndDate()
         );
     }
 
@@ -30,12 +31,14 @@ public class SprintDtoMapper {
                 sprint.getName(),
                 sprint.getActive(),
                 sprint.getType().name(),
-                TaskConverter.convertToTaskTemplate(tasks)
+                TaskConverter.convertToTaskTemplate(tasks),
+                sprint.getEndDate()
         );
     }
 
     public static ua.com.jon.cabinet.shared.SprintDTO domainToDto(List<Task> tasks, Sprint sprint) {
         return new ua.com.jon.cabinet.shared.SprintDTO(
+                sprint.getId(),
                 sprint.getName(),
                 sprint.getActive(),
                 TaskDtoMapper.domainsToDtos(tasks)
@@ -55,7 +58,8 @@ public class SprintDtoMapper {
         List<Sprint> sprints = new ArrayList<Sprint>();
         for (SprintDTO sprintDTO : sprintDtoMap) {
             String sprintName = sprintDTO.getName();
-            int index = sprintList.indexOf(new Sprint(sprintDTO.getId(), sprintDTO.getName(), SprintType.IT_CENTRE, sprintDTO.isActive()));
+            int index = sprintList.indexOf(new Sprint(sprintDTO.getId(), sprintDTO.getName(), SprintType.IT_CENTRE,
+                    sprintDTO.getEndDate(), sprintDTO.isActive()));
             Sprint sprint;
             if(index >= 0) {
                 sprint = sprintList.get(index);
@@ -64,7 +68,8 @@ public class SprintDtoMapper {
                 sprint.setActive(sprintDTO.isActive());
                 sprint.setTasks(TaskTemplateDtoMapper.convertTaskDtosToEntity(sprintDTO.getTasks()));
             } else {
-                sprint = new Sprint(sprintDTO.getId(), sprintName, SprintType.IT_CENTRE, sprintDTO.isActive());
+                sprint = new Sprint(sprintDTO.getId(), sprintName, SprintType.IT_CENTRE, sprintDTO.getEndDate(),
+                        sprintDTO.isActive());
             }
             sprints.add(sprint);
         }

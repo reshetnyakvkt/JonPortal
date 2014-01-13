@@ -1,9 +1,6 @@
 package ua.com.jon.cabinet.client.components;
 
-import com.github.gwtbootstrap.client.ui.ButtonCell;
-import com.github.gwtbootstrap.client.ui.CellTable;
-import com.github.gwtbootstrap.client.ui.TextArea;
-import com.github.gwtbootstrap.client.ui.ValueListBox;
+import com.github.gwtbootstrap.client.ui.*;
 import com.github.gwtbootstrap.client.ui.constants.ButtonType;
 import com.google.gwt.cell.client.FieldUpdater;
 import com.google.gwt.cell.client.SelectionCell;
@@ -31,6 +28,7 @@ import com.google.gwt.view.client.SelectionChangeEvent;
 import com.google.gwt.view.client.SingleSelectionModel;
 import ua.com.jon.cabinet.client.TasksService;
 import ua.com.jon.cabinet.client.TasksServiceAsync;
+import ua.com.jon.cabinet.shared.GroupDTO;
 import ua.com.jon.cabinet.shared.NotificationEvent;
 import ua.com.jon.cabinet.shared.SprintDTO;
 import ua.com.jon.cabinet.shared.TaskDTO;
@@ -47,6 +45,9 @@ public class UserTasksTabPanel extends Composite {
     final SingleSelectionModel<TaskDTO> selectionModel = new SingleSelectionModel<TaskDTO>();
 
     private Long selectedTaskTemplateId;
+    private String userName;
+    private SprintDTO selectedSprint;
+    private GroupDTO selectedGroup;
 
     @UiField
     TextArea result;
@@ -57,10 +58,28 @@ public class UserTasksTabPanel extends Composite {
     @UiField
     TextArea code;
 
+    @UiField
+    Strong sprintRate;
+
+    @UiField
+    Strong courseRate;
+
     @UiField(provided=true)
     ValueListBox<SprintDTO> sprintsListBox = new ValueListBox<SprintDTO>(new AbstractRenderer<SprintDTO>() {
         @Override
         public String render(SprintDTO sprintDTO) {
+            if(sprintDTO == null) {
+                return "";
+            } else {
+                return sprintDTO.getName();
+            }
+        }
+    });
+
+    @UiField(provided=true)
+    ValueListBox<GroupDTO> groupsListBox = new ValueListBox<GroupDTO>(new AbstractRenderer<GroupDTO>() {
+        @Override
+        public String render(GroupDTO sprintDTO) {
             if(sprintDTO == null) {
                 return "";
             } else {
@@ -82,7 +101,136 @@ public class UserTasksTabPanel extends Composite {
     public UserTasksTabPanel(final UiBinder<Widget, UserTasksTabPanel> binder) {
         initWidget(binder.createAndBindUi(this));
         buildTable();
-        loadSprintsAndTasks();
+        loadGroups();
+    }
+
+    private void loadGroups() {
+        final AsyncCallback<ArrayList<GroupDTO>> callback = new AsyncCallback<ArrayList<GroupDTO>>() {
+
+            @Override
+            public void onFailure(Throwable caught) {
+                Window.alert(caught.getClass().getName());
+                Throwable cause = caught.getCause();
+                String errorMessage = "";
+                if(cause == null) {
+                    errorMessage = caught.getCause().getMessage();
+                }
+                Window.alert("Ошибка загрузки групп с сервера " + errorMessage);
+                Window.Location.reload();
+            }
+
+            @Override
+            public void onSuccess(ArrayList<GroupDTO> groups) {
+                GroupDTO currentGroup = null;
+                groupsListBox.setAcceptableValues(groups);
+
+                for (GroupDTO group : groups) {
+                    currentGroup = group;
+                }
+                groupsListBox.setValue(currentGroup);
+                selectedGroup = currentGroup;
+                getUserName();
+            }
+        };
+
+        tasksService.getUserGroups(callback);
+    }
+
+    private void getUserName() {
+        final AsyncCallback<String> userCallback = new AsyncCallback<String>() {
+
+            @Override
+            public void onFailure(Throwable caught) {
+                Window.alert(caught.getClass().getName());
+                Throwable cause = caught.getCause();
+                String errorMessage = "";
+                if(cause == null) {
+                    errorMessage = caught.getCause().getMessage();
+                }
+                Window.alert("Ошибка получения имени пользователя с сервера " + errorMessage);
+                Window.Location.reload();
+            }
+
+            @Override
+            public void onSuccess(String userName) {
+                if(userName == null) {
+                    Window.alert("Ошибка: Пользователь не определен");
+                    return;
+                }
+                UserTasksTabPanel.this.userName = userName;
+                loadSprintsAndTasks();
+            }
+        };
+
+        tasksService.getSpringUserName(userCallback);
+    }
+
+    private void updateCourseRate() {
+        final AsyncCallback<Double> courseRateCallback = new AsyncCallback<Double>() {
+            @Override
+            public void onFailure(Throwable caught) {
+                Window.alert(caught.getClass().getName());
+                Throwable cause = caught.getCause();
+                String errorMessage = "";
+                if(cause == null) {
+                    errorMessage = caught.getCause().getMessage();
+                }
+                Window.alert("Ошибка загрузки этапов с сервера " + errorMessage);
+                Window.Location.reload();
+            }
+
+            @Override
+            public void onSuccess(Double rate) {
+                if(rate == null) {
+                    Window.alert("Ошибка получения рейтинга пользователя");
+                    return;
+                }
+                if(rate < 50) {
+                    courseRate.setStyleName("alert");
+                } else if(rate > 50 && rate < 70) {
+                    courseRate.setStyleName("muted");
+                } else {
+                    courseRate.setStyleName("success");
+                }
+                courseRate.setText(String.valueOf(rate));
+            }
+        };
+
+        tasksService.getCourseRate(selectedGroup.getId(), UserTasksTabPanel.this.userName, courseRateCallback);
+    }
+
+    private void updateSprintRate() {
+        final AsyncCallback<Double> sprintRateCallback = new AsyncCallback<Double>() {
+
+            @Override
+            public void onFailure(Throwable caught) {
+                Window.alert(caught.getClass().getName());
+                Throwable cause = caught.getCause();
+                String errorMessage = "";
+                if(cause == null) {
+                    errorMessage = caught.getCause().getMessage();
+                }
+                Window.alert("Ошибка загрузки этапов с сервера " + errorMessage);
+                Window.Location.reload();
+            }
+
+            @Override
+            public void onSuccess(Double rate) {
+                if(rate == null) {
+                    Window.alert("Ошибка получения рейтинга пользователя");
+                    return;
+                }
+                if(rate < 50) {
+                    sprintRate.setStyleName("alert");
+                } else if(rate > 50 && rate < 70) {
+                    sprintRate.setStyleName("muted");
+                } else {
+                    sprintRate.setStyleName("success");
+                }
+                sprintRate.setText(String.valueOf(rate));
+            }
+        };
+        tasksService.getSprintRate(selectedSprint.getId(), UserTasksTabPanel.this.userName, sprintRateCallback);
     }
 
     @UiHandler("refreshTasksBtn")
@@ -99,6 +247,14 @@ public class UserTasksTabPanel extends Composite {
         addTasksToTable(sprint.getValue().getTasks(), true);
     }
 
+    @UiHandler("groupsListBox")
+    public void onChangeGroupPosition(ValueChangeEvent<GroupDTO> group) {
+        result.setText("");
+        taskText.setText("");
+        selectedGroup = group.getValue();
+        loadSprintsAndTasks();
+    }
+
     private void loadSprintsAndTasks() {
         final AsyncCallback<ArrayList<SprintDTO>> callback = new AsyncCallback<ArrayList<SprintDTO>>() {
 
@@ -110,13 +266,12 @@ public class UserTasksTabPanel extends Composite {
                 if(cause == null) {
                     errorMessage = caught.getCause().getMessage();
                 }
-                Window.alert("Ошибка загрузки этапов в сервера " + errorMessage);
+                Window.alert("Ошибка загрузки этапов с сервера " + errorMessage);
                 Window.Location.reload();
             }
 
             @Override
             public void onSuccess(ArrayList<SprintDTO> sprints) {
-
                 SprintDTO currentSprint;
                 sprintsListBox.setAcceptableValues(sprints);
                 Iterator<SprintDTO> iterator = sprints.iterator();
@@ -124,12 +279,14 @@ public class UserTasksTabPanel extends Composite {
                     currentSprint = iterator.next();
                     addTasksToTable(currentSprint.getTasks(), true);
                     sprintsListBox.setValue(currentSprint);
+                    selectedSprint = currentSprint;
                 }
-//                Window.alert("loadSprintsAndTasks sprints " + sprints);
+                updateSprintRate();
+                updateCourseRate();
             }
         };
 
-        tasksService.getSprints(callback);
+        tasksService.getSprints(selectedGroup, callback);
     }
 
     private void addTasksToTable(List<TaskDTO> tasks, boolean isSelectLast) {
