@@ -33,6 +33,9 @@ public class Group {
     //@JoinColumn(name = "GROUP_ID")
     private Set<User> users = new HashSet<User>();
 
+    @OneToMany(cascade = {CascadeType.ALL}, mappedBy = "group")
+    private Set<Task> tasks = new HashSet<Task>();
+
     public Group() {
     }
 
@@ -94,6 +97,14 @@ public class Group {
 
     public void setUsers(Set<User> users) {
         this.users = users;
+    }
+
+    public Set<Task> getTasks() {
+        return tasks;
+    }
+
+    public void setTasks(Set<Task> tasks) {
+        this.tasks = tasks;
     }
 
     @Override

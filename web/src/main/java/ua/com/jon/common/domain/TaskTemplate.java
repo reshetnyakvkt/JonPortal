@@ -27,12 +27,12 @@ public class TaskTemplate {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @Column(length = 20000)
+    @Column(length = 10000)
     private String taskText;
 
     private String name;
 
-    @Column(length = 50000)
+    @Column(length = 10000)
     private String materials;
 
     @Column(name = "CLASS_NAME")
