@@ -7,7 +7,9 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="application/xml;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
+<%--
 <tasks>
     <task>
         <user>
@@ -43,4 +45,26 @@
             NEW
         </task-status>
     </task>
+</tasks>--%>
+
+<tasks>
+    <c:forEach var="task" items="${group.tasks}">
+        <task>
+            <user>
+                <name>${task.user.name}</name>
+                <group>
+                    <name>${task.group.name}</name>
+                    <group-status>${task.group.status}</group-status>
+                    <repository-url>${task.group.repository}</repository-url>
+                </group>
+            </user>
+            <task-template>
+                <name>${task.template.name}</name>
+                <description>${task.template.desk}</description>
+            </task-template>
+            <task-status>
+                    ${task.status}
+            </task-status>
+        </task>
+    </c:forEach>
 </tasks>
