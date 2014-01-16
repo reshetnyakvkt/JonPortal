@@ -19,14 +19,14 @@ public interface TasksServiceAsync {
     void taskStatusChanged(TaskDTO dto, AsyncCallback<Void> async);
     void getSprints(GroupDTO selectedGroup, AsyncCallback<ArrayList<SprintDTO>> callback);
     void postForTest(TaskDTO taskDTO, AsyncCallback<String> callback);
-    void getTasksByUserGroup(Long id, AsyncCallback<ArrayList<TaskDTO>> async);
-
-    void getSprintRate(Long taskTemplateId, String userName, AsyncCallback<Double> async);
-
     void getCourseRate(Long taskTemplateId, String userName, AsyncCallback<Double> async);
 
     void getSpringUserName(AsyncCallback<String> userCallback);
 
     void getUserGroups(AsyncCallback<ArrayList<GroupDTO>> callback);
+
+    void getSprintRate(Long groupId, Long taskTemplateId, String userName, AsyncCallback<Double> async);
+
+    void getTasksByUserGroup(Long taskTemplateId, Long selectedGroupId, AsyncCallback<ArrayList<TaskDTO>> async);
 }
 

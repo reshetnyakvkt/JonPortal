@@ -230,7 +230,8 @@ public class UserTasksTabPanel extends Composite {
                 sprintRate.setText(String.valueOf(rate));
             }
         };
-        tasksService.getSprintRate(selectedSprint.getId(), UserTasksTabPanel.this.userName, sprintRateCallback);
+        tasksService.getSprintRate(selectedGroup.getId(), selectedSprint.getId(),
+                UserTasksTabPanel.this.userName, sprintRateCallback);
     }
 
     @UiHandler("refreshTasksBtn")
@@ -485,8 +486,8 @@ public class UserTasksTabPanel extends Composite {
         return selectedTaskTemplateId;
     }
 
-    public void setSelectedTaskTemplateId(Long selectedTaskTemplateId) {
-        this.selectedTaskTemplateId = selectedTaskTemplateId;
+    public GroupDTO getSelectedGroup() {
+        return selectedGroup;
     }
 }
 

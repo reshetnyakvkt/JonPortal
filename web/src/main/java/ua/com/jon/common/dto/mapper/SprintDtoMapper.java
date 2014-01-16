@@ -36,12 +36,12 @@ public class SprintDtoMapper {
         );
     }
 
-    public static ua.com.jon.cabinet.shared.SprintDTO domainToDto(List<Task> tasks, Sprint sprint) {
+    public static ua.com.jon.cabinet.shared.SprintDTO domainToDto(List<Task> tasks, Sprint sprint, Double rate) {
         return new ua.com.jon.cabinet.shared.SprintDTO(
                 sprint.getId(),
                 sprint.getName(),
                 sprint.getActive(),
-                TaskDtoMapper.domainsToDtos(tasks)
+                TaskDtoMapper.domainsToDtos(tasks, rate)
         );
     }
 

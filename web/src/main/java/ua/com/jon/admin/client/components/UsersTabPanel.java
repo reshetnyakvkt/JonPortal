@@ -266,7 +266,7 @@ public class UsersTabPanel extends Composite {
             public void onSuccess(Void aVoid) {
                 clearGroupUsersList();
                 groupTextBox.setText("");
-                //Window.alert("Group created successfully: " + group);
+                //Window.alert("GroupDTO created successfully: " + group);
             }
         };
 

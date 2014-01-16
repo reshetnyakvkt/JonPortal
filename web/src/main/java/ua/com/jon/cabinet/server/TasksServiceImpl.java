@@ -66,7 +66,7 @@ public class TasksServiceImpl implements TasksService {
         ArrayList<TaskDTO> taskDtos = new ArrayList<TaskDTO>();
         for (Task task : tasks) {
             task.setResult("");
-            taskDtos.add(TaskDtoMapper.domainToDto(task));
+            taskDtos.add(TaskDtoMapper.domainToDto(task, 0.0));
 
         }
         log.info("--- " + taskDtos + " ---");
@@ -91,7 +91,7 @@ public class TasksServiceImpl implements TasksService {
         ArrayList<SprintDTO> sprints = new ArrayList<SprintDTO>();
         for (Sprint sprint : sprintIterable) {
             List<Task> tasks = taskRepository.findByUserAndSprintAndGroup(userName, sprint.getId(), selectedGroup.getId());
-            sprints.add(SprintDtoMapper.domainToDto(tasks, sprint));
+            sprints.add(SprintDtoMapper.domainToDto(tasks, sprint, 0.0));
         }
         log.info("--- " + sprints + " ---");
         return sprints;
@@ -142,7 +142,7 @@ public class TasksServiceImpl implements TasksService {
     }
 
     @Override
-    public ArrayList<TaskDTO> getTasksByUserGroup(Long taskTemplateId) {
+    public ArrayList<TaskDTO> getTasksByUserGroup(Long taskTemplateId, Long selectedGroupId) {
         log.info("-== getTasksByUserGroup: " + taskTemplateId);
         System.out.println("-== getTasksByUserGroup: " + taskTemplateId);
         ArrayList<TaskDTO> tasksList = new ArrayList<TaskDTO>();
@@ -150,12 +150,15 @@ public class TasksServiceImpl implements TasksService {
             String userName = getSpringUserName();
             User user = userRepository.findByUserName(userName);
             if (user != null) {
-                for (Group group : user.getGroups()) {
-                    Long groupId = group.getId();
-                    List<Task> tasks = taskRepository.findByGroupIdAndTaskId(groupId, taskTemplateId);
-                    tasksList.addAll(TaskDtoMapper.domainsToDtos(tasks));
-                    removeTasksOfCurrentUser(tasksList, user.getLogin());
+//                for (GroupDTO group : user.getGroups()) {
+//                    Long groupId = group.getId();
+                List<Task> tasks = taskRepository.findByGroupIdAndTaskId(selectedGroupId, taskTemplateId);
+//                    tasksList.addAll(TaskDtoMapper.domainsToDtos(tasks, getCourseRate(selectedGroupId, userName)));
+                for (Task task : tasks) {
+                    tasksList.add(TaskDtoMapper.domainToDto(task, getCourseRate(selectedGroupId, task.getUser().getLogin())));
                 }
+                removeTasksOfCurrentUser(tasksList, user.getLogin());
+//                }
 //        list.add(new TaskDTO(1L, "task1", "task1", "", "", "", "", "", ""));
 //        list.add(new TaskDTO(1L, "task2", "task2", "", "", "", "", "", ""));
             }
@@ -180,14 +183,18 @@ public class TasksServiceImpl implements TasksService {
     }
 
     @Override
-    public double getSprintRate(Long sprintId, String userName) {
-        List<Task> tasks = taskRepository.findByUserAndSprint(userName, sprintId);
+    public double getSprintRate(Long groupId, Long sprintId, String userName) {
+        List<Task> tasks = taskRepository.findByUserAndSprintAndGroup(userName, sprintId, groupId);
+        return calcTasksRate(tasks);
+    }
+
+    private double calcTasksRate(List<Task> tasks) {
         int doneCount = 0;
         for (Task task : tasks) {
             String resultStr = "0";
-            if(task.getResult() != null && !task.getResult().isEmpty()) {
+            if (task.getResult() != null && !task.getResult().isEmpty()) {
                 String[] lines = task.getResult().split("\n");
-                if(lines.length > 0) {
+                if (lines.length > 0) {
                     resultStr = lines[0];
                 } else {
                     resultStr = task.getResult();
@@ -197,7 +204,7 @@ public class TasksServiceImpl implements TasksService {
             try {
                 result = Integer.parseInt(resultStr);
             } catch (Exception e) {
-               log.error(e);
+                log.error(e);
             }
             if (result >= 10) {
                 doneCount++;
@@ -208,8 +215,14 @@ public class TasksServiceImpl implements TasksService {
     }
 
     @Override
-    public double getCourseRate(Long taskTemplateId, String userName) {
-        return 0.1;
+    public double getCourseRate(Long selectedGroupId, String userName) {
+        Iterable<Sprint> sprintIterable = sprintRepository.findByUserAndGroup(userName, selectedGroupId);
+        ArrayList<Task> allSprintsTasks = new ArrayList<Task>();
+        for (Sprint sprint : sprintIterable) {
+            List<Task> tasks = taskRepository.findByUserAndSprintAndGroup(userName, sprint.getId(), selectedGroupId);
+            allSprintsTasks.addAll(tasks);
+        }
+        return calcTasksRate(allSprintsTasks);
     }
 
     @Override

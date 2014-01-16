@@ -20,8 +20,8 @@ public interface TasksService extends RemoteService {
     void taskStatusChanged(TaskDTO dto);
     ArrayList<SprintDTO> getSprints(GroupDTO selectedGroup);
     String postForTest(TaskDTO taskDTO);
-    ArrayList<TaskDTO> getTasksByUserGroup(Long id);
-    double getSprintRate(Long taskTemplateId, String userName);
+    ArrayList<TaskDTO> getTasksByUserGroup(Long taskTemplateId, Long selectedGroupId);
+    double getSprintRate(Long groupId, Long taskTemplateId, String userName);
     double getCourseRate(Long taskTemplateId, String userName);
     String getSpringUserName();
     ArrayList<GroupDTO> getUserGroups();

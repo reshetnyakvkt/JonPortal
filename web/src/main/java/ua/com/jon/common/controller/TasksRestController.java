@@ -22,7 +22,6 @@ public class TasksRestController {
         log.info("Id = " + id);
         model.addAttribute("id", id);
         return "rest/task";
-
     }
 
     @RequestMapping(method = RequestMethod.GET)
@@ -36,5 +35,12 @@ public class TasksRestController {
         log.info("tasks");
         model.addAttribute("status", "true");
         return "rest/status";
+    }
+
+    @RequestMapping(value = "/{group}", method = RequestMethod.GET)
+    public String getTask(@PathVariable String group, ModelMap model) {
+        log.info("Group = " + group);
+        model.addAttribute("id", group);
+        return "rest/tasks";
     }
 }

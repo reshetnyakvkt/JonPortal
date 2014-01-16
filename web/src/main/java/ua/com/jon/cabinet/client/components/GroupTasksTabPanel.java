@@ -97,6 +97,13 @@ public class GroupTasksTabPanel extends Composite {
             }
         }, "Оценка");
 
+        cellTable.addColumn(new TextColumn<TaskDTO>() {
+            @Override
+            public String getValue(TaskDTO taskDTO) {
+                return String.valueOf(taskDTO.getRate());
+            }
+        }, "Рейтинг");
+
         final SingleSelectionModel<TaskDTO> selectionModel = new SingleSelectionModel<TaskDTO>();
         cellTable.setSelectionModel(selectionModel);
         selectionModel.addSelectionChangeHandler(
@@ -130,7 +137,8 @@ public class GroupTasksTabPanel extends Composite {
             }
         };
         if(userPanel.getSelectedTaskTemplateId() != null) {
-            adminService.getTasksByUserGroup(userPanel.getSelectedTaskTemplateId(), groupCallback);
+            adminService.getTasksByUserGroup(userPanel.getSelectedTaskTemplateId(), userPanel.getSelectedGroup().getId(),
+                    groupCallback);
         }
     }
 

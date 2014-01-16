@@ -14,7 +14,7 @@ import java.util.List;
  * Date: 6/25/13
  */
 public class TaskDtoMapper {
-    public static TaskDTO domainToDto(Task task) {
+    public static TaskDTO domainToDto(Task task, Double rate) {
 
         TaskTemplate taskTemplate = task.getTaskTemplate();
         String taskText = "";
@@ -46,7 +46,8 @@ public class TaskDtoMapper {
                 className,
                 templateId,
                 materials,
-                groupId
+                groupId,
+                rate
         );
     }
 
@@ -83,10 +84,10 @@ public class TaskDtoMapper {
         );
     }
 
-    public static List<TaskDTO> domainsToDtos(List<Task> tasks) {
+    public static List<TaskDTO> domainsToDtos(List<Task> tasks, Double rate) {
         List<TaskDTO> taskDTOs = new ArrayList<TaskDTO>(tasks.size());
         for (Task task : tasks) {
-            taskDTOs.add(domainToDto(task));
+            taskDTOs.add(domainToDto(task, rate));
         }
         return taskDTOs;
     }

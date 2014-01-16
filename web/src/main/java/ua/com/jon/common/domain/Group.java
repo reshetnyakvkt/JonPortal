@@ -36,18 +36,22 @@ public class Group {
     @OneToMany(cascade = {CascadeType.ALL}, mappedBy = "group")
     private Set<Task> tasks = new HashSet<Task>();
 
+    @Column(name = "REPOSITORY_URL")
+    private String repositoryUrl;
+
     public Group() {
     }
 
-    public Group(String name, Date startDate, boolean active, Iterable<User> users) {
-        this(name, startDate, active, getUserSetByIter(users));
+    public Group(String name, Date startDate, boolean active, Iterable<User> users, String repositoryUrl) {
+        this(name, startDate, active, getUserSetByIter(users), repositoryUrl);
     }
 
-    public Group(String name, Date startDate, boolean active, Set<User> users) {
+    public Group(String name, Date startDate, boolean active, Set<User> users, String repositoryUrl) {
         this.name = name;
         this.startDate = startDate;
         this.active = active;
         this.users = users;
+        this.repositoryUrl = repositoryUrl;
     }
 
 
@@ -107,6 +111,14 @@ public class Group {
         this.tasks = tasks;
     }
 
+    public String getRepositoryUrl() {
+        return repositoryUrl;
+    }
+
+    public void setRepositoryUrl(String repositoryUrl) {
+        this.repositoryUrl = repositoryUrl;
+    }
+
     @Override
     public String toString() {
         return "Group{" +
@@ -114,6 +126,9 @@ public class Group {
                 ", name='" + name + '\'' +
                 ", startDate=" + startDate +
                 ", active=" + active +
+                ", users=" + users.size() +
+                ", tasks=" + tasks.size() +
+                ", repositoryUrl='" + repositoryUrl + '\'' +
                 '}';
     }
 }
