@@ -1,11 +1,14 @@
 package ua.com.jon.common.controller;
 
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import ua.com.jon.common.dto.GroupDTO;
+import ua.com.jon.common.service.RestService;
 
 /**
  * Created with IntelliJ IDEA.
@@ -16,6 +19,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @RequestMapping("/tasks")
 public class TasksRestController {
     private static Logger log = Logger.getLogger(TasksRestController.class);
+
+    @Autowired
+    private RestService restService;
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public String getTask(@PathVariable Long id, ModelMap model) {
@@ -37,10 +43,11 @@ public class TasksRestController {
         return "rest/status";
     }
 
-    @RequestMapping(value = "/{group}", method = RequestMethod.GET)
-    public String getTask(@PathVariable String group, ModelMap model) {
-        log.info("Group = " + group);
-        model.addAttribute("id", group);
+    @RequestMapping(value = "/{groupName}", method = RequestMethod.GET)
+    public String getTask(@PathVariable String groupName, ModelMap model) {
+        log.info("Group = " + groupName);
+        GroupDTO groupDTO = restService.getGroupDtoWithTasks(groupName);
+        model.addAttribute("group", groupDTO);
         return "rest/tasks";
     }
 }

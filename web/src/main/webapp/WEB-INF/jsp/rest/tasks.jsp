@@ -51,16 +51,16 @@
     <c:forEach var="task" items="${group.tasks}">
         <task>
             <user>
-                <name>${task.user.name}</name>
+                <name>${task.userName}</name>
                 <group>
-                    <name>${task.group.name}</name>
-                    <group-status>${task.group.status}</group-status>
-                    <repository-url>${task.group.repository}</repository-url>
+                    <name>${group.name}</name>
+                    <group-status>${group.status}</group-status>
+                    <repository-url>${group.repository}</repository-url>
                 </group>
             </user>
             <task-template>
-                <name>${task.template.name}</name>
-                <description>${task.template.desk}</description>
+                <name>${task.templateName}</name>
+                <description>${task.templateDesk}</description>
             </task-template>
             <task-status>
                     ${task.status}

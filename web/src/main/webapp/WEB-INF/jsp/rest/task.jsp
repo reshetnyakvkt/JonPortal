@@ -12,7 +12,7 @@
     <user>
         <name>${id}</name>
         <group>
-            <name>groupName</name>
+            <name>name</name>
             <group-status>true</group-status>
             <repository-url>repo</repository-url>
         </group>

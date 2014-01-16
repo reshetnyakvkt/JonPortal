@@ -15,6 +15,7 @@
     <!--<import resource="security.xml"/>-->
     <!--<annotation-driven />-->
     <context:component-scan base-package="ua.com.jon.common.controller"/>
+    <context:component-scan base-package="ua.com.jon.common.service"/>
     <context:component-scan base-package="ua.com.jon.cabinet.controller"/>
     <context:component-scan base-package="ua.com.jon.examinator.server"/>
     <context:component-scan base-package="ua.com.jon.examinator.controller"/>
