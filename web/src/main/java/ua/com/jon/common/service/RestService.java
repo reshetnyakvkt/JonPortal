@@ -41,7 +41,6 @@ public class RestService {
 
     public GroupDTO getGroupDtoWithTasks(String groupName) {
         Group group = groupRepository.findByName(groupName);
-        GroupDTO groupDTO = GroupAndTaskDtoMapper.domainToDto(group);
-        return new GroupDTO();
+        return GroupAndTaskDtoMapper.domainToDto(group);
     }
 }

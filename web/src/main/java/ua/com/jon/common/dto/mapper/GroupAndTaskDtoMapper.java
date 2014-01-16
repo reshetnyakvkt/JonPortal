@@ -10,6 +10,7 @@ import ua.com.jon.common.dto.GroupDTO;
  */
 public class GroupAndTaskDtoMapper {
     public static GroupDTO domainToDto(Group group) {
-        return null;  //To change body of created methods use File | Settings | File Templates.
+        // TODO implement
+        return null;
     }
 }
