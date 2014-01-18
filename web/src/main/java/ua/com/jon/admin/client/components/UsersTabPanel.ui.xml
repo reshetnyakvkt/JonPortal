@@ -21,6 +21,7 @@
                         </b:Column>
                         <b:Column size="5">
                             <!--<b:ValueListBox ui:field="groupsListBox"/>-->
+                            <b:TextBox ui:field="repoЕTextBox"/>
                             <b:TextBox ui:field="groupTextBox"/>
                         </b:Column>
                     </b:FluidRow>

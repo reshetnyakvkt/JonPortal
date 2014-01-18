@@ -10,10 +10,10 @@ import java.io.Serializable;
 public class TaskDTO implements Serializable {
     private String templateName;
     private String templateDesk;
-    private boolean status;
+    private String status;
     private String userName;
 
-    public TaskDTO(String templateName, String templateDesk, boolean status, String userName) {
+    public TaskDTO(String templateName, String templateDesk, String status, String userName) {
         this.templateName = templateName;
         this.templateDesk = templateDesk;
         this.status = status;
@@ -36,11 +36,11 @@ public class TaskDTO implements Serializable {
         this.templateDesk = templateDesk;
     }
 
-    public boolean isStatus() {
+    public String getStatus() {
         return status;
     }
 
-    public void setStatus(boolean status) {
+    public void setStatus(String status) {
         this.status = status;
     }
 

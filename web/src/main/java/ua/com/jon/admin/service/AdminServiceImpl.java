@@ -118,7 +118,7 @@ public class AdminServiceImpl implements AdminService {
         ArrayList<SpaceDTO> spaceDTOs = new ArrayList<SpaceDTO>(assemblaSpaces.size());
         for (AssemblaSpace space : assemblaSpaces) {
             List<AssemblaUser> usersInSpace = authService.getUsersBySpace(space.getName());
-            spaceDTOs.add(SpaceDtoMapper.spaceToDto(space, usersInSpace));
+            spaceDTOs.add(SpaceDtoMapper.spaceToDto(space, usersInSpace, ""));
         }
         log.info("-- getSpaces(), return space to client: " + spaceDTOs);
         return spaceDTOs;
@@ -126,16 +126,16 @@ public class AdminServiceImpl implements AdminService {
 
     @Override
     @Transactional
-    public void createGroup(SpaceDTO groupDto) throws Exception {
-        log.info("-- createGroup() " + groupDto);
+    public void createGroup(SpaceDTO spaceDto) throws Exception {
+        log.info("-- createGroup() " + spaceDto);
         try {
-//            for (UserDTO userDTO : groupDto.getUsers()) {
-            Set<String> nameSet = userToNamesWithTrim(groupDto.getUsers());
+//            for (UserDTO userDTO : spaceDto.getUsers()) {
+            Set<String> nameSet = userToNamesWithTrim(spaceDto.getUsers());
             List<User> users = userRepository.findByNames(nameSet);
             for (User user : users) {
                 nameSet.remove(user.getLogin());
             }
-            Group group = new Group(groupDto.getName(), new Date(), false, new HashSet<User>());
+            Group group = new Group(spaceDto.getName(), new Date(), false, new HashSet<User>(), spaceDto.getRepositoryUrl());
             Set<Group> groups = new HashSet<Group>();
             groups.add(group);
             for (String userName : nameSet) {

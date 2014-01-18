@@ -16,34 +16,34 @@ import ua.com.jon.common.service.RestService;
  * Date: 8/8/13
  */
 @Controller
-@RequestMapping("/tasks")
+//@RequestMapping("/tasks")
 public class TasksRestController {
     private static Logger log = Logger.getLogger(TasksRestController.class);
 
     @Autowired
     private RestService restService;
 
-    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "/tasks/{id}", method = RequestMethod.GET)
     public String getTask(@PathVariable Long id, ModelMap model) {
         log.info("Id = " + id);
         model.addAttribute("id", id);
         return "rest/task";
     }
 
-    @RequestMapping(method = RequestMethod.GET)
+    @RequestMapping(value = "/tasks", method = RequestMethod.GET)
     public String getTask(ModelMap model) {
         log.info("tasks");
         return "rest/tasks";
     }
 
-    @RequestMapping(value="/{id}/{status}", method = RequestMethod.POST)
+    @RequestMapping(value="/tasks/{id}/{status}", method = RequestMethod.POST)
     public String postTask(@PathVariable Long id, @PathVariable String status, ModelMap model) {
         log.info("tasks");
         model.addAttribute("status", "true");
         return "rest/status";
     }
 
-    @RequestMapping(value = "/{groupName}", method = RequestMethod.GET)
+    @RequestMapping(value = "/group/{groupName}", method = RequestMethod.GET)
     public String getTask(@PathVariable String groupName, ModelMap model) {
         log.info("Group = " + groupName);
         GroupDTO groupDTO = restService.getGroupDtoWithTasks(groupName);

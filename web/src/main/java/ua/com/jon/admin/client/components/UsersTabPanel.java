@@ -58,6 +58,9 @@ public class UsersTabPanel extends Composite {
     TextBox groupTextBox;
 
     @UiField
+    TextBox repoTextBox;
+
+    @UiField
     ProgressBar spacesProgress;
 
     private AdminServiceAsync adminService = GWT.create(AdminService.class);
@@ -252,7 +255,7 @@ public class UsersTabPanel extends Composite {
 
     @UiHandler("createGroupBtn")
     public void handleCreateGroup(ClickEvent e) {
-        final SpaceDTO group = new SpaceDTO(groupTextBox.getText(), getUsersFromList());
+        final SpaceDTO group = new SpaceDTO(groupTextBox.getText(), getUsersFromList(), repoTextBox.getText());
         final AsyncCallback<Void> groupCallback = new AsyncCallback<Void>() {
 
             @Override

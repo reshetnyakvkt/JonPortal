@@ -11,13 +11,15 @@ import java.util.ArrayList;
 public class SpaceDTO implements Serializable {
     private String name;
     private ArrayList<UserDTO> users;
+    private String repositoryUrl;
 
     public SpaceDTO() {
     }
 
-    public SpaceDTO(String name, ArrayList<UserDTO> users) {
+    public SpaceDTO(String name, ArrayList<UserDTO> users, String repositoryUrl) {
         this.name = name;
         this.users = users;
+        this.repositoryUrl = repositoryUrl;
     }
 
     public String getName() {
@@ -36,11 +38,20 @@ public class SpaceDTO implements Serializable {
         this.users = users;
     }
 
+    public String getRepositoryUrl() {
+        return repositoryUrl;
+    }
+
+    public void setRepositoryUrl(String repositoryUrl) {
+        this.repositoryUrl = repositoryUrl;
+    }
+
     @Override
     public String toString() {
         return "SpaceDTO{" +
                 "name='" + name + '\'' +
-                ", users=" + users +
+                ", users=" + users.size() +
+                ", repositoryUrl='" + repositoryUrl + '\'' +
                 '}';
     }
 }
