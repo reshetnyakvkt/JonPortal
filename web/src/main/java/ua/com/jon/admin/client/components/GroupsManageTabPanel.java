@@ -157,8 +157,10 @@ public class GroupsManageTabPanel extends Composite {
             @Override
             public void update(int index, UserDTO object, String value) {
                 dataProvider.getList().remove(object);
+                groupsListBox.getValue().getUsers().remove(object);
                 dataProvider.flush();
                 dataProvider.refresh();
+                // TODO call async del
             }
         });
         cellTable.addColumn(buttonDelCol);
@@ -354,13 +356,20 @@ public class GroupsManageTabPanel extends Composite {
         Window.alert("Выберите имя студента");
 //        String sprintName = INITIAL_SPRINT_NAME;
 //        sprintNameTextBox.setText(sprintName);
-        UserDTO task = new UserDTO();
 
-        List<UserDTO> taskTemplateDTOs = dataProvider.getList();
-        if (taskTemplateDTOs.contains(task)) {
-            Window.alert("Student with name is already exists: " + task.getName());
+        List<UserDTO> userDTOs = dataProvider.getList();
+        List<String> studentNames = getStudentNamesFromSpaces(globalData.getSpacesDtos());
+        UserDTO user = new UserDTO(null, studentNames.get(0));
+        for (UserDTO userDTO : userDTOs) {
+            if (!studentNames.contains(userDTO.getName())) {
+                user.setName(userDTO.getName());
+                break;
+            }
+        }
+        if (userDTOs.contains(user)) {
+            Window.alert("Student with name is already exists: " + user.getName());
         } else {
-            taskTemplateDTOs.add(task);
+            userDTOs.add(user);
             dataProvider.flush();
         }
 
@@ -368,7 +377,7 @@ public class GroupsManageTabPanel extends Composite {
     }
 
     @UiHandler("saveGroupBtn")
-    public void saveSprintsHandler(ClickEvent e) {
+    public void saveGroupHandler(ClickEvent e) {
 /*
         ArrayList<NavLink> links = getActiveElementsFromNavList(groupTasks, false);
         ArrayList<String> taskNames = new ArrayList<String>();
@@ -396,7 +405,7 @@ public class GroupsManageTabPanel extends Composite {
 //        ArrayList<SprintDTO> newSprints = new ArrayList<SprintDTO>();
 //        newSprints.add(currentGroup);
 //        relocateTasks(loadedGroups);
-        //Window.alert("Sprints to save: " + loadedGroups);
+        Window.alert("Group to save: " + currentGroup);
 //        adminService.saveGroups(loadedGroups, callback);
         for (UserDTO userDTO : currentGroup.getUsers()) {
             if (userDTO.getName() == null) {
