@@ -291,7 +291,21 @@ public class AdminServiceImpl implements AdminService {
     @Override
     @Transactional
     public void deleteUserFromGroup(Long groupId, Long userId) {
+        Group group = groupRepository.findOne(groupId);
+        for (User user : group.getUsers()) {
+            if (user.getId().equals(userId)) {
+                group.getUsers().remove(user);
+                user.getGroups().remove(group);
+                userRepository.save(user);
+                groupRepository.save(group);
+                return;
+            }
+        }
+    }
 
+    @Override
+    public void deleteUser(Long userId) {
+        userRepository.delete(userId);
     }
 
     @Override

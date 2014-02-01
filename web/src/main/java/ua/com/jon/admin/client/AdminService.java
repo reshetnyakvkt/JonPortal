@@ -49,4 +49,6 @@ public interface AdminService extends RemoteService {
     void saveGroup(GroupAndUsersDTO newGroup);
 
     void deleteUserFromGroup(Long groupId, Long userId);
+
+    void deleteUser(Long userId);
 }

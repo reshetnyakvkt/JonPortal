@@ -161,6 +161,7 @@ public class GroupsManageTabPanel extends Composite {
                 dataProvider.flush();
                 dataProvider.refresh();
                 // TODO call async del
+                deleteUser(object.getId());
             }
         });
         cellTable.addColumn(buttonDelCol);
@@ -196,6 +197,24 @@ public class GroupsManageTabPanel extends Composite {
 
     }
 
+    private void deleteUser(Long userId) {
+        final AsyncCallback<Void> callback = new AsyncCallback<Void>() {
+
+            @Override
+            public void onFailure(Throwable throwable) {
+                Window.alert("Error delete user " + throwable);
+            }
+
+            @Override
+            public void onSuccess(Void aVoid) {
+//                loadGroups();
+                Window.alert("User deleted successfully");
+            }
+        };
+
+        adminService.deleteUserFromGroup(currentGroup.getId(), userId, callback);
+    }
+
     private void createStudentDropdown() {
         Window.alert("spacesDtos: " + globalData.getSpacesDtos());
         List<String> names = getStudentNamesFromSpaces(globalData.getSpacesDtos());
@@ -212,7 +231,13 @@ public class GroupsManageTabPanel extends Composite {
                     String newValue = select.getValue();
                     Window.alert("newValue: " + newValue.toString());
                     UserDTO selected = selectionModel.getSelectedObject();
-
+                    int selectedIndex = dataProvider.getList().indexOf(selected);
+                    if (selectedIndex >= 0) {
+                        selected = dataProvider.getList().get(selectedIndex);
+                    } else {
+                        Window.alert("Добавлен новый объект " + selected.toString());
+                        dataProvider.getList().add(selected);
+                    }
                     if (selected != null) {
                         selected.setName(newValue);
                         Window.alert("selected: " + selected);
@@ -352,7 +377,7 @@ public class GroupsManageTabPanel extends Composite {
     }
 
     @UiHandler("createStudentBtn")
-    public void createTaskHandler(ClickEvent e) {
+    public void createStudentHandler(ClickEvent e) {
         Window.alert("Выберите имя студента");
 //        String sprintName = INITIAL_SPRINT_NAME;
 //        sprintNameTextBox.setText(sprintName);
@@ -360,19 +385,8 @@ public class GroupsManageTabPanel extends Composite {
         List<UserDTO> userDTOs = dataProvider.getList();
         List<String> studentNames = getStudentNamesFromSpaces(globalData.getSpacesDtos());
         UserDTO user = new UserDTO(null, studentNames.get(0));
-        for (UserDTO userDTO : userDTOs) {
-            if (!studentNames.contains(userDTO.getName())) {
-                user.setName(userDTO.getName());
-                break;
-            }
-        }
-        if (userDTOs.contains(user)) {
-            Window.alert("Student with name is already exists: " + user.getName());
-        } else {
-            userDTOs.add(user);
-            dataProvider.flush();
-        }
-
+        userDTOs.add(user);
+        dataProvider.flush();
 //        dataProvider.refresh();
     }
 

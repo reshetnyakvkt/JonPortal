@@ -49,5 +49,7 @@ public interface AdminServiceAsync {
     void deleteGroup(Long id, AsyncCallback<Void> callback);
 
     void deleteUserFromGroup(Long groupId, Long userId, AsyncCallback<Void> callback);
+
+    void deleteUser(Long userId, AsyncCallback<Void> async);
 }
 
