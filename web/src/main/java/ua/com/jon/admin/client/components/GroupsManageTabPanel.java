@@ -4,6 +4,7 @@ import com.github.gwtbootstrap.client.ui.Button;
 import com.github.gwtbootstrap.client.ui.ButtonCell;
 import com.github.gwtbootstrap.client.ui.CellTable;
 import com.github.gwtbootstrap.client.ui.Label;
+import com.github.gwtbootstrap.client.ui.Modal;
 import com.github.gwtbootstrap.client.ui.ProgressBar;
 import com.github.gwtbootstrap.client.ui.TextArea;
 import com.github.gwtbootstrap.client.ui.ValueListBox;
@@ -73,6 +74,9 @@ public class GroupsManageTabPanel extends Composite {
     @UiField
     TextArea textArea = new TextArea();
 
+    @UiField
+    Modal addUserModal = new Modal();
+
     private GroupAndUsersDTO currentGroup;
     private ArrayList<GroupAndUsersDTO> loadedGroups = new ArrayList<GroupAndUsersDTO>();
 
@@ -100,6 +104,30 @@ public class GroupsManageTabPanel extends Composite {
         }
     });
 
+    @UiField(provided = true)
+    ValueListBox<UserDTO> studentsDropdown = new ValueListBox<UserDTO>(new AbstractRenderer<UserDTO>() {
+        @Override
+        public String render(UserDTO userDTO) {
+            if (userDTO == null) {
+                return "";
+            } else {
+                return userDTO.getName();
+            }
+        }
+    });
+
+    @UiField(provided = true)
+    ValueListBox<SpaceDTO> spacesDropdown = new ValueListBox<SpaceDTO>(new AbstractRenderer<SpaceDTO>() {
+        @Override
+        public String render(SpaceDTO spaceDTO) {
+            if (spaceDTO == null) {
+                return "";
+            } else {
+                return spaceDTO.getName();
+            }
+        }
+    });
+
     public GroupsManageTabPanel(final UiBinder<Widget, GroupsManageTabPanel> binder, GlobalData globalData) {
         this.globalData = globalData;
         initWidget(binder.createAndBindUi(this));
@@ -110,7 +138,6 @@ public class GroupsManageTabPanel extends Composite {
                 loadGroups();
             }
         });
-
     }
 
     public void buildTable() {
@@ -195,6 +222,15 @@ public class GroupsManageTabPanel extends Composite {
                     }
                 });
 
+    }
+
+    public void initSpacesDropDown() {
+
+    }
+
+    public void initStudentsDropDown() {
+        SpaceDTO spaceDTO = spacesDropdown.getValue();
+        studentsDropdown.setAcceptableValues(spaceDTO.getUsers());
     }
 
     private void deleteUser(Long userId) {
@@ -343,15 +379,10 @@ public class GroupsManageTabPanel extends Composite {
 //        cellTable.flush();
     }
 
-//    private void addTasksToSprintNavList(List<TaskTemplateDTO> tasks) {
-//        if (tasks != null) {
-//            for (TaskTemplateDTO userDTO : tasks) {
-//                NavLink userNL = new NavLink(userDTO.getName());
-////                userNL.addClickHandler(handler);
-//                sprintTasks.add(userNL);
-//            }
-//        }
-//    }
+    @UiHandler("studentsDropdown")
+    public void onUserSelected(ValueChangeEvent<UserDTO> event) {
+
+    }
 
     @UiHandler("groupsListBox")
     public void onChangeGroupPosition(ValueChangeEvent<GroupAndUsersDTO> groupEvent) {
@@ -382,12 +413,13 @@ public class GroupsManageTabPanel extends Composite {
 //        String sprintName = INITIAL_SPRINT_NAME;
 //        sprintNameTextBox.setText(sprintName);
 
-        List<UserDTO> userDTOs = dataProvider.getList();
+        /*List<UserDTO> userDTOs = dataProvider.getList();
         List<String> studentNames = getStudentNamesFromSpaces(globalData.getSpacesDtos());
         UserDTO user = new UserDTO(null, studentNames.get(0));
         userDTOs.add(user);
-        dataProvider.flush();
+        dataProvider.flush();*/
 //        dataProvider.refresh();
+        addUserModal.show();
     }
 
     @UiHandler("saveGroupBtn")
