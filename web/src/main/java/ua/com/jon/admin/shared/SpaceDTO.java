@@ -9,6 +9,7 @@ import java.util.ArrayList;
  * Date: 7/2/13
  */
 public class SpaceDTO implements Serializable {
+    private Long id;
     private String name;
     private ArrayList<UserDTO> users;
     private String repositoryUrl;
@@ -16,7 +17,8 @@ public class SpaceDTO implements Serializable {
     public SpaceDTO() {
     }
 
-    public SpaceDTO(String name, ArrayList<UserDTO> users, String repositoryUrl) {
+    public SpaceDTO(Long id, String name, ArrayList<UserDTO> users, String repositoryUrl) {
+        this.id = id;
         this.name = name;
         this.users = users;
         this.repositoryUrl = repositoryUrl;
@@ -46,11 +48,20 @@ public class SpaceDTO implements Serializable {
         this.repositoryUrl = repositoryUrl;
     }
 
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
     @Override
     public String toString() {
         return "SpaceDTO{" +
-                "name='" + name + '\'' +
-                ", users=" + users.size() +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", users=" + users +
                 ", repositoryUrl='" + repositoryUrl + '\'' +
                 '}';
     }

@@ -66,7 +66,13 @@ public class GroupsManageTabPanel extends Composite {
     Button saveGroupBtn = new Button();
 
     @UiField
+    Button saveStudentBtn = new Button();
+
+    @UiField
     ProgressBar sprintsProgress;
+
+    @UiField
+    ProgressBar groupsProgress;
 
     @UiField
     CellTable<UserDTO> cellTable = new CellTable<UserDTO>(5, GWT.<CellTable.SelectableResources>create(CellTable.SelectableResources.class));
@@ -136,8 +142,16 @@ public class GroupsManageTabPanel extends Composite {
             public void onNotificationChanged(AdminNotificationEvent authenticationEvent) {
                 //buildTable();
                 loadGroups();
+                showAndInitDataComponents();
             }
         });
+    }
+
+    public void showAndInitDataComponents() {
+        groupsProgress.setVisible(false);
+        spacesDropdown.setVisible(true);
+        studentsDropdown.setVisible(true);
+        spacesDropdown.setAcceptableValues(globalData.getSpacesDtos());
     }
 
     public void buildTable() {
@@ -224,13 +238,11 @@ public class GroupsManageTabPanel extends Composite {
 
     }
 
-    public void initSpacesDropDown() {
-
-    }
-
-    public void initStudentsDropDown() {
+    @UiHandler("spacesDropdown")
+    public void initStudentsDropDown(ValueChangeEvent<SpaceDTO> event) {
         SpaceDTO spaceDTO = spacesDropdown.getValue();
         studentsDropdown.setAcceptableValues(spaceDTO.getUsers());
+        studentsDropdown.setEnabled(true);
     }
 
     private void deleteUser(Long userId) {
@@ -249,6 +261,12 @@ public class GroupsManageTabPanel extends Composite {
         };
 
         adminService.deleteUserFromGroup(currentGroup.getId(), userId, callback);
+    }
+
+    @UiHandler("studentsDropdown")
+    public void studentsDropDownHandler(ValueChangeEvent<UserDTO> event) {
+        Window.alert("value: " + event.getValue() + ";");
+        saveStudentBtn.setEnabled(true);
     }
 
     private void createStudentDropdown() {
@@ -409,28 +427,29 @@ public class GroupsManageTabPanel extends Composite {
 
     @UiHandler("createStudentBtn")
     public void createStudentHandler(ClickEvent e) {
-        Window.alert("Выберите имя студента");
-//        String sprintName = INITIAL_SPRINT_NAME;
-//        sprintNameTextBox.setText(sprintName);
-
-        /*List<UserDTO> userDTOs = dataProvider.getList();
-        List<String> studentNames = getStudentNamesFromSpaces(globalData.getSpacesDtos());
-        UserDTO user = new UserDTO(null, studentNames.get(0));
-        userDTOs.add(user);
-        dataProvider.flush();*/
-//        dataProvider.refresh();
         addUserModal.show();
+    }
+
+    @UiHandler("saveStudentBtn")
+    public void saveStudentHandler(ClickEvent e) {
+        final AsyncCallback<Void> callback = new AsyncCallback<Void>() {
+            @Override
+            public void onFailure(Throwable throwable) {
+                Window.alert("!!! Error save student" + throwable);
+            }
+
+            @Override
+            public void onSuccess(Void aVoid) {
+
+            }
+        };
+
+        adminService.addStudentToGroup(spacesDropdown.getValue().getName(), studentsDropdown.getValue().getName(), callback);
     }
 
     @UiHandler("saveGroupBtn")
     public void saveGroupHandler(ClickEvent e) {
-/*
-        ArrayList<NavLink> links = getActiveElementsFromNavList(groupTasks, false);
-        ArrayList<String> taskNames = new ArrayList<String>();
-        for (NavLink link : links) {
-            taskNames.add(link.getText());
-        }
-*/
+
         final AsyncCallback<Void> callback = new AsyncCallback<Void>() {
 
             @Override

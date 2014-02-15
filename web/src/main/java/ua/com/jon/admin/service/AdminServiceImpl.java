@@ -38,6 +38,7 @@ import ua.com.jon.common.repository.UserRepository;
 import javax.annotation.Resource;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -118,7 +119,7 @@ public class AdminServiceImpl implements AdminService {
         ArrayList<SpaceDTO> spaceDTOs = new ArrayList<SpaceDTO>(assemblaSpaces.size());
         for (AssemblaSpace space : assemblaSpaces) {
             List<AssemblaUser> usersInSpace = authService.getUsersBySpace(space.getName());
-            spaceDTOs.add(SpaceDtoMapper.spaceToDto(space, usersInSpace, ""));
+            spaceDTOs.add(SpaceDtoMapper.spaceToDto(null, space, usersInSpace, ""));
         }
         log.info("-- getSpaces(), return space to client: " + spaceDTOs);
         return spaceDTOs;
@@ -306,6 +307,19 @@ public class AdminServiceImpl implements AdminService {
     @Override
     public void deleteUser(Long userId) {
         userRepository.delete(userId);
+    }
+
+    @Override
+    @Transactional
+    public void addStudentToGroup(String groupName, String userName) {
+        Group group = groupRepository.findGroupAndUsersByName(groupName);
+        User user = userRepository.findByUserName(userName);
+        if (user == null) {
+            user = new User(userName, null, new Date(), Collections.singleton(group));
+        }
+        group.getUsers().add(user);
+        userRepository.save(user);
+        groupRepository.save(group);
     }
 
     @Override

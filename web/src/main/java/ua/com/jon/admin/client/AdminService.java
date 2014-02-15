@@ -51,4 +51,6 @@ public interface AdminService extends RemoteService {
     void deleteUserFromGroup(Long groupId, Long userId);
 
     void deleteUser(Long userId);
+
+    void addStudentToGroup(String groupName, String userName);
 }

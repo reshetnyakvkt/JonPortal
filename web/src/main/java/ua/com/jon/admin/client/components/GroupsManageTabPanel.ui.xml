@@ -12,11 +12,12 @@
       </b:ButtonGroup>
       <b:Modal ui:field="addUserModal" title="Добавление нового пользователя" backdrop="STATIC" keyboard="true" animation="true">
         <g:Label>Выберите группу</g:Label>
-        <b:ValueListBox ui:field="spacesDropdown"/>
+        <b:ProgressBar ui:field="groupsProgress" type="ANIMATED" percent="100"/>
+        <b:ValueListBox ui:field="spacesDropdown" visible="false"/>
         <g:Label>Выберите студента из списка</g:Label>
-        <b:ValueListBox ui:field="studentsDropdown"/>
+        <b:ValueListBox ui:field="studentsDropdown" visible="false" enabled="false"/>
         <b:ModalFooter>
-          <b:Button icon="FILE" type="PRIMARY">Сохранить</b:Button>
+          <b:Button ui:field="saveStudentBtn" icon="FILE" type="PRIMARY" enabled="false">Сохранить</b:Button>
         </b:ModalFooter>
       </b:Modal>
       <b:Well>

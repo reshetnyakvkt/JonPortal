@@ -51,5 +51,7 @@ public interface AdminServiceAsync {
     void deleteUserFromGroup(Long groupId, Long userId, AsyncCallback<Void> callback);
 
     void deleteUser(Long userId, AsyncCallback<Void> async);
+
+    void addStudentToGroup(String groupName, String userName, AsyncCallback<Void> async);
 }
 

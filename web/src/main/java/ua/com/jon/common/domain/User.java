@@ -1,7 +1,16 @@
 package ua.com.jon.common.domain;
 
-import javax.persistence.*;
-import java.util.Collection;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -32,7 +41,7 @@ public class User {
     private Set<Task> tasks = new HashSet<Task>();
 
     @ManyToMany
-    @JoinColumn(name = "GROUP_ID")
+    //@JoinColumn(name = "GROUP_ID")
     private Set<Group> groups = new HashSet<Group>();
 
     public User() {
