@@ -123,13 +123,13 @@ public class GroupsManageTabPanel extends Composite {
     });
 
     @UiField(provided = true)
-    ValueListBox<SpaceDTO> spacesDropdown = new ValueListBox<SpaceDTO>(new AbstractRenderer<SpaceDTO>() {
+    ValueListBox<GroupAndUsersDTO> groupsDropdown = new ValueListBox<GroupAndUsersDTO>(new AbstractRenderer<GroupAndUsersDTO>() {
         @Override
-        public String render(SpaceDTO spaceDTO) {
-            if (spaceDTO == null) {
+        public String render(GroupAndUsersDTO groupAndUsersDTO) {
+            if (groupAndUsersDTO == null) {
                 return "";
             } else {
-                return spaceDTO.getName();
+                return groupAndUsersDTO.getName();
             }
         }
     });
@@ -141,17 +141,20 @@ public class GroupsManageTabPanel extends Composite {
             @Override
             public void onNotificationChanged(AdminNotificationEvent authenticationEvent) {
                 //buildTable();
+                groupsProgress.setVisible(true);
+                groupsDropdown.setVisible(false);
+                studentsDropdown.setVisible(false);
                 loadGroups();
-                showAndInitDataComponents();
+                /*showAndInitDataComponents();*/
             }
         });
     }
 
     public void showAndInitDataComponents() {
         groupsProgress.setVisible(false);
-        spacesDropdown.setVisible(true);
+        groupsDropdown.setVisible(true);
         studentsDropdown.setVisible(true);
-        spacesDropdown.setAcceptableValues(globalData.getSpacesDtos());
+        groupsDropdown.setAcceptableValues(globalData.getGroupAndUsersDTOs());
     }
 
     public void buildTable() {
@@ -238,10 +241,10 @@ public class GroupsManageTabPanel extends Composite {
 
     }
 
-    @UiHandler("spacesDropdown")
-    public void initStudentsDropDown(ValueChangeEvent<SpaceDTO> event) {
-        SpaceDTO spaceDTO = spacesDropdown.getValue();
-        studentsDropdown.setAcceptableValues(spaceDTO.getUsers());
+    @UiHandler("groupsDropdown")
+    public void initStudentsDropDown(ValueChangeEvent<GroupAndUsersDTO> event) {
+        GroupAndUsersDTO groupAndUsersDTO = groupsDropdown.getValue();
+        studentsDropdown.setAcceptableValues(groupAndUsersDTO.getUsers());
         studentsDropdown.setEnabled(true);
     }
 
@@ -356,12 +359,13 @@ public class GroupsManageTabPanel extends Composite {
                 sprintsProgress.setVisible(false);
                 groupsListBox.setVisible(true);
                 groupsListBox.setAcceptableValues(groupAndUsersDTOs);
+                globalData.setGroupAndUsersDTOs(groupAndUsersDTOs);
+                showAndInitDataComponents();
                 loadedGroups = groupAndUsersDTOs;
                 Iterator<GroupAndUsersDTO> itr = groupAndUsersDTOs.iterator();
 
                 if (itr.hasNext()) {
                     GroupAndUsersDTO groupAndUsersDTO = itr.next();
-                    Window.alert("Users for adding to table: " + groupAndUsersDTO.getUsers());
                     addSprintsToTable(groupAndUsersDTO.getUsers());
                 }
             }
@@ -444,7 +448,7 @@ public class GroupsManageTabPanel extends Composite {
             }
         };
 
-        adminService.addStudentToGroup(spacesDropdown.getValue().getName(), studentsDropdown.getValue().getName(), callback);
+        adminService.addStudentToGroup(groupsDropdown.getValue().getName(), studentsDropdown.getValue().getName(), callback);
     }
 
     @UiHandler("saveGroupBtn")

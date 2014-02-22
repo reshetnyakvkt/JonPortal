@@ -21,8 +21,9 @@
                         </b:Column>
                         <b:Column size="5">
                             <!--<b:ValueListBox ui:field="groupsListBox"/>-->
-                            <b:TextBox ui:field="repoTextBox"/>
-                            <b:TextBox ui:field="groupTextBox"/>
+                          <b:Label>SVN url: </b:Label><b:TextBox ui:field="repoName"/>
+                          <b:Paragraph/>
+                          <b:Label>Group Name: </b:Label> <b:TextBox ui:field="groupName"/>
                         </b:Column>
                     </b:FluidRow>
                     <b:FluidRow>

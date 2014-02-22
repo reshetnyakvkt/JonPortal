@@ -55,10 +55,10 @@ public class UsersTabPanel extends Composite {
     WellNavList groupUsers = new WellNavList();
 
     @UiField
-    TextBox groupTextBox;
+    TextBox repoName;
 
     @UiField
-    TextBox repoTextBox;
+    TextBox groupName;
 
     @UiField
     ProgressBar spacesProgress;
@@ -90,6 +90,7 @@ public class UsersTabPanel extends Composite {
         clearSprintTasksList();
         //Window.alert(sprint.getValue().toString());
         addTasksToSprintNavList(sprint.getValue().getUsers());
+        groupName.setText(sprint.getValue().getName());
     }
 
     private void clearSprintTasksList() {
@@ -255,7 +256,11 @@ public class UsersTabPanel extends Composite {
 
     @UiHandler("createGroupBtn")
     public void handleCreateGroup(ClickEvent e) {
-        final SpaceDTO group = new SpaceDTO(null, groupTextBox.getText(), getUsersFromList(), repoTextBox.getText());
+        final SpaceDTO group = new SpaceDTO(null, groupName.getText(), getUsersFromList(), repoName.getText());
+        if(groupName.getText().isEmpty()) {
+             Window.alert("Group name can't be empty");
+            return;
+        }
         final AsyncCallback<Void> groupCallback = new AsyncCallback<Void>() {
 
             @Override
@@ -268,7 +273,7 @@ public class UsersTabPanel extends Composite {
             @Override
             public void onSuccess(Void aVoid) {
                 clearGroupUsersList();
-                groupTextBox.setText("");
+                groupName.setText("");
                 //Window.alert("GroupDTO created successfully: " + group);
             }
         };
