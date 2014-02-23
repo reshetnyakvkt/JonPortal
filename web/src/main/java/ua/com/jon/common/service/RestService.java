@@ -40,7 +40,10 @@ public class RestService {
     private GroupRepository groupRepository;
 
     public GroupDTO getGroupDtoWithTasks(String groupName) {
-        Group group = groupRepository.findByName(groupName);
+        Group group = groupRepository.findGroupAndUsersByName(groupName);
+        if(group == null) {
+            throw new RuntimeException("Group not found: " + groupName);
+        }
         return GroupAndTaskDtoMapper.domainToDto(group);
     }
 }

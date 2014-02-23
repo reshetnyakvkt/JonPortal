@@ -1,6 +1,7 @@
 package ua.com.jon.tests;
 
 import com.jon.tron.service.evaluation.EvaluationUtil;
+import com.jon.tron.service.reflect.JavaProcessBuilder;
 import com.jon.tron.service.reflect.ReflectionUtil;
 
 import java.io.ByteArrayOutputStream;
@@ -69,12 +70,20 @@ public class BaseTest {
         evaluationUtil.restoreInOut();
     }
 
-    public void invokeMain(Class unitClass, Object instance) {
+    public void invokeMain(Class unitClass, String unitName, String input) {
         assertTrue("Метод main должен быть 'public static void main(String[] args)'", ReflectionUtil.isCorrectMainPresent(unitClass));
-        assertTrue("Класс должен быть public", instance != null);
+        //assertTrue("Класс должен быть public", instance != null);
 
         try {
-            ReflectionUtil.invokeMain(instance, new String[0]);
+            if(unitClass != null) {
+                Object instance = instanciate(unitClass);
+                // TODO check is correct invocation
+                JavaProcessBuilder.buildProcessAndInvokeMethod(unitClass.getSimpleName(), "main", "/forbid.policy", null,
+                        null, (Object) new String[0]);
+            } else {
+                JavaProcessBuilder.buildProcessAndInvokeMethod(unitName, "main", "/forbid.policy", "",
+                        input, (Object) new String[0]);
+            }
         } catch (Throwable throwable) {
             //System.out.println("Во время выполнения метода main произошла ошибка");
             throwable.printStackTrace();

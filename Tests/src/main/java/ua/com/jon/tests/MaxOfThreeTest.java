@@ -53,7 +53,7 @@ public class MaxOfThreeTest extends BaseTest {
         getOut().println(second);
         getOut().println(third);
 
-        invokeMain(unitClass, instance);
+        invokeMain(unitClass, "unitName", getOut().toString());
 
         String actualMaxString = getIn().toString();
         Scanner scan = new Scanner(actualMaxString);

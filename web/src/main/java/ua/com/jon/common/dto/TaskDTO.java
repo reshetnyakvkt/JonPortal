@@ -12,12 +12,14 @@ public class TaskDTO implements Serializable {
     private String templateDesk;
     private String status;
     private String userName;
+    private String testClassName;
 
-    public TaskDTO(String templateName, String templateDesk, String status, String userName) {
+    public TaskDTO(String templateName, String templateDesk, String status, String userName, String testClassName) {
         this.templateName = templateName;
         this.templateDesk = templateDesk;
         this.status = status;
         this.userName = userName;
+        this.testClassName = testClassName;
     }
 
     public String getTemplateName() {
@@ -52,13 +54,22 @@ public class TaskDTO implements Serializable {
         this.userName = userName;
     }
 
+    public String getTestClassName() {
+        return testClassName;
+    }
+
+    public void setTestClassName(String testClassName) {
+        this.testClassName = testClassName;
+    }
+
     @Override
     public String toString() {
         return "TaskDTO{" +
                 "templateName='" + templateName + '\'' +
                 ", templateDesk='" + templateDesk + '\'' +
-                ", status=" + status +
+                ", status='" + status + '\'' +
                 ", userName='" + userName + '\'' +
+                ", testClassName='" + testClassName + '\'' +
                 '}';
     }
 }

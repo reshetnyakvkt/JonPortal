@@ -48,7 +48,7 @@ public class BubbleSortTest extends BaseTest {
         int[] actualVector = null;
 //        try {
             actualVector = (int[])ReflectionUtil.invokeMethod(instance, "bubbleSort", int[].class, int[].class,
-                    originalVector.clone());
+                    null, originalVector.clone());
 /*        } catch (Throwable throwable) {
             fail("Было выброшено исключение " + throwable.getClass().getName() + ": " + throwable.getMessage() +
                     " при вызове метода " + signature);

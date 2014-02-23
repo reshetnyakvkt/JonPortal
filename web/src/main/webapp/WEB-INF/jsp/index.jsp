@@ -47,7 +47,7 @@
         </div>
         <div class="span9 well">
             <div class="alert alert-success lead text-info">
-                Добро пожаловать на портал jon.com.ua
+                Добро пожаловать на портал com.jon.com.ua
             </div>
 
             <div class="well">
@@ -68,7 +68,7 @@
     <%--<div class="well">
 
         <div class="well">
-            Добро пожаловать на портал jon.com.ua
+            Добро пожаловать на портал com.jon.com.ua
         </div>
         <div class="bar-info">
             Возможности, помогающие в работе:

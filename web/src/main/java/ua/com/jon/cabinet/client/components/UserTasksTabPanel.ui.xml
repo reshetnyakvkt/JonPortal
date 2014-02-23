@@ -16,9 +16,9 @@
                 <b:Strong ui:field="sprintRate"/>
                 <b:Strong ui:field="courseRate"/>
                 <b:Label>Группа</b:Label>
-                <b:ValueListBox ui:field="groupsListBox"/>
+                <b:ValueListBox ui:field="groupsListBox" size="2"/>
                 <b:Label>Выберите этап</b:Label>
-                <b:ValueListBox ui:field="sprintsListBox"/>
+                <b:ValueListBox ui:field="sprintsListBox" size="2"/>
                 <b:ButtonGroup>
                     <b:Button ui:field='refreshTasksBtn' type="INFO">Обновить задания</b:Button>
                 </b:ButtonGroup>

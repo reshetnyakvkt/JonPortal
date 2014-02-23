@@ -48,7 +48,7 @@ public class FactorialIterTest extends BaseTest {
         String expectedString = "Неправильный ввод\n";
         getOut().println("q");
 
-        invokeMain(unitClass, instance);
+        invokeMain(unitClass, "unitName", getOut().toString());
 
         String actualString = getIn().toString();
 
@@ -68,7 +68,7 @@ public class FactorialIterTest extends BaseTest {
         String expectedLine = fib + "\n";
         getOut().println(number);
 
-        invokeMain(unitClass, instance);
+        invokeMain(unitClass, "unitName", getOut().toString());
 
         String actualLine = getIn().toString();
 

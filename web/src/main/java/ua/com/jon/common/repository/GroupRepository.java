@@ -22,7 +22,7 @@ public interface GroupRepository extends CrudRepository<Group, Long> {
     @Query("select g from Group g JOIN FETCH g.users")
     List<Group> findAllGroupsAndUsers ();
 
-    @Query("select g from Group g JOIN FETCH g.users where g.name = ?1")
+    @Query("select g from Group g JOIN FETCH g.users JOIN FETCH g.tasks where g.name = ?1")
     Group findGroupAndUsersByName (String groupName);
 
 //    @Query("SELECT fav FROM Favourite fav join fetch fav.colors as cl WHERE EXISTS " +

@@ -16,6 +16,9 @@ import java.util.Set;
  */
 public class GroupAndTaskDtoMapper {
     public static GroupDTO domainToDto(Group group) {
+/*        if(group == null) {
+            return new GroupDTO();
+        }*/
         return new GroupDTO(tasksToDto(group.getTasks()), group.getName(), group.isActive(), group.getRepositoryUrl());
     }
 
@@ -26,7 +29,8 @@ public class GroupAndTaskDtoMapper {
                     task.getTaskTemplate().getName(),
                     task.getTaskTemplate().getTaskText(),
                     task.getStatus().name(),
-                    task.getUser().getLogin()));
+                    task.getUser().getLogin(),
+                    task.getTaskTemplate().getTestName()));
         }
         return taskDtos;
     }

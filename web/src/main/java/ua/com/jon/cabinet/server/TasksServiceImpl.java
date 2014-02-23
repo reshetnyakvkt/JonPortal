@@ -142,7 +142,7 @@ public class TasksServiceImpl implements TasksService {
     }
 
     @Override
-    public ArrayList<TaskDTO> getTasksByUserGroup(Long taskTemplateId, Long selectedGroupId) {
+    public ArrayList<TaskDTO> getTasksByUserGroup(Long taskTemplateId, Long selectedGroupId, Long selectedSprintId) {
         log.info("-== getTasksByUserGroup: " + taskTemplateId);
         System.out.println("-== getTasksByUserGroup: " + taskTemplateId);
         ArrayList<TaskDTO> tasksList = new ArrayList<TaskDTO>();
@@ -152,10 +152,11 @@ public class TasksServiceImpl implements TasksService {
             if (user != null) {
 //                for (GroupDTO group : user.getGroups()) {
 //                    Long groupId = group.getId();
-                List<Task> tasks = taskRepository.findByGroupIdAndTaskId(selectedGroupId, taskTemplateId);
+                List<Task> tasks = taskRepository.findByGroupIdAndSprintIdAndTaskId(selectedGroupId,
+                        selectedSprintId, taskTemplateId);
 //                    tasksList.addAll(TaskDtoMapper.domainsToDtos(tasks, getCourseRate(selectedGroupId, userName)));
                 for (Task task : tasks) {
-                    tasksList.add(TaskDtoMapper.domainToDto(task, getCourseRate(selectedGroupId, task.getUser().getLogin())));
+                    tasksList.add(TaskDtoMapper.domainToDto(task, getSprintRate(selectedGroupId, selectedSprintId, task.getUser().getLogin())));
                 }
                 removeTasksOfCurrentUser(tasksList, user.getLogin());
 //                }

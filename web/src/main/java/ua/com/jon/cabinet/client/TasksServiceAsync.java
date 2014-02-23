@@ -27,6 +27,6 @@ public interface TasksServiceAsync {
 
     void getSprintRate(Long groupId, Long taskTemplateId, String userName, AsyncCallback<Double> async);
 
-    void getTasksByUserGroup(Long taskTemplateId, Long selectedGroupId, AsyncCallback<ArrayList<TaskDTO>> async);
+    void getTasksByUserGroup(Long taskTemplateId, Long selectedGroupId, Long selectedSprintId, AsyncCallback<ArrayList<TaskDTO>> async);
 }
 

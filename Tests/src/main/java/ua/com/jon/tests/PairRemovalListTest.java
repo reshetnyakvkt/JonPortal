@@ -79,7 +79,7 @@ public class PairRemovalListTest extends BaseTest {
         getOut().println(builder.toString());
         removePairs(expactedNumbers);
 
-        invokeMain(unitClass, instance);
+        invokeMain(unitClass, "unitName", getOut().toString());
 
         String listString = getIn().toString();
         List<Integer> actualNumbers = parsNumberString(listString);

@@ -13,6 +13,6 @@
     </noscript>
 </head>
 <body>
-Мы перебрались на <a href="http://jon.com.ua/">новое местечко</a>.
+Мы перебрались на <a href="http://com.jon.com.ua/">новое местечко</a>.
 </body>
 </html>

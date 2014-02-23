@@ -92,6 +92,10 @@ public class UserTasksTabPanel extends Composite {
 
     ListDataProvider<TaskDTO> dataProvider = new ListDataProvider<TaskDTO>();
 
+    public SprintDTO getSelectedSprint() {
+        return selectedSprint;
+    }
+
     interface ExampleUiBinderUiBinder extends UiBinder<HTMLPanel, UserTasksTabPanel> {
     }
 
@@ -109,6 +113,7 @@ public class UserTasksTabPanel extends Composite {
 
             @Override
             public void onFailure(Throwable caught) {
+                Window.alert("Ошибка загрузки групп с сервера ");
                 Window.alert(caught.getClass().getName());
                 Throwable cause = caught.getCause();
                 String errorMessage = "";
@@ -141,7 +146,8 @@ public class UserTasksTabPanel extends Composite {
 
             @Override
             public void onFailure(Throwable caught) {
-                Window.alert(caught.getClass().getName());
+                Window.alert("Ошибка получения имени пользователя с сервера ");
+//                Window.alert(caught.getClass().getName());
                 Throwable cause = caught.getCause();
                 String errorMessage = "";
                 if(cause == null) {
@@ -169,20 +175,21 @@ public class UserTasksTabPanel extends Composite {
         final AsyncCallback<Double> courseRateCallback = new AsyncCallback<Double>() {
             @Override
             public void onFailure(Throwable caught) {
-                Window.alert(caught.getClass().getName());
+                Window.alert("Ошибка получения общего рейтинга с сервера ");
+//                Window.alert(caught.getClass().getName());
                 Throwable cause = caught.getCause();
                 String errorMessage = "";
                 if(cause == null) {
                     errorMessage = caught.getCause().getMessage();
                 }
-                Window.alert("Ошибка загрузки этапов с сервера " + errorMessage);
+                Window.alert("Ошибка получения общего рейтинга с сервера " + errorMessage);
                 Window.Location.reload();
             }
 
             @Override
             public void onSuccess(Double rate) {
                 if(rate == null) {
-                    Window.alert("Ошибка получения рейтинга пользователя");
+                    Window.alert("Ошибка получения общего рейтинга пользователя");
                     return;
                 }
                 if(rate < 50) {
@@ -204,20 +211,21 @@ public class UserTasksTabPanel extends Composite {
 
             @Override
             public void onFailure(Throwable caught) {
-                Window.alert(caught.getClass().getName());
+                Window.alert("Ошибка получения недельного рейтинга с сервера ");
+//                Window.alert(caught.getClass().getName());
                 Throwable cause = caught.getCause();
                 String errorMessage = "";
                 if(cause == null) {
                     errorMessage = caught.getCause().getMessage();
                 }
-                Window.alert("Ошибка загрузки этапов с сервера " + errorMessage);
+                Window.alert("Ошибка получения недельного рейтинга с сервера " + errorMessage);
                 Window.Location.reload();
             }
 
             @Override
             public void onSuccess(Double rate) {
                 if(rate == null) {
-                    Window.alert("Ошибка получения рейтинга пользователя");
+                    Window.alert("Ошибка получения недельного рейтинга пользователя");
                     return;
                 }
                 if(rate < 50) {
@@ -245,7 +253,9 @@ public class UserTasksTabPanel extends Composite {
     public void onChangeTabPosition(ValueChangeEvent<SprintDTO> sprint) {
         result.setText("");
         taskText.setText("");
+        selectedSprint = sprint.getValue();
         addTasksToTable(sprint.getValue().getTasks(), true);
+        updateSprintRate();
     }
 
     @UiHandler("groupsListBox")
@@ -261,7 +271,8 @@ public class UserTasksTabPanel extends Composite {
 
             @Override
             public void onFailure(Throwable caught) {
-                Window.alert(caught.getClass().getName());
+                Window.alert("Ошибка загрузки этапов с сервера ");
+//                Window.alert(caught.getClass().getName());
                 Throwable cause = caught.getCause();
                 String errorMessage = "";
                 if(cause == null) {
@@ -311,7 +322,7 @@ public class UserTasksTabPanel extends Composite {
                 return contact.getName();
             }
         };
-        // Make the name column sortable.
+        // Make the name column sortable
         nameColumn.setSortable(true);
 
         TextColumn<TaskDTO> textColumn = new TextColumn<TaskDTO>() {

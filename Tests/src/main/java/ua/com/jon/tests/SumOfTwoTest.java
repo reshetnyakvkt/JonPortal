@@ -46,7 +46,7 @@ public class SumOfTwoTest extends BaseTest {
         getOut().println(first);
         getOut().println(second);
 
-        invokeMain(unitClass, instance);
+        invokeMain(unitClass, "unitName", getOut().toString());
 
         String actualSumString = getIn().toString();
         int actualSum = 0;

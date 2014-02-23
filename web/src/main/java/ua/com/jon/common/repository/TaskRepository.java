@@ -38,8 +38,9 @@ public interface TaskRepository extends JpaRepository<Task, Long> {
     @Query("select distinct t from ua.com.jon.common.domain.Task t JOIN t.user.groups gs JOIN FETCH t.group where gs.id = :groupId and t.taskTemplate.id = :templateId and t.result <> ''")
     List<Task> findEvaluatedByGroupIdAndTaskId(@Param("groupId") Long groupId, @Param("templateId")Long templateId);
 
-    @Query("select distinct t from ua.com.jon.common.domain.Task t JOIN t.user.groups gs JOIN FETCH t.group where gs.id = :groupId and t.taskTemplate.id = :templateId")
-    List<Task> findByGroupIdAndTaskId(@Param("groupId") Long groupId, @Param("templateId")Long templateId);
+    @Query("select distinct t from ua.com.jon.common.domain.Task t JOIN t.user.groups gs JOIN FETCH t.group where " +
+            "gs.id = :groupId and t.taskTemplate.id = :templateId and t.sprint.id = :sprintId")
+    List<Task> findByGroupIdAndSprintIdAndTaskId(@Param("groupId") Long groupId, @Param("sprintId") Long sprintId, @Param("templateId") Long templateId);
 
     @Query("select t from ua.com.jon.common.domain.Task t JOIN t.group gs where gs.id = :groupId")
     List<Task> findByGroupId(@Param("groupId") Long groupId);

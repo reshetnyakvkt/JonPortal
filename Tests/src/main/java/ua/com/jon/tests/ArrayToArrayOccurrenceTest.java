@@ -1,6 +1,7 @@
 package ua.com.jon.tests;
 
 import com.jon.tron.service.junit.Unit;
+import com.jon.tron.service.reflect.JavaProcessBuilder;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -87,7 +88,10 @@ public class ArrayToArrayOccurrenceTest  extends BaseTest {
         getOut().println(firstLine);
         getOut().println(secondLine);
 
-        invokeMain(unitClass, instance);
+        JavaProcessBuilder.buildProcessAndInvokeMethod(unitClass.getSimpleName(), "main", "/forbid.policy", null,
+                expectedAnswer, (Object) new String[0]);
+
+        invokeMain(unitClass, "unitName", getOut().toString());
 
         String actualAnswer = getIn().toString();
         actualAnswer.trim();

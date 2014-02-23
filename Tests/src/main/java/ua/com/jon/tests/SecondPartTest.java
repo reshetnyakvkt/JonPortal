@@ -32,7 +32,7 @@ public class SecondPartTest extends BaseTest {
         String expectedString = "Неправильный ввод\n";
         getOut().println("\n");
 
-        invokeMain(unitClass, instance);
+        invokeMain(unitClass, "unitName", getOut().toString());
 
         String actualString = getIn().toString();
 

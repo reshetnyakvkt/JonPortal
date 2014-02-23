@@ -15,6 +15,9 @@ public class GroupDTO implements Serializable {
     private boolean status;
     private String repository;
 
+    public GroupDTO() {
+    }
+
     public GroupDTO(List<TaskDTO> tasks, String groupName, boolean groupStatus, String repository) {
         this.tasks = tasks;
         this.name = groupName;

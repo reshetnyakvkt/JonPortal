@@ -20,7 +20,7 @@ import static junit.framework.Assert.assertTrue;
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {"/testContext.xml"})
-public class GreatingTestTest {
+public class GreetingTestTest {
     @Autowired
     private ClassProcessor classProcessor;
 
@@ -37,7 +37,7 @@ public class GreatingTestTest {
                 "       System.out.println(\"Здравствуйте \" + name);" +
                 "   }" +
                 "}";
-        final String testName = "Greeting";
+        final String testName = "GreetingTest";
         Map.Entry<String,String> processResult = classProcessor.processClass(className, classCode, testName);
         String resultString = processResult.getValue();
         String markString = processResult.getKey();

@@ -34,7 +34,7 @@ public class Task {
     @Enumerated(EnumType.STRING)
     private Status status;
 
-    @Column(length = 20000)
+    @Column(columnDefinition = "text"/*,length = 20000*/)
     private String code;
 
     @Column(columnDefinition = "text", length = 20000)

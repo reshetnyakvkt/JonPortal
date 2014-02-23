@@ -138,7 +138,7 @@ public class GroupTasksTabPanel extends Composite {
         };
         if(userPanel.getSelectedTaskTemplateId() != null) {
             adminService.getTasksByUserGroup(userPanel.getSelectedTaskTemplateId(), userPanel.getSelectedGroup().getId(),
-                    groupCallback);
+                    userPanel.getSelectedSprint().getId(), groupCallback);
         }
     }
 

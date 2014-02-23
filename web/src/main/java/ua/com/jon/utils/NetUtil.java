@@ -16,7 +16,7 @@ public class NetUtil {
 
     public static final String LOCALHOST = "localhost";
     public static final String LOCAL_ADDR_PATTERN = "192.168.0";
-    public static final String JON_INET_ADDR = "jon.com.ua";
+    public static final String JON_INET_ADDR = "com.jon.com.ua";
     public static String getIpAsString() {
         try {
             Socket s = new Socket("yahoo.com", 80);

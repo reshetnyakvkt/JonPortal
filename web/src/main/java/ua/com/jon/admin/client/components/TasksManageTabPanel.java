@@ -184,10 +184,10 @@ public class TasksManageTabPanel extends Composite {
                         Window.alert("Не выбрано ни одного задания!");
                         return;
                     }
-                    if (dto.getType().equals(TaskType.CLASS.name())) {
+/*                    if (dto.getType().equals(TaskType.CLASS.name())) {
                         Window.alert("Для проверки измените статус задания на \"TEST\"");
                         return;
-                    }
+                    }*/
                     dto.setType(newValue);
                 }
             }

@@ -33,7 +33,7 @@
                         <a href="/codeValidator/index">Java Code Validator</a>
                     </li>
                     <li>
-                        <a href="ftp://jon.com.ua">Скачать</a>
+                        <a href="ftp://com.jon.com.ua">Скачать</a>
                     </li>
                 </ul>
             </li>

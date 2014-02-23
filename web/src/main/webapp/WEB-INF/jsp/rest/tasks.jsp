@@ -60,6 +60,7 @@
             </user>
             <task-template>
                 <name>${task.templateName}</name>
+                <test-name>${task.testClassName}</test-name>
                 <description>${task.templateDesk}</description>
             </task-template>
             <task-status>

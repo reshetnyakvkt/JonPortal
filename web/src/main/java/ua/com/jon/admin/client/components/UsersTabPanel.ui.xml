@@ -11,6 +11,7 @@
                     <b:Button ui:field='markAllUsersBtn'>Выделить всех пользователей</b:Button>
                 </b:ButtonGroup>
                 <b:Well>
+                    <b:Paragraph/>
                     <b:FluidRow>
                         <b:Column size="5">
                             <b:ValueListBox ui:field="spacesListBox" visible="false"/>
@@ -39,7 +40,6 @@
                         </b:Column>
                         <b:Column size="2">
                             <b:Button ui:field='add' block="true" type="INFO">}}}</b:Button>
-
                             <b:Button ui:field='remove' block="true" type="INFO">{{{</b:Button>
 
                         </b:Column>
