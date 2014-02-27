@@ -8,18 +8,28 @@ import java.io.Serializable;
  * Date: 1/15/14
  */
 public class TaskDTO implements Serializable {
+    private Long id;
     private String templateName;
     private String templateDesk;
     private String status;
     private String userName;
     private String testClassName;
 
-    public TaskDTO(String templateName, String templateDesk, String status, String userName, String testClassName) {
+    public TaskDTO(Long id, String templateName, String templateDesk, String status, String userName, String testClassName) {
+        this.id = id;
         this.templateName = templateName;
         this.templateDesk = templateDesk;
         this.status = status;
         this.userName = userName;
         this.testClassName = testClassName;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getTemplateName() {
@@ -65,7 +75,8 @@ public class TaskDTO implements Serializable {
     @Override
     public String toString() {
         return "TaskDTO{" +
-                "templateName='" + templateName + '\'' +
+                "id='" + id + '\'' +
+                ", templateName='" + templateName + '\'' +
                 ", templateDesk='" + templateDesk + '\'' +
                 ", status='" + status + '\'' +
                 ", userName='" + userName + '\'' +

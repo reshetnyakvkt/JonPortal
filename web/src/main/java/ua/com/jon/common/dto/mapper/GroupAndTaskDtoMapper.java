@@ -26,6 +26,7 @@ public class GroupAndTaskDtoMapper {
         List<TaskDTO> taskDtos = new ArrayList<TaskDTO>(tasks.size());
         for (Task task : tasks) {
             taskDtos.add(new TaskDTO(
+                    task.getId(),
                     task.getTaskTemplate().getName(),
                     task.getTaskTemplate().getTaskText(),
                     task.getStatus().name(),

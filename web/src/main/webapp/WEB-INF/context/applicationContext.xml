@@ -73,9 +73,12 @@
     <bean id="xmlView"
           class="org.springframework.web.servlet.view.xml.MarshallingView">
         <property name="contentType" value="application/xml;charset=UTF-8"/>
+        <property name="marshaller" ref="marshaller"/>
+<!--
         <constructor-arg>
             <ref bean="xstreamMarshaller"/>
         </constructor-arg>
+-->
     </bean>
 
     <bean id="xstreamMarshaller" class="org.springframework.oxm.xstream.XStreamMarshaller">
@@ -86,8 +89,17 @@
                 <value>ua.com.jon.auth.domain.AssemblaUser</value>
                 <value>ua.com.jon.auth.domain.AssemblaSpace</value>
                 <value>ua.com.jon.auth.domain.AssemblaSpaces</value>
+                <!--<value>ua.com.jon.common.dto.TaskForTestDTO</value>-->
             </array>
         </property>
     </bean>
 
+    <bean id="marshaller" class="org.springframework.oxm.xstream.XStreamMarshaller">
+        <property name="autodetectAnnotations" value="true"/>
+        <property name="annotatedClasses">
+            <array>
+                <value>ua.com.jon.common.dto.TaskForTestDTO</value>
+            </array>
+        </property>
+    </bean>
 </beans>

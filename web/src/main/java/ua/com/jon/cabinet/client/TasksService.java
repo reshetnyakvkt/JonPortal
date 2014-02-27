@@ -2,6 +2,7 @@ package ua.com.jon.cabinet.client;
 
 import com.google.gwt.user.client.rpc.RemoteService;
 import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
+import org.springframework.transaction.annotation.Transactional;
 import ua.com.jon.cabinet.shared.GroupDTO;
 import ua.com.jon.cabinet.shared.SprintDTO;
 import ua.com.jon.cabinet.shared.TaskDTO;
@@ -25,4 +26,5 @@ public interface TasksService extends RemoteService {
     double getCourseRate(Long taskTemplateId, String userName);
     String getSpringUserName();
     ArrayList<GroupDTO> getUserGroups();
+    void setValidationResult(Long id, String statusStr, String result);
 }

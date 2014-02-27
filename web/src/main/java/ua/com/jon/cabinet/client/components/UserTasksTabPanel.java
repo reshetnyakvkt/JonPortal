@@ -452,6 +452,9 @@ public class UserTasksTabPanel extends Composite {
 
             @Override
             public String getValue(TaskDTO taskDto) {
+                if(taskDto == null) {
+                    return "null";
+                }
                 int newLineMarkIdx = taskDto.getResult().indexOf('\n');
                 String resStr;
                 if(newLineMarkIdx < 0){

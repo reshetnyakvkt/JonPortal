@@ -7,6 +7,7 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import ua.com.jon.auth.domain.SpringUser;
 import ua.com.jon.cabinet.client.TasksService;
 import ua.com.jon.cabinet.shared.GroupDTO;
@@ -242,5 +243,15 @@ public class TasksServiceImpl implements TasksService {
         String userName = getSpringUserName();
         List<Group> groups = groupRepository.findByUsersIn(userName);
         return GroupDtoMapper.domainToAdminDtos(groups);
+    }
+
+    @Transactional
+    @Override
+    public void setValidationResult(Long id, String statusStr, String result) {
+        Task task = taskRepository.findOne(id);
+        Status status = Status.valueOf(statusStr);
+        task.setStatus(status);
+        task.setResult(result);
+        taskRepository.save(task);
     }
 }

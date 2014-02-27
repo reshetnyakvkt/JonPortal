@@ -50,6 +50,7 @@
 <tasks>
     <c:forEach var="task" items="${group.tasks}">
         <task>
+            <id>${task.id}</id>
             <user>
                 <name>${task.userName}</name>
                 <group>
