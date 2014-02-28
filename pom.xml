@@ -13,6 +13,7 @@
         <module>web</module>
         <module>Tests</module>
         <module>Tron</module>
+        <module>Integration</module>
         <!--<module>Database</module>-->
     </modules>
 
