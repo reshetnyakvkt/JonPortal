@@ -10,7 +10,6 @@ import ua.com.jon.common.dto.mapper.GroupAndTaskDtoMapper;
 import ua.com.jon.common.repository.*;
 
 import javax.annotation.Resource;
-import java.util.List;
 
 /**
  * Created with IntelliJ IDEA.
@@ -40,7 +39,7 @@ public class RestService {
     private GroupRepository groupRepository;
 
     public GroupDTO getGroupDtoWithTasks(String groupName) {
-        Group group = groupRepository.findGroupAndUsersByName(groupName);
+        Group group = groupRepository.findGroupAndUsersAndTasksByName(groupName);
         if(group == null) {
             throw new RuntimeException("Group not found: " + groupName);
         }

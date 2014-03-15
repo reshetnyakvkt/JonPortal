@@ -1,11 +1,9 @@
 package ua.com.jon.common.dto;
 
-import com.jon.tron.domain.MyEnumConverter;
 import com.jon.tron.domain.TaskStatus;
 import com.jon.tron.domain.TaskTemplate;
 import com.jon.tron.domain.User;
 import com.thoughtworks.xstream.annotations.XStreamAlias;
-import com.thoughtworks.xstream.annotations.XStreamConverter;
 
 /**
  * Created with IntelliJ IDEA.

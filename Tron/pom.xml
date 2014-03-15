@@ -10,7 +10,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>Testeron</groupId>
-    <artifactId>Testeron</artifactId>
+    <artifactId>Core</artifactId>
     <version>1.0-MOCK</version>
 
     <!--

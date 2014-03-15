@@ -244,7 +244,19 @@ public class GroupsManageTabPanel extends Composite {
     @UiHandler("groupsDropdown")
     public void initStudentsDropDown(ValueChangeEvent<GroupAndUsersDTO> event) {
         GroupAndUsersDTO groupAndUsersDTO = groupsDropdown.getValue();
-        studentsDropdown.setAcceptableValues(groupAndUsersDTO.getUsers());
+        List<SpaceDTO> spaceDTOs = globalData.getSpacesDtos();
+        List<UserDTO> userDTOsModal = new ArrayList<UserDTO>();
+        for (SpaceDTO spaceDTO : spaceDTOs) {
+            if (spaceDTO.getName().equals(groupAndUsersDTO.getName())) {
+                for (UserDTO userDTO : spaceDTO.getUsers()) {
+                    if (!groupAndUsersDTO.getUsers().contains(userDTO)) {
+                        userDTOsModal.add(userDTO);
+                    }
+                }
+                studentsDropdown.setAcceptableValues(userDTOsModal);
+            }
+        }
+        //studentsDropdown.setAcceptableValues(groupAndUsersDTO.getUsers());
         studentsDropdown.setEnabled(true);
     }
 
@@ -356,18 +368,13 @@ public class GroupsManageTabPanel extends Composite {
 
             @Override
             public void onSuccess(ArrayList<GroupAndUsersDTO> groupAndUsersDTOs) {
+                Window.alert(groupAndUsersDTOs.toString());
                 sprintsProgress.setVisible(false);
                 groupsListBox.setVisible(true);
                 groupsListBox.setAcceptableValues(groupAndUsersDTOs);
                 globalData.setGroupAndUsersDTOs(groupAndUsersDTOs);
                 showAndInitDataComponents();
                 loadedGroups = groupAndUsersDTOs;
-                Iterator<GroupAndUsersDTO> itr = groupAndUsersDTOs.iterator();
-
-                if (itr.hasNext()) {
-                    GroupAndUsersDTO groupAndUsersDTO = itr.next();
-                    addSprintsToTable(groupAndUsersDTO.getUsers());
-                }
             }
         };
 
@@ -449,6 +456,7 @@ public class GroupsManageTabPanel extends Composite {
         };
 
         adminService.addStudentToGroup(groupsDropdown.getValue().getName(), studentsDropdown.getValue().getName(), callback);
+        // TODO Add new user to CellTable, close modal dialog
     }
 
     @UiHandler("saveGroupBtn")
