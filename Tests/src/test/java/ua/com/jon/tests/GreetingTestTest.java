@@ -8,7 +8,6 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import java.util.Map;
-import java.util.Stack;
 
 import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.assertTrue;
@@ -38,7 +37,7 @@ public class GreetingTestTest {
                 "   }" +
                 "}";
         final String testName = "GreetingTest";
-        Map.Entry<String,String> processResult = classProcessor.processClass(className, classCode, testName);
+        Map.Entry<String,String> processResult = classProcessor.processClass(className, classCode, testName, null);
         String resultString = processResult.getValue();
         String markString = processResult.getKey();
         assertEquals("Задание выполнено", resultString);
@@ -60,7 +59,7 @@ public class GreetingTestTest {
                         "   }" +
                         "}";
         final String testName = "Greeting";
-        Map.Entry<String,String> processResult = classProcessor.processClass(className, classCode, testName);
+        Map.Entry<String,String> processResult = classProcessor.processClass(className, classCode, testName, null);
         String resultString = processResult.getValue();
         String markString = processResult.getKey();
         assertEquals("Во время выполнения метода main произошла ошибка java.lang.RuntimeException", resultString);
@@ -77,7 +76,7 @@ public class GreetingTestTest {
                 "   }" +
                 "}";
         final String testName = "Greeting";
-        Map.Entry<String,String> processResult = classProcessor.processClass(className, classCode, testName);
+        Map.Entry<String,String> processResult = classProcessor.processClass(className, classCode, testName, null);
         String resultString = processResult.getValue();
         String markString = processResult.getKey();
         assertEquals("test timed out after 1000 milliseconds", resultString);
@@ -98,7 +97,7 @@ public class GreetingTestTest {
                         "   }" +
                         "}";
         final String testName = "Greeting";
-        Map.Entry<String,String> processResult = classProcessor.processClass(className, classCode, testName);
+        Map.Entry<String,String> processResult = classProcessor.processClass(className, classCode, testName, null);
         String resultString = processResult.getValue();
         String markString = processResult.getKey();
         assertTrue("Задание выполнено", resultString.contains("Ожидается строка"));

@@ -43,7 +43,7 @@ public class GreetingTest extends BaseTest {
     public void testSuccess() throws Throwable {
 //        instance = instanciate(unitJarClasspath);
         String name = names[rnd.nextInt(names.length)];
-        getOut().print(name);
+        //getOut().print(name);
         JavaProcessBuilder.buildProcessAndInvokeMethod(unitName, "main", "/forbid.policy", unitJarClasspath,
                 name, (Object) new String[0]);
         //invokeMain(unitJarClasspath, unitName);

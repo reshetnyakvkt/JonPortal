@@ -10,6 +10,7 @@ import ua.com.jon.common.dto.mapper.GroupAndTaskDtoMapper;
 import ua.com.jon.common.repository.*;
 
 import javax.annotation.Resource;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -45,5 +46,13 @@ public class RestService {
             throw new RuntimeException("Group not found: " + groupName);
         }
         return GroupAndTaskDtoMapper.domainToDto(group);
+    }
+
+    public List<GroupDTO> getActiveGroupsDtoWithTasks() {
+        List<Group> groups = groupRepository.findActiveGroupAndTestTasks();
+        if(groups == null) {
+            return Collections.emptyList();
+        }
+        return GroupAndTaskDtoMapper.domainsToDtos(groups);
     }
 }

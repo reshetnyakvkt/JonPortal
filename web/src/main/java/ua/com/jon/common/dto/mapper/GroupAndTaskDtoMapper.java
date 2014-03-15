@@ -35,4 +35,19 @@ public class GroupAndTaskDtoMapper {
         }
         return taskDtos;
     }
+
+    public static List<GroupDTO> domainsToDtos(List<Group> groups) {
+        List<GroupDTO> groupDtos = new ArrayList<GroupDTO>(groups.size());
+        for (Group group : groups) {
+            groupDtos.add(
+                    new GroupDTO(
+                            tasksToDto(group.getTasks()),
+                            group.getName(),
+                            group.isActive(),
+                            group.getRepositoryUrl()
+                    )
+            );
+        }
+        return groupDtos;
+    }
 }

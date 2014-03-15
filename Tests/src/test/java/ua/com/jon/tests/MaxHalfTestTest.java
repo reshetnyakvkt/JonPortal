@@ -58,7 +58,7 @@ public class MaxHalfTestTest {
                 "    }\n" +
                 "}\n";
         final String testName = "ArrayToArrayOccurrence";
-        Map.Entry<String,String> processResult = classProcessor.processClass(className, classCode, testName);
+        Map.Entry<String,String> processResult = classProcessor.processClass(className, classCode, testName, null);
         String resultString = processResult.getValue();
         String markString = processResult.getKey();
         assertEquals("Задание выполнено", resultString);
@@ -85,7 +85,7 @@ public class MaxHalfTestTest {
                         "    }\n" +
                         "}\n";
         final String testName = "ArrayToArrayOccurrence";
-        Map.Entry<String,String> processResult = classProcessor.processClass(className, classCode, testName);
+        Map.Entry<String,String> processResult = classProcessor.processClass(className, classCode, testName, null);
         String resultString = processResult.getValue();
         String markString = processResult.getKey();
         assertTrue(resultString.contains("Ожидаемый результат"));
@@ -102,7 +102,7 @@ public class MaxHalfTestTest {
                         "   }" +
                         "}";
         final String testName = "ArrayToArrayOccurrence";
-        Map.Entry<String,String> processResult = classProcessor.processClass(className, classCode, testName);
+        Map.Entry<String,String> processResult = classProcessor.processClass(className, classCode, testName, null);
         String resultString = processResult.getValue();
         String markString = processResult.getKey();
         assertEquals("test timed out after 1000 milliseconds", resultString);

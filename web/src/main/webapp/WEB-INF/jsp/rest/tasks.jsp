@@ -64,9 +64,7 @@
                 <test-name>${task.testClassName}</test-name>
                 <description>${task.templateDesk}</description>
             </task-template>
-            <task-status>
-                    ${task.status}
-            </task-status>
+            <task-status>${task.status}</task-status>
         </task>
     </c:forEach>
 </tasks>

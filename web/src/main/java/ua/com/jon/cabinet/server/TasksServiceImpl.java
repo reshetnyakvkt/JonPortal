@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.context.ServletContextAware;
 import ua.com.jon.auth.domain.SpringUser;
 import ua.com.jon.cabinet.client.TasksService;
 import ua.com.jon.cabinet.shared.GroupDTO;
@@ -20,6 +21,7 @@ import ua.com.jon.common.dto.mapper.TaskDtoMapper;
 import ua.com.jon.common.repository.*;
 
 import javax.annotation.Resource;
+import javax.servlet.ServletContext;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
@@ -31,7 +33,7 @@ import java.util.Map;
  * Date: 4/3/13
  */
 @Service("tasksService")
-public class TasksServiceImpl implements TasksService {
+public class TasksServiceImpl implements TasksService, ServletContextAware {
     private static final Logger log = Logger.getLogger(TasksServiceImpl.class);
 
     @Autowired
@@ -51,6 +53,8 @@ public class TasksServiceImpl implements TasksService {
 
     @Resource
     private GroupRepository groupRepository;
+
+    private ServletContext servletContext;
 
     @Override
     public String greet(String name) {
@@ -123,7 +127,8 @@ public class TasksServiceImpl implements TasksService {
         Map.Entry<String, String> resultEntry;
         try {
             TaskTemplate template = templateRepository.findOne(taskDTO.getTaskTemplateId());
-            resultEntry = classProcessor.processClass(taskDTO.getClassName(), taskDTO.getCode(), template.getTestName());
+            resultEntry = classProcessor.processClass(taskDTO.getClassName(), taskDTO.getCode(), template.getTestName(),
+                    servletContext.getRealPath("/WEB-INF") + "/lib/core.jar");
         } catch (CompilationException e) {
             resultEntry = e.getResult();
         } catch (Exception e) {
@@ -253,5 +258,10 @@ public class TasksServiceImpl implements TasksService {
         task.setStatus(status);
         task.setResult(result);
         taskRepository.save(task);
+    }
+
+    @Override
+    public void setServletContext(ServletContext servletContext) {
+        this.servletContext = servletContext;
     }
 }
