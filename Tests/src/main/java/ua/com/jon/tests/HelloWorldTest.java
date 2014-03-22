@@ -36,7 +36,7 @@ public class HelloWorldTest extends BaseTest {
     public void testClassMainMessage() throws Throwable {
         //instance = instanciate(unitClass);
         JavaProcessBuilder.buildProcessAndInvokeMethod(unitName, null, "main", "/forbid.policy",
-                null, (Object) new String[0]);
+                (Object) new String[0]);
         String lineSeparator = System.lineSeparator();
         assertTrue("Метод main должен выводить в консоль сообщение \'Hello world\'", ("Hello world" + lineSeparator).equals(getIn().toString()));
     }

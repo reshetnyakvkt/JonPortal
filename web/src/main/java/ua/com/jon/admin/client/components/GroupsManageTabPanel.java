@@ -456,7 +456,12 @@ public class GroupsManageTabPanel extends Composite {
         };
 
         adminService.addStudentToGroup(groupsDropdown.getValue().getName(), studentsDropdown.getValue().getName(), callback);
-        // TODO Add new user to CellTable, close modal dialog
+
+        dataProvider.getList().add(studentsDropdown.getValue());
+        dataProvider.flush();
+        dataProvider.refresh();
+
+        addUserModal.hide();
     }
 
     @UiHandler("saveGroupBtn")

@@ -8,11 +8,11 @@ import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runners.MethodSorters;
 
-import java.lang.reflect.Method;
 import java.util.Arrays;
 import java.util.Random;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertArrayEquals;
+import static org.junit.Assert.assertNotNull;
 
 /**
  * Created with IntelliJ IDEA.
@@ -48,7 +48,7 @@ public class BubbleSortTest extends BaseTest {
         int[] actualVector = null;
 //        try {
             actualVector = (int[])ReflectionUtil.invokeMethod(instance, "bubbleSort", int[].class, int[].class,
-                    null, originalVector.clone());
+                    originalVector.clone());
 /*        } catch (Throwable throwable) {
             fail("Было выброшено исключение " + throwable.getClass().getName() + ": " + throwable.getMessage() +
                     " при вызове метода " + signature);
