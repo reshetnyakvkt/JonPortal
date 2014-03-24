@@ -89,7 +89,7 @@ public class ArrayToArrayOccurrenceTest  extends BaseTest {
         getOut().println(secondLine);
 
         JavaProcessBuilder.buildProcessAndInvokeMethod(unitClass.getSimpleName(), "main", "/forbid.policy", null,
-                expectedAnswer, (Object) new String[0]);
+                (Object) new String[0]);
 
         invokeMain(unitClass, "unitName", getOut().toString());
 

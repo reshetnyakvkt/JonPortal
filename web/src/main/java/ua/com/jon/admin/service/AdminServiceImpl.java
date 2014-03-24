@@ -38,7 +38,6 @@ import ua.com.jon.common.repository.UserRepository;
 import javax.annotation.Resource;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -315,10 +314,12 @@ public class AdminServiceImpl implements AdminService {
         Group group = groupRepository.findGroupAndUsersByName(groupName);
         User user = userRepository.findByUserName(userName);
         if (user == null) {
-            user = new User(userName, null, new Date(), Collections.singleton(group));
+            Set<Group> groups = new HashSet<Group>();
+            groups.add(group);
+            user = new User(userName, userName, new Date(), groups);
         }
         group.getUsers().add(user);
-        userRepository.save(user);
+        user.getGroups().add(group);
         groupRepository.save(group);
     }
 

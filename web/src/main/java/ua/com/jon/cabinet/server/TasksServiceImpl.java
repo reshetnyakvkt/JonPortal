@@ -92,6 +92,9 @@ public class TasksServiceImpl implements TasksService, ServletContextAware {
     public ArrayList<SprintDTO> getSprints(GroupDTO selectedGroup) {
         log.info("--- getSprints() ---");
         String userName = getSpringUserName();
+        if (selectedGroup == null) {
+            return new ArrayList<SprintDTO>();
+        }
         Iterable<Sprint> sprintIterable = sprintRepository.findByUserAndGroup(userName, selectedGroup.getId());
         ArrayList<SprintDTO> sprints = new ArrayList<SprintDTO>();
         for (Sprint sprint : sprintIterable) {
@@ -154,7 +157,7 @@ public class TasksServiceImpl implements TasksService, ServletContextAware {
         ArrayList<TaskDTO> tasksList = new ArrayList<TaskDTO>();
         try {
             String userName = getSpringUserName();
-            User user = userRepository.findByUserName(userName);
+            User user = userRepository.findWithGroupsByUserName(userName);
             if (user != null) {
 //                for (GroupDTO group : user.getGroups()) {
 //                    Long groupId = group.getId();

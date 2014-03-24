@@ -41,7 +41,7 @@ public class RestService {
     private GroupRepository groupRepository;
 
     public GroupDTO getGroupDtoWithTasks(String groupName) {
-        Group group = groupRepository.findGroupAndUsersByName(groupName);
+        Group group = groupRepository.findGroupAndUsersAndTasksByName(groupName);
         if(group == null) {
             throw new RuntimeException("Group not found: " + groupName);
         }

@@ -45,7 +45,7 @@ public class GreetingTest extends BaseTest {
         String name = names[rnd.nextInt(names.length)];
         //getOut().print(name);
         JavaProcessBuilder.buildProcessAndInvokeMethod(unitName, "main", "/forbid.policy", unitJarClasspath,
-                name, (Object) new String[0]);
+                (Object) new String[0]);
         //invokeMain(unitJarClasspath, unitName);
         String expectedString = "Здравствуйте " + name + lineSeparator;
         String actualString = getIn().toString();

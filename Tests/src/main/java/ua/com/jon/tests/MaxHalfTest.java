@@ -8,10 +8,11 @@ import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runners.MethodSorters;
 
-import java.lang.reflect.Method;
 import java.util.Random;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.fail;
 
 /**
  * Created with IntelliJ IDEA.
@@ -67,7 +68,7 @@ public class MaxHalfTest extends BaseTest {
         String actualVector = maxHalfCheck(originalVector.clone());
 
         try {
-            ReflectionUtil.invokeMethod(instance, "maxHalf", int[].class, void.class, null, originalVector.clone());
+            ReflectionUtil.invokeMethod(instance, "maxHalf", int[].class, void.class, originalVector.clone());
             String expectedVector = getIn().toString();
             expectedVector.trim();
 
