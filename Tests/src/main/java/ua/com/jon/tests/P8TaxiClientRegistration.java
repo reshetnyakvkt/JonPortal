@@ -7,17 +7,17 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.FixMethodOrder;
 import org.junit.Test;
-import static org.junit.Assert.fail;
 import org.junit.runners.MethodSorters;
 
 /**
  * Created with IntelliJ IDEA.
  * User: al1
- * Date: 3/10/14
+ * Date: 3/15/14
  */
-@Unit(testName = "RegionHibernateDao", value = "hw7.hibernote2.Main")
+@Unit(testName = "TaxiClientRegistration", value = "hw8.taxi.service.ClientService")
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
-public class R7HiberNote2 extends BaseTest {
+public class P8TaxiClientRegistration extends BaseTest {
+
     @UnitName
     private static String unitName;
 
@@ -36,12 +36,7 @@ public class R7HiberNote2 extends BaseTest {
 
     @Test/*(timeout = 1000)*/
     public void testSuccess() throws Throwable {
-        try {
-            JavaProcessBuilder.buildProcessAndInvokeMethod(unitName, null, "/forbid.policy", unitJarClasspath,
-                    null, (Object) new String[0]);
-        } catch (ClassNotFoundException cnfe) {
-            fail("Не найден класс " + cnfe.getMessage());
-        }
+        JavaProcessBuilder.buildProcessAndInvokeMethod(unitName, null, "/forbid.policy", unitJarClasspath,
+                null, (Object) new String[0]);
     }
-
 }

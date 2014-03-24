@@ -16,7 +16,7 @@ import org.junit.runners.MethodSorters;
  */
 @Unit(testName = "TaxiOrderCreation", value = "hw8.taxi.service.OrderService")
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
-public class R8TaxiOrderCreation extends BaseTest {
+public class P8TaxiOrderCreation extends BaseTest {
 
     @UnitName
     private static String unitName;

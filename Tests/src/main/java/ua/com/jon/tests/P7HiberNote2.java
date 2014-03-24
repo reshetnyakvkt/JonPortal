@@ -7,17 +7,17 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.FixMethodOrder;
 import org.junit.Test;
+import static org.junit.Assert.fail;
 import org.junit.runners.MethodSorters;
 
 /**
  * Created with IntelliJ IDEA.
  * User: al1
- * Date: 3/15/14
+ * Date: 3/10/14
  */
-@Unit(testName = "TaxiClientRegistration", value = "hw8.taxi.service.ClientService")
+@Unit(testName = "P7HiberNote2", value = "hw7.hibernote2.Main")
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
-public class R8TaxiClientRegistration extends BaseTest {
-
+public class P7HiberNote2 extends BaseTest {
     @UnitName
     private static String unitName;
 
@@ -36,7 +36,12 @@ public class R8TaxiClientRegistration extends BaseTest {
 
     @Test/*(timeout = 1000)*/
     public void testSuccess() throws Throwable {
-        JavaProcessBuilder.buildProcessAndInvokeMethod(unitName, null, "/forbid.policy", unitJarClasspath,
-                null, (Object) new String[0]);
+        try {
+            JavaProcessBuilder.buildProcessAndInvokeMethod(unitName, null, "/forbid.policy", unitJarClasspath,
+                    null, (Object) new String[0]);
+        } catch (ClassNotFoundException cnfe) {
+            fail("Не найден класс " + cnfe.getMessage());
+        }
     }
+
 }

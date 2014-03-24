@@ -14,9 +14,9 @@ import org.junit.runners.MethodSorters;
  * User: al1
  * Date: 3/10/14
  */
-@Unit(testName = "RegionHibernateDao", value = "hw7.hibernote.Main")
+@Unit(testName = "P7HiberNote1", value = "hw7.hibernote.Main")
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
-public class R7HiberNote1 extends BaseTest {
+public class P7HiberNote1 extends BaseTest {
 
     @UnitName
     private static String unitName;

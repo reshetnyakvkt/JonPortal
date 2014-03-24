@@ -14,9 +14,9 @@ import org.junit.runners.MethodSorters;
  * User: al1
  * Date: 3/15/14
  */
-@Unit(testName = "TaxiUserAuthentication", value = "hw8.taxi.service.AuthenticationService")
+@Unit(testName = "TaxiUserAuthorization", value = "hw8.taxi.service.AuthorizationService")
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
-public class R8TaxiUserAuthentication extends BaseTest {
+public class P8TaxiUserAuthorization extends BaseTest {
 
     @UnitName
     private static String unitName;
