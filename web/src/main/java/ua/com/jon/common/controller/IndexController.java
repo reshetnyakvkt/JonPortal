@@ -38,9 +38,9 @@ public class IndexController {
         return "tasksg";
     }
 
-//    @RequestMapping("/tasks.html")
-//    public String download(ModelMap modelMap)  {
-//        modelMap.put("item","item5");
-//        return "download";
-//    }
+    @RequestMapping("/register.html")
+    public String register(ModelMap modelMap)  {
+        //modelMap.put("item","item5");
+        return "register";
+    }
 }
