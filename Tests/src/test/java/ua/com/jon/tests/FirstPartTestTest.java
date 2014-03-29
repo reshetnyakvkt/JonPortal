@@ -36,7 +36,7 @@ public class FirstPartTestTest {
                         "   }" +
                         "}";
         final String testName = "FirstPart";
-        Map.Entry<String,String> processResult = classProcessor.processClass(className, classCode, testName);
+        Map.Entry<String,String> processResult = classProcessor.processClass(className, classCode, testName, null);
         String resultString = processResult.getValue();
         String markString = processResult.getKey();
         assertEquals("Задание выполнено", resultString);

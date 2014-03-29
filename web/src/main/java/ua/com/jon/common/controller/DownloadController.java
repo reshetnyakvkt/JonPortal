@@ -37,6 +37,7 @@ public class DownloadController {
 //        files.put("ojdbc14", "/libs/Oracle JDBC Driver/ojdbc14.jar");
         files.put("OracleXE", "/install/OracleXE.exe");
         files.put("hibernate_reference", "/docs/hibernate_reference.pdf");
+        files.put("hibernate_reference4", "/docs/hibernate_reference-4.3.4.pdf");
         files.put("spring-framework-reference", "/docs/spring-framework-reference.pdf");
         files.put("apache-tomcat-7_0_41", "/install/apache-tomcat-7.0.41.zip");
         files.put("apache-maven-2_2_1-bin", "/install/apache-maven-2.2.1-bin.zip");

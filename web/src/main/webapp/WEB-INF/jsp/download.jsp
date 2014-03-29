@@ -63,6 +63,9 @@
                 <a href="files/hibernate_reference">Документация Hibernate 3.6</a>
             </li>
             <li>
+                <a href="files/hibernate_reference4">Документация Hibernate 4.3.4</a>
+            </li>
+            <li>
                 <a href="files/spring-framework-reference">Документация Spring 3.2</a>
             </li>
             <li>

@@ -1,6 +1,7 @@
 package ua.com.jon.tests;
 
 import com.jon.tron.service.junit.Unit;
+import com.jon.tron.service.junit.UnitName;
 import com.jon.tron.service.reflect.JavaProcessBuilder;
 import org.junit.After;
 import org.junit.Before;
@@ -19,8 +20,11 @@ public class HelloWorldTest extends BaseTest {
         System.out.println("Hello world");
     }
 
-    @Unit
+    @UnitName
     private static String unitName;
+
+    @Unit
+    private static String unit;
 
     @Before
     public void setUp() {

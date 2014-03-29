@@ -8,5 +8,5 @@ package ua.com.jon.common.domain;
  * To change this template use File | Settings | File Templates.
  */
 public enum Status {
-    NEW, IN_PROGRESS, TEST, RESOLVED
+    NEW, IN_PROGRESS, TEST, DONE
 }

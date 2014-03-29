@@ -29,7 +29,7 @@ public class HelloWorldTestTest {
         final String className = "HelloWorld";
         final String classCode = "public class HelloWorld{}";
         final String testName = "HelloWorldTest";
-        Map.Entry<String,String> processResult = classProcessor.processClass(className, classCode, testName);
+        Map.Entry<String,String> processResult = classProcessor.processClass(className, classCode, testName, null);
         String resultString = processResult.getValue();
         assertTrue(resultString.contains("В результате выполнения, было выброшено исключение java.lang.RuntimeException java.lang.NoSuchMethodException"));
 
@@ -41,7 +41,7 @@ public class HelloWorldTestTest {
         final String classCode = "public class HelloWorld{public void main(){}}";
         final String testName = "HelloWorldTest";
 
-        Map.Entry<String,String> processResult = classProcessor.processClass(className, classCode, testName);
+        Map.Entry<String,String> processResult = classProcessor.processClass(className, classCode, testName, null);
         String resultString = processResult.getValue();
         assertTrue(resultString.contains("В результате выполнения, было выброшено исключение java.lang.RuntimeException java.lang.NoSuchMethodException"));
 
@@ -53,7 +53,7 @@ public class HelloWorldTestTest {
         final String classCode = "public class HelloWorld{public static void main(String[] args){}}";
         final String testName = "HelloWorldTest";
 
-        Map.Entry<String,String> processResult = classProcessor.processClass(className, classCode, testName);
+        Map.Entry<String,String> processResult = classProcessor.processClass(className, classCode, testName, null);
         String resultString = processResult.getValue();
         assertTrue(resultString.contains("Метод main должен выводить в консоль сообщение 'Hello world'"));
     }
@@ -69,7 +69,7 @@ public class HelloWorldTestTest {
                         "    }";
         final String testName = "HelloWorldTest";
 
-        Map.Entry<String,String> processResult = classProcessor.processClass(className, classCode, testName);
+        Map.Entry<String,String> processResult = classProcessor.processClass(className, classCode, testName, null);
         String resultString = processResult.getValue();
         String resultMarkString = processResult.getKey();
         assertEquals("", resultMarkString, "10");
@@ -83,7 +83,7 @@ public class HelloWorldTestTest {
                 "System.out.println(\"hello world\");}}";
         final String testName = "HelloWorldTest";
 
-        Map.Entry<String,String> processResult = classProcessor.processClass(className, classCode, testName);
+        Map.Entry<String,String> processResult = classProcessor.processClass(className, classCode, testName, null);
         String resultString = processResult.getValue();
         assertTrue(resultString.contains("Метод main должен выводить в консоль сообщение 'Hello world'"));
     }
@@ -95,7 +95,7 @@ public class HelloWorldTestTest {
                 "System.out.println(\"Hello world\");}}";
         final String testName = "HelloWorldTest";
 
-        Map.Entry<String,String> processResult = classProcessor.processClass(className, classCode, testName);
+        Map.Entry<String,String> processResult = classProcessor.processClass(className, classCode, testName, null);
         String resultString = processResult.getValue();
         String resultMarkString = processResult.getKey();
         assertEquals("Задание выполнено", resultString);
@@ -113,7 +113,7 @@ public class HelloWorldTestTest {
                 "}}";
         final String testName = "HelloWorldTest";
 
-        Map.Entry<String,String> processResult = classProcessor.processClass(className, classCode, testName);
+        Map.Entry<String,String> processResult = classProcessor.processClass(className, classCode, testName, null);
         String resultString = processResult.getValue();
         String resultMarkString = processResult.getKey();
         assertTrue(resultString.contains("В результате выполнения, было выброшено исключение java.lang.RuntimeException"));
