@@ -1,110 +1,37 @@
 package ua.com.jon.auth.service;
 
-import org.apache.log4j.Logger;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.stereotype.Service;
-import org.springframework.web.client.ResourceAccessException;
+import org.springframework.transaction.annotation.Transactional;
 import ua.com.jon.auth.domain.AssemblaSpace;
-import ua.com.jon.auth.domain.AssemblaSpaces;
 import ua.com.jon.auth.domain.AssemblaUser;
-import ua.com.jon.auth.domain.SpringUser;
-import ua.com.jon.auth.exceptions.RestException;
-import ua.com.jon.auth.util.UserMapper;
-import ua.com.jon.utils.RestClient;
+import ua.com.jon.common.domain.User;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Created with IntelliJ IDEA.
- * User: al1
- * Date: 3/28/13
+ * User: sergey
+ * Date: 29.03.14
+ * Time: 22:21
+ * To change this template use File | Settings | File Templates.
  */
-@Service
-public class AuthService implements UserDetailsService {
-    @Autowired
-    private RestClient restClient;
+public interface AuthService {
+    UserDetails loadUserByUsername(String userName) throws UsernameNotFoundException;
 
-    private static Logger log = Logger.getLogger(AuthService.class);
+    boolean isAuth(String space, String userName);
 
-    @Override
-    public UserDetails loadUserByUsername(String userName) throws UsernameNotFoundException {
-        log.info("User login: " + userName);
-        SpringUser user;
-        try {
-            AssemblaUser assemblaUser = restClient.getUser(userName);
-            user = UserMapper.convertAssemblaToSpring(assemblaUser);
-        } catch (ResourceAccessException e) {
-            user = new SpringUser(userName, userName);
-        } catch (Exception e) {
-            log.error("Error user authentication " + userName, e);
-            throw new UsernameNotFoundException("User/Password incorrect");
-        }
-        log.info("Authenticated user info: " + user);
+    AssemblaUser getUser(String space, String userName);
 
-        return user;
-    }
+    List<AssemblaUser> getUsersBySpace(String spaceName);
 
-    public boolean isAuth(String space, String userName) {
-        boolean res = false;
-        AssemblaUser assemblaUser = null;
-        try {
-            assemblaUser = restClient.getUserBySpaceAndUName(space, userName);
-        } catch (RestException e) {
-            log.error(e);
-        }
-        if(assemblaUser != null) {
-            res = true;
-        }
-        return res;
-    }
+    AssemblaSpace getSpace(String spaceName);
 
-    public AssemblaUser getUser(String space, String userName) {
-        AssemblaUser assemblaUser = null;
-        try {
-            assemblaUser = restClient.getUserBySpaceAndUName(space, userName);
-        } catch (ResourceAccessException e) {
-            assemblaUser = new AssemblaUser(userName);
-        } catch (RestException e) {
-            log.error(e);
-        }
-        return assemblaUser;
-    }
+    List<AssemblaSpace> getSpaces();
 
-    public List<AssemblaUser> getUsersBySpace(String spaceName) {
-        try {
-            return restClient.getUserListBySpace(spaceName);
-        } catch (RestException e) {
-            log.error(e);
-        }
-        return new ArrayList<AssemblaUser>();
-    }
+    void createNewUser(String login, String password);
 
-    public AssemblaSpace getSpace(String spaceName) {
-        AssemblaSpace assemblaSpace = null;
-        try {
-            assemblaSpace = restClient.getSpace(spaceName);
-        } catch (RestException e) {
-            log.error(e);
-        }
-        return assemblaSpace;
-    }
+    User getUserFromDBByName(String login);
 
-//    public List<AssemblaUser> getUsers() {
-//        assemblaUser = restClient.get;
-//    }
-    public List<AssemblaSpace> getSpaces() {
-        List<AssemblaSpace> spacesList = new ArrayList<AssemblaSpace>();
-        try {
-
-            AssemblaSpaces spaces = restClient.getSpaces();
-            return spaces.getSpaces();
-        } catch (RestException e) {
-            log.error(e);
-        }
-        return spacesList;
-    }
+    void updateUser(User user);
 }

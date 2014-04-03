@@ -71,7 +71,7 @@ public class AdminServiceImpl implements AdminService {
     private SprintRepository sprintRepository;
 
     @Autowired
-    private AuthService authService;
+    private AuthService AuthService;
 
     @Value( "${tests.package}" )
     private String testsPackage;
@@ -114,10 +114,10 @@ public class AdminServiceImpl implements AdminService {
     public ArrayList<SpaceDTO> getSpaces() {
         log.info("-- getSpaces()");
 //        List<AssemblaSpace> assemblaSpaces = authService.getSpaces();
-        List<AssemblaSpace> assemblaSpaces = authService.getSpaces();
+        List<AssemblaSpace> assemblaSpaces = AuthService.getSpaces();
         ArrayList<SpaceDTO> spaceDTOs = new ArrayList<SpaceDTO>(assemblaSpaces.size());
         for (AssemblaSpace space : assemblaSpaces) {
-            List<AssemblaUser> usersInSpace = authService.getUsersBySpace(space.getName());
+            List<AssemblaUser> usersInSpace = AuthService.getUsersBySpace(space.getName());
             spaceDTOs.add(SpaceDtoMapper.spaceToDto(null, space, usersInSpace, ""));
         }
         log.info("-- getSpaces(), return space to client: " + spaceDTOs);
@@ -139,7 +139,7 @@ public class AdminServiceImpl implements AdminService {
             Set<Group> groups = new HashSet<Group>();
             groups.add(group);
             for (String userName : nameSet) {
-                users.add(new User(userName, userName, new Date(), groups));
+                users.add(new User(userName, null, new Date(), groups));
             }
             groupRepository.save(group);
 //            userRepository.save(users);
@@ -316,7 +316,7 @@ public class AdminServiceImpl implements AdminService {
         if (user == null) {
             Set<Group> groups = new HashSet<Group>();
             groups.add(group);
-            user = new User(userName, userName, new Date(), groups);
+            user = new User(userName, null, new Date(), groups);
         }
         group.getUsers().add(user);
         user.getGroups().add(group);
@@ -337,7 +337,7 @@ public class AdminServiceImpl implements AdminService {
         userGroups.add(group);
         for (UserDTO user : users) {
             if (user.getId() == null) {
-                User newUser = new User(user.getName(), "", new Date(), userGroups);
+                User newUser = new User(user.getName(), null, new Date(), userGroups);
                 newUsers.add(newUser);
                 userRepository.save(newUser);
             }

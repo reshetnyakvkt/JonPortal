@@ -39,6 +39,7 @@
                 <label class="checkbox">
                     <input type="checkbox" name="remember" value="1">
                     Запомнить меня </label>
+                <a href="/register.html">Зарегистрироваться</a>
                 <button type="submit" name="submit" class="btn btn-info btn-block">
                     Войти
                 </button>

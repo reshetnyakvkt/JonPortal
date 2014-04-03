@@ -24,6 +24,7 @@
     <context:component-scan base-package="ua.com.jon.utils"/>
     <context:component-scan base-package="ua.com.jon.cabinet.server"/>
     <context:component-scan base-package="ua.com.jon.auth.controller"/>
+    <context:component-scan base-package="ua.com.jon.auth.service"/>
     <context:component-scan base-package="ua.com.jon.admin"/>
 
     <bean id="conf" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">

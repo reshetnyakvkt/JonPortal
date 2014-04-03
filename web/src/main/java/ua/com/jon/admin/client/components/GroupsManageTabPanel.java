@@ -368,7 +368,7 @@ public class GroupsManageTabPanel extends Composite {
 
             @Override
             public void onSuccess(ArrayList<GroupAndUsersDTO> groupAndUsersDTOs) {
-                Window.alert(groupAndUsersDTOs.toString());
+                Window.alert("groupAndUsersDTOs: " + groupAndUsersDTOs.toString());
                 sprintsProgress.setVisible(false);
                 groupsListBox.setVisible(true);
                 groupsListBox.setAcceptableValues(groupAndUsersDTOs);
