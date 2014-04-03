@@ -7,6 +7,8 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.lang.reflect.Method;
+
 import static junit.framework.Assert.assertEquals;
 
 /**
@@ -39,17 +41,18 @@ public class GreetingTest extends BaseTest {
         super.tearDown();
     }
 
-    @Test/*(timeout = 1000)*/
+    @Test(timeout = 1000)
     public void testSuccess() throws Throwable {
+//        Method mainMethod = this.getClass().getDeclaredMethod("main", new Class[]{String[].class});
+//        System.out.println(mainMethod);
 //        instance = instanciate(unitJarClasspath);
         String name = names[rnd.nextInt(names.length)];
         //getOut().print(name);
         JavaProcessBuilder.buildProcessAndInvokeMethod(unitName, "main", "/forbid.policy", unitJarClasspath,
-                (Object) new String[0]);
+                name, (Object) new String[0]);
         //invokeMain(unitJarClasspath, unitName);
         String expectedString = "Здравствуйте " + name + lineSeparator;
         String actualString = getIn().toString();
-        assertEquals("Ожидается строка " + expectedString + ", но выводится [" + actualString + "]",
-                expectedString, actualString);
+        assertEquals("Ожидается другой вывод\n", expectedString, actualString);
     }
 }

@@ -68,7 +68,7 @@ public class MaxHalfTest extends BaseTest {
         String actualVector = maxHalfCheck(originalVector.clone());
 
         try {
-            ReflectionUtil.invokeMethod(instance, "maxHalf", int[].class, void.class, originalVector.clone());
+            ReflectionUtil.invokeMethod(instance, "maxHalf", int[].class, void.class, "", originalVector.clone());
             String expectedVector = getIn().toString();
             expectedVector.trim();
 

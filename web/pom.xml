@@ -19,6 +19,7 @@
             <artifactId>Core</artifactId>
             <groupId>Testeron</groupId>
             <version>${testeron.version}</version>
+
             <!--<type>jar</type>-->
         </dependency>
 

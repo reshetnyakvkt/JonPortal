@@ -89,7 +89,7 @@ public class ArrayToArrayOccurrenceTest  extends BaseTest {
         getOut().println(secondLine);
 
         JavaProcessBuilder.buildProcessAndInvokeMethod(unitClass.getSimpleName(), "main", "/forbid.policy", null,
-                (Object) new String[0]);
+                getOut().toString(), (Object) new String[0]);
 
         invokeMain(unitClass, "unitName", getOut().toString());
 
@@ -99,6 +99,4 @@ public class ArrayToArrayOccurrenceTest  extends BaseTest {
         Assert.assertEquals("Ожидаемый результат " + expectedAnswer + ", но выведено " + actualAnswer,
                 expectedAnswer, actualAnswer);
     }
-
-
 }

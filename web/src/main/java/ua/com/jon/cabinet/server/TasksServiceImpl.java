@@ -5,6 +5,7 @@ import com.jon.tron.exception.CompilationException;
 import com.jon.tron.service.processor.ClassProcessor;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -55,6 +56,9 @@ public class TasksServiceImpl implements TasksService, ServletContextAware {
     private GroupRepository groupRepository;
 
     private ServletContext servletContext;
+
+    @Value("${core.jar}")
+    private String coreJarName;
 
     @Override
     public String greet(String name) {
@@ -131,7 +135,7 @@ public class TasksServiceImpl implements TasksService, ServletContextAware {
         try {
             TaskTemplate template = templateRepository.findOne(taskDTO.getTaskTemplateId());
             resultEntry = classProcessor.processClass(taskDTO.getClassName(), taskDTO.getCode(), template.getTestName(),
-                    servletContext.getRealPath("/WEB-INF") + "/lib/core.jar");
+                    servletContext.getRealPath("/WEB-INF") + "/lib/" + coreJarName);
         } catch (CompilationException e) {
             resultEntry = e.getResult();
         } catch (Exception e) {

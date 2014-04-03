@@ -1,12 +1,17 @@
 package ua.com.jon.tests;
 
 import com.jon.tron.service.junit.Unit;
+import com.jon.tron.service.junit.UnitClass;
 import com.jon.tron.service.junit.UnitName;
 import com.jon.tron.service.reflect.JavaProcessBuilder;
+import com.jon.tron.service.reflect.ReflectionUtil;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.lang.reflect.Method;
+
+import static junit.framework.Assert.fail;
 import static org.junit.Assert.assertTrue;
 
 /**
@@ -20,11 +25,12 @@ public class HelloWorldTest extends BaseTest {
         System.out.println("Hello world");
     }
 
+    @UnitClass
+    private static Class unitClass;
     @UnitName
     private static String unitName;
-
     @Unit
-    private static String unit;
+    private static String unitJarClasspath;
 
     @Before
     public void setUp() {
@@ -37,10 +43,14 @@ public class HelloWorldTest extends BaseTest {
     }
 
     @Test(timeout = 1000)
+    public void testCheckMainMethod() throws Throwable {
+        ReflectionUtil.getMainMethod(unitClass);
+    }
+
+    @Test(timeout = 1000)
     public void testClassMainMessage() throws Throwable {
         //instance = instanciate(unitClass);
-        JavaProcessBuilder.buildProcessAndInvokeMethod(unitName, null, "main", "/forbid.policy",
-                (Object) new String[0]);
+        ReflectionUtil.invokeMain(unitName, unitJarClasspath, "");
         String lineSeparator = System.lineSeparator();
         assertTrue("Метод main должен выводить в консоль сообщение \'Hello world\'", ("Hello world" + lineSeparator).equals(getIn().toString()));
     }

@@ -79,10 +79,10 @@ public class BaseTest {
                 Object instance = instanciate(unitClass);
                 // TODO check is correct invocation
                 JavaProcessBuilder.buildProcessAndInvokeMethod(unitClass.getSimpleName(), "main", "/forbid.policy", null,
-                        (Object) new String[0]);
+                        "", (Object) new String[0]);
             } else {
                 JavaProcessBuilder.buildProcessAndInvokeMethod(unitName, "main", "/forbid.policy", "",
-                        (Object) new String[0]);
+                        "", (Object) new String[0]);
             }
         } catch (Throwable throwable) {
             //System.out.println("Во время выполнения метода main произошла ошибка");
