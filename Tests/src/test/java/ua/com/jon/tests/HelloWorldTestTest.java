@@ -31,7 +31,7 @@ public class HelloWorldTestTest {
         final String testName = "HelloWorldTest";
         Map.Entry<String,String> processResult = classProcessor.processClass(className, classCode, testName, null);
         String resultString = processResult.getValue();
-        assertTrue(resultString.contains("В результате выполнения, было выброшено исключение java.lang.RuntimeException java.lang.NoSuchMethodException"));
+        assertEquals("В классе " + className + " отсутствует метод main", resultString);
 
     }
 
@@ -43,7 +43,7 @@ public class HelloWorldTestTest {
 
         Map.Entry<String,String> processResult = classProcessor.processClass(className, classCode, testName, null);
         String resultString = processResult.getValue();
-        assertTrue(resultString.contains("В результате выполнения, было выброшено исключение java.lang.RuntimeException java.lang.NoSuchMethodException"));
+        assertEquals("В методе main() неверный список аргументов", resultString);
 
     }
 
@@ -55,7 +55,7 @@ public class HelloWorldTestTest {
 
         Map.Entry<String,String> processResult = classProcessor.processClass(className, classCode, testName, null);
         String resultString = processResult.getValue();
-        assertTrue(resultString.contains("Метод main должен выводить в консоль сообщение 'Hello world'"));
+        assertEquals("Метод main должен выводить в консоль сообщение 'Hello world'", resultString);
     }
 
 
@@ -72,8 +72,60 @@ public class HelloWorldTestTest {
         Map.Entry<String,String> processResult = classProcessor.processClass(className, classCode, testName, null);
         String resultString = processResult.getValue();
         String resultMarkString = processResult.getKey();
-        assertEquals("", resultMarkString, "10");
-        assertTrue(resultString.contains("Невозможно создать объект класса, возможно класс не public"));
+        assertEquals("10", resultMarkString);
+        assertEquals("Невозможно создать объект класса " + className + ", возможно класс не public", resultString);
+    }
+
+    @Test
+    public void testNonPublicMain() throws Exception {
+        final String className = "HelloWorld";
+        final String classCode =
+                "    class HelloWorld {\n" +
+                        "        static void main(String[] args) {\n" +
+                        "        }\n" +
+                        "    }";
+        final String testName = "HelloWorldTest";
+
+        Map.Entry<String,String> processResult = classProcessor.processClass(className, classCode, testName, null);
+        String resultString = processResult.getValue();
+        String resultMarkString = processResult.getKey();
+        assertEquals("Невозможно создать объект класса " + className + ", возможно класс не public", resultString);
+        assertEquals("10", resultMarkString);
+    }
+
+    @Test
+    public void testNonStaticMain() throws Exception {
+        final String className = "HelloWorld";
+        final String classCode =
+                "    class HelloWorld {\n" +
+                        "        public void main(String[] args) {\n" +
+                        "        }\n" +
+                        "    }";
+        final String testName = "HelloWorldTest";
+
+        Map.Entry<String,String> processResult = classProcessor.processClass(className, classCode, testName, null);
+        String resultString = processResult.getValue();
+        String resultMarkString = processResult.getKey();
+        assertEquals("10", resultMarkString);
+        assertEquals("Невозможно создать объект класса " + className + ", возможно класс не public", resultString);
+    }
+
+    @Test
+    public void testNonVoidMain() throws Exception {
+        final String className = "HelloWorld";
+        final String classCode =
+                "    class HelloWorld {\n" +
+                        "        public static String main(String[] args) {\n" +
+                        "           return \"sdggg\";" +
+                        "        }\n" +
+                        "    }";
+        final String testName = "HelloWorldTest";
+
+        Map.Entry<String,String> processResult = classProcessor.processClass(className, classCode, testName, null);
+        String resultString = processResult.getValue();
+        String resultMarkString = processResult.getKey();
+        assertEquals("10", resultMarkString);
+        assertEquals("Невозможно создать объект класса " + className + ", возможно класс не public", resultString);
     }
 
     @Test
@@ -85,7 +137,7 @@ public class HelloWorldTestTest {
 
         Map.Entry<String,String> processResult = classProcessor.processClass(className, classCode, testName, null);
         String resultString = processResult.getValue();
-        assertTrue(resultString.contains("Метод main должен выводить в консоль сообщение 'Hello world'"));
+        assertEquals("Метод main должен выводить в консоль сообщение 'Hello world'", resultString);
     }
 
     @Test
@@ -99,25 +151,26 @@ public class HelloWorldTestTest {
         String resultString = processResult.getValue();
         String resultMarkString = processResult.getKey();
         assertEquals("Задание выполнено", resultString);
-        assertTrue("100".equals(resultMarkString));
+        assertEquals("100", resultMarkString);
     }
 
 
     @Test
     public void testThrowException() throws Exception {
         final String className = "HelloWorld";
+        final String errorMessage = "errorr";
         final String classCode = "package a;" +
                 "import java.util.Scanner;" +
                 "public class HelloWorld{public static void main(String[] args){" +
-                "   throw new RuntimeException();\n" +
+                "   throw new RuntimeException(\""+errorMessage+"\");\n" +
                 "}}";
         final String testName = "HelloWorldTest";
 
         Map.Entry<String,String> processResult = classProcessor.processClass(className, classCode, testName, null);
         String resultString = processResult.getValue();
         String resultMarkString = processResult.getKey();
-        assertTrue(resultString.contains("В результате выполнения, было выброшено исключение java.lang.RuntimeException"));
-        assertTrue("10".equals(resultMarkString));
+        assertEquals("В результате выполнения, было выброшено исключение java.lang.RuntimeException " + errorMessage, resultString);
+        assertEquals("10", resultMarkString);
 
     }
 }
