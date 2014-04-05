@@ -21,7 +21,7 @@ public interface AuthService {
 
     boolean isAuth(String space, String userName);
 
-    AssemblaUser getUser(String space, String userName);
+    AssemblaUser getAssemblaUser(String space, String userName);
 
     List<AssemblaUser> getUsersBySpace(String spaceName);
 
@@ -34,4 +34,6 @@ public interface AuthService {
     User getUserFromDBByName(String login);
 
     void updateUser(User user);
+
+    User getDBUser(String login, String password);
 }

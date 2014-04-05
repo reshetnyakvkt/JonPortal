@@ -35,13 +35,13 @@ public class AuthServiceImpl implements UserDetailsService, AuthService {
     private UserRepository userRepository;
 
     private static Logger log = Logger.getLogger(AuthServiceImpl.class);
-
+    /*
     @Override
     public UserDetails loadUserByUsername(String userName) throws UsernameNotFoundException {
         log.info("User login: " + userName);
         SpringUser user;
         try {
-            AssemblaUser assemblaUser = restClient.getUser(userName);
+            AssemblaUser assemblaUser = restClient.getAssemblaUser(userName);
             user = UserMapper.convertAssemblaToSpring(assemblaUser);
         } catch (ResourceAccessException e) {
             user = new SpringUser(userName, userName);
@@ -52,6 +52,26 @@ public class AuthServiceImpl implements UserDetailsService, AuthService {
         log.info("Authenticated user info: " + user);
 
         return user;
+    }
+    */
+    @Override
+    public UserDetails loadUserByUsername(String userName) throws UsernameNotFoundException {
+        log.info("User login: " + userName);
+        SpringUser springUser;
+        try {
+            //AssemblaUser assemblaUser = restClient.getAssemblaUser(userName);
+            //user = UserMapper.convertAssemblaToSpring(assemblaUser);
+            User user = userRepository.findByUserName(userName);
+            springUser = UserMapper.convertDBToSpring(user);
+        } catch (ResourceAccessException e) {
+            springUser = new SpringUser(userName, userName);
+        } catch (Exception e) {
+            log.error("Error user authentication " + userName, e);
+            throw new UsernameNotFoundException("User/Password incorrect");
+        }
+        log.info("Authenticated user info: " + springUser);
+
+        return springUser;
     }
 
     @Override
@@ -70,7 +90,7 @@ public class AuthServiceImpl implements UserDetailsService, AuthService {
     }
 
     @Override
-    public AssemblaUser getUser(String space, String userName) {
+    public AssemblaUser getAssemblaUser(String space, String userName) {
         AssemblaUser assemblaUser = null;
         try {
             assemblaUser = restClient.getUserBySpaceAndUName(space, userName);
@@ -80,6 +100,11 @@ public class AuthServiceImpl implements UserDetailsService, AuthService {
             log.error(e);
         }
         return assemblaUser;
+    }
+
+    @Override
+    public User getDBUser(String login, String password) {
+        return userRepository.findByLoginAndPassword(login, password);
     }
 
     @Override

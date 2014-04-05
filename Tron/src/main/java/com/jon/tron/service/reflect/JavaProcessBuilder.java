@@ -9,6 +9,8 @@ package com.jon.tron.service.reflect;
  */
 public class JavaProcessBuilder {
 
-    public static void buildProcessAndInvokeMethod(String unitName, String testName, String methodName, String fileName, Object o){
+    public static void buildProcessAndInvokeMethod(String name, String unitName, String testName, String methodName, String fileName, Object o)
+    throws ClassNotFoundException {
+
     }
 }

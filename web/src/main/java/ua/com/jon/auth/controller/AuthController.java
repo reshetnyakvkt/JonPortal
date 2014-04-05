@@ -8,7 +8,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import ua.com.jon.auth.domain.AssemblaUser;
 import ua.com.jon.auth.service.AuthService;
 import ua.com.jon.common.domain.User;
 
@@ -36,6 +35,28 @@ public class AuthController {
         return "index";
     }
 
+/*    @RequestMapping(value = "/login", method = RequestMethod.POST)
+    public String login(Model model,
+                        HttpServletRequest request,
+                        HttpServletResponse response,
+                        @RequestParam("j_username") String login,
+                        @RequestParam("j_password") String password) {
+        final String emptyStr = "";
+        log.info("User login: " + login);
+        log.info("User password: " + password);
+
+        String forwardUrl = "/articlesList";
+        AssemblaUser user = authService.getAssemblaUser(password, login);
+        if (user == null) {
+            forwardUrl = "/j_spring_security_check?j_username=" + emptyStr + "&j_password=" + emptyStr;
+        } else {
+            forwardUrl = "/j_spring_security_check?j_username=" + user.getLogin() + "&j_password=" + user.getLogin();
+        }
+
+        return "forward:" + forwardUrl;
+
+    }*/
+
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     public String login(Model model,
                         HttpServletRequest request,
@@ -43,67 +64,59 @@ public class AuthController {
                         @RequestParam("j_username") String login,
                         @RequestParam("j_password") String password) {
         final String emptyStr = "";
-        //new HttpSessionRequestCache().getRequest()
         log.info("User login: " + login);
         log.info("User password: " + password);
 
         String forwardUrl = "/articlesList";
-        AssemblaUser user = authService.getUser(password, login);
-        if(user == null) {
+        User user = authService.getDBUser(login, password);
+        if (user == null) {
             forwardUrl = "/j_spring_security_check?j_username=" + emptyStr + "&j_password=" + emptyStr;
         } else {
             forwardUrl = "/j_spring_security_check?j_username=" + user.getLogin() + "&j_password=" + user.getLogin();
         }
-/*
-        try {
-            request.getRequestDispatcher(forwardUrl).forward(request, response);
-        } catch (ServletException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-*/
+
         return "forward:" + forwardUrl;
 
     }
 
     @RequestMapping(value = "/register", method = RequestMethod.POST)
     public String register(Model model,
-                        HttpServletRequest request,
-                        HttpServletResponse response,
-                        @RequestParam("j_username") String login,
-                        @RequestParam("j_password") String password) {
-        final String emptyStr = "";
-        //new HttpSessionRequestCache().getRequest()
+                           HttpServletRequest request,
+                           HttpServletResponse response,
+                           @RequestParam("j_username") String login,
+                           @RequestParam("j_password") String password) {
+
         log.info("New User login: " + login);
         log.info("New User password: " + password);
 
         String forwardUrl;
+        if (password == null || password.equals("")) {
+            model.addAttribute("message", "Пароль не может быть пустым.");
+            return "/register";
+        }
+        if (login == null || login.equals("")) {
+            model.addAttribute("message", "Логин не может быть пустым.");
+            return "/register";
+        }
         try {
-            authService.loadUserByUsername(login);
             User user = authService.getUserFromDBByName(login);
             if (user == null) {
                 authService.createNewUser(login, password);
-            }else if (user.getPassword() == null) {
+            } else if (user.getPassword() == null || user.getPassword().equals("")) {
                 user.setPassword(password);
                 authService.updateUser(user);
             }
-            forwardUrl = "/j_spring_security_check?j_username=" + login + "&j_password=" + login;
-            return "forward:" + forwardUrl;
+            if (password.equals(user.getPassword())) {
+                forwardUrl = "/j_spring_security_check?j_username=" + login + "&j_password=" + login;
+                return "forward:" + forwardUrl;
+            } else {
+                model.addAttribute("message", "Пользователь с таким именем уже существует.");
+            }
+            return "/register";
+
         } catch (UsernameNotFoundException e) {
-            //forwardUrl = "/register.html?message=Error";
             model.addAttribute("message", "Логин неверный");
             return "/register";
         }
-/*
-        if(user == null) {
-            forwardUrl = "/register?message=Error";
-        } else {
-            forwardUrl = "/j_spring_security_check?j_username=" + login + "&j_password=" + login;
-        }
-*/
-
-        //return "forward:" + forwardUrl;
-
-}
     }
+}

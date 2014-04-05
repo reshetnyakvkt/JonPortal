@@ -3,6 +3,7 @@ package ua.com.jon.auth.util;
 import ua.com.jon.admin.shared.UserDTO;
 import ua.com.jon.auth.domain.AssemblaUser;
 import ua.com.jon.auth.domain.SpringUser;
+import ua.com.jon.common.domain.User;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,5 +29,9 @@ public class UserMapper {
     public static UserDTO assemblaToDto(AssemblaUser assemblaUser) {
         return new UserDTO(null, assemblaUser.getLogin());
 
+    }
+
+    public static SpringUser convertDBToSpring(User dbUser) {
+        return new SpringUser(dbUser.getLogin(), dbUser.getLogin());
     }
 }
