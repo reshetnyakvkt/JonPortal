@@ -44,7 +44,7 @@ public class HelloWorldTest extends BaseTest {
 
     @Test(timeout = 1000)
     public void testCheckMainMethod() throws Throwable {
-        ReflectionUtil.getMainMethod(unitClass);
+        ReflectionUtil.checkMainMethod(unitClass);
     }
 
     @Test(timeout = 1000)

@@ -32,7 +32,6 @@ public class HelloWorldTestTest {
         Map.Entry<String,String> processResult = classProcessor.processClass(className, classCode, testName, null);
         String resultString = processResult.getValue();
         assertEquals("В классе " + className + " отсутствует метод main", resultString);
-
     }
 
     @Test
@@ -63,7 +62,7 @@ public class HelloWorldTestTest {
     public void testNonPublicClass() throws Exception {
         final String className = "HelloWorld";
         final String classCode =
-                "    class HelloWorld {\n" +
+                        "    class HelloWorld {\n" +
                         "        public static void main(String[] args) {\n" +
                         "        }\n" +
                         "    }";
@@ -73,14 +72,18 @@ public class HelloWorldTestTest {
         String resultString = processResult.getValue();
         String resultMarkString = processResult.getKey();
         assertEquals("10", resultMarkString);
-        assertEquals("Невозможно создать объект класса " + className + ", возможно класс не public", resultString);
+        assertEquals("В методе отсутстует модификатор public\n" +
+                "В методе отсутстует модификатор static\n" +
+                "\n" +
+                "Метод main должен выводить в консоль сообщение 'Hello world'\n", resultString);
+//        assertEquals("Невозможно создать объект класса " + className + ", возможно класс не public", resultString);
     }
 
     @Test
     public void testNonPublicMain() throws Exception {
         final String className = "HelloWorld";
         final String classCode =
-                "    class HelloWorld {\n" +
+                        "    class HelloWorld {\n" +
                         "        static void main(String[] args) {\n" +
                         "        }\n" +
                         "    }";
@@ -97,7 +100,7 @@ public class HelloWorldTestTest {
     public void testNonStaticMain() throws Exception {
         final String className = "HelloWorld";
         final String classCode =
-                "    class HelloWorld {\n" +
+                        "    class HelloWorld {\n" +
                         "        public void main(String[] args) {\n" +
                         "        }\n" +
                         "    }";
@@ -107,14 +110,15 @@ public class HelloWorldTestTest {
         String resultString = processResult.getValue();
         String resultMarkString = processResult.getKey();
         assertEquals("10", resultMarkString);
-        assertEquals("Невозможно создать объект класса " + className + ", возможно класс не public", resultString);
+        assertEquals("В методе main отсутствует модификатор static\n" +
+                "Метод main должен выводить в консоль сообщение 'Hello world'\n", resultString);
     }
 
     @Test
     public void testNonVoidMain() throws Exception {
         final String className = "HelloWorld";
         final String classCode =
-                "    class HelloWorld {\n" +
+                        "    class HelloWorld {\n" +
                         "        public static String main(String[] args) {\n" +
                         "           return \"sdggg\";" +
                         "        }\n" +
