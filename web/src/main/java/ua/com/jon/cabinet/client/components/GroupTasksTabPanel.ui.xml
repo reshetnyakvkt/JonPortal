@@ -18,10 +18,6 @@
                         </b:Column>
                     </b:FluidRow>
 
-<!--
-                    <b:TextArea width="100%" height="45%" readOnly="true" ui:field='textArea' >
-                    </b:TextArea>
--->
                     <b:CodeBlock width="100%" scrollable="true" ui:field='codeBlock'>
 
                     </b:CodeBlock>

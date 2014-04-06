@@ -27,11 +27,14 @@ public class User {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @Column(name = "LOGIN", unique = true)
+    @Column(name = "LOGIN", unique = true, length = 30)
     private String login;
 
-    @Column(name = "PASSWORD")
+    @Column(name = "PASSWORD", length = 30)
     private String password;
+
+    @Column(name = "MAIL", length = 30)
+    private String mail;
 
     @Temporal(value = TemporalType.DATE)
     @Column(name = "REGISTER_DATE", nullable = false)
@@ -108,6 +111,14 @@ public class User {
 
     public void setTasks(Set<Task> tasks) {
         this.tasks = tasks;
+    }
+
+    public String getMail() {
+        return mail;
+    }
+
+    public void setMail(String mail) {
+        this.mail = mail;
     }
 
     @Override

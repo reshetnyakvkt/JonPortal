@@ -72,7 +72,7 @@ public class AuthController {
         if (user == null) {
             forwardUrl = "/j_spring_security_check?j_username=" + emptyStr + "&j_password=" + emptyStr;
         } else {
-            forwardUrl = "/j_spring_security_check?j_username=" + user.getLogin() + "&j_password=" + user.getLogin();
+            forwardUrl = "/j_spring_security_check?j_username=" + user.getLogin() + "&j_password=" + user.getPassword();
         }
 
         return "forward:" + forwardUrl;
@@ -102,12 +102,13 @@ public class AuthController {
             User user = authService.getUserFromDBByName(login);
             if (user == null) {
                 authService.createNewUser(login, password);
-            } else if (user.getPassword() == null || user.getPassword().equals("")) {
+            } else if (user.getPassword() == null || user.getPassword().equals("") ||
+                    user.getLogin().equals(user.getPassword())) {
                 user.setPassword(password);
                 authService.updateUser(user);
             }
             if (password.equals(user.getPassword())) {
-                forwardUrl = "/j_spring_security_check?j_username=" + login + "&j_password=" + login;
+                forwardUrl = "/j_spring_security_check?j_username=" + login + "&j_password=" + password;
                 return "forward:" + forwardUrl;
             } else {
                 model.addAttribute("message", "Пользователь с таким именем уже существует.");

@@ -49,7 +49,6 @@ public class HelloWorldTest extends BaseTest {
 
     @Test(timeout = 1000)
     public void testClassMainMessage() throws Throwable {
-        //instance = instanciate(unitClass);
         ReflectionUtil.invokeMain(unitName, unitJarClasspath, "");
         String lineSeparator = System.lineSeparator();
         assertTrue("Метод main должен выводить в консоль сообщение \'Hello world\'", ("Hello world" + lineSeparator).equals(getIn().toString()));
