@@ -7,6 +7,7 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <ul class="nav nav-tabs">
+    <li id="mitem7"><a href="/trainings/registration.html"><button class="btn btn-link" type="button">Регистрация</button></a></li>
     <li id="mitem6"><a href="/trainings/newcomer.html"><button class="btn btn-link" type="button">Начинающим</button></a></li>
     <li id="mitem1"><a href="/trainings/list.html"><button class="btn btn-link" type="button">Тренинг по Oracle</button></a></li>
     <li id="mitem2"><a href="/trainings/scheduling.html"><button class="btn btn-link" type="button">Расписание</button></a></li>

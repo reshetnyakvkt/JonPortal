@@ -23,7 +23,7 @@
 
     <div class="row-fluid">
         <div class="span3 well">
-            <h4 class="error">Вход</h4>
+            <h4 class="error">Регистрация</h4>
 
             <c:if test="${not empty message}">
                 <div class="alert alert-error">

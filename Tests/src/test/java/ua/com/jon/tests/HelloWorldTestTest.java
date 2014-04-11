@@ -29,7 +29,7 @@ public class HelloWorldTestTest {
         final String className = "HelloWorld";
         final String classCode = "public class HelloWorld{}";
         final String testName = "HelloWorldTest";
-        Map.Entry<String,String> processResult = classProcessor.processClass(className, classCode, testName, null);
+        Map.Entry<String,String> processResult = classProcessor.processClass(classCode, testName, null);
         String resultString = processResult.getValue();
         assertEquals("В классе " + className + " отсутствует метод main", resultString);
     }
@@ -40,7 +40,7 @@ public class HelloWorldTestTest {
         final String classCode = "public class HelloWorld{public void main(){}}";
         final String testName = "HelloWorldTest";
 
-        Map.Entry<String,String> processResult = classProcessor.processClass(className, classCode, testName, null);
+        Map.Entry<String,String> processResult = classProcessor.processClass(classCode, testName, null);
         String resultString = processResult.getValue();
         assertEquals("В методе main() неверный список аргументов", resultString);
 
@@ -52,7 +52,7 @@ public class HelloWorldTestTest {
         final String classCode = "public class HelloWorld{public static void main(String[] args){}}";
         final String testName = "HelloWorldTest";
 
-        Map.Entry<String,String> processResult = classProcessor.processClass(className, classCode, testName, null);
+        Map.Entry<String,String> processResult = classProcessor.processClass(classCode, testName, null);
         String resultString = processResult.getValue();
         assertEquals("Метод main должен выводить в консоль сообщение 'Hello world'", resultString);
     }
@@ -68,7 +68,7 @@ public class HelloWorldTestTest {
                         "    }";
         final String testName = "HelloWorldTest";
 
-        Map.Entry<String,String> processResult = classProcessor.processClass(className, classCode, testName, null);
+        Map.Entry<String,String> processResult = classProcessor.processClass(classCode, testName, null);
         String resultString = processResult.getValue();
         String resultMarkString = processResult.getKey();
         assertEquals("10", resultMarkString);
@@ -89,7 +89,7 @@ public class HelloWorldTestTest {
                         "    }";
         final String testName = "HelloWorldTest";
 
-        Map.Entry<String,String> processResult = classProcessor.processClass(className, classCode, testName, null);
+        Map.Entry<String,String> processResult = classProcessor.processClass(classCode, testName, null);
         String resultString = processResult.getValue();
         String resultMarkString = processResult.getKey();
         assertEquals("Невозможно создать объект класса " + className + ", возможно класс не public", resultString);
@@ -106,7 +106,7 @@ public class HelloWorldTestTest {
                         "    }";
         final String testName = "HelloWorldTest";
 
-        Map.Entry<String,String> processResult = classProcessor.processClass(className, classCode, testName, null);
+        Map.Entry<String,String> processResult = classProcessor.processClass(classCode, testName, null);
         String resultString = processResult.getValue();
         String resultMarkString = processResult.getKey();
         assertEquals("10", resultMarkString);
@@ -125,7 +125,7 @@ public class HelloWorldTestTest {
                         "    }";
         final String testName = "HelloWorldTest";
 
-        Map.Entry<String,String> processResult = classProcessor.processClass(className, classCode, testName, null);
+        Map.Entry<String,String> processResult = classProcessor.processClass(classCode, testName, null);
         String resultString = processResult.getValue();
         String resultMarkString = processResult.getKey();
         assertEquals("10", resultMarkString);
@@ -139,7 +139,7 @@ public class HelloWorldTestTest {
                 "System.out.println(\"hello world\");}}";
         final String testName = "HelloWorldTest";
 
-        Map.Entry<String,String> processResult = classProcessor.processClass(className, classCode, testName, null);
+        Map.Entry<String,String> processResult = classProcessor.processClass(classCode, testName, null);
         String resultString = processResult.getValue();
         assertEquals("Метод main должен выводить в консоль сообщение 'Hello world'", resultString);
     }
@@ -151,7 +151,7 @@ public class HelloWorldTestTest {
                 "System.out.println(\"Hello world\");}}";
         final String testName = "HelloWorldTest";
 
-        Map.Entry<String,String> processResult = classProcessor.processClass(className, classCode, testName, null);
+        Map.Entry<String,String> processResult = classProcessor.processClass(classCode, testName, null);
         String resultString = processResult.getValue();
         String resultMarkString = processResult.getKey();
         assertEquals("Задание выполнено", resultString);
@@ -170,7 +170,7 @@ public class HelloWorldTestTest {
                 "}}";
         final String testName = "HelloWorldTest";
 
-        Map.Entry<String,String> processResult = classProcessor.processClass(className, classCode, testName, null);
+        Map.Entry<String,String> processResult = classProcessor.processClass(classCode, testName, null);
         String resultString = processResult.getValue();
         String resultMarkString = processResult.getKey();
         assertEquals("В результате выполнения, было выброшено исключение java.lang.RuntimeException " + errorMessage, resultString);

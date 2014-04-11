@@ -98,4 +98,13 @@ public class BaseTest {
     public OutputStream getIn() {
         return in;
     }
+
+    public Class getUnitClass(Class[] unitClasses, String unitName) {
+        for (Class unitClass : unitClasses) {
+            if(unitClass.getSimpleName().equals(unitName)) {
+                return unitClass;
+            }
+        }
+        return null;
+    }
 }

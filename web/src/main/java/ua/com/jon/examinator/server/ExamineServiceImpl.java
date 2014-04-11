@@ -117,7 +117,7 @@ public class ExamineServiceImpl implements ExamineService {
         log.info("-== Examinator post for test: " + taskDTO.getCode());
         Map.Entry<String, String> resultEntry;
         try {
-            resultEntry = classProcessor.processClass(taskDTO.getClassName(), taskDTO.getCode(), taskDTO.getName(), null);
+            resultEntry = classProcessor.processClass(taskDTO.getCode(), taskDTO.getName(), null);
         } catch (CompilationException e) {
             resultEntry = e.getResult();
         } catch (Exception e) {

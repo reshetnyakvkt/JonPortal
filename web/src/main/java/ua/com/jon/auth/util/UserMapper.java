@@ -32,6 +32,6 @@ public class UserMapper {
     }
 
     public static SpringUser convertDBToSpring(User dbUser) {
-        return new SpringUser(dbUser.getLogin(), dbUser.getLogin());
+        return new SpringUser(dbUser.getLogin(), dbUser.getPassword());
     }
 }

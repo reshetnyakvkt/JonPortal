@@ -37,7 +37,7 @@ public class GreetingTestTest {
                 "   }" +
                 "}";
         final String testName = "GreetingTest";
-        Map.Entry<String,String> processResult = classProcessor.processClass(className, classCode, testName, null);
+        Map.Entry<String,String> processResult = classProcessor.processClass(classCode, testName, null);
         String resultString = processResult.getValue();
         String markString = processResult.getKey();
         assertEquals("Задание выполнено", resultString);
@@ -59,7 +59,7 @@ public class GreetingTestTest {
                         "   }" +
                         "}";
         final String testName = "Greeting";
-        Map.Entry<String,String> processResult = classProcessor.processClass(className, classCode, testName, null);
+        Map.Entry<String,String> processResult = classProcessor.processClass(classCode, testName, null);
         String resultString = processResult.getValue();
         String markString = processResult.getKey();
         assertEquals("Во время выполнения метода main произошла ошибка java.lang.RuntimeException", resultString);
@@ -76,7 +76,7 @@ public class GreetingTestTest {
                 "   }" +
                 "}";
         final String testName = "Greeting";
-        Map.Entry<String,String> processResult = classProcessor.processClass(className, classCode, testName, null);
+        Map.Entry<String,String> processResult = classProcessor.processClass(classCode, testName, null);
         String resultString = processResult.getValue();
         String markString = processResult.getKey();
         assertEquals("test timed out after 1000 milliseconds", resultString);
@@ -97,7 +97,7 @@ public class GreetingTestTest {
                         "   }" +
                         "}";
         final String testName = "Greeting";
-        Map.Entry<String,String> processResult = classProcessor.processClass(className, classCode, testName, null);
+        Map.Entry<String,String> processResult = classProcessor.processClass(classCode, testName, null);
         String resultString = processResult.getValue();
         String markString = processResult.getKey();
         assertTrue("Задание выполнено", resultString.contains("Ожидается строка"));

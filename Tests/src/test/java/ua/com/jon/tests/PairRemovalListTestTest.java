@@ -73,7 +73,7 @@ public class PairRemovalListTestTest {
                 "    }\n" +
                 "}\n";
         final String testName = "PairRemovalList";
-        Map.Entry<String,String> processResult = classProcessor.processClass(className, classCode, testName, null);
+        Map.Entry<String,String> processResult = classProcessor.processClass(classCode, testName, null);
         String resultString = processResult.getValue();
         String markString = processResult.getKey();
         assertEquals("Задание выполнено", resultString);
@@ -100,7 +100,7 @@ public class PairRemovalListTestTest {
                         "    }\n" +
                         "}\n";
         final String testName = "PairRemovalList";
-        Map.Entry<String,String> processResult = classProcessor.processClass(className, classCode, testName, null);
+        Map.Entry<String,String> processResult = classProcessor.processClass(classCode, testName, null);
         String resultString = processResult.getValue();
         String markString = processResult.getKey();
         assertTrue(resultString.contains("Ожидаемый результат"));
@@ -117,7 +117,7 @@ public class PairRemovalListTestTest {
                         "   }" +
                         "}";
         final String testName = "PairRemovalList";
-        Map.Entry<String,String> processResult = classProcessor.processClass(className, classCode, testName, null);
+        Map.Entry<String,String> processResult = classProcessor.processClass(classCode, testName, null);
         String resultString = processResult.getValue();
         String markString = processResult.getKey();
         assertEquals("test timed out after 1000 milliseconds", resultString);

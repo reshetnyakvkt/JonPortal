@@ -134,7 +134,7 @@ public class TasksServiceImpl implements TasksService, ServletContextAware {
         Map.Entry<String, String> resultEntry;
         try {
             TaskTemplate template = templateRepository.findOne(taskDTO.getTaskTemplateId());
-            resultEntry = classProcessor.processClass(taskDTO.getClassName(), taskDTO.getCode(), template.getTestName(),
+            resultEntry = classProcessor.processClass(taskDTO.getCode(), template.getTestName(),
                     servletContext.getRealPath("/WEB-INF") + "/lib/" + coreJarName);
         } catch (CompilationException e) {
             resultEntry = e.getResult();

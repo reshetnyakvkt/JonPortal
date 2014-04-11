@@ -12,6 +12,7 @@ import org.junit.Test;
 import java.lang.reflect.Method;
 
 import static junit.framework.Assert.fail;
+import static junit.framework.TestCase.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
 /**
@@ -25,10 +26,11 @@ public class HelloWorldTest extends BaseTest {
         System.out.println("Hello world");
     }
 
+    private static final String UNIT_NAME = "HelloWorld";
     @UnitClass
-    private static Class unitClass;
+    private static Class[] unitClasses;
     @UnitName
-    private static String unitName;
+    private static String unitNames;
     @Unit
     private static String unitJarClasspath;
 
@@ -44,12 +46,20 @@ public class HelloWorldTest extends BaseTest {
 
     @Test(timeout = 1000)
     public void testCheckMainMethod() throws Throwable {
+        Class unitClass;
+        if(unitClasses.length != 1) {
+            unitClass = getUnitClass(unitClasses, UNIT_NAME);
+        } else {
+            unitClass = unitClasses[0];
+        }
+        assertNotNull("Нет класса " + UNIT_NAME, unitClass);
         ReflectionUtil.checkMainMethod(unitClass);
     }
 
+
     @Test(timeout = 1000)
     public void testClassMainMessage() throws Throwable {
-        ReflectionUtil.invokeMain(unitName, unitJarClasspath, "");
+        ReflectionUtil.invokeMain(UNIT_NAME, unitJarClasspath, "");
         String lineSeparator = System.lineSeparator();
         assertTrue("Метод main должен выводить в консоль сообщение \'Hello world\'", ("Hello world" + lineSeparator).equals(getIn().toString()));
     }

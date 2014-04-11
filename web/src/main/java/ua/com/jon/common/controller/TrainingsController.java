@@ -40,9 +40,16 @@ public class TrainingsController {
         modelMap.put("item","mitem4");
         return "trainings/assistant";
     }
+
     @RequestMapping("/trainings/newcomer.html")
     public String newcomerRules(ModelMap modelMap)  {
         modelMap.put("item","mitem6");
         return "trainings/newcomer";
+    }
+
+    @RequestMapping("/trainings/registration.html")
+    public String registration(ModelMap modelMap)  {
+        modelMap.put("item","mitem7");
+        return "trainings/registration";
     }
 }
