@@ -16,6 +16,7 @@ import ua.com.jon.admin.shared.TaskTemplateDTO;
 import ua.com.jon.admin.shared.UserDTO;
 import ua.com.jon.auth.domain.AssemblaSpace;
 import ua.com.jon.auth.domain.AssemblaUser;
+import ua.com.jon.auth.domain.UserRole;
 import ua.com.jon.auth.service.AuthService;
 import ua.com.jon.common.domain.Group;
 import ua.com.jon.common.domain.Sprint;
@@ -138,8 +139,9 @@ public class AdminServiceImpl implements AdminService {
             Group group = new Group(spaceDto.getName(), new Date(), false, new HashSet<User>(), spaceDto.getRepositoryUrl());
             Set<Group> groups = new HashSet<Group>();
             groups.add(group);
+            Set<UserRole> roles = new HashSet<UserRole>();
             for (String userName : nameSet) {
-                users.add(new User(userName, null, new Date(), groups));
+                users.add(new User(userName, null, new Date(), groups, roles));
             }
             groupRepository.save(group);
 //            userRepository.save(users);
@@ -316,7 +318,8 @@ public class AdminServiceImpl implements AdminService {
         if (user == null) {
             Set<Group> groups = new HashSet<Group>();
             groups.add(group);
-            user = new User(userName, null, new Date(), groups);
+            HashSet<UserRole> roles = new HashSet<UserRole>();
+            user = new User(userName, null, new Date(), groups, roles);
         }
         group.getUsers().add(user);
         user.getGroups().add(group);
@@ -335,9 +338,10 @@ public class AdminServiceImpl implements AdminService {
         Set<User> newUsers = new HashSet<User>();
         Set<Group> userGroups = new HashSet<Group>();
         userGroups.add(group);
+        Set<UserRole> roles = new HashSet<UserRole>();
         for (UserDTO user : users) {
             if (user.getId() == null) {
-                User newUser = new User(user.getName(), null, new Date(), userGroups);
+                User newUser = new User(user.getName(), null, new Date(), userGroups, roles);
                 newUsers.add(newUser);
                 userRepository.save(newUser);
             }

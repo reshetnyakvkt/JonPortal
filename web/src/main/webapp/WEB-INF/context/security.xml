@@ -11,7 +11,7 @@
     <!--<http pattern="/" security="none"/>-->
 
     <http use-expressions="true">
-        <intercept-url pattern="/admin/*.*" access="isAuthenticated()" />
+        <intercept-url pattern="/admin/*.*" access="hasRole('ROLE_ADMIN')" />
         <intercept-url pattern="/cabinet/*.*" access="isAuthenticated()" />
         <!--<intercept-url pattern="/**" access="hasRole('IS_AUTHENTICATED_ANONYMOUSLY')" />-->
         <!--<intercept-url pattern="/*.html" access="hasRole('sprintEvent')" />-->

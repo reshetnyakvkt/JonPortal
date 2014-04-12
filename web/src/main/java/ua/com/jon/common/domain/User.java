@@ -1,8 +1,13 @@
 package ua.com.jon.common.domain;
 
+import ua.com.jon.auth.domain.UserRole;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -47,14 +52,19 @@ public class User {
     //@JoinColumn(name = "GROUP_ID")
     private Set<Group> groups = new HashSet<Group>();
 
+    @ElementCollection
+    @Enumerated(EnumType.STRING)
+    private Set<UserRole> roles = new HashSet<UserRole>();
+
     public User() {
     }
 
-    public User(String login, String password, Date regDate, Set<Group> groups) {
+    public User(String login, String password, Date regDate, Set<Group> groups, Set<UserRole>  roles) {
         this.login = login;
         this.password = password;
         this.regDate = regDate;
         this.groups = groups;
+        this.roles = roles;
     }
 
     public Long getId() {
@@ -119,6 +129,14 @@ public class User {
 
     public void setMail(String mail) {
         this.mail = mail;
+    }
+
+    public Set<UserRole> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(Set<UserRole> role) {
+        this.roles = role;
     }
 
     @Override

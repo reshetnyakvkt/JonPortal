@@ -29,6 +29,10 @@ public interface UserRepository extends CrudRepository<User, Long> {
     @Query("select u from User u where u.login = :name")
     User findByUserName(@Param("name") String name);
 
+    @Query("select u from User u LEFT JOIN FETCH u.roles rs LEFT JOIN FETCH u.groups gs " +
+            "LEFT JOIN FETCH u.tasks ts where u.login = :userName")
+    User findByUserNameWithRoles(@Param("userName") String userName);
+
     //@Query("select u from User u where u.login = :name")
     User findByLoginAndPassword(@Param("login") String login, @Param("password") String password);
 

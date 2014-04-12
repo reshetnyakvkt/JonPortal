@@ -2,6 +2,8 @@ package ua.com.jon.auth.service;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -11,6 +13,7 @@ import ua.com.jon.auth.domain.AssemblaSpace;
 import ua.com.jon.auth.domain.AssemblaSpaces;
 import ua.com.jon.auth.domain.AssemblaUser;
 import ua.com.jon.auth.domain.SpringUser;
+import ua.com.jon.auth.domain.UserRole;
 import ua.com.jon.auth.exceptions.RestException;
 import ua.com.jon.auth.util.UserMapper;
 import ua.com.jon.common.domain.User;
@@ -18,8 +21,11 @@ import ua.com.jon.common.repository.UserRepository;
 import ua.com.jon.utils.RestClient;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Created with IntelliJ IDEA.
@@ -57,12 +63,16 @@ public class AuthServiceImpl implements UserDetailsService, AuthService {
     @Override
     public UserDetails loadUserByUsername(String userName) throws UsernameNotFoundException {
         log.info("User login: " + userName);
-        SpringUser springUser;
+        UserDetails springUser;
         try {
             //AssemblaUser assemblaUser = restClient.getAssemblaUser(userName);
             //user = UserMapper.convertAssemblaToSpring(assemblaUser);
-            User user = userRepository.findByUserName(userName);
-            springUser = UserMapper.convertDBToSpring(user);
+            User user = userRepository.findByUserNameWithRoles(userName);
+            Set<GrantedAuthority> roles = new HashSet();
+            for (UserRole role : user.getRoles()) {
+                roles.add(new SimpleGrantedAuthority(role.name()));
+            }
+            springUser = UserMapper.convertDBToSpring(user, roles);
         } catch (ResourceAccessException e) {
             springUser = new SpringUser(userName, userName);
         } catch (Exception e) {
@@ -146,7 +156,7 @@ public class AuthServiceImpl implements UserDetailsService, AuthService {
 
     @Override
     public void createNewUser(String login, String password) {
-        User user = new User(login, password, new Date(), null);
+        User user = new User(login, password, new Date(), null, Collections.singleton(UserRole.USER));
         userRepository.save(user);
     }
 

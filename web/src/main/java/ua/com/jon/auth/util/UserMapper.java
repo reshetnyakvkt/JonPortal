@@ -1,12 +1,14 @@
 package ua.com.jon.auth.util;
 
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 import ua.com.jon.admin.shared.UserDTO;
 import ua.com.jon.auth.domain.AssemblaUser;
-import ua.com.jon.auth.domain.SpringUser;
 import ua.com.jon.common.domain.User;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Created with IntelliJ IDEA.
@@ -14,8 +16,8 @@ import java.util.List;
  * Date: 3/30/13
  */
 public class UserMapper {
-    public static SpringUser convertAssemblaToSpring(AssemblaUser assemblaUser) {
-        return new SpringUser(assemblaUser.getLogin(), assemblaUser.getLogin());
+    public static UserDetails convertAssemblaToSpring(AssemblaUser assemblaUser) {
+        return new org.springframework.security.core.userdetails.User(assemblaUser.getLogin(), assemblaUser.getLogin(), null);
     }
 
     public static ArrayList<UserDTO> assemblaToDtos(List<AssemblaUser> assemblaUsers) {
@@ -31,7 +33,7 @@ public class UserMapper {
 
     }
 
-    public static SpringUser convertDBToSpring(User dbUser) {
-        return new SpringUser(dbUser.getLogin(), dbUser.getPassword());
+    public static UserDetails convertDBToSpring(User dbUser, Set<GrantedAuthority> roles) {
+        return new org.springframework.security.core.userdetails.User(dbUser.getLogin(), dbUser.getPassword(), roles);
     }
 }
