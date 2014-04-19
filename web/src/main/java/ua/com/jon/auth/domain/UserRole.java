@@ -8,7 +8,7 @@ package ua.com.jon.auth.domain;
  * To change this template use File | Settings | File Templates.
  */
 public enum UserRole {
-    ADMIN,
+    ROLE_ADMIN,
     USER,
     ANONYMOUS
 }
