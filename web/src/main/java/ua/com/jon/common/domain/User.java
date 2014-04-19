@@ -2,20 +2,7 @@ package ua.com.jon.common.domain;
 
 import ua.com.jon.auth.domain.UserRole;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.ElementCollection;
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.ManyToMany;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
+import javax.persistence.*;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -52,7 +39,8 @@ public class User {
     //@JoinColumn(name = "GROUP_ID")
     private Set<Group> groups = new HashSet<Group>();
 
-    @ElementCollection
+    @ElementCollection(targetClass=UserRole.class, fetch= FetchType.EAGER)
+    @Column(length=32, nullable=false )
     @Enumerated(EnumType.STRING)
     private Set<UserRole> roles = new HashSet<UserRole>();
 
