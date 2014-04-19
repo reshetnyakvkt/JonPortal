@@ -15,6 +15,10 @@
                 <b:TabPane heading="Задания Группы">
                     <g:FlowPanel ui:field="groupTasksHolderPanel"/>
                 </b:TabPane>
+
+                <b:TabPane heading="Группа">
+                    <g:FlowPanel ui:field="groupInfoHolderPanel"/>
+                </b:TabPane>
             </b:TabPanel>
         </b:Container>
     </g:HTMLPanel>

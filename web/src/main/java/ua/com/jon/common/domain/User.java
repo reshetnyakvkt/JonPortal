@@ -39,6 +39,9 @@ public class User {
     //@JoinColumn(name = "GROUP_ID")
     private Set<Group> groups = new HashSet<Group>();
 
+    @ManyToMany
+    private Set<Sprint> sprints = new HashSet<Sprint>();
+
     @ElementCollection(targetClass=UserRole.class, fetch= FetchType.EAGER)
     @Column(length=32, nullable=false )
     @Enumerated(EnumType.STRING)
@@ -127,13 +130,26 @@ public class User {
         this.roles = role;
     }
 
+    public Set<Sprint> getSprints() {
+        return sprints;
+    }
+
+    public void setSprints(Set<Sprint> sprints) {
+        this.sprints = sprints;
+    }
+
     @Override
     public String toString() {
         return "User{" +
                 "id=" + id +
                 ", login='" + login + '\'' +
                 ", password='" + password + '\'' +
+                ", mail='" + mail + '\'' +
                 ", regDate=" + regDate +
+                ", tasks=" + tasks +
+                ", groups=" + groups +
+                ", sprints=" + sprints +
+                ", roles=" + roles +
                 '}';
     }
 }

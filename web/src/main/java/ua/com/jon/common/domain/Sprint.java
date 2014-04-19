@@ -2,6 +2,7 @@ package ua.com.jon.common.domain;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -29,6 +30,9 @@ public class Sprint {
     @OneToMany(cascade = {CascadeType.ALL}, fetch = FetchType.EAGER)
     @JoinColumn(name = "TASK_TEMPLATE_ID")
     private List<TaskTemplate> tasks;
+
+    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH}, mappedBy = "sprints")
+    private Set<User> users = new HashSet<User>();
 
     @Temporal(TemporalType.DATE)
     private Date endDate;
@@ -109,13 +113,24 @@ public class Sprint {
         return id.hashCode();
     }
 
+    public Set<User> getUsers() {
+        return users;
+    }
+
+    public void setUsers(Set<User> users) {
+        this.users = users;
+    }
+
     @Override
     public String toString() {
         return "Sprint{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", active=" + active +
-                ", tasks=" + tasks.size() +
+                ", type=" + type +
+                ", tasks=" + tasks +
+                ", users=" + users +
+                ", endDate=" + endDate +
                 '}';
     }
 }
