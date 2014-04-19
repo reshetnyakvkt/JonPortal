@@ -242,11 +242,11 @@ public class TasksServiceImpl implements TasksService, ServletContextAware {
     @Override
     public String getSpringUserName() {
         Object authentication = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        SpringUser springUser;
+        org.springframework.security.core.userdetails.User springUser;
         if (authentication instanceof String) {
             throw new SecurityException("can't grant access to anonymous ");
         }
-        springUser = (SpringUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        springUser = (org.springframework.security.core.userdetails.User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         return springUser.getUsername();
     }
 
