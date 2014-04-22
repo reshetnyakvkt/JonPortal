@@ -1,10 +1,6 @@
 package ua.com.jon.cabinet.client.components;
 
-import com.github.gwtbootstrap.client.ui.Button;
-import com.github.gwtbootstrap.client.ui.CellTable;
-import com.github.gwtbootstrap.client.ui.Label;
-import com.github.gwtbootstrap.client.ui.ProgressBar;
-import com.github.gwtbootstrap.client.ui.ValueListBox;
+import com.github.gwtbootstrap.client.ui.*;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.text.shared.AbstractRenderer;
@@ -21,21 +17,14 @@ import com.google.gwt.view.client.SelectionChangeEvent;
 import com.google.gwt.view.client.SingleSelectionModel;
 import ua.com.jon.cabinet.client.TasksService;
 import ua.com.jon.cabinet.client.TasksServiceAsync;
-import ua.com.jon.cabinet.shared.GroupDTO;
-import ua.com.jon.cabinet.shared.NotificationEvent;
-import ua.com.jon.cabinet.shared.NotificationEventHandler;
-import ua.com.jon.cabinet.shared.SprintDTO;
-import ua.com.jon.cabinet.shared.TaskDTO;
+import ua.com.jon.cabinet.shared.*;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 /**
  * Created with IntelliJ IDEA.
  * User: sergey
  * Date: 19.04.14
- * Time: 21:37
- * To change this template use File | Settings | File Templates.
  */
 public class GroupInfoTabPanel extends Composite {
     @UiField
@@ -44,11 +33,13 @@ public class GroupInfoTabPanel extends Composite {
     @UiField
     ProgressBar sprintsProgress;
 
+/*
     @UiField
-    CellTable<TaskDTO> cellTable = new CellTable<TaskDTO>(5, GWT.<CellTable.SelectableResources>create(CellTable.SelectableResources.class));
- /*
+    CellTable<TaskDTO> studentsGrid = new CellTable<TaskDTO>(5, GWT.<CellTable.SelectableResources>create(CellTable.SelectableResources.class));
+*/
+
     @UiField
-    DataGrid<UserDTO> students = new DataGrid<UserDTO>();*/
+    DataGrid<List<String>> studentsGrid = new DataGrid<List<String>>(20, GWT.<DataGrid.SelectableResources>create(DataGrid.SelectableResources.class));
 
     @UiField(provided=true)
     ValueListBox<GroupDTO> groupsListBox = new ValueListBox<GroupDTO>(new AbstractRenderer<GroupDTO>() {
@@ -62,73 +53,74 @@ public class GroupInfoTabPanel extends Composite {
         }
     });
 
-    private ListDataProvider<TaskDTO> dataProvider = new ListDataProvider<TaskDTO>();
+    private ListDataProvider<List<String>> dataProvider = new ListDataProvider<List<String>>();
 
     private TasksServiceAsync adminService = GWT.create(TasksService.class);
 
     public GroupInfoTabPanel(final UiBinder<Widget, GroupInfoTabPanel> binder) {
         initWidget(binder.createAndBindUi(this));
-        buildTable();
-        loadTasks();
+        buildTable(new HashSet<String>());
+        //loadGroupAndUsers();
+        studentsGrid.setEmptyTableWidget(new Label("Please add data."));
 
         RootPanel.CABINET_EVENT_BUS.addHandler(NotificationEvent.TYPE, new NotificationEventHandler()     {
             @Override
             public void onNotificationChanged(NotificationEvent authenticationEvent) {
-                loadTasks();
+                //loadGroupAndUsers();
             }
         });
     }
 
-    public void buildTable() {
-        cellTable.setEmptyTableWidget(new Label("Please add data."));
-        dataProvider.addDataDisplay(cellTable);
+    public void buildTable(Set<String> sprints) {
+        final int userNameIdx = 0;
+        final int globalRateIdx = 1;
+        //studentsGrid.setEmptyTableWidget(new Label("Please add data."));
+        dataProvider.addDataDisplay(studentsGrid);
 
-
-        cellTable.addColumn(new TextColumn<TaskDTO>() {
+        studentsGrid.addColumn(new TextColumn<List<String>>() {
             @Override
-            public String getValue(TaskDTO taskDTO) {
-                return String.valueOf(taskDTO.getName());
-            }
-        }, "Название");
-
-        cellTable.addColumn(new TextColumn<TaskDTO>() {
-            @Override
-            public String getValue(TaskDTO taskDTO) {
-                return String.valueOf(taskDTO.getUserName());
+            public String getValue(List<String> userList) {
+                return String.valueOf(userList.get(userNameIdx));
             }
         }, "Студент");
 
-        cellTable.addColumn(new TextColumn<TaskDTO>() {
-            @Override
-            public String getValue(TaskDTO taskDTO) {
-                String result = taskDTO.getResult();
-                int newLinePos = result.indexOf('\n');
-                return String.valueOf(taskDTO.getResult().substring(0, newLinePos));
-            }
-        }, "Оценка");
 
-        cellTable.addColumn(new TextColumn<TaskDTO>() {
+        studentsGrid.addColumn(new TextColumn<List<String>>() {
             @Override
-            public String getValue(TaskDTO taskDTO) {
-                return String.valueOf(taskDTO.getRate());
+            public String getValue(List<String> userList) {
+                return String.valueOf(userList.get(globalRateIdx));
             }
-        }, "Рейтинг");
+        }, "Общий рейтинг");
 
-        final SingleSelectionModel<TaskDTO> selectionModel = new SingleSelectionModel<TaskDTO>();
-        cellTable.setSelectionModel(selectionModel);
+        int i = 0;
+        for (Iterator<String> itr = sprints.iterator(); itr.hasNext(); i++) {
+            String sprintName = itr.next();
+            final int sprintIdx = i;
+            studentsGrid.addColumn(new TextColumn<List<String>>() {
+                private int columnIdx = sprintIdx;
+                @Override
+                public String getValue(List<String> userList) {
+                    return String.valueOf(userList.get(columnIdx));
+                }
+            }, sprintName);
+        }
+
+        final SingleSelectionModel<List<String>> selectionModel = new SingleSelectionModel<List<String>>();
+        studentsGrid.setSelectionModel(selectionModel);
         selectionModel.addSelectionChangeHandler(
                 new SelectionChangeEvent.Handler() {
                     public void onSelectionChange(SelectionChangeEvent event) {
-                        TaskDTO selected = selectionModel.getSelectedObject();
+                        List<String> selected = selectionModel.getSelectedObject();
                         if (selected != null) {
-                            String code = selected.getCode();
+                            String login = selected.get(userNameIdx);
+                            Window.alert("Selected " + login);
                         }
                     }
                 });
     }
 
-    private void loadTasks() {
-        final AsyncCallback<ArrayList<TaskDTO>> groupCallback = new AsyncCallback<ArrayList<TaskDTO>>() {
+    private void loadGroupAndUsers() {
+        final AsyncCallback<ArrayList<UserDTO>> groupCallback = new AsyncCallback<ArrayList<UserDTO>>() {
 
             @Override
             public void onFailure(Throwable caught) {
@@ -137,20 +129,43 @@ public class GroupInfoTabPanel extends Composite {
             }
 
             @Override
-            public void onSuccess(ArrayList<TaskDTO> taskDTOs) {
+            public void onSuccess(ArrayList<UserDTO> usersDTOs) {
                 sprintsProgress.setVisible(false);
-                //Window.alert(taskDTOs.toString());
-                addSprintsToTable(taskDTOs);
+                for (UserDTO userDTO : usersDTOs) {
+                    Window.alert(userDTO.toString());
+                }
+                List<List<String>> sprintNames = new ArrayList<List<String>>();
+                // TODO fill
+                if(usersDTOs != null && usersDTOs.size() > 0) {
+                    Set<String> sprints = usersDTOs.get(0).getMarks().keySet();
+
+                    for (String sprintName : sprints) {
+                        sprintNames.add(Arrays.asList(sprintName));
+                    }
+                    addSprintsToTable(sprintNames);
+                    buildTable(sprints);
+                }
             }
         };
 /*        if(userPanel.getSelectedTaskTemplateId() != null) {
             adminService.getTasksByUserGroup(userPanel.getSelectedTaskTemplateId(), userPanel.getSelectedGroup().getId(),
                     userPanel.getSelectedSprint().getId(), groupCallback);
         }*/
+        HashMap<String, Integer> marks = new HashMap<String, Integer>();
+        marks.put("1", 50);
+        marks.put("2", 75);
+        marks.put("3", 100);
+        HashMap<String, Boolean> presents = new HashMap<String, Boolean>();
+        presents.put("1", true);
+        presents.put("2", false);
+        presents.put("3", true);
+        UserDTO user1 = new UserDTO("user1", marks, presents);
+        ArrayList<UserDTO> usersDTOs = new ArrayList<UserDTO>();
+        usersDTOs.add(user1);
+        groupCallback.onSuccess(usersDTOs);
     }
 
-    private void addSprintsToTable(List<TaskDTO> tasks) {
-//        dataProvider.addDataDisplay(cellTable);
+    private void addSprintsToTable(List<List<String>> tasks) {
         dataProvider.setList(tasks);
 /*
         TaskDTO last = null;
@@ -166,7 +181,7 @@ public class GroupInfoTabPanel extends Composite {
 
     @UiHandler("refreshGroupsBtn")
     public void refreshSprintsHandler(ClickEvent e) {
-        loadTasks();
+        loadGroupAndUsers();
     }
 
     private void relocateTasks(List<SprintDTO> loadedSprints) {

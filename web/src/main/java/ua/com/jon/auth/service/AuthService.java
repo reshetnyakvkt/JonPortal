@@ -29,7 +29,7 @@ public interface AuthService {
 
     List<AssemblaSpace> getSpaces();
 
-    void createNewUser(String login, String password);
+    User createNewUser(String login, String password);
 
     User getUserFromDBByName(String login);
 

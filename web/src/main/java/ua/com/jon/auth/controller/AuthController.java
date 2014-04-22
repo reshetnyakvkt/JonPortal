@@ -101,7 +101,7 @@ public class AuthController {
         try {
             User user = authService.getUserFromDBByName(login);
             if (user == null) {
-                authService.createNewUser(login, password);
+                user = authService.createNewUser(login, password);
             } else if (user.getPassword() == null || user.getPassword().equals("") ||
                     user.getLogin().equals(user.getPassword())) {
                 user.setPassword(password);

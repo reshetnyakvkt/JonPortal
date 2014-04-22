@@ -155,9 +155,9 @@ public class AuthServiceImpl implements UserDetailsService, AuthService {
     }
 
     @Override
-    public void createNewUser(String login, String password) {
+    public User createNewUser(String login, String password) {
         User user = new User(login, password, new Date(), null, Collections.singleton(UserRole.USER));
-        userRepository.save(user);
+        return userRepository.save(user);
     }
 
     @Override
