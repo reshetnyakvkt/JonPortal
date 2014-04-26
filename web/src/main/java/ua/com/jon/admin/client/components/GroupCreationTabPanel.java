@@ -36,8 +36,8 @@ import java.util.List;
  * User: al1
  * Date: 7/2/13
  */
-public class UsersTabPanel extends Composite {
-/*    interface UserTabPanelUiBinder extends UiBinder<Widget, UsersTabPanel> {
+public class GroupCreationTabPanel extends Composite {
+/*    interface UserTabPanelUiBinder extends UiBinder<Widget, GroupCreationTabPanel> {
     }
 
     private static UserTabPanelUiBinder uiBinder = GWT.create(UserTabPanelUiBinder.class);*/
@@ -79,7 +79,7 @@ public class UsersTabPanel extends Composite {
         }
     });
 
-    public UsersTabPanel(final UiBinder<Widget, UsersTabPanel> binder, GlobalData globalData) {
+    public GroupCreationTabPanel(final UiBinder<Widget, GroupCreationTabPanel> binder, GlobalData globalData) {
         this.globalData = globalData;
         initWidget(binder.createAndBindUi(this));
         loadSpaces();

@@ -23,8 +23,8 @@ public class RootPanel extends Composite {
     interface TasksTabPanelUiBinder extends UiBinder<Widget, TasksTabPanel> {
     }
 
-    @UiTemplate("UsersTabPanel.ui.xml")
-    interface UsersTabPanelUiBinder extends UiBinder<Widget, UsersTabPanel> {
+    @UiTemplate("GroupCreationTabPanel.ui.xml")
+    interface UsersTabPanelUiBinder extends UiBinder<Widget, GroupCreationTabPanel> {
     }
 
     @UiTemplate("TasksManageTabPanel.ui.xml")
@@ -68,13 +68,13 @@ public class RootPanel extends Composite {
         initWidget(rootUIBinder.createAndBindUi(this));
 
         TasksTabPanel tasksTabPanel = new TasksTabPanel(tasksUIBinder);
-        UsersTabPanel usersTabPanel = new UsersTabPanel(usersUIBinder, globalData);
+        GroupCreationTabPanel groupCreationTabPanel = new GroupCreationTabPanel(usersUIBinder, globalData);
         TasksManageTabPanel tasksManageTabPanel = new TasksManageTabPanel(tasksManageUIBinder);
         SprintsTabPanel sprintsTabPanel = new SprintsTabPanel(sprintsUIBinder);
         GroupsManageTabPanel groupsManageTabPanel = new GroupsManageTabPanel(groupsManageUIBinder, globalData);
 
         tasksHolderPanel.add(tasksTabPanel);
-        usersHolderPanel.add(usersTabPanel);
+        usersHolderPanel.add(groupCreationTabPanel);
         tasksManageHolderPanel.add(tasksManageTabPanel);
         sprintsHolderPanel.add(sprintsTabPanel);
         groupsManageHolderPanel.add(groupsManageTabPanel);

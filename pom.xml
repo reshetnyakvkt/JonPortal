@@ -336,6 +336,12 @@
             <version>2.1.1</version>
         </dependency>
 
+      <dependency>
+        <groupId>org.kohsuke</groupId>
+        <artifactId>github-api</artifactId>
+        <version>1.51</version>
+      </dependency>
+
     </dependencies>
 
 <!--    <build>
