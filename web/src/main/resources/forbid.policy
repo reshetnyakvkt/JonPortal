@@ -10,5 +10,4 @@ grant {
    //permission java.io.FilePermission ".class", "read";
    permission java.lang.RuntimePermission "accessDeclaredMembers", "read";
    permission java.lang.RuntimePermission "setIO", "write";
-
 };

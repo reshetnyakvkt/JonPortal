@@ -57,6 +57,7 @@ public class ExamineUiBinder extends Composite {
             }
         }
     });
+    private boolean isTestButtonsDisabled;
 
     interface ExampleUiBinderUiBinder extends UiBinder<HTMLPanel, ExamineUiBinder> {
     }
@@ -233,12 +234,19 @@ public class ExamineUiBinder extends Composite {
                         //dataProvider.flush();
                         dataProvider.refresh();
                         //restructureTable(null);
+                        isTestButtonsDisabled = false;
                     }
                 };
+                if(taskDTO.getCode().length() > 50000) {
+                    Window.alert("Исходный код задания не может быть больше 50000 символов");
+                    return;
+                }
                 taskDTO.setText("");
                 taskDTO.setResult("");
-
-                tasksService.postForTest(taskDTO, callback);
+                if(!isTestButtonsDisabled) {
+                    tasksService.postForTest(taskDTO, callback);
+                }
+                isTestButtonsDisabled = true;
             }
         });
 
@@ -254,6 +262,10 @@ public class ExamineUiBinder extends Composite {
         };
 
         cellTable.addColumn(resultColumn, "Результат");
+    }
+
+    private void disableTestButtons() {
+
     }
 
     public enum TaskType {

@@ -141,8 +141,8 @@ public class TaskTemplate {
                 ", materials=" + materials +
                 ", className='" + className + '\'' +
                 ", tasks=" + tasks +
-                ", sprint=" + sprint +
-                ", type=" + type +
+                ", sprint=" + (sprint==null?"":sprint.getName()) +
+                ", type=" + (type==null?"":type.name()) +
                 ", testName='" + testName + '\'' +
                 '}';
     }

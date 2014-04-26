@@ -129,7 +129,6 @@ public class Sprint {
                 ", active=" + active +
                 ", type=" + type +
                 ", tasks=" + tasks +
-                ", users=" + users +
                 ", endDate=" + endDate +
                 '}';
     }

@@ -1,6 +1,7 @@
 package ua.com.jon.tests;
 
 import com.jon.tron.service.junit.Unit;
+import com.jon.tron.service.junit.UnitClass;
 import com.jon.tron.service.junit.UnitName;
 import com.jon.tron.service.reflect.JavaProcessBuilder;
 import org.junit.After;
@@ -10,6 +11,7 @@ import org.junit.Test;
 import java.lang.reflect.Method;
 
 import static junit.framework.Assert.assertEquals;
+import static junit.framework.Assert.fail;
 
 /**
  * Created with IntelliJ IDEA.
@@ -24,10 +26,13 @@ public class GreetingTest extends BaseTest {
         System.out.println("Здравствуйте " + name);
     }
 
+    @UnitClass
+    private static Class[] unitClasses;
     @UnitName
-    private static String unitName;
+    private static String[] unitNames;
     @Unit
     private static String unitJarClasspath;
+
     private Object instance;
     private String[] names = {"Oksana", "Vampu", "Sinaps", "Maika"};
 
@@ -48,7 +53,10 @@ public class GreetingTest extends BaseTest {
 //        instance = instanciate(unitJarClasspath);
         String name = names[rnd.nextInt(names.length)];
         //getOut().print(name);
-        JavaProcessBuilder.buildProcessAndInvokeMethod(unitName, "main", "/forbid.policy", unitJarClasspath,
+        if(unitNames.length > 1) {
+            fail("В задании должен быть только один класс");
+        }
+        JavaProcessBuilder.buildProcessAndInvokeMethod(unitNames[0], "main", "/forbid.policy", unitJarClasspath,
                 name, (Object) new String[0]);
         //invokeMain(unitJarClasspath, unitName);
         String expectedString = "Здравствуйте " + name + lineSeparator;

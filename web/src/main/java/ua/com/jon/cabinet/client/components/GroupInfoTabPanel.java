@@ -74,7 +74,7 @@ public class GroupInfoTabPanel extends Composite {
     public void buildTable(Set<String> sprints) {
         final int userNameIdx = 0;
         final int globalRateIdx = 1;
-        //studentsGrid.setEmptyTableWidget(new Label("Please add data."));
+        studentsGrid.setEmptyTableWidget(new Label("Please add data."));
         dataProvider.addDataDisplay(studentsGrid);
 
         studentsGrid.addColumn(new TextColumn<List<String>>() {

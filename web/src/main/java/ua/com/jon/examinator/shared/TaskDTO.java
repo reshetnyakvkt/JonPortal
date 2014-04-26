@@ -10,6 +10,7 @@ import java.io.Serializable;
  * Date: 4/10/13
  */
 public class TaskDTO implements Serializable {
+
     private Long id;
     private String text;
     private String name;
@@ -19,8 +20,13 @@ public class TaskDTO implements Serializable {
     private String type;
     private String userName;
     private String className;
+    private Long taskTemplateId;
+    private Long groupId;
+    private String material;
+    private Double rate;
 
-    public TaskDTO(Long id, String text, String name, String status, String result, String code, String type, String userName, String className) {
+    public TaskDTO(Long id, String text, String name, String status, String result, String code, String type,
+                   String userName, String className, Long taskTemplateId, String material, Long groupId, Double rate) {
         this.id = id;
         this.text = text;
         this.name = name;
@@ -30,6 +36,10 @@ public class TaskDTO implements Serializable {
         this.type = type;
         this.userName = userName;
         this.className = className;
+        this.taskTemplateId = taskTemplateId;
+        this.material = material;
+        this.groupId = groupId;
+        this.rate = rate;
     }
 
     public TaskDTO() {
@@ -45,7 +55,11 @@ public class TaskDTO implements Serializable {
                 taskDTO.getCode(),
                 taskDTO.getType(),
                 taskDTO.getUserName(),
-                taskDTO.getUserName());
+                taskDTO.getClassName(),
+                taskDTO.getTaskTemplateId(),
+                taskDTO.getMaterial(),
+                taskDTO.getGroupId(),
+                taskDTO.getRate());
     }
 
     public Long getId() {
@@ -120,6 +134,38 @@ public class TaskDTO implements Serializable {
         this.className = className;
     }
 
+    public Long getTaskTemplateId() {
+        return taskTemplateId;
+    }
+
+    public void setTaskTemplateId(Long taskTemplateId) {
+        this.taskTemplateId = taskTemplateId;
+    }
+
+    public String getMaterial() {
+        return material;
+    }
+
+    public void setMaterial(String material) {
+        this.material = material;
+    }
+
+    public Long getGroupId() {
+        return groupId;
+    }
+
+    public void setGroupId(Long groupId) {
+        this.groupId = groupId;
+    }
+
+    public Double getRate() {
+        return rate;
+    }
+
+    public void setRate(Double rate) {
+        this.rate = rate;
+    }
+
     @Override
     public String toString() {
         return "TaskDTO{" +
@@ -132,6 +178,8 @@ public class TaskDTO implements Serializable {
                 ", type='" + type + '\'' +
                 ", userName='" + userName + '\'' +
                 ", className='" + className + '\'' +
+                ", taskTemplateId=" + taskTemplateId +
+                ", material='" + material + '\'' +
                 '}';
     }
 }
