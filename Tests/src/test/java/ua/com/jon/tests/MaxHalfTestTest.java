@@ -30,9 +30,9 @@ public class MaxHalfTestTest {
         final String className = "";
         final String classCode = "import java.util.Scanner;\n" +
                 "\n" +
-                "public class ArrayToArrayOccurrence {\n" +
+                "public class MaxHalf {\n" +
                 "\n" +
-                "    public static void main(String[] args) {\n" +
+                "    public void printMaxHalf(int[] vector) {\n" +
                 "        Scanner scan = new Scanner(System.in);\n" +
                 "        String firstLine = scan.nextLine();\n" +
                 "        String secondLine = scan.nextLine();\n" +
@@ -57,7 +57,7 @@ public class MaxHalfTestTest {
                 "        }\n" +
                 "    }\n" +
                 "}\n";
-        final String testName = "ArrayToArrayOccurrence";
+        final String testName = "MaxHalfTest";
         Map.Entry<String,String> processResult = classProcessor.processClass(classCode, testName, null);
         String resultString = processResult.getValue();
         String markString = processResult.getKey();
@@ -65,7 +65,47 @@ public class MaxHalfTestTest {
         assertEquals("100", markString);
     }
 
-    //@Test
+    @Test
+    public void testUnsuccess() throws Exception {
+        final String className = "";
+        final String classCode = "import java.util.Scanner;\n" +
+                "\n" +
+                "public class MaxHalf {\n" +
+                "\n" +
+                "    public void printMaxHalf(int[] vector) {\n" +
+                "        Scanner scan = new Scanner(System.in);\n" +
+                "        String firstLine = scan.nextLine();\n" +
+                "        String secondLine = scan.nextLine();\n" +
+                "\n" +
+                "        String[] first = firstLine.split(\" \");\n" +
+                "        String[] second = secondLine.split(\" \");\n" +
+                "        int numberEquals = 0;\n" +
+                "\n" +
+                "        for(int i=0; i<second.length; i++){\n" +
+                "            for(int j=i; j<first.length; j++){\n" +
+                "                if(second[i].equals(first[j])){\n" +
+                "                    numberEquals += 1;\n" +
+                "                    break;\n" +
+                "                }\n" +
+                "            }\n" +
+                "        }\n" +
+                "\n" +
+                "        if(numberEquals == second.length){\n" +
+                "            System.out.println(\"да\");\n" +
+                "        }else{\n" +
+                "            System.out.println(\"нет\");\n" +
+                "        }\n" +
+                "    }\n" +
+                "}\n";
+        final String testName = "MaxHalfTest";
+        Map.Entry<String,String> processResult = classProcessor.processClass(classCode, testName, null);
+        String resultString = processResult.getValue();
+        String markString = processResult.getKey();
+        assertEquals("Задание выполнено", resultString);
+        assertEquals("10", markString);
+    }
+
+    @Test
     public void testNoOut() throws Exception {
         final String className = "ArrayToArrayOccurrence";
         final String classCode =
@@ -73,18 +113,18 @@ public class MaxHalfTestTest {
                         "\n" +
                         "import java.util.Scanner;\n" +
                         "\n" +
-                        "public class ArrayToArrayOccurrence {\n" +
+                        "public class MaxHalf {\n" +
                         "\n" +
-                        "    public static void method(){\n" +
+                        "    public static void printMaxHalf(){\n" +
                         "        Scanner scan = new Scanner(System.in);\n" +
                         "        String listStr = scan.nextLine();\n" +
                         "    }\n" +
                         "\n" +
                         "    public static void main(String[] args) {\n" +
-                        "        ArrayToArrayOccurrence.method();\n" +
+                        "        MaxHalf.printMaxHalf();\n" +
                         "    }\n" +
                         "}\n";
-        final String testName = "ArrayToArrayOccurrence";
+        final String testName = "MaxHalfTest";
         Map.Entry<String,String> processResult = classProcessor.processClass(classCode, testName, null);
         String resultString = processResult.getValue();
         String markString = processResult.getKey();

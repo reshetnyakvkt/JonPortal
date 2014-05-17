@@ -18,7 +18,8 @@ import java.util.ArrayList;
 public interface TasksService extends RemoteService {
     String greet(String name);
     ArrayList<TaskDTO> getUserTasks();
-    void taskStatusChanged(TaskDTO dto);
+    String dispatchTaskChecking(TaskDTO dto);
+    String taskStatusChanged(TaskDTO dto);
     ArrayList<SprintDTO> getSprints(GroupDTO selectedGroup);
     String postForTest(TaskDTO taskDTO);
     ArrayList<TaskDTO> getTasksByUserGroup(Long taskTemplateId, Long selectedGroupId, Long selectedSprintId);

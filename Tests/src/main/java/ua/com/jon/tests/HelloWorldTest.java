@@ -21,7 +21,7 @@ import static org.junit.Assert.assertTrue;
  * User: al1
  * Date: 3/8/13
  */
-@Unit(testName = "HelloWorld", value = "weekend1.task1")
+@Unit(testName = "HelloWorld", value = "checked.HelloWorld")
 public class HelloWorldTest extends BaseTest {
     public static void main(String[] args) {
         System.out.println("Hello world");

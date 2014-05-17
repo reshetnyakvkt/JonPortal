@@ -162,6 +162,41 @@ public class GroupCreationTabPanel extends Composite {
         adminService.getSpaces(groupCallback);
     }
 
+    private void loadGitHubRepos() {
+        final AsyncCallback<ArrayList<SpaceDTO>> groupCallback = new AsyncCallback<ArrayList<SpaceDTO>>() {
+
+            @Override
+            public void onFailure(Throwable caught) {
+                spacesProgress.setVisible(false);
+                spacesListBox.setVisible(true);
+                Window.alert("Error callback groupsListBox");
+            }
+
+            @Override
+            public void onSuccess(ArrayList<SpaceDTO> spaceDTOs) {
+                spacesProgress.setVisible(false);
+                spacesListBox.setVisible(true);
+//                Window.alert(spaceDTOs.toString());
+                spacesListBox.setAcceptableValues(spaceDTOs);
+                globalData.setSpacesDtos(spaceDTOs);
+/*                Window.alert("fireEvent");*/
+                RootPanel.ADMIN_EVENT_BUS.fireEvent(new AdminNotificationEvent());
+//                for (SpaceDTO spaceDTO : spaceDTOs) {
+//                    addTasksToSprintNavList(spaceDTO.getUsers());
+//                    spacesListBox.setValue(spaceDTO);
+//                }
+                if (spaceDTOs.size() > 0) {
+                    SpaceDTO spaceDTO = spaceDTOs.get(0);
+//                    Window.alert(spaceDTO.toString());
+                    addTasksToSprintNavList(spaceDTO.getUsers());
+                    spacesListBox.setValue(spaceDTO);
+                }
+            }
+        };
+
+        adminService.getGitHubRepos(groupCallback);
+    }
+
     @UiHandler("add")
     void handleAddClick(ClickEvent e) {
 

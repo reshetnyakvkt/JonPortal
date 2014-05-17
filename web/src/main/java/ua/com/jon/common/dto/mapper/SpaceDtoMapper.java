@@ -4,10 +4,12 @@ import ua.com.jon.admin.shared.SpaceDTO;
 import ua.com.jon.admin.shared.UserDTO;
 import ua.com.jon.auth.domain.AssemblaSpace;
 import ua.com.jon.auth.domain.AssemblaUser;
+import ua.com.jon.auth.domain.GitHubRepo;
 import ua.com.jon.auth.util.UserMapper;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Created with IntelliJ IDEA.
@@ -40,4 +42,21 @@ public class SpaceDtoMapper {
         }
         return spaces;
     }
+
+/*    public static ArrayList<SpaceDTO> reposToDtos(Set<GitHubRepo> repositoriesAndCollaborators) {
+        ArrayList<SpaceDTO> spaces = new ArrayList<SpaceDTO>(repositoriesAndCollaborators.size());
+        for (GitHubRepo repo : repositoriesAndCollaborators) {
+            spaces.add(repoToSpaceDto(null, repo));
+        }
+        return null;
+    }
+
+    private static SpaceDTO repoToSpaceDto(Long id, GitHubRepo repo) {
+        return new SpaceDTO(
+                id,
+                repo.getName(),
+                UserMapper.assemblaToDtos(users),
+                repo
+        );
+    }*/
 }

@@ -293,8 +293,8 @@ public class UserTasksTabPanel extends Composite {
                     sprintsListBox.setValue(currentSprint);
                     selectedSprint = currentSprint;
                 }
-                updateSprintRate();
                 updateCourseRate();
+                updateSprintRate();
             }
         };
 
@@ -341,7 +341,7 @@ public class UserTasksTabPanel extends Composite {
                     public void onSelectionChange(SelectionChangeEvent event) {
                         TaskDTO selected = selectionModel.getSelectedObject();
                         if (selected != null) {
-                            restructureTable(selected.getName());
+                            //restructureTable(selected.getName());
                             result.setText(selected.getResult());
                             taskText.setText(selected.getText());
                             //Window.alert("Select: " + selected);
@@ -367,8 +367,11 @@ public class UserTasksTabPanel extends Composite {
                 super.onBrowserEvent(context, parent, value, event, valueUpdater);
 
                 if (BrowserEvents.CHANGE.equals(event.getType())) {
+//                    Window.alert(event.getEventTarget().toString());
+//                    Window.alert(event.getCurrentEventTarget().toString());
+//                    Window.alert(event.getRelatedEventTarget().toString());
 
-                    SelectElement select = parent.getFirstChild().cast();
+/*                    SelectElement select = parent.getFirstChild().cast();
                     String newValue = select.getValue();
 
                     final TaskDTO dto = selectionModel.getSelectedObject();
@@ -380,9 +383,9 @@ public class UserTasksTabPanel extends Composite {
                         Window.alert("Для проверки измените статус задания на \"TEST\"");
                         return;
                     }
-                    dto.setStatus(newValue);
+                    dto.setStatus(newValue);*/
 
-                    tasksService.taskStatusChanged(dto, new AsyncCallback<Void>() {
+                    /*tasksService.taskStatusChanged(dto, new AsyncCallback<Void>() {
                         @Override
                         public void onFailure(Throwable throwable) {
                             Window.alert("Status changed with error");
@@ -392,7 +395,7 @@ public class UserTasksTabPanel extends Composite {
                         public void onSuccess(Void resTaskDto) {
                             //Window.alert("Status changed successfully");
                         }
-                    });
+                    });*/
                 }
             }
         };
@@ -404,9 +407,38 @@ public class UserTasksTabPanel extends Composite {
                 return taskDto.getStatus();
             }
         };
+        statusCol.setFieldUpdater(new FieldUpdater<TaskDTO, String>() {
+            @Override
+            public void update(int i, final TaskDTO taskDTO, String status) {
+                taskDTO.setStatus(status);
+                taskDTO.setText("");
+                taskDTO.setResult("");
+                if(taskDTO.getType().equals(TaskType.CLASS.name())) {
+                    taskDTO.setCode(code.getText());
+                }
+                //Window.alert("Update " + taskDTO);
+                tasksService.dispatchTaskChecking(taskDTO, new AsyncCallback<String>() {
+
+                    @Override
+                    public void onFailure(Throwable caught) {
+                        Window.alert(caught.getMessage());
+                    }
+
+                    @Override
+                    public void onSuccess(String testResult) {
+                        // Window.alert(testResult.toString());
+                        taskDTO.setResult(testResult);
+                        result.setText(testResult);
+                        //dataProvider.flush();
+                        dataProvider.refresh();
+                        //restructureTable(null);
+                    }
+                });
+            }
+        });
         cellTable.addColumn(statusCol, "Статус");
 
-        Column<TaskDTO, String> buttonTestCol = new Column<TaskDTO, String>(new ButtonCell(ButtonType.WARNING)) {
+/*        Column<TaskDTO, String> buttonTestCol = new Column<TaskDTO, String>(new ButtonCell(ButtonType.WARNING)) {
             @Override
             public String getValue(TaskDTO object) {
                 return "Проверить";
@@ -446,7 +478,7 @@ public class UserTasksTabPanel extends Composite {
             }
         });
 
-        cellTable.addColumn(buttonTestCol);
+        cellTable.addColumn(buttonTestCol);*/
 
         TextColumn<TaskDTO> resultColumn = new TextColumn<TaskDTO>() {
 

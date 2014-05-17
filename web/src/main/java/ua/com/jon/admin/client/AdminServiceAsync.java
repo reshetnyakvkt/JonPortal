@@ -53,5 +53,7 @@ public interface AdminServiceAsync {
     void deleteUser(Long userId, AsyncCallback<Void> async);
 
     void addStudentToGroup(String groupName, String userName, AsyncCallback<Void> async);
+
+    void getGitHubRepos(AsyncCallback<ArrayList<SpaceDTO>> groupCallback);
 }
 

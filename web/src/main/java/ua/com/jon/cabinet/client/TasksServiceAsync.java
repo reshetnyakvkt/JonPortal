@@ -16,7 +16,7 @@ import java.util.ArrayList;
 public interface TasksServiceAsync {
     void greet(String name, AsyncCallback<String> callback);
     void getUserTasks(AsyncCallback<ArrayList<TaskDTO>> async);
-    void taskStatusChanged(TaskDTO dto, AsyncCallback<Void> async);
+    void taskStatusChanged(TaskDTO dto, AsyncCallback<String> async);
     void getSprints(GroupDTO selectedGroup, AsyncCallback<ArrayList<SprintDTO>> callback);
     void postForTest(TaskDTO taskDTO, AsyncCallback<String> callback);
     void getCourseRate(Long taskTemplateId, String userName, AsyncCallback<Double> async);
@@ -30,5 +30,7 @@ public interface TasksServiceAsync {
     void getTasksByUserGroup(Long taskTemplateId, Long selectedGroupId, Long selectedSprintId, AsyncCallback<ArrayList<TaskDTO>> async);
 
     void setValidationResult(Long id, String statusStr, String result, AsyncCallback<Void> async);
+
+    void dispatchTaskChecking(TaskDTO dto, AsyncCallback<String> async);
 }
 

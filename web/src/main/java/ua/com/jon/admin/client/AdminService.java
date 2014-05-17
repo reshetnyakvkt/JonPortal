@@ -53,4 +53,6 @@ public interface AdminService extends RemoteService {
     void deleteUser(Long userId);
 
     void addStudentToGroup(String groupName, String userName);
+
+    ArrayList<SpaceDTO> getGitHubRepos();
 }

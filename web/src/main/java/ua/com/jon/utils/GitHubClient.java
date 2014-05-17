@@ -3,10 +3,13 @@ package ua.com.jon.utils;
 import org.kohsuke.github.GHRepository;
 import org.kohsuke.github.GHUser;
 import org.kohsuke.github.GitHub;
+import ua.com.jon.admin.shared.SpaceDTO;
+import ua.com.jon.admin.shared.UserDTO;
 import ua.com.jon.auth.domain.GitHubRepo;
 import ua.com.jon.auth.domain.GitHubUser;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
@@ -15,25 +18,23 @@ import java.util.Set;
  * Created with IntelliJ IDEA.
  * User: sergey
  * Date: 26.04.14
- * Time: 21:01
- * To change this template use File | Settings | File Templates.
  */
 public class GitHubClient {
 
-    public static Set<GitHubRepo> getRepositoriesAndCollaborators() throws IOException {
+    public static ArrayList<SpaceDTO> getRepositoriesAndCollaborators() throws IOException {
         GitHub github = GitHub.connectUsingPassword("sergey_zagalskiy@mail.ru", "darcyk123");
         Map<String, GHRepository> reposMap = github.getMyself().getAllRepositories();
         System.out.println(reposMap);
-        GitHubRepo repo;
-        Set<GitHubUser> gitHubUsers;
-        Set<GitHubRepo> gitHubRepos = new HashSet<GitHubRepo>();
+        SpaceDTO repo;
+        ArrayList<UserDTO> gitHubUsers;
+        ArrayList<SpaceDTO> gitHubRepos = new ArrayList<SpaceDTO>();
         //GHRepository repo = github.getMyself().getRepository("JonPortal");
         for (GHRepository repository : reposMap.values()) {
-            gitHubUsers = new HashSet<GitHubUser>();
+            gitHubUsers = new ArrayList<UserDTO>();
             for (GHUser collaborator : repository.getCollaborators()) {
-                gitHubUsers.add(new GitHubUser(collaborator.getLogin()));
+                gitHubUsers.add(new UserDTO(null, collaborator.getLogin()));
             }
-            repo = new GitHubRepo(repository.getName(), gitHubUsers);
+            repo = new SpaceDTO(null, repository.getName(), gitHubUsers, repository.getUrl());
             gitHubRepos.add(repo);
         }
         return gitHubRepos;

@@ -16,6 +16,7 @@ import ua.com.jon.admin.shared.TaskTemplateDTO;
 import ua.com.jon.admin.shared.UserDTO;
 import ua.com.jon.auth.domain.AssemblaSpace;
 import ua.com.jon.auth.domain.AssemblaUser;
+import ua.com.jon.auth.domain.GitHubRepo;
 import ua.com.jon.auth.domain.UserRole;
 import ua.com.jon.auth.service.AuthService;
 import ua.com.jon.common.domain.Group;
@@ -35,6 +36,7 @@ import ua.com.jon.common.repository.SprintRepository;
 import ua.com.jon.common.repository.TaskRepository;
 import ua.com.jon.common.repository.TaskTemplateRepository;
 import ua.com.jon.common.repository.UserRepository;
+import ua.com.jon.utils.GitHubClient;
 
 import javax.annotation.Resource;
 import java.io.IOException;
@@ -324,6 +326,17 @@ public class AdminServiceImpl implements AdminService {
         group.getUsers().add(user);
         user.getGroups().add(group);
         groupRepository.save(group);
+    }
+
+    @Override
+    public ArrayList<SpaceDTO> getGitHubRepos() {
+        ArrayList<SpaceDTO> repos = null;
+        try {
+            repos = GitHubClient.getRepositoriesAndCollaborators();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return repos;
     }
 
     @Override

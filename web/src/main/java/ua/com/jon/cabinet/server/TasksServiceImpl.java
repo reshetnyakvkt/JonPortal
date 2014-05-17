@@ -83,13 +83,27 @@ public class TasksServiceImpl implements TasksService, ServletContextAware {
     }
 
     @Override
-    public void taskStatusChanged(TaskDTO dto) {
+    public String dispatchTaskChecking(TaskDTO dto) {
+        String result = "";
+        if (dto.getType().equals(TaskType.CLASS.name()) && dto.getStatus().equals("TEST")) {
+            result = postForTest(dto);
+        } else if (dto.getType().equals(TaskType.SVN.name())) {
+            result = taskStatusChanged(dto);
+        }
+        System.out.println("dispatchTaskChecking " + dto);
+        return result;
+    }
+
+    @Override
+    public String taskStatusChanged(TaskDTO dto) {
         Task task = taskRepository.findOne(dto.getId());
         Status newStatus = Status.valueOf(dto.getStatus());
         task.setStatus(newStatus);
         taskRepository.save(task);
 
         System.out.println("taskStatusChanged " + dto);
+
+        return "";
     }
 
     @Override
@@ -198,8 +212,16 @@ public class TasksServiceImpl implements TasksService, ServletContextAware {
 
     @Override
     public double getSprintRate(Long groupId, Long sprintId, String userName) {
-        List<Task> tasks = taskRepository.findByUserAndSprintAndGroup(userName, sprintId, groupId);
-        return calcTasksRate(tasks);
+        log.info("-== getSprintRate: groupId = " + groupId + ", sprintId = " + sprintId + ", userName = " + userName);
+        try {
+            List<Task> tasks = taskRepository.findByUserAndSprintAndGroup(userName, sprintId, groupId);
+            return calcTasksRate(tasks);
+        } catch (Exception e) {
+            e.printStackTrace();
+            log.error(e);
+            System.out.println(e.getMessage());
+        }
+        return 0.0;
     }
 
     private double calcTasksRate(List<Task> tasks) {
@@ -224,8 +246,11 @@ public class TasksServiceImpl implements TasksService, ServletContextAware {
                 doneCount++;
             }
         }
-
-        return 100 / tasks.size() * doneCount;
+        if(tasks.size() * doneCount == 0) {
+            return 0;
+        } else {
+            return 100 / tasks.size() * doneCount;
+        }
     }
 
     @Override
