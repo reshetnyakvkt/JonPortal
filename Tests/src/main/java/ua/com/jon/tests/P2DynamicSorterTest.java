@@ -4,7 +4,6 @@ import com.jon.tron.service.junit.Unit;
 import com.jon.tron.service.junit.UnitClass;
 import com.jon.tron.service.junit.UnitCode;
 import com.jon.tron.service.junit.UnitName;
-import com.jon.tron.service.reflect.JavaProcessBuilder;
 import com.jon.tron.service.reflect.MethodModifier;
 import com.jon.tron.service.reflect.ReflectionUtil;
 import org.junit.After;
@@ -22,14 +21,15 @@ import static org.junit.Assert.assertTrue;
 /**
  * Created with IntelliJ IDEA.
  * User: al1
- * Date: 11.05.14
+ * Date: 23.05.14
  */
-@Unit(testName = "P1Auth", value = "hw2.authentication.Auth")
+@Unit(testName = "P2DynamicSorterTest", value = {"hw3.sorter.DynamicSorter", "hw3.sorter.Config",
+        "hw3.sorter.DynamicSorterTest"})
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
-public class P1Auth extends BaseTest {
-    private static final String UNIT_NAME = "Auth";
-    private static final String TEST_NAME = "AuthTest";
-    private static final String AUTH_METHOD_NAME = "authenticate";
+public class P2DynamicSorterTest extends BaseTest {
+    private static final String UNIT_NAME = "DynamicSorter";
+    private static final String TEST_NAME = "DynamicSorterTest";
+    private static final String SORT_METHOD_NAME = "sort";
 
     @UnitCode
     private static Map<String, String> codes;
@@ -60,8 +60,8 @@ public class P1Auth extends BaseTest {
             unitClass = unitClasses[0];
         }
         assertTrue("В задании не найден класс " + UNIT_NAME, UNIT_NAME.equals(unitClass.getSimpleName()));
-        Method methodAuthenticate = ReflectionUtil.checkMethod(unitClass, AUTH_METHOD_NAME, boolean.class,
-                new MethodModifier[]{MethodModifier.PUBLIC}, String.class, String.class);
+        Method methodSort = ReflectionUtil.checkMethod(unitClass, SORT_METHOD_NAME, void.class,
+                new MethodModifier[]{MethodModifier.PUBLIC});
     }
 
     @Test(timeout = 1000)

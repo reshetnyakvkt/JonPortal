@@ -1,13 +1,24 @@
 package ua.com.jon.tests;
 
 import com.jon.tron.service.junit.Unit;
+import com.jon.tron.service.junit.UnitClass;
+import com.jon.tron.service.junit.UnitCode;
 import com.jon.tron.service.junit.UnitName;
 import com.jon.tron.service.reflect.JavaProcessBuilder;
+import com.jon.tron.service.reflect.MethodModifier;
+import com.jon.tron.service.reflect.ReflectionUtil;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runners.MethodSorters;
+
+import java.lang.reflect.Method;
+import java.util.Map;
+import java.util.Set;
+
+import static junit.framework.TestCase.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 /**
  * Created with IntelliJ IDEA.
@@ -17,9 +28,16 @@ import org.junit.runners.MethodSorters;
 @Unit(testName = "P1Freq", value = "hw2.frequency.Freq")
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class P1Freq extends BaseTest {
-    @UnitName
-    private static String unitName;
+    private static final String UNIT_NAME = "Freq";
+    private static final String TEST_NAME = "FreqTest";
+    private static final String FREQ_METHOD_NAME = "getWordsByFrequency";
 
+    @UnitCode
+    private static Map<String, String> codes;
+    @UnitClass
+    private static Class[] unitClasses;
+    @UnitName
+    private static String[] unitNames;
     @Unit
     private static String unitJarClasspath;
 
@@ -33,9 +51,29 @@ public class P1Freq extends BaseTest {
         super.tearDown();
     }
 
-    @Test/*(timeout = 1000)*/
-    public void testSuccess() throws Throwable {
-        JavaProcessBuilder.buildProcessAndInvokeMethod(unitName, null, "/forbid.policy", unitJarClasspath,
-                null, (Object) new String[0]);
+    @Test(timeout = 1000)
+    public void testCheckUnitPresent() throws Throwable {
+        Class unitClass;
+        if(unitClasses.length != 1) {
+            unitClass = getUnitClass(unitClasses, UNIT_NAME);
+            assertNotNull("В задании не найден класс " + UNIT_NAME, unitClass);
+        } else {
+            unitClass = unitClasses[0];
+        }
+        assertTrue("В задании не найден класс " + UNIT_NAME, UNIT_NAME.equals(unitClass.getSimpleName()));
+        Method methodGetWordsByFrequency = ReflectionUtil.checkMethod(unitClass, FREQ_METHOD_NAME, Set.class,
+                new MethodModifier[]{MethodModifier.PUBLIC}, int.class);
+    }
+
+    @Test(timeout = 1000)
+    public void testCheckTestPresent() throws Throwable {
+        Class unitClass;
+        if(unitClasses.length != 1) {
+            unitClass = getUnitClass(unitClasses, TEST_NAME);
+            assertNotNull("В задании не найден класс теста " + TEST_NAME, unitClass);
+        } else {
+            unitClass = unitClasses[0];
+        }
+        assertTrue("В задании не найден класс теста " + TEST_NAME, TEST_NAME.equals(unitClass.getSimpleName()));
     }
 }
