@@ -31,7 +31,8 @@ public class HelloWorldTestTest {
         final String testName = "HelloWorldTest";
         Map.Entry<String,String> processResult = classProcessor.processClass(classCode, testName, null);
         String resultString = processResult.getValue();
-        assertEquals("В классе " + className + " отсутствует метод main", resultString);
+        assertEquals("В классе отсутствует метод void main( java.lang.String[] )\n" +
+                "Метод main должен выводить в консоль сообщение 'Hello world'\n", resultString);
     }
 
     @Test
@@ -71,7 +72,7 @@ public class HelloWorldTestTest {
         Map.Entry<String,String> processResult = classProcessor.processClass(classCode, testName, null);
         String resultString = processResult.getValue();
         String resultMarkString = processResult.getKey();
-        assertEquals("10", resultMarkString);
+        assertEquals("55", resultMarkString);
         assertEquals("В методе отсутстует модификатор public\n" +
                 "В методе отсутстует модификатор static\n" +
                 "\n" +
@@ -92,7 +93,8 @@ public class HelloWorldTestTest {
         Map.Entry<String,String> processResult = classProcessor.processClass(classCode, testName, null);
         String resultString = processResult.getValue();
         String resultMarkString = processResult.getKey();
-        assertEquals("Невозможно создать объект класса " + className + ", возможно класс не public", resultString);
+        assertEquals("Невозможно создать объект класса, возможно класс не public\n" +
+                "Метод main должен выводить в консоль сообщение 'Hello world'", resultString);
         assertEquals("10", resultMarkString);
     }
 
@@ -109,9 +111,8 @@ public class HelloWorldTestTest {
         Map.Entry<String,String> processResult = classProcessor.processClass(classCode, testName, null);
         String resultString = processResult.getValue();
         String resultMarkString = processResult.getKey();
-        assertEquals("10", resultMarkString);
-        assertEquals("В методе main отсутствует модификатор static\n" +
-                "Метод main должен выводить в консоль сообщение 'Hello world'\n", resultString);
+        assertEquals("55", resultMarkString);
+        assertEquals("Невозможно создать объект класса, возможно класс не public", resultString);
     }
 
     @Test
@@ -129,7 +130,8 @@ public class HelloWorldTestTest {
         String resultString = processResult.getValue();
         String resultMarkString = processResult.getKey();
         assertEquals("10", resultMarkString);
-        assertEquals("Невозможно создать объект класса " + className + ", возможно класс не public", resultString);
+        assertEquals("Невозможно создать объект класса, возможно класс не public\n" +
+                "Метод main должен выводить в консоль сообщение 'Hello world'", resultString);
     }
 
     @Test
@@ -173,7 +175,7 @@ public class HelloWorldTestTest {
         Map.Entry<String,String> processResult = classProcessor.processClass(classCode, testName, null);
         String resultString = processResult.getValue();
         String resultMarkString = processResult.getKey();
-        assertEquals("В результате выполнения, было выброшено исключение java.lang.RuntimeException " + errorMessage, resultString);
+        assertEquals("Метод main должен выводить в консоль сообщение 'Hello world'", resultString);
         assertEquals("10", resultMarkString);
 
     }

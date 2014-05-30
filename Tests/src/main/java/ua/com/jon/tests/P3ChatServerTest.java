@@ -4,7 +4,6 @@ import com.jon.tron.service.junit.Unit;
 import com.jon.tron.service.junit.UnitClass;
 import com.jon.tron.service.junit.UnitCode;
 import com.jon.tron.service.junit.UnitName;
-import com.jon.tron.service.reflect.JavaProcessBuilder;
 import com.jon.tron.service.reflect.MethodModifier;
 import com.jon.tron.service.reflect.ReflectionUtil;
 import org.junit.After;
@@ -22,14 +21,14 @@ import static org.junit.Assert.assertTrue;
 /**
  * Created with IntelliJ IDEA.
  * User: al1
- * Date: 11.05.14
+ * Date: 26.05.14
  */
-@Unit(testName = "P1ListsCompare", value = "hw2.lab.ListsCompare")
+@Unit(testName = "P3ChatServerTest", value = {"hw4.parallel.ChatServer", "hw4.parallel.ChatServerTest"})
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
-public class P1ListsCompare extends BaseTest {
-    private static final String UNIT_NAME = "ListsCompare";
-    private static final String TEST_NAME = "ListsCompareTest";
-    private static final String PUT_METHOD_NAME = "put";
+public class P3ChatServerTest extends BaseTest {
+    private static final String UNIT_NAME = "ChatServer";
+    private static final String TEST_NAME = "ChatServerTest";
+    private static final String PARALLEL_SUM_METHOD_NAME = "parallelSumOfSequence";
 
     @UnitCode
     private static Map<String, String> codes;
@@ -60,8 +59,8 @@ public class P1ListsCompare extends BaseTest {
             unitClass = unitClasses[0];
         }
         assertTrue("В задании не найден класс " + UNIT_NAME, UNIT_NAME.equals(unitClass.getSimpleName()));
-        Method methodPut = ReflectionUtil.checkMethod(unitClass, PUT_METHOD_NAME, boolean.class,
-                new MethodModifier[]{MethodModifier.PUBLIC}, hw2.hash.User.class);
+        Method methodProduce = ReflectionUtil.checkMethod(unitClass, PARALLEL_SUM_METHOD_NAME, long.class,
+                new MethodModifier[]{MethodModifier.PUBLIC}, int.class);
     }
 
     @Test(timeout = 1000)

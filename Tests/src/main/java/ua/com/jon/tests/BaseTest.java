@@ -1,6 +1,7 @@
 package ua.com.jon.tests;
 
 import com.jon.tron.service.evaluation.EvaluationUtil;
+import com.jon.tron.service.processor.CodeValidator;
 import com.jon.tron.service.reflect.JavaProcessBuilder;
 import com.jon.tron.service.reflect.ReflectionUtil;
 
@@ -62,15 +63,16 @@ public class BaseTest {
             throwable = t;
         }
         throwable.printStackTrace();
-        //fail(instantateErrorMEssage);
-        throw throwable;
+        fail(instantateErrorMEssage);
+        return null;
+//        throw throwable;
     }
 
     public void tearDown() {
         evaluationUtil.restoreInOut();
     }
 
-    public void invokeMain(Class unitClass, String unitName, String input) {
+    public void invokeMainAsProcess(Class unitClass, String unitName, String input) {
         assertTrue("Метод main должен быть 'public static void main(String[] args)'", ReflectionUtil.isCorrectMainPresent(unitClass));
         //assertTrue("Класс должен быть public", instance != null);
 
@@ -89,6 +91,39 @@ public class BaseTest {
             throwable.printStackTrace();
             fail("Во время выполнения метода main произошла ошибка " + throwable.toString());
         }
+    }
+
+    public void invokeMain(Class unitClass, String[] args) {
+        assertTrue("Метод main должен быть 'public static void main(String[] args)'", ReflectionUtil.isCorrectMainPresent(unitClass));
+        //assertTrue("Класс должен быть public", instance != null);
+
+        try {
+            if(unitClass != null) {
+                Object instance = instanciate(unitClass);
+                ReflectionUtil.invokeMain(instance);
+                // TODO check is correct invocation
+//                JavaProcessBuilder.buildProcessAndInvokeMethod(unitClass.getSimpleName(), "main", "/forbid.policy", null,
+//                        "", (Object) new String[0]);
+            } /*else {
+                JavaProcessBuilder.buildProcessAndInvokeMethod(unitName, "main", "/forbid.policy", "",
+                        "", (Object) new String[0]);
+            }*/
+        } catch (Throwable throwable) {
+            //System.out.println("Во время выполнения метода main произошла ошибка");
+            throwable.printStackTrace();
+            fail("Во время выполнения метода main произошла ошибка " + throwable.toString());
+        }
+    }
+
+    public boolean validateCode(String code) {
+        if (code == null || code.isEmpty()) {
+            return true;
+        }
+        if (!CodeValidator.isCodeSafe(code)) {
+            fail("Текст задание содержит недопустимое содержимое");
+            return false;
+        }
+        return true;
     }
 
     public PrintStream getOut() {

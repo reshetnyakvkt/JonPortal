@@ -26,7 +26,6 @@ import ua.com.jon.examinator.shared.SprintDTO;
 import ua.com.jon.examinator.shared.TaskDTO;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class ExamineUiBinder extends Composite {
@@ -152,21 +151,26 @@ public class ExamineUiBinder extends Composite {
         tasksService.getUserTasks(callback);
     }
 
-    private void addTasksToTable(List<TaskDTO> tasks, boolean isSelectLast) {
+    private void addTasksToTable(List<TaskDTO> tasks, boolean isSelectFirst) {
         cellTable.setRowData(tasks);
 
 
         // Connect the table to the data provider.
         dataProvider.addDataDisplay(cellTable);
         final List<TaskDTO> list = dataProvider.getList();
-        TaskDTO last = null;
-        for (TaskDTO task : tasks) {
+        TaskDTO first = null;
+/*        for (TaskDTO task : tasks) {
             list.add(task);
             last = task;
+        }*/
+        if (isSelectFirst && tasks.iterator().hasNext() &&
+                (first = tasks.iterator().next()) != null) {
+            selectionModel.setSelected(first, true);
         }
-        if(isSelectLast && last != null) {
-            selectionModel.setSelected(last, true);
-        }
+
+/*        if(isSelectFirst && first != null) {
+            selectionModel.setSelected(first, true);
+        }*/
     }
 
     public void buildTable() {
@@ -228,7 +232,7 @@ public class ExamineUiBinder extends Composite {
 
                     @Override
                     public void onSuccess(String testResult) {
-                        // Window.alert(testResult.toString());
+//                        Window.alert(String.valueOf(isTestButtonsDisabled));
                         taskDTO.setResult(testResult);
                         result.setText(testResult);
                         //dataProvider.flush();
@@ -244,9 +248,9 @@ public class ExamineUiBinder extends Composite {
                 taskDTO.setText("");
                 taskDTO.setResult("");
                 if(!isTestButtonsDisabled) {
+                    isTestButtonsDisabled = true;
                     tasksService.postForTest(taskDTO, callback);
                 }
-                isTestButtonsDisabled = true;
             }
         });
 

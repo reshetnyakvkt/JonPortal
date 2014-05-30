@@ -45,7 +45,7 @@ public class LineTest extends BaseTest {
         String expectedString = "Неправильный ввод\n";
         getOut().println("\n");
 
-        invokeMain(unitClass, "unitName", getOut().toString());
+        invokeMainAsProcess(unitClass, "unitName", getOut().toString());
 
         String actualString = getIn().toString();
 
@@ -65,7 +65,7 @@ public class LineTest extends BaseTest {
         String expectedLine = sb.toString();
         getOut().println(lineLength);
 
-        invokeMain(unitClass, "unitName", getOut().toString());
+        invokeMainAsProcess(unitClass, "unitName", getOut().toString());
 
         String actualLine = getIn().toString();
 

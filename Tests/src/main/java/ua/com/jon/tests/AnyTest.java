@@ -35,7 +35,7 @@ public class AnyTest extends BaseTest {
         //String expectedString = "Неправильный ввод\n";
         //getOut().println("1\n2\n3\n4\n1\n");
 
-        //invokeMain(unitClass, instance);
+        //invokeMainAsProcess(unitClass, instance);
         fail("Задание принято");
         //String actualString = getIn().toString();
 

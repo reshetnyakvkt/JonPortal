@@ -32,7 +32,7 @@ public class FirstPartTest extends BaseTest {
         String expectedString = "Неправильный ввод\n";
         getOut().println("\n");
 
-        invokeMain(unitClass, "unitName", getOut().toString());
+        invokeMainAsProcess(unitClass, "unitName", getOut().toString());
 
         String actualString = getIn().toString();
 

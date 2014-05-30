@@ -35,6 +35,9 @@ import java.util.Map;
 @Service("examineService")
 public class ExamineServiceImpl implements ExamineService, ServletContextAware {
     private static final Logger log = Logger.getLogger(ExamineServiceImpl.class);
+    public static final int TASK_PROCESSING_DELAY = 500;
+
+    private long lastTime;
 
     @Resource
     private TaskRepository taskRepository;
@@ -99,6 +102,10 @@ public class ExamineServiceImpl implements ExamineService, ServletContextAware {
 
     @Override
     public String postForTest(TaskDTO taskDTO) {
+        if (System.currentTimeMillis() - lastTime < TASK_PROCESSING_DELAY) {
+            return "Предыдущее задание еще не проверено, попробуйте позже";
+        }
+
         log.info("-== Cabinet post task for test: " + taskDTO.getCode());
         URL resource = this.getClass().getResource("/forbid.policy");
         System.out.println(resource.getPath());
@@ -127,6 +134,7 @@ public class ExamineServiceImpl implements ExamineService, ServletContextAware {
         } catch (Exception de) {
             log.error(de);
         }
+        lastTime = System.currentTimeMillis();
         return testResult;
     }
 

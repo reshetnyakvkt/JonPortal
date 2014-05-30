@@ -1,7 +1,6 @@
 package ua.com.jon.tests;
 
 import com.jon.tron.service.junit.Unit;
-
 import com.jon.tron.service.junit.UnitClass;
 import com.jon.tron.service.junit.UnitCode;
 import com.jon.tron.service.junit.UnitName;
@@ -12,25 +11,33 @@ import org.junit.runners.MethodSorters;
 import java.util.Map;
 
 import static junit.framework.TestCase.assertNotNull;
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 /**
+Пользователь вводит число, если число чётное, то вывести на экран "четное",
+если число не четное, вывести на экран "нечетное".
+Пример:
+5
+нечетное
  * Created with IntelliJ IDEA.
  * User: al1
- * Date: 9/22/13
+ * Date: 29.05.14
  */
-@Unit(testName = "SumOfTwo", value = "weekend1.task1")
+@Unit(testName = "MaxOfTwo", value = "weekend1.task1")
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
-public class SumOfTwoTest extends BaseTest {
+public class PairOfTwo extends BaseTest {
     public static void main(String[] args) {
         java.util.Scanner scan = new java.util.Scanner(System.in);
         int first = scan.nextInt();
-        int second = scan.nextInt();
-        System.out.println(first + second);
+        if (first % 2 == 0) {
+            System.out.println("четное");
+        } else {
+            System.out.println("нечетное");
+        }
     }
-    private static final String UNIT_NAME = "SumOfTwo";
+
+    private static final String UNIT_NAME = "MaxOfTwo";
 
     @UnitCode
     private static Map<String, String> codes;
@@ -40,8 +47,15 @@ public class SumOfTwoTest extends BaseTest {
     private static String[] unitNames;
     @Unit
     private static String unitJarClasspath;
-    private static Class unitClass;
+
     private static Object instance;
+    private static Class unitClass;
+
+    @BeforeClass
+    public static void before() {
+        instance = null;
+        unitClass = null;
+    }
 
     @Before
     public void setUp() {
@@ -55,13 +69,14 @@ public class SumOfTwoTest extends BaseTest {
 
     @Test(timeout = 1000)
     public void testCheckMainMethod() throws Throwable {
-        if (unitClasses.length != 1) {
+
+        if(unitClasses.length != 1) {
             unitClass = getUnitClass(unitClasses, UNIT_NAME);
             assertNotNull("В задании не найден класс " + UNIT_NAME, unitClass);
         } else {
             unitClass = unitClasses[0];
         }
-//        assertTrue("В задании не найден класс " + UNIT_NAME, UNIT_NAME.equals(unitClass.getSimpleName()));
+        //assertTrue("В задании не найден класс " + UNIT_NAME, UNIT_NAME.equals(unitClass.getSimpleName()));
         validateCode(codes.get(UNIT_NAME));
         instance = instanciate(unitClass);
         ReflectionUtil.checkMainMethod(unitClass);
@@ -69,24 +84,20 @@ public class SumOfTwoTest extends BaseTest {
 
     @Test(timeout = 1000)
     public void testSuccess() throws Throwable {
-        instance = instanciate(unitClass);
-        int first = rnd.nextInt(100);
-        int second = rnd.nextInt(100);
-        int expectedSum = first + second;
-        getOut().println(first);
-        getOut().println(second);
+        final int MAX_NUMBER = 10;
+        if (instance == null) {
+            fail();
+        }
+        int firstNumber = rnd.nextInt(MAX_NUMBER);
+
+        String expectedString = firstNumber % 2 == 0 ? "четное" : "нечетное";
+        getOut().println(firstNumber);
 
         ReflectionUtil.invokeMain(instance);
+        String actualString = getIn().toString().trim();
+        assertTrue("В задании должен выполняться вывод текста " + actualString, !actualString.isEmpty());
+        assertTrue("При введенном числе " + firstNumber + ", должно быть выведено [" + expectedString + "], а не [" + actualString + "]",
+                expectedString.equals(actualString));
 
-        String actualSumString = getIn().toString().trim();
-        int actualSum = 0;
-        try {
-            actualSum = Integer.parseInt(actualSumString);
-        } catch (NumberFormatException nfe) {
-            fail("Результат должен быть числом, но выведено [" + actualSumString + "]");
-        }
-
-        assertTrue("Ожидаемый результат " + expectedSum + ", но выведено " + actualSum,
-                expectedSum == actualSum);
     }
 }

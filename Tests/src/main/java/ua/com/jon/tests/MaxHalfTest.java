@@ -92,7 +92,7 @@ public class MaxHalfTest extends BaseTest {
         try {
             JavaProcessBuilder.buildProcessAndInvokeMethod(UNIT_NAME, METHOD_NAME, "/forbid.policy", unitJarClasspath,
                     "", (Object) originalVector.clone());
-            //ReflectionUtil.invokeMethod(instance, "maxHalf", int[].class, void.class, "", originalVector.clone());
+            //ReflectionUtil.invokeMethodAsProcess(instance, "maxHalf", int[].class, void.class, "", originalVector.clone());
             String expectedVector = getIn().toString();
 
             assertEquals("Ожидается " + expectedVector + "но выведено " + actualVector, expectedVector, actualVector);
