@@ -7,12 +7,13 @@ import java.lang.annotation.Target;
 
 /**
  * Created with IntelliJ IDEA.
- * User: al1
- * Date: 3/15/13
+ * User: sergey
+ * Date: 31.05.14
+ * Time: 20:43
+ * To change this template use File | Settings | File Templates.
  */
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ElementType.FIELD, ElementType.TYPE})
-public @interface Unit {
-    String[] value() default "";
-    String testName() default "";
+public @interface UnitCode {
+    String value() default "";
 }

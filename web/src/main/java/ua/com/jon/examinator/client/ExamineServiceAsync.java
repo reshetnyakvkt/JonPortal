@@ -5,7 +5,6 @@ import ua.com.jon.examinator.shared.SprintDTO;
 import ua.com.jon.examinator.shared.TaskDTO;
 
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created with IntelliJ IDEA.
@@ -18,6 +17,6 @@ public interface ExamineServiceAsync {
     void getUserTasks(AsyncCallback<ArrayList<TaskDTO>> async);
     void taskStatusChanged(TaskDTO dto, AsyncCallback<Void> async);
     void getSprints(AsyncCallback<ArrayList<SprintDTO>> callback);
-    void postForTest(TaskDTO taskDTO, AsyncCallback<String> callback);
+    void postForTest(TaskDTO taskDTO, String userName, AsyncCallback<String> callback);
 }
 

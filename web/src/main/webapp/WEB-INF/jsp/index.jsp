@@ -37,8 +37,10 @@
                 <br/>
                 <input type="password" id="password" class="span12" name="j_password" placeholder="Имя"/>
                 <label class="checkbox">
-                    <input type="checkbox" name="remember" value="1">
-                    Запомнить меня </label>
+                    Запомнить меня
+
+                <input type="checkbox" name="_spring_security_remember_me" /></label>
+
                 <a href="/register.html">Зарегистрироваться</a>
                 <button type="submit" name="submit" class="btn btn-info btn-block">
                     Войти

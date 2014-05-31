@@ -7,6 +7,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.provisioning.UserDetailsManager;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.ResourceAccessException;
 import ua.com.jon.auth.domain.AssemblaSpace;
@@ -33,7 +34,7 @@ import java.util.Set;
  * Date: 3/28/13
  */
 @Service
-public class AuthServiceImpl implements UserDetailsService, AuthService {
+public class AuthServiceImpl implements UserDetailsService, AuthService, UserDetailsManager {
     @Autowired
     private RestClient restClient;
 
@@ -168,5 +169,30 @@ public class AuthServiceImpl implements UserDetailsService, AuthService {
     @Override
     public void updateUser(User user) {
         userRepository.save(user);
+    }
+
+    @Override
+    public void createUser(UserDetails userDetails) {
+        //To change body of implemented methods use File | Settings | File Templates.
+    }
+
+    @Override
+    public void updateUser(UserDetails userDetails) {
+        //To change body of implemented methods use File | Settings | File Templates.
+    }
+
+    @Override
+    public void deleteUser(String s) {
+        //To change body of implemented methods use File | Settings | File Templates.
+    }
+
+    @Override
+    public void changePassword(String s, String s2) {
+        //To change body of implemented methods use File | Settings | File Templates.
+    }
+
+    @Override
+    public boolean userExists(String s) {
+        return false;  //To change body of implemented methods use File | Settings | File Templates.
     }
 }

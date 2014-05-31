@@ -15,6 +15,7 @@
         <!--<b:ValueListBox ui:field="sprintsListBox"/>-->
         <b:Label>Выберите этап</b:Label>
         <b:ValueListBox ui:field="sprintsListBox"/>
+        <b:TextBox ui:field="userName" placeholder="Введите ваше имя..." />
         <b:ButtonGroup>
           <b:Button ui:field='refreshTasksBtn' type="INFO">Обновить задания</b:Button>
         </b:ButtonGroup>

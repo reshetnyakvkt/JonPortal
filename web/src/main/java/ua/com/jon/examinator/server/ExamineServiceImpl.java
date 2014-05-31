@@ -4,16 +4,21 @@ package ua.com.jon.examinator.server;
 import com.jon.tron.exception.CompilationException;
 import com.jon.tron.service.processor.ClassProcessor;
 import org.apache.log4j.Logger;
-import org.hibernate.exception.DataException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.context.ServletContextAware;
 import ua.com.jon.auth.domain.SpringUser;
-import ua.com.jon.common.domain.*;
+import ua.com.jon.common.domain.Sprint;
+import ua.com.jon.common.domain.SprintType;
+import ua.com.jon.common.domain.Status;
+import ua.com.jon.common.domain.Task;
+import ua.com.jon.common.domain.TaskHistory;
+import ua.com.jon.common.domain.TaskTemplate;
 import ua.com.jon.common.dto.mapper.SprintDtoMapper;
 import ua.com.jon.common.repository.SprintRepository;
+import ua.com.jon.common.repository.TaskHistoryRepository;
 import ua.com.jon.common.repository.TaskRepository;
 import ua.com.jon.common.repository.TaskTemplateRepository;
 import ua.com.jon.examinator.client.ExamineService;
@@ -24,6 +29,7 @@ import javax.annotation.Resource;
 import javax.servlet.ServletContext;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -44,6 +50,9 @@ public class ExamineServiceImpl implements ExamineService, ServletContextAware {
 
     @Resource
     private SprintRepository sprintRepository;
+
+    @Resource
+    private TaskHistoryRepository taskHistoryRepository;
 
     @Autowired
     private ClassProcessor classProcessor;
@@ -101,7 +110,7 @@ public class ExamineServiceImpl implements ExamineService, ServletContextAware {
     }
 
     @Override
-    public String postForTest(TaskDTO taskDTO) {
+    public String postForTest(TaskDTO taskDTO, String userName) {
         if (System.currentTimeMillis() - lastTime < TASK_PROCESSING_DELAY) {
             return "Предыдущее задание еще не проверено, попробуйте позже";
         }
@@ -111,8 +120,8 @@ public class ExamineServiceImpl implements ExamineService, ServletContextAware {
         System.out.println(resource.getPath());
 
         Map.Entry<String, String> resultEntry;
+        TaskTemplate template = templateRepository.findOne(taskDTO.getTaskTemplateId());
         try {
-            TaskTemplate template = templateRepository.findOne(taskDTO.getTaskTemplateId());
             resultEntry = classProcessor.processClass(taskDTO.getCode(), template.getTestName(),
                     servletContext.getRealPath("/WEB-INF") + "/lib/" + coreJarName);
         } catch (CompilationException e) {
@@ -131,6 +140,10 @@ public class ExamineServiceImpl implements ExamineService, ServletContextAware {
         try {
             task.setResult(testResult);
             taskRepository.save(task);
+            Integer key = Integer.valueOf(resultEntry.getKey());
+            if (key >= 10) {
+                taskHistoryRepository.save(new TaskHistory(taskDTO.getCode(), template, userName, new Date(), testResult));
+            }
         } catch (Exception de) {
             log.error(de);
         }

@@ -39,4 +39,22 @@ public class ReflectionUtil {
     public static void invokeMain(String unitName, String unitJarClasspath, String s) {
         //To change body of created methods use File | Settings | File Templates.
     }
+
+
+    public static void invokeMain(Object instance) {
+    }
+
+
+
+    public static Method checkMethod(Class unitClass, String equalsMethodName, Class<?> booleanClass, MethodModifier[] methodModifiers) {
+        return null;
+    }
+
+    public static Method checkMethod(Class unitClass, String markMethodName, Class<?> voidClass, MethodModifier[] methodModifiers, Object ... os) {
+        return null;  //To change body of created methods use File | Settings | File Templates.
+    }
+
+    public static int[] invokeMethodAsProcess(Object instance, String bubbleSort, Class<int[]> aClass, Class<int[]> aClass1, String s, int[] clone) {
+        return new int[0];  //To change body of created methods use File | Settings | File Templates.
+    }
 }

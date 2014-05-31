@@ -3,6 +3,7 @@ package ua.com.jon.examinator.client;
 import com.github.gwtbootstrap.client.ui.ButtonCell;
 import com.github.gwtbootstrap.client.ui.CellTable;
 import com.github.gwtbootstrap.client.ui.TextArea;
+import com.github.gwtbootstrap.client.ui.TextBox;
 import com.github.gwtbootstrap.client.ui.ValueListBox;
 import com.github.gwtbootstrap.client.ui.constants.ButtonType;
 import com.google.gwt.cell.client.FieldUpdater;
@@ -44,6 +45,9 @@ public class ExamineUiBinder extends Composite {
 
     @UiField
     TextArea code;
+
+    @UiField
+    TextBox userName;
 
     @UiField(provided=true)
     ValueListBox<SprintDTO> sprintsListBox = new ValueListBox<SprintDTO>(new AbstractRenderer<SprintDTO>() {
@@ -249,7 +253,7 @@ public class ExamineUiBinder extends Composite {
                 taskDTO.setResult("");
                 if(!isTestButtonsDisabled) {
                     isTestButtonsDisabled = true;
-                    tasksService.postForTest(taskDTO, callback);
+                    tasksService.postForTest(taskDTO, userName.getText(), callback);
                 }
             }
         });
