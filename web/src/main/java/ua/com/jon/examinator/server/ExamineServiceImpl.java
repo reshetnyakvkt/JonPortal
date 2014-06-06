@@ -1,6 +1,7 @@
 package ua.com.jon.examinator.server;
 
 
+import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 import com.jon.tron.exception.CompilationException;
 import com.jon.tron.service.processor.ClassProcessor;
 import org.apache.log4j.Logger;
@@ -27,6 +28,9 @@ import ua.com.jon.examinator.shared.TaskDTO;
 
 import javax.annotation.Resource;
 import javax.servlet.ServletContext;
+import javax.servlet.SessionCookieConfig;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Date;
@@ -39,7 +43,7 @@ import java.util.Map;
  * Date: 4/3/13
  */
 @Service("examineService")
-public class ExamineServiceImpl implements ExamineService, ServletContextAware {
+public class ExamineServiceImpl /*extends RemoteServiceServlet*/ implements ExamineService, ServletContextAware {
     private static final Logger log = Logger.getLogger(ExamineServiceImpl.class);
     public static final int TASK_PROCESSING_DELAY = 500;
 
@@ -59,6 +63,9 @@ public class ExamineServiceImpl implements ExamineService, ServletContextAware {
 
     @Resource
     private TaskTemplateRepository templateRepository;
+
+    @Autowired
+    private HttpServletRequest request;
 
     private ServletContext servletContext;
 
@@ -114,7 +121,9 @@ public class ExamineServiceImpl implements ExamineService, ServletContextAware {
         if (System.currentTimeMillis() - lastTime < TASK_PROCESSING_DELAY) {
             return "Предыдущее задание еще не проверено, попробуйте позже";
         }
-
+        if (userName != null && !userName.isEmpty()) {
+            createSession(userName);
+        }
         log.info("-== Cabinet post task for test: " + taskDTO.getCode());
         URL resource = this.getClass().getResource("/forbid.policy");
         System.out.println(resource.getPath());
@@ -151,27 +160,21 @@ public class ExamineServiceImpl implements ExamineService, ServletContextAware {
         return testResult;
     }
 
-/*    @Override
-    public String postForTest(TaskDTO taskDTO) {
-        log.info("-== Examinator post for test: " + taskDTO.getCode());
-        Map.Entry<String, String> resultEntry;
-        try {
-            resultEntry = classProcessor.processClass(taskDTO.getCode(), taskDTO.getName(), null);
-        } catch (CompilationException e) {
-            resultEntry = e.getResult();
-        } catch (Exception e) {
-            log.error(e);
-            throw new RuntimeException("Внутренняя ошибка. Обратитесь к разработчикам", e);
+    public void createSession(String username) {
+        HttpSession session = request.getSession();
+        if (session.getAttribute("username") == null) {
+            session.setAttribute("username", username);
         }
-        String testResult = resultEntry.getKey() + '\n' + resultEntry.getValue();
-        log.info("Examinator test result is " + testResult);
-        Task task = taskRepository.findOne(taskDTO.getId());
-        task.setCode(taskDTO.getCode());
-        task.setResult(testResult);
-        taskRepository.save(task);
+    }
 
-        return testResult;
-    }*/
+    public String getUser() {
+        HttpSession session = request.getSession();
+        if (session.getAttribute("username") != null) {
+            return (String)session.getAttribute("username");
+        } else {
+            return null;
+        }
+    }
 
     @Override
     public void setServletContext(ServletContext servletContext) {

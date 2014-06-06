@@ -16,6 +16,7 @@ import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.uibinder.client.UiHandler;
 import com.google.gwt.user.cellview.client.Column;
 import com.google.gwt.user.cellview.client.TextColumn;
+import com.google.gwt.user.client.Cookies;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Composite;
@@ -178,7 +179,9 @@ public class ExamineUiBinder extends Composite {
     }
 
     public void buildTable() {
-
+        String jSessionId= Cookies.getCookie("JSESSIONID");
+        Window.alert("" + Cookies.getCookieNames());
+        userName.setText(jSessionId);
         TextColumn<TaskDTO> nameColumn = new TextColumn<TaskDTO>() {
             @Override
             public String getValue(TaskDTO contact) {

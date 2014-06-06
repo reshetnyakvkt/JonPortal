@@ -23,7 +23,7 @@ import static org.junit.Assert.assertTrue;
  * User: al1
  * Date: 11.05.14
  */
-@Unit(testName = "P1User", value = "hw2.hash.User")
+@Unit(testName = "P1User", value = {"hw2.hash.User", "hw2.hash.UserTest"})
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class P1User extends BaseTest {
     private static final String UNIT_NAME = "User";
