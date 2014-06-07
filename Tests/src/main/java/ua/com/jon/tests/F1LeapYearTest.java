@@ -19,11 +19,11 @@ import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 /**
-Пользователь вводит координаты точки, определить в какой она находится четверти (декартова система координат)
-Если точка находится между четвертями, то выводить 0
+Пользователь вводит год, определить является ли он високосным
+(год является високосным в двух случаях: либо он кратен 4, но при этом не кратен 100, либо кратен 400)
 Пример:
--2 2
-2
+2014
+Невисокосный
  * Created with IntelliJ IDEA.
  * User: al1
  * Date: 31.05.14
@@ -31,46 +31,35 @@ import static org.junit.Assert.fail;
 @Unit(testName = "DigitsAvg", value = "weekend1.task1")
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 @RunWith(Parameterized.class)
-public class QuarterTest extends BaseTest {
+public class F1LeapYearTest extends BaseTest {
     public static void main(String[] args) {
         java.util.Scanner scan = new java.util.Scanner(System.in);
-        int x = scan.nextInt();
-        int y = scan.nextInt();
-        if (x == 0 || y == 0) {
-            System.out.println(0);
-        } else if (x > 0 && y > 0) {
-            System.out.println(1);
-        } else if (x < 0 && y > 0) {
-            System.out.println(2);
-        } else if (x < 0 && y < 0) {
-            System.out.println(3);
+        int year = scan.nextInt();
+        if ((year % 4 == 0 && year % 100 != 0) || year % 400 == 0) {
+            System.out.println("Високосный");
         } else {
-            System.out.println(4);
+            System.out.println("Невисокосный");
         }
     }
 
-    private int xFrom;
-    private int yFrom;
-    private int xTo;
-    private int yTo;
-    private int quarterNumber;
+    private int year;
+    private String yearType;
 
-    public QuarterTest(int xFrom, int xTo, int yFrom, int yTo, int quarterNumber) {
-        this.xFrom = xFrom;
-        this.xTo = xTo;
-        this.yFrom = yFrom;
-        this.yTo = yTo;
-        this.quarterNumber = quarterNumber;
+    public F1LeapYearTest(int year, String yearType) {
+        this.year = year;
+        this.yearType = yearType;
     }
 
     @Parameterized.Parameters
     public static List<Object[]> isEmptyData() {
         return Arrays.asList(new Object[][]{
-                {0, 10, 0, 10, 1},
-                {-10, 0, 0, 10, 2},
-                {-10, 0, -10, 0, 3},
-                {0, 10, -10, 0, 4},
-                {0, 0, 0, 10, 0},
+                {400, "Високосный"},
+                {1600, "Високосный"},
+                {2008, "Високосный"},
+                {2016, "Високосный"},
+                {1500, "Невисокосный"},
+                {1800, "Невисокосный"},
+                {2015, "Невисокосный"},
         });
     }
 
@@ -114,7 +103,8 @@ public class QuarterTest extends BaseTest {
             unitClass = unitClasses[0];
         }
         //assertTrue("В задании не найден класс " + UNIT_NAME, UNIT_NAME.equals(unitClass.getSimpleName()));
-        validateCode(codes.get(UNIT_NAME));
+        assertTrue("В задании должен быть только один класс", codes.size() == 1);
+        validateCode(codes.entrySet().iterator().next().getValue());
         instance = instanciate(unitClass);
         ReflectionUtil.checkMainMethod(unitClass);
     }
@@ -125,40 +115,22 @@ public class QuarterTest extends BaseTest {
         if (instance == null) {
             fail();
         }
-        int x = generateNumber(xFrom, xTo);
-        int y = generateNumber(yFrom, yTo);
-        getOut().println(x);
-        getOut().println(y);
-        int expectedRes = quarterNumber;//calcQuarter(x, y);
+        getOut().println(year);
+        String expectedRes = calcYearType(year);//yearType;
 
         ReflectionUtil.invokeMain(instance);
         String actualString = getIn().toString().trim();
-        double actualRes = 0.0;
-        try {
-            actualRes = Double.parseDouble(actualString);
-        } catch (NumberFormatException e) {
-            fail("\n--- Проверка корректности результата ---\nРезультатом должно быть числом, а не " + actualString);
-        }
 
         assertTrue("В задании должен выполняться вывод текста " + actualString, !actualString.isEmpty());
-        assertTrue("\n--- Проверка корректности результата---\nПри введенных x=" + x + " и y= "+ y + ", четверть должна быть [" + expectedRes + "], а не [" + actualString + "]",
-                expectedRes == actualRes);
+        assertTrue("\n--- Проверка корректности результата ---\nПри введенном году " + year + ", должно быть выведено [" + expectedRes + "], а не [" + actualString + "]",
+                expectedRes.equals(actualString));
     }
 
-    private int calcQuarter(int x, int y) {
-        if (x > 0 && y > 0) {
-            return 1;
-        } else if (x < 0 && y > 0) {
-            return 2;
-        } else if (x < 0 && y < 0) {
-            return 3;
+    private String calcYearType(int year) {
+        if ((year % 4 == 0 && year % 100 != 0) || year % 400 == 0) {
+            return "Високосный";
         } else {
-            return 4;
+            return "Невисокосный";
         }
-    }
-
-    private int generateNumber(int from, int to) {
-        int range = to - from;
-        return (int)(Math.random() * range + from);
     }
 }

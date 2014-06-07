@@ -24,7 +24,7 @@ import static org.junit.Assert.fail;
  */
 @Unit(testName = "MaxMinOfThree", value = "weekend1.task1")
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
-public class MaxMinOfThreeTest extends BaseTest {
+public class F1MaxMinOfThreeTest extends BaseTest {
     public static void main(String[] args) {
         java.util.Scanner scan = new java.util.Scanner(System.in);
         int first = scan.nextInt();
@@ -99,7 +99,8 @@ public class MaxMinOfThreeTest extends BaseTest {
             unitClass = unitClasses[0];
         }
 //        assertTrue("В задании не найден класс " + UNIT_NAME, UNIT_NAME.equals(unitClass.getSimpleName()));
-        validateCode(codes.get(UNIT_NAME));
+        assertTrue("В задании должен быть только один класс", codes.size() == 1);
+        validateCode(codes.entrySet().iterator().next().getValue());
         instance = instanciate(unitClass);
         ReflectionUtil.checkMainMethod(unitClass);
     }

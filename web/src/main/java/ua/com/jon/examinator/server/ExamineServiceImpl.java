@@ -45,7 +45,7 @@ import java.util.Map;
 @Service("examineService")
 public class ExamineServiceImpl /*extends RemoteServiceServlet*/ implements ExamineService, ServletContextAware {
     private static final Logger log = Logger.getLogger(ExamineServiceImpl.class);
-    public static final int TASK_PROCESSING_DELAY = 500;
+    public static final int TASK_PROCESSING_DELAY = 200;
 
     private long lastTime;
 
@@ -117,7 +117,7 @@ public class ExamineServiceImpl /*extends RemoteServiceServlet*/ implements Exam
     }
 
     @Override
-    public String postForTest(TaskDTO taskDTO, String userName) {
+    public String postForTest(final TaskDTO taskDTO, final String userName) {
         if (System.currentTimeMillis() - lastTime < TASK_PROCESSING_DELAY) {
             return "Предыдущее задание еще не проверено, попробуйте позже";
         }
@@ -129,7 +129,7 @@ public class ExamineServiceImpl /*extends RemoteServiceServlet*/ implements Exam
         System.out.println(resource.getPath());
 
         Map.Entry<String, String> resultEntry;
-        TaskTemplate template = templateRepository.findOne(taskDTO.getTaskTemplateId());
+        final TaskTemplate template = templateRepository.findOne(taskDTO.getTaskTemplateId());
         try {
             resultEntry = classProcessor.processClass(taskDTO.getCode(), template.getTestName(),
                     servletContext.getRealPath("/WEB-INF") + "/lib/" + coreJarName);
@@ -139,24 +139,32 @@ public class ExamineServiceImpl /*extends RemoteServiceServlet*/ implements Exam
             log.error(e);
             return "Ошибка проверки " + e.getMessage() + ". Обратитесь к разработчикам";
         }
-        String testResult = resultEntry.getKey() + '\n' + resultEntry.getValue();
+        final String testResult = resultEntry.getKey() + '\n' + resultEntry.getValue();
+        final Integer key = Integer.valueOf(resultEntry.getKey());
         log.info("Cabinet test result is " + testResult);
-        Task task = taskRepository.findOne(taskDTO.getId());
-        task.setCode(taskDTO.getCode());
-/*        if(testResult.length() > 750) {
-            testResult = testResult.substring(0, 740);
-        }*/
-        try {
-            task.setResult(testResult);
-            taskRepository.save(task);
-            Integer key = Integer.valueOf(resultEntry.getKey());
-            if (key >= 10) {
-                taskHistoryRepository.save(new TaskHistory(taskDTO.getCode(), template, userName, new Date(), testResult));
+
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                Task task = taskRepository.findOne(taskDTO.getId());
+                task.setCode(taskDTO.getCode());
+                /*        if(testResult.length() > 750) {
+                            testResult = testResult.substring(0, 740);
+                        }*/
+                try {
+                    task.setResult(testResult);
+                    taskRepository.save(task);
+                    if (key >= 10) {
+                        taskHistoryRepository.save(new TaskHistory(taskDTO.getCode(), template, userName, new Date(), testResult));
+                    }
+                } catch (Exception de) {
+                    log.error(de);
+                }
+                lastTime = System.currentTimeMillis();
+
             }
-        } catch (Exception de) {
-            log.error(de);
-        }
-        lastTime = System.currentTimeMillis();
+        }).start();
+
         return testResult;
     }
 

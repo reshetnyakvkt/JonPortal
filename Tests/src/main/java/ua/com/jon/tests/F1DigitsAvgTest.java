@@ -25,7 +25,7 @@ import static org.junit.Assert.fail;
  */
 @Unit(testName = "DigitsAvg", value = "weekend1.task1")
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
-public class DigitsAvgTest extends BaseTest {
+public class F1DigitsAvgTest extends BaseTest {
     public static void main(String[] args) {
         java.util.Scanner scan = new java.util.Scanner(System.in);
         int number = scan.nextInt();
@@ -78,7 +78,8 @@ public class DigitsAvgTest extends BaseTest {
             unitClass = unitClasses[0];
         }
         //assertTrue("В задании не найден класс " + UNIT_NAME, UNIT_NAME.equals(unitClass.getSimpleName()));
-        validateCode(codes.get(UNIT_NAME));
+        assertTrue("В задании должен быть только один класс", codes.size() == 1);
+        validateCode(codes.entrySet().iterator().next().getValue());
         instance = instanciate(unitClass);
         ReflectionUtil.checkMainMethod(unitClass);
     }

@@ -121,8 +121,21 @@ public class ExamineUiBinder extends Composite {
 
             @Override
             public void onSuccess(ArrayList<SprintDTO> sprints) {
-                //Window.alert("loadSprintsAndTasks sprints " + sprints);
+//                Window.alert("loadSprintsAndTasks sprints " + sprints);
 
+                sprintsListBox.setAcceptableValues(sprints);
+
+                SprintDTO lastSprint = null;
+                for (int i = 0; i < sprints.size(); i++) {
+                    lastSprint = sprints.get(i);
+                }
+                if (lastSprint != null) {
+                    sprintsListBox.setValue(lastSprint);
+//                    Window.alert(lastSprint.getTasks().toString());
+                    addTasksToTable(lastSprint.getTasks(), true);
+                }
+
+/*
                 for (SprintDTO sprint : sprints) {
                     if(sprint.isActive()) {
 //                        Window.alert("sprint active " + sprint.getName());
@@ -130,7 +143,7 @@ public class ExamineUiBinder extends Composite {
                         sprintsListBox.setValue(sprint);
                     }
                 }
-                sprintsListBox.setAcceptableValues(sprints);
+*/
 //                selectFirstTaskIfExists();
             }
         };
@@ -157,6 +170,7 @@ public class ExamineUiBinder extends Composite {
     }
 
     private void addTasksToTable(List<TaskDTO> tasks, boolean isSelectFirst) {
+        dataProvider.setList(tasks);
         cellTable.setRowData(tasks);
 
 
@@ -179,9 +193,9 @@ public class ExamineUiBinder extends Composite {
     }
 
     public void buildTable() {
-        String jSessionId= Cookies.getCookie("JSESSIONID");
-        Window.alert("" + Cookies.getCookieNames());
-        userName.setText(jSessionId);
+//        String jSessionId= Cookies.getCookie("JSESSIONID");
+//        Window.alert("" + Cookies.getCookieNames());
+//        userName.setText(jSessionId);
         TextColumn<TaskDTO> nameColumn = new TextColumn<TaskDTO>() {
             @Override
             public String getValue(TaskDTO contact) {
@@ -214,7 +228,8 @@ public class ExamineUiBinder extends Composite {
         };
         cellTable.addColumn(addressColumn, "Текст задания");*/
 
-        Column<TaskDTO, String> buttonTestCol = new Column<TaskDTO, String>(new ButtonCell(ButtonType.WARNING)) {
+        final StyledButtonCell styledButtonCell = new StyledButtonCell();
+        Column<TaskDTO, String> buttonTestCol = new Column<TaskDTO, String>(styledButtonCell) {
             @Override
             public String getValue(TaskDTO object) {
                 return "Проверить";
@@ -234,6 +249,8 @@ public class ExamineUiBinder extends Composite {
 
                     @Override
                     public void onFailure(Throwable caught) {
+                        styledButtonCell.setDisabled(false);
+                        cellTable.redraw();
                         Window.alert("Внутренняя ошибка. Обратитесь к разработчикам");
                     }
 
@@ -246,6 +263,8 @@ public class ExamineUiBinder extends Composite {
                         dataProvider.refresh();
                         //restructureTable(null);
                         isTestButtonsDisabled = false;
+                        styledButtonCell.setDisabled(false);
+                        cellTable.redraw();
                     }
                 };
                 if(taskDTO.getCode().length() > 50000) {
@@ -254,6 +273,8 @@ public class ExamineUiBinder extends Composite {
                 }
                 taskDTO.setText("");
                 taskDTO.setResult("");
+                styledButtonCell.setDisabled(true);
+                cellTable.redraw();
                 if(!isTestButtonsDisabled) {
                     isTestButtonsDisabled = true;
                     tasksService.postForTest(taskDTO, userName.getText(), callback);

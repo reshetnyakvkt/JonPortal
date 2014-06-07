@@ -13,7 +13,7 @@
                         </b:DropdownButton>
         -->
         <!--<b:ValueListBox ui:field="sprintsListBox"/>-->
-        <b:Label>Выберите этап</b:Label>
+        <b:Label>Выберите уровень</b:Label>
         <b:ValueListBox ui:field="sprintsListBox"/>
         <b:TextBox ui:field="userName" placeholder="Введите ваше имя..." />
         <b:ButtonGroup>

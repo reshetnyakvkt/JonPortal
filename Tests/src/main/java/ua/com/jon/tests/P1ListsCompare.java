@@ -60,8 +60,8 @@ public class P1ListsCompare extends BaseTest {
             unitClass = unitClasses[0];
         }
         assertTrue("В задании не найден класс " + UNIT_NAME, UNIT_NAME.equals(unitClass.getSimpleName()));
-        Method methodPut = ReflectionUtil.checkMethod(unitClass, PUT_METHOD_NAME, boolean.class,
-                new MethodModifier[]{MethodModifier.PUBLIC}, hw2.hash.User.class);
+//        Method methodPut = ReflectionUtil.checkMethod(unitClass, PUT_METHOD_NAME, boolean.class,
+//                new MethodModifier[]{MethodModifier.PUBLIC}, hw2.hash.User.class);
     }
 
     @Test(timeout = 1000)
