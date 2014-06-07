@@ -6,6 +6,7 @@ import ua.com.jon.cabinet.shared.SprintDTO;
 import ua.com.jon.cabinet.shared.TaskDTO;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created with IntelliJ IDEA.
@@ -32,5 +33,7 @@ public interface TasksServiceAsync {
     void setValidationResult(Long id, String statusStr, String result, AsyncCallback<Void> async);
 
     void dispatchTaskChecking(TaskDTO dto, AsyncCallback<String> async);
+
+    void refreshTasks(List<Long> ids, AsyncCallback<List<TaskDTO>> async);
 }
 

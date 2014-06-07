@@ -84,8 +84,8 @@ public class TaskDtoMapper {
         );
     }
 
-    public static List<TaskDTO> domainsToDtos(List<Task> tasks, Double rate) {
-        List<TaskDTO> taskDTOs = new ArrayList<TaskDTO>(tasks.size());
+    public static List<TaskDTO> domainsToDtos(Iterable<Task> tasks, Double rate) {
+        List<TaskDTO> taskDTOs = new ArrayList<TaskDTO>();
         for (Task task : tasks) {
             taskDTOs.add(domainToDto(task, rate));
         }

@@ -293,6 +293,22 @@ public class TasksServiceImpl implements TasksService, ServletContextAware {
     }
 
     @Override
+    public List<TaskDTO> refreshTasks(List<Long> ids) {
+        Iterable<Task> tasks = taskRepository.findAll(ids);
+        List<TaskDTO> taskDTOs = TaskDtoMapper.domainsToDtos(tasks, 0.0);
+        for(TaskDTO taskDTO : taskDTOs) {
+            taskDTO.setClassName(null);
+            taskDTO.setCode(null);
+            taskDTO.setMaterial(null);
+            taskDTO.setText(null);
+            taskDTO.setUserName(null);
+            taskDTO.setName(null);
+        }
+
+        return taskDTOs;
+    }
+
+    @Override
     public void setServletContext(ServletContext servletContext) {
         this.servletContext = servletContext;
     }

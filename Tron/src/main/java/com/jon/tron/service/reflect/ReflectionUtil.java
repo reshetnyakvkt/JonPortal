@@ -33,7 +33,8 @@ public class ReflectionUtil {
         return null;  //To change body of created methods use File | Settings | File Templates.
     }
 
-    public static void checkMainMethod(Class unitClass) {
+    public static Method checkMainMethod(Class unitClass) {
+        return null;
     }
 
     public static void invokeMain(String unitName, String unitJarClasspath, String s) {
@@ -56,5 +57,9 @@ public class ReflectionUtil {
 
     public static int[] invokeMethodAsProcess(Object instance, String bubbleSort, Class<int[]> aClass, Class<int[]> aClass1, String s, int[] clone) {
         return new int[0];  //To change body of created methods use File | Settings | File Templates.
+    }
+
+    public static boolean invokeMethod(Object instance, Method unitMethod, int[] actualVector) {
+        return false;
     }
 }

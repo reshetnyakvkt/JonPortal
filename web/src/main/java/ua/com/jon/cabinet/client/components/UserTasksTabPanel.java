@@ -1,7 +1,9 @@
 package ua.com.jon.cabinet.client.components;
 
-import com.github.gwtbootstrap.client.ui.*;
-import com.github.gwtbootstrap.client.ui.constants.ButtonType;
+import com.github.gwtbootstrap.client.ui.CellTable;
+import com.github.gwtbootstrap.client.ui.Strong;
+import com.github.gwtbootstrap.client.ui.TextArea;
+import com.github.gwtbootstrap.client.ui.ValueListBox;
 import com.google.gwt.cell.client.FieldUpdater;
 import com.google.gwt.cell.client.SelectionCell;
 import com.google.gwt.cell.client.ValueUpdater;
@@ -9,7 +11,6 @@ import com.google.gwt.core.client.GWT;
 import com.google.gwt.dom.client.BrowserEvents;
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.dom.client.NativeEvent;
-import com.google.gwt.dom.client.SelectElement;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.logical.shared.ValueChangeEvent;
 import com.google.gwt.text.shared.AbstractRenderer;
@@ -18,6 +19,7 @@ import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.uibinder.client.UiHandler;
 import com.google.gwt.user.cellview.client.Column;
 import com.google.gwt.user.cellview.client.TextColumn;
+import com.google.gwt.user.client.Timer;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Composite;
@@ -106,6 +108,50 @@ public class UserTasksTabPanel extends Composite {
         initWidget(binder.createAndBindUi(this));
         buildTable();
         loadGroups();
+
+        // Create a new timer that calls Window.alert().
+        Timer t = new Timer() {
+            @Override
+            public void run() {
+                List<Long> ids = new ArrayList<Long>();
+                for(TaskDTO taskDTO : dataProvider.getList()) {
+                    if (taskDTO.getType().equals(TaskType.SVN.name())) {
+                        ids.add(taskDTO.getId());
+                    }
+                }
+                if (!ids.isEmpty()) {
+                    refreshTasks(ids);
+                }
+            }
+        };
+
+        t.scheduleRepeating(10000);
+    }
+
+    private void refreshTasks(List<Long> ids) {
+
+        final AsyncCallback<List<TaskDTO>> tasksCallback = new AsyncCallback<List<TaskDTO>>() {
+
+            @Override
+            public void onFailure(Throwable caught) {
+                Window.alert("Ошибка получения имени пользователя с сервера ");
+            }
+
+            @Override
+            public void onSuccess(List<TaskDTO> tasks) {
+                for(TaskDTO taskDTO : dataProvider.getList()) {
+                    for(TaskDTO task : tasks) {
+                        if(taskDTO.equals(task)) {
+                            taskDTO.setStatus(task.getStatus());
+                            taskDTO.setResult(task.getResult());
+                        }
+                    }
+                }
+                result.setText(selectionModel.getSelectedObject().getResult());
+                cellTable.redraw();
+            }
+        };
+        tasksService.refreshTasks(ids, tasksCallback);
     }
 
     private void loadGroups() {
