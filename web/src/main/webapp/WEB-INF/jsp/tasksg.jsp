@@ -17,7 +17,7 @@
             Здесь можно выполнить тренировочные задания
         </div>
 
-        <iframe id="tasksIframe" width="100%" height="700px" src="examine/index.html"></iframe>
+        <iframe id="tasksIframe" hspace="0" vspace="0" width="100%" height="700px" src="examine/index.html"></iframe>
     </div>
 
     <footer id="footer"></footer>

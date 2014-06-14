@@ -10,6 +10,7 @@ import org.junit.runner.RunWith;
 import org.junit.runners.MethodSorters;
 import org.junit.runners.Parameterized;
 
+import java.lang.reflect.Method;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
@@ -28,9 +29,9 @@ import static org.junit.Assert.fail;
  * User: al1
  * Date: 31.05.14
  */
-@Unit(testName = "DigitsAvg", value = "weekend1.task1")
+@Unit(testName = "F1QuarterTest", value = "weekend1.task1")
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
-@RunWith(Parameterized.class)
+//@RunWith(Parameterized.class)
 public class F1QuarterTest extends BaseTest {
     public static void main(String[] args) {
         java.util.Scanner scan = new java.util.Scanner(System.in);
@@ -49,6 +50,7 @@ public class F1QuarterTest extends BaseTest {
         }
     }
 
+/*
     private int xFrom;
     private int yFrom;
     private int xTo;
@@ -62,17 +64,18 @@ public class F1QuarterTest extends BaseTest {
         this.yTo = yTo;
         this.quarterNumber = quarterNumber;
     }
+*/
 
-    @Parameterized.Parameters
+/*    @Parameterized.Parameters
     public static List<Object[]> isEmptyData() {
         return Arrays.asList(new Object[][]{
-                {0, 10, 0, 10, 1},
-                {-10, 0, 0, 10, 2},
-                {-10, 0, -10, 0, 3},
-                {0, 10, -10, 0, 4},
+                {1, 10, 1, 10, 1},
+                {-10, 1, 1, 10, 2},
+                {-10, 1, -10, 1, 3},
+                {1, 10, -10, 1, 4},
                 {0, 0, 0, 10, 0},
         });
-    }
+    }*/
 
     private static final String UNIT_NAME = "DigitsAvg";
 
@@ -86,13 +89,7 @@ public class F1QuarterTest extends BaseTest {
     private static String unitJarClasspath;
 
     private static Object instance;
-    private static Class unitClass;
-
-    @BeforeClass
-    public static void before() {
-        instance = null;
-        unitClass = null;
-    }
+    private static Method unitMethod;
 
     @Before
     public void setUp() {
@@ -106,30 +103,120 @@ public class F1QuarterTest extends BaseTest {
 
     @Test(timeout = 1000)
     public void testCheckMainMethod() throws Throwable {
-
-        if(unitClasses.length != 1) {
-            unitClass = getUnitClass(unitClasses, UNIT_NAME);
-            assertNotNull("В задании не найден класс " + UNIT_NAME, unitClass);
-        } else {
-            unitClass = unitClasses[0];
-        }
-        //assertTrue("В задании не найден класс " + UNIT_NAME, UNIT_NAME.equals(unitClass.getSimpleName()));
-        validateCode(codes.get(UNIT_NAME));
-        instance = instanciate(unitClass);
-        ReflectionUtil.checkMainMethod(unitClass);
+        assertTrue("В задании должен быть только один класс", unitClasses.length == 1);
+        validateCode(codes.entrySet().iterator().next().getValue());
+        instance = instanciate(unitClasses[0]);
+        unitMethod = ReflectionUtil.checkMainMethod(unitClasses[0]);
     }
 
     @Test(timeout = 1000)
     public void testFirstQuarter() throws Throwable {
-
-        if (instance == null) {
+        if (instance == null || unitMethod == null) {
             fail();
         }
-        int x = generateNumber(xFrom, xTo);
-        int y = generateNumber(yFrom, yTo);
+        int x = generateNumber(1, 10);
+        int y = generateNumber(1, 10);
         getOut().println(x);
         getOut().println(y);
-        int expectedRes = quarterNumber;//calcQuarter(x, y);
+        int expectedRes = 1;//calcQuarter(x, y);
+
+        ReflectionUtil.invokeMain(instance);
+        String actualString = getIn().toString().trim();
+        double actualRes = 0.0;
+        try {
+            actualRes = Double.parseDouble(actualString);
+        } catch (NumberFormatException e) {
+            fail("\n--- Проверка корректности результата ---\nРезультатом должно быть числом, а не " + actualString);
+        }
+
+        assertTrue("В задании должен выполняться вывод текста " + actualString, !actualString.isEmpty());
+        assertTrue("\n--- Проверка корректности результата---\nПри введенных x=" + x + " и y= "+ y + ", четверть должна быть [" + expectedRes + "], а не [" + actualString + "]",
+                expectedRes == actualRes);
+    }
+    @Test(timeout = 1000)
+    public void testSecondQuarter() throws Throwable {
+        if (instance == null || unitMethod == null) {
+            fail();
+        }
+        int x = generateNumber(-10, -1);
+        int y = generateNumber(1, 10);
+        getOut().println(x);
+        getOut().println(y);
+        int expectedRes = 2;//calcQuarter(x, y);
+
+        ReflectionUtil.invokeMain(instance);
+        String actualString = getIn().toString().trim();
+        double actualRes = 0.0;
+        try {
+            actualRes = Double.parseDouble(actualString);
+        } catch (NumberFormatException e) {
+            fail("\n--- Проверка корректности результата ---\nРезультатом должно быть числом, а не " + actualString);
+        }
+
+        assertTrue("В задании должен выполняться вывод текста " + actualString, !actualString.isEmpty());
+        assertTrue("\n--- Проверка корректности результата---\nПри введенных x=" + x + " и y= "+ y + ", четверть должна быть [" + expectedRes + "], а не [" + actualString + "]",
+                expectedRes == actualRes);
+    }
+    @Test(timeout = 1000)
+    public void testThirdQuarter() throws Throwable {
+        if (instance == null || unitMethod == null) {
+            fail();
+        }
+        int x = generateNumber(-10, -1);
+        int y = generateNumber(-10, -1);
+        getOut().println(x);
+        getOut().println(y);
+        int expectedRes = 3;//calcQuarter(x, y);
+
+        ReflectionUtil.invokeMain(instance);
+        String actualString = getIn().toString().trim();
+        double actualRes = 0.0;
+        try {
+            actualRes = Double.parseDouble(actualString);
+        } catch (NumberFormatException e) {
+            fail("\n--- Проверка корректности результата ---\nРезультатом должно быть числом, а не " + actualString);
+        }
+
+        assertTrue("В задании должен выполняться вывод текста " + actualString, !actualString.isEmpty());
+        assertTrue("\n--- Проверка корректности результата---\nПри введенных x=" + x + " и y= "+ y + ", четверть должна быть [" + expectedRes + "], а не [" + actualString + "]",
+                expectedRes == actualRes);
+    }
+
+    @Test(timeout = 1000)
+    public void testForthQuarter() throws Throwable {
+        if (instance == null || unitMethod == null) {
+            fail();
+        }
+        int x = generateNumber(1, 10);
+        int y = generateNumber(-10, -1);
+        getOut().println(x);
+        getOut().println(y);
+        int expectedRes = 4;//calcQuarter(x, y);
+
+        ReflectionUtil.invokeMain(instance);
+        String actualString = getIn().toString().trim();
+        double actualRes = 0.0;
+        try {
+            actualRes = Double.parseDouble(actualString);
+        } catch (NumberFormatException e) {
+            fail("\n--- Проверка корректности результата ---\nРезультатом должно быть числом, а не " + actualString);
+        }
+
+        assertTrue("В задании должен выполняться вывод текста " + actualString, !actualString.isEmpty());
+        assertTrue("\n--- Проверка корректности результата---\nПри введенных x=" + x + " и y= "+ y + ", четверть должна быть [" + expectedRes + "], а не [" + actualString + "]",
+                expectedRes == actualRes);
+    }
+
+    @Test(timeout = 1000)
+    public void testBetweenQuarter() throws Throwable {
+        if (instance == null || unitMethod == null) {
+            fail();
+        }
+        int x = generateNumber(0, 0);
+        int y = generateNumber(-10, 0);
+        getOut().println(x);
+        getOut().println(y);
+        int expectedRes = 0;//calcQuarter(x, y);
 
         ReflectionUtil.invokeMain(instance);
         String actualString = getIn().toString().trim();

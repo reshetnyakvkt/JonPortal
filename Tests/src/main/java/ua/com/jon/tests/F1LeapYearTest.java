@@ -10,6 +10,7 @@ import org.junit.runner.RunWith;
 import org.junit.runners.MethodSorters;
 import org.junit.runners.Parameterized;
 
+import java.lang.reflect.Method;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
@@ -28,9 +29,9 @@ import static org.junit.Assert.fail;
  * User: al1
  * Date: 31.05.14
  */
-@Unit(testName = "DigitsAvg", value = "weekend1.task1")
+@Unit(testName = "F1LeapYearTest", value = "weekend1.task1")
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
-@RunWith(Parameterized.class)
+//@RunWith(Parameterized.class)
 public class F1LeapYearTest extends BaseTest {
     public static void main(String[] args) {
         java.util.Scanner scan = new java.util.Scanner(System.in);
@@ -42,26 +43,27 @@ public class F1LeapYearTest extends BaseTest {
         }
     }
 
-    private int year;
-    private String yearType;
+//    private int year;
+//    private String yearType;
 
+/*
     public F1LeapYearTest(int year, String yearType) {
         this.year = year;
         this.yearType = yearType;
     }
+*/
 
-    @Parameterized.Parameters
+/*    @Parameterized.Parameters
     public static List<Object[]> isEmptyData() {
         return Arrays.asList(new Object[][]{
                 {400, "Високосный"},
                 {1600, "Високосный"},
-                {2008, "Високосный"},
                 {2016, "Високосный"},
                 {1500, "Невисокосный"},
                 {1800, "Невисокосный"},
                 {2015, "Невисокосный"},
         });
-    }
+    }*/
 
     private static final String UNIT_NAME = "DigitsAvg";
 
@@ -75,13 +77,7 @@ public class F1LeapYearTest extends BaseTest {
     private static String unitJarClasspath;
 
     private static Object instance;
-    private static Class unitClass;
-
-    @BeforeClass
-    public static void before() {
-        instance = null;
-        unitClass = null;
-    }
+    private static Method unitMethod;
 
     @Before
     public void setUp() {
@@ -95,35 +91,122 @@ public class F1LeapYearTest extends BaseTest {
 
     @Test(timeout = 1000)
     public void testCheckMainMethod() throws Throwable {
-
-        if(unitClasses.length != 1) {
-            unitClass = getUnitClass(unitClasses, UNIT_NAME);
-            assertNotNull("В задании не найден класс " + UNIT_NAME, unitClass);
-        } else {
-            unitClass = unitClasses[0];
-        }
-        //assertTrue("В задании не найден класс " + UNIT_NAME, UNIT_NAME.equals(unitClass.getSimpleName()));
-        assertTrue("В задании должен быть только один класс", codes.size() == 1);
+        assertTrue("В задании должен быть только один класс", unitClasses.length == 1);
         validateCode(codes.entrySet().iterator().next().getValue());
-        instance = instanciate(unitClass);
-        ReflectionUtil.checkMainMethod(unitClass);
+        instance = instanciate(unitClasses[0]);
+        unitMethod = ReflectionUtil.checkMainMethod(unitClasses[0]);
     }
 
     @Test(timeout = 1000)
-    public void testFirstQuarter() throws Throwable {
-
-        if (instance == null) {
+    public void testLeap1() throws Throwable {
+        if (instance == null || unitMethod == null) {
             fail();
         }
+        int year = 400;
         getOut().println(year);
-        String expectedRes = calcYearType(year);//yearType;
+//        String expectedRes = calcYearType(year);//yearType;
 
         ReflectionUtil.invokeMain(instance);
         String actualString = getIn().toString().trim();
 
         assertTrue("В задании должен выполняться вывод текста " + actualString, !actualString.isEmpty());
-        assertTrue("\n--- Проверка корректности результата ---\nПри введенном году " + year + ", должно быть выведено [" + expectedRes + "], а не [" + actualString + "]",
-                expectedRes.equals(actualString));
+        assertTrue("\n--- Проверка на високосный год ---\nПри введенном году " + year +
+                        ", должно быть выведено [Високосный], а не [" + actualString + "]",
+                "Високосный".equals(actualString)
+        );
+    }
+    @Test(timeout = 1000)
+    public void testLeap2() throws Throwable {
+        if (instance == null || unitMethod == null) {
+            fail();
+        }
+
+        int year = 1600;
+        getOut().println(year);
+//        String expectedRes = calcYearType(year);//yearType;
+
+        ReflectionUtil.invokeMain(instance);
+        String actualString = getIn().toString().trim();
+
+//        assertTrue("В задании должен выполняться вывод текста " + actualString, !actualString.isEmpty());
+        assertTrue("\n--- Проверка на високосный год ---\nПри введенном году " + year +
+                        ", должно быть выведено [Високосный], а не [" + actualString + "]",
+                "Високосный".equals(actualString)
+        );
+    }
+    @Test(timeout = 1000)
+    public void testLeap3() throws Throwable {
+        if (instance == null || unitMethod == null) {
+            fail();
+        }
+
+        int year = 2016;
+        getOut().println(year);
+//        expectedRes = calcYearType(year);//yearType;
+
+        ReflectionUtil.invokeMain(instance);
+        String actualString = getIn().toString().trim();
+
+//        assertTrue("В задании должен выполняться вывод текста " + actualString, !actualString.isEmpty());
+        assertTrue("\n--- Проверка на високосный год ---\nПри введенном году " + year +
+                        ", должно быть выведено [Високосный], а не [" + actualString + "]",
+                "Високосный".equals(actualString));
+    }
+
+    @Test(timeout = 1000)
+    public void testNotLeap1() throws Throwable {
+        if (instance == null || unitMethod == null) {
+            fail();
+        }
+        int year = 1500;
+        getOut().println(year);
+//        String expectedRes = calcYearType(year);//yearType;
+
+        ReflectionUtil.invokeMain(instance);
+        String actualString = getIn().toString().trim();
+
+//        assertTrue("В задании должен выполняться вывод текста " + actualString, !actualString.isEmpty());
+        assertTrue("\n--- Проверка на невисокосный год ---\nПри введенном году " + year +
+                        ", должно быть выведено [Невисокосный], а не [" + actualString + "]",
+                "Невисокосный".equals(actualString)
+        );
+    }
+    @Test(timeout = 1000)
+    public void testNotLeap2() throws Throwable {
+        if (instance == null || unitMethod == null) {
+            fail();
+        }
+
+        int year = 1800;
+        getOut().println(year);
+//        String expectedRes = calcYearType(year);//yearType;
+
+        ReflectionUtil.invokeMain(instance);
+        String actualString = getIn().toString().trim();
+
+//        assertTrue("В задании должен выполняться вывод текста " + actualString, !actualString.isEmpty());
+        assertTrue("\n--- Проверка на не високосный год ---\nПри введенном году " + year +
+                        ", должно быть выведено [Невисокосный], а не [" + actualString + "]",
+                "Невисокосный".equals(actualString)
+        );
+    }
+    @Test(timeout = 1000)
+    public void testNotLeap3() throws Throwable {
+        if (instance == null || unitMethod == null) {
+            fail();
+        }
+
+        int year = 2015;
+        getOut().println(year);
+//        String expectedRes = calcYearType(year);//yearType;
+
+        ReflectionUtil.invokeMain(instance);
+        String actualString = getIn().toString().trim();
+
+//        assertTrue("В задании должен выполняться вывод текста " + actualString, !actualString.isEmpty());
+        assertTrue("\n--- Проверка на невисокосный год ---\nПри введенном году " + year +
+                        ", должно быть выведено [Невисокосный], а не [" + actualString + "]",
+                "Невисокосный".equals(actualString));
     }
 
     private String calcYearType(int year) {

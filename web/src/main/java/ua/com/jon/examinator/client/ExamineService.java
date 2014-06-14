@@ -5,6 +5,7 @@ import com.google.gwt.user.client.rpc.RemoteService;
 import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
 import ua.com.jon.examinator.shared.SprintDTO;
 import ua.com.jon.examinator.shared.TaskDTO;
+import ua.com.jon.examinator.shared.TaskHistoryDto;
 
 import java.util.ArrayList;
 
@@ -20,4 +21,5 @@ public interface ExamineService extends RemoteService {
     void taskStatusChanged(TaskDTO dto);
     ArrayList<SprintDTO> getSprints();
     String postForTest(TaskDTO taskDTO, String userName);
+    TaskHistoryDto getTaskHistoryByHash(String hash);
 }

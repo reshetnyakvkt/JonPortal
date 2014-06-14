@@ -177,7 +177,6 @@ public class HelloWorldTestTest {
         String resultMarkString = processResult.getKey();
         assertEquals("Метод main должен выводить в консоль сообщение 'Hello world'", resultString);
         assertEquals("10", resultMarkString);
-
     }
 }
 

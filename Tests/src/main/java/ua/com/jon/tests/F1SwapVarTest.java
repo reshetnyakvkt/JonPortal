@@ -12,6 +12,7 @@ import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runners.MethodSorters;
 
+import java.lang.reflect.Method;
 import java.util.Map;
 
 import static junit.framework.TestCase.assertNotNull;
@@ -28,7 +29,7 @@ import static org.junit.Assert.fail;
  * User: al1
  * Date: 31.05.14
  */
-@Unit(testName = "SwapVarTest", value = "weekend1.task1")
+@Unit(testName = "F1SwapVarTest", value = "weekend1.task1")
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class F1SwapVarTest extends BaseTest {
     public static void main(String[] args) {
@@ -52,8 +53,8 @@ public class F1SwapVarTest extends BaseTest {
     private static String[] unitNames;
     @Unit
     private static String unitJarClasspath;
-    private static Class unitClass;
     private static Object instance;
+    private static Method unitMethod;
 
     @Before
     public void setUp() {
@@ -67,24 +68,18 @@ public class F1SwapVarTest extends BaseTest {
 
     @Test(timeout = 1000)
     public void testCheckMainMethod() throws Throwable {
-        if (unitClasses.length != 1) {
-            unitClass = getUnitClass(unitClasses, UNIT_NAME);
-            assertNotNull("В задании не найден класс " + UNIT_NAME, unitClass);
-        } else {
-            unitClass = unitClasses[0];
-        }
-//        assertTrue("В задании не найден класс " + UNIT_NAME, UNIT_NAME.equals(unitClass.getSimpleName()));
-        assertTrue("В задании должен быть только один класс", codes.size() == 1);
+        assertTrue("В задании должен быть только один класс", unitClasses.length == 1);
         validateCode(codes.entrySet().iterator().next().getValue());
-        instance = instanciate(unitClass);
-        ReflectionUtil.checkMainMethod(unitClass);
+        instance = instanciate(unitClasses[0]);
+        unitMethod = ReflectionUtil.checkMainMethod(unitClasses[0]);
     }
 
     @Test(timeout = 1000)
     public void testSuccess() throws Throwable {
+        if (instance == null || unitMethod == null) {
+            fail();
+        }
         final String PREFIX = "\n--- Проверка корректности результата ---\n";
-
-        instance = instanciate(unitClass);
 
         ReflectionUtil.invokeMain(instance);
 

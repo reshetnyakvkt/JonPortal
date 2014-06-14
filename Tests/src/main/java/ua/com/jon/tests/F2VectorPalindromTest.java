@@ -56,7 +56,6 @@ public class F2VectorPalindromTest extends BaseTest {
     private static String unitJarClasspath;
 
     private static Object instance;
-    private static Class unitClass;
     private static Method unitMethod;
 
     @Before
@@ -71,18 +70,10 @@ public class F2VectorPalindromTest extends BaseTest {
 
     @Test(timeout = 1000)
     public void testCheckUnitMethod() throws Throwable {
-        if (unitClasses.length != 1) {
-            unitClass = getUnitClass(unitClasses, UNIT_NAME);
-            assertNotNull("В задании не найден класс " + UNIT_NAME, unitClass);
-        } else {
-            unitClass = unitClasses[0];
-        }
-//        assertTrue("В задании не найден класс " + UNIT_NAME, UNIT_NAME.equals(unitClass.getSimpleName()));
-        assertTrue("В задании должен быть только один класс", codes.size() == 1);
+        assertTrue("В задании должен быть только один класс", unitClasses.length == 1);
         validateCode(codes.entrySet().iterator().next().getValue());
-        instance = instanciate(unitClass);
-//        ReflectionUtil.checkMainMethod(unitClass);
-        unitMethod = ReflectionUtil.checkMethod(unitClass, UNIT_METHOD_NAME, boolean.class,
+        instance = instanciate(unitClasses[0]);
+        unitMethod = ReflectionUtil.checkMethod(unitClasses[0], UNIT_METHOD_NAME, boolean.class,
                 new MethodModifier[]{MethodModifier.PUBLIC}, int[].class);
     }
 

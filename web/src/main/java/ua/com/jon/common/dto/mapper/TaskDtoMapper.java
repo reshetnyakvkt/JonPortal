@@ -119,6 +119,7 @@ public class TaskDtoMapper {
                 task.getTaskTemplate().getType().name(),
                 task.getUser().getLogin(),
                 task.getTaskTemplate().getClassName(),
+                task.getTaskTemplate().getTestName(),
                 task.getTaskTemplate().getId(),
                 task.getTaskTemplate().getMaterials(),
                 task.getGroup().getId(),

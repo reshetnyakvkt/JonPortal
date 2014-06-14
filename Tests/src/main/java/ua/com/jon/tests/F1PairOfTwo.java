@@ -25,7 +25,7 @@ import static org.junit.Assert.fail;
  * User: al1
  * Date: 29.05.14
  */
-@Unit(testName = "PairOfTwo", value = "weekend1.task1")
+@Unit(testName = "F1PairOfTwo", value = "weekend1.task1")
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class F1PairOfTwo extends BaseTest {
     public static void main(String[] args) {
@@ -50,14 +50,7 @@ public class F1PairOfTwo extends BaseTest {
     private static String unitJarClasspath;
 
     private static Object instance;
-    private static Class unitClass;
-    private static Method mainMethod;
-
-    @BeforeClass
-    public static void before() {
-        instance = null;
-        unitClass = null;
-    }
+    private static Method unitMethod;
 
     @Before
     public void setUp() {
@@ -71,26 +64,18 @@ public class F1PairOfTwo extends BaseTest {
 
     @Test(timeout = 1000)
     public void testCheckMainMethod() throws Throwable {
-
-        if(unitClasses.length != 1) {
-            unitClass = getUnitClass(unitClasses, UNIT_NAME);
-            assertNotNull("В задании не найден класс " + UNIT_NAME, unitClass);
-        } else {
-            unitClass = unitClasses[0];
-        }
-        //assertTrue("В задании не найден класс " + UNIT_NAME, UNIT_NAME.equals(unitClass.getSimpleName()));
-        assertTrue("В задании должен быть только один класс", codes.size() == 1);
+        assertTrue("В задании должен быть только один класс", unitClasses.length == 1);
         validateCode(codes.entrySet().iterator().next().getValue());
-        instance = instanciate(unitClass);
-        mainMethod = ReflectionUtil.checkMainMethod(unitClass);
+        instance = instanciate(unitClasses[0]);
+        unitMethod = ReflectionUtil.checkMainMethod(unitClasses[0]);
     }
 
     @Test(timeout = 1000)
     public void testSuccess() throws Throwable {
-        final int MAX_NUMBER = 10;
-        if (instance == null || mainMethod == null) {
+        if (instance == null || unitMethod == null) {
             fail();
         }
+        final int MAX_NUMBER = 10;
         int firstNumber = rnd.nextInt(MAX_NUMBER);
 
         String expectedString = firstNumber % 2 == 0 ? "четное" : "нечетное";

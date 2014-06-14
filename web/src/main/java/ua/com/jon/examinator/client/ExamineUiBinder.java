@@ -1,10 +1,6 @@
 package ua.com.jon.examinator.client;
 
-import com.github.gwtbootstrap.client.ui.ButtonCell;
-import com.github.gwtbootstrap.client.ui.CellTable;
-import com.github.gwtbootstrap.client.ui.TextArea;
-import com.github.gwtbootstrap.client.ui.TextBox;
-import com.github.gwtbootstrap.client.ui.ValueListBox;
+import com.github.gwtbootstrap.client.ui.*;
 import com.github.gwtbootstrap.client.ui.constants.ButtonType;
 import com.google.gwt.cell.client.FieldUpdater;
 import com.google.gwt.core.client.GWT;
@@ -26,6 +22,7 @@ import com.google.gwt.view.client.SelectionChangeEvent;
 import com.google.gwt.view.client.SingleSelectionModel;
 import ua.com.jon.examinator.shared.SprintDTO;
 import ua.com.jon.examinator.shared.TaskDTO;
+import ua.com.jon.examinator.shared.TaskHistoryDto;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -50,6 +47,9 @@ public class ExamineUiBinder extends Composite {
     @UiField
     TextBox userName;
 
+    @UiField
+    TextBox hash;
+
     @UiField(provided=true)
     ValueListBox<SprintDTO> sprintsListBox = new ValueListBox<SprintDTO>(new AbstractRenderer<SprintDTO>() {
         @Override
@@ -61,6 +61,19 @@ public class ExamineUiBinder extends Composite {
             }
         }
     });
+
+    @UiField
+    Modal findTaskModal = new Modal();
+
+    @UiField
+    Button findTaskBtn = new Button();
+
+    @UiField
+    CodeBlock codeBlock = new CodeBlock();
+
+    @UiField
+    ProgressBar taskFindProgress = new ProgressBar();
+
     private boolean isTestButtonsDisabled;
 
     interface ExampleUiBinderUiBinder extends UiBinder<HTMLPanel, ExamineUiBinder> {
@@ -111,6 +124,40 @@ public class ExamineUiBinder extends Composite {
 //        selectFirstTaskIfExists();
     }
 
+    @UiHandler("showTaskBtn")
+    public void showTaskFindModalHandler(ClickEvent e) {
+        taskFindProgress.setVisible(false);
+        codeBlock.setVisible(false);
+        findTaskModal.show();
+    }
+
+    @UiHandler("findTaskBtn")
+    public void findTaskHandler(ClickEvent e) {
+        if (!hash.getText().isEmpty()) {
+            final AsyncCallback<TaskHistoryDto> callback = new AsyncCallback<TaskHistoryDto>() {
+
+                @Override
+                public void onFailure(Throwable caught) {
+                    taskFindProgress.setVisible(false);
+                    codeBlock.setVisible(false);
+                    Window.alert("Ошибка получения решения по коду");
+                }
+
+                @Override
+                public void onSuccess(TaskHistoryDto task) {
+                    taskFindProgress.setVisible(false);
+                    codeBlock.setVisible(true);
+                    codeBlock.setText(task.getCode());
+                }
+            };
+
+            taskFindProgress.setVisible(true);
+            tasksService.getTaskHistoryByHash(hash.getText().trim(), callback);
+        } else {
+            Window.alert("Введите код решения");
+        }
+    }
+
     private void loadSprintsAndTasks() {
         final AsyncCallback<ArrayList<SprintDTO>> callback = new AsyncCallback<ArrayList<SprintDTO>>() {
 
@@ -131,7 +178,7 @@ public class ExamineUiBinder extends Composite {
                 }
                 if (lastSprint != null) {
                     sprintsListBox.setValue(lastSprint);
-//                    Window.alert(lastSprint.getTasks().toString());
+                    Window.alert(lastSprint.getTasks().toString());
                     addTasksToTable(lastSprint.getTasks(), true);
                 }
 
@@ -209,7 +256,9 @@ public class ExamineUiBinder extends Composite {
         selectionModel.addSelectionChangeHandler(
                 new SelectionChangeEvent.Handler() {
                     public void onSelectionChange(SelectionChangeEvent event) {
+                        Window.alert("Select");
                         TaskDTO selected = selectionModel.getSelectedObject();
+                        Window.alert(selected.toString());
                         if (selected != null) {
                             result.setText(selected.getResult());
                             taskText.setText(selected.getText());
@@ -244,6 +293,15 @@ public class ExamineUiBinder extends Composite {
                     return;
                 }
 
+                if (code.getText().isEmpty()) {
+                    String testResult = "0\nОшибка компиляции: Тело класса не может быть пустым";
+                    taskDTO.setResult(testResult);
+                    result.setText(testResult);
+                    styledButtonCell.setDisabled(false);
+                    cellTable.redraw();
+                    return;
+                }
+
                 taskDTO.setCode(code.getText());
                 final AsyncCallback<String> callback = new AsyncCallback<String>() {
 
@@ -261,7 +319,6 @@ public class ExamineUiBinder extends Composite {
                         result.setText(testResult);
                         //dataProvider.flush();
                         dataProvider.refresh();
-                        //restructureTable(null);
                         isTestButtonsDisabled = false;
                         styledButtonCell.setDisabled(false);
                         cellTable.redraw();

@@ -5,12 +5,10 @@ import com.jon.tron.service.junit.UnitClass;
 import com.jon.tron.service.junit.UnitCode;
 import com.jon.tron.service.junit.UnitName;
 import com.jon.tron.service.reflect.ReflectionUtil;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.FixMethodOrder;
-import org.junit.Test;
+import org.junit.*;
 import org.junit.runners.MethodSorters;
 
+import java.lang.reflect.Method;
 import java.util.Map;
 
 import static junit.framework.Assert.assertSame;
@@ -23,7 +21,7 @@ import static org.junit.Assert.assertTrue;
  * User: al1
  * Date: 3/8/13
  */
-@Unit(testName = "HelloWorld", value = "checked.HelloWorld")
+@Unit(testName = "HelloWorldTest", value = "checked.HelloWorld")
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class HelloWorldTest extends BaseTest {
     public static void main(String[] args) {
@@ -42,6 +40,7 @@ public class HelloWorldTest extends BaseTest {
     private static String unitJarClasspath;
     private static Class unitClass;
     private static Object instance;
+    private static Method unitMethod;
 
     @Before
     public void setUp() {
@@ -55,25 +54,18 @@ public class HelloWorldTest extends BaseTest {
 
     @Test(timeout = 1000)
     public void testCheckMainMethod() throws Throwable {
-        if (unitClasses.length != 1) {
-            unitClass = getUnitClass(unitClasses, UNIT_NAME);
-            assertNotNull("В задании не найден класс " + UNIT_NAME, unitClass);
-        } else {
-            unitClass = unitClasses[0];
-        }
-//        assertTrue("В задании не найден класс " + UNIT_NAME, UNIT_NAME.equals(unitClass.getSimpleName()));
-        validateCode(codes.get(UNIT_NAME));
-        instance = instanciate(unitClass);
-        ReflectionUtil.checkMainMethod(unitClass);
+        assertTrue("В задании должен быть только один класс", unitClasses.length == 1);
+        validateCode(codes.entrySet().iterator().next().getValue());
+        instance = instanciate(unitClasses[0]);
+        unitMethod = ReflectionUtil.checkMainMethod(unitClasses[0]);
     }
 
 
     @Test(timeout = 1000)
     public void testClassMainMessage() throws Throwable {
-        if (instance == null) {
-            fail();
+        if (instance == null || unitMethod == null) {
+            Assert.fail();
         }
-
         try {
 //            getOut().println("\n");
             ReflectionUtil.invokeMain(instance);

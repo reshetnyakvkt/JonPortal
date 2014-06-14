@@ -20,13 +20,14 @@ public class TaskDTO implements Serializable {
     private String type;
     private String userName;
     private String className;
+    private String testName;
     private Long taskTemplateId;
     private Long groupId;
     private String material;
     private Double rate;
 
     public TaskDTO(Long id, String text, String name, String status, String result, String code, String type,
-                   String userName, String className, Long taskTemplateId, String material, Long groupId, Double rate) {
+                   String userName, String className, String testName, Long taskTemplateId, String material, Long groupId, Double rate) {
         this.id = id;
         this.text = text;
         this.name = name;
@@ -36,6 +37,7 @@ public class TaskDTO implements Serializable {
         this.type = type;
         this.userName = userName;
         this.className = className;
+        this.testName = testName;
         this.taskTemplateId = taskTemplateId;
         this.material = material;
         this.groupId = groupId;
@@ -56,6 +58,7 @@ public class TaskDTO implements Serializable {
                 taskDTO.getType(),
                 taskDTO.getUserName(),
                 taskDTO.getClassName(),
+                taskDTO.getTestName(),
                 taskDTO.getTaskTemplateId(),
                 taskDTO.getMaterial(),
                 taskDTO.getGroupId(),
@@ -164,6 +167,14 @@ public class TaskDTO implements Serializable {
 
     public void setRate(Double rate) {
         this.rate = rate;
+    }
+
+    public String getTestName() {
+        return testName;
+    }
+
+    public void setTestName(String testName) {
+        this.testName = testName;
     }
 
     @Override

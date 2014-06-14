@@ -23,7 +23,7 @@ import static org.junit.Assert.assertTrue;
  * User: Admin
  * Date: 19.09.13
  */
-@Unit(testName = "Greeting", value = "session1.task3.Greeting")
+@Unit(testName = "GreetingTest", value = "session1.task3.Greeting")
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class GreetingTest extends BaseTest {
     public static void main(String[] args) {
@@ -44,14 +44,9 @@ public class GreetingTest extends BaseTest {
     private static String unitJarClasspath;
 
     private static Object instance;
-    private static Class unitClass;
-    private String[] names = {"Oksana", "Vampu", "Sinaps", "Maika"};
+    private static Method unitMethod;
 
-    @BeforeClass
-    public static void before() {
-        instance = null;
-        unitClass = null;
-    }
+    private String[] names = {"Oksana", "Vampu", "Sinaps", "Maika"};
 
     @Before
     public void setUp() {
@@ -65,23 +60,16 @@ public class GreetingTest extends BaseTest {
 
     @Test(timeout = 1000)
     public void testCheckMainMethod() throws Throwable {
-
-        if (unitClasses.length != 1) {
-            unitClass = getUnitClass(unitClasses, UNIT_NAME);
-            assertNotNull("В задании не найден класс " + UNIT_NAME, unitClass);
-        } else {
-            unitClass = unitClasses[0];
-        }
-//        assertTrue("В задании не найден класс " + UNIT_NAME, UNIT_NAME.equals(unitClass.getSimpleName()));
-        validateCode(codes.get(UNIT_NAME));
-        instance = instanciate(unitClass);
-        ReflectionUtil.checkMainMethod(unitClass);
+        assertTrue("В задании должен быть только один класс", unitClasses.length == 1);
+        validateCode(codes.entrySet().iterator().next().getValue());
+        instance = instanciate(unitClasses[0]);
+        unitMethod = ReflectionUtil.checkMainMethod(unitClasses[0]);
     }
 
     @Test(timeout = 1000)
     public void testSuccess() throws Throwable {
-        if (instance == null) {
-            fail();
+        if (instance == null || unitMethod == null) {
+            Assert.fail();
         }
         String name = names[rnd.nextInt(names.length)];
         getOut().print(name);

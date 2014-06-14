@@ -22,7 +22,7 @@ import static org.junit.Assert.assertTrue;
  * User: al1
  * Date: 06.06.14
  */
-@Unit(testName = "P4DBFindFile", value = {"hw5.equation.MainWindow", "hw5.equation.SolutionJDBCManager",
+@Unit(testName = "P4QudraticSolverTest", value = {"hw5.equation.MainWindow", "hw5.equation.SolutionJDBCManager",
         "hw5.equation.Solution", "hw5.equation.QuadraticService"})
 public class P4QudraticSolverTest extends BaseTest {
     private static final String MAIN_UNIT_NAME = "MainWindow";

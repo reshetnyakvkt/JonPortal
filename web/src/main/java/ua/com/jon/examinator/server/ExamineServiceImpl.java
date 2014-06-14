@@ -1,9 +1,9 @@
 package ua.com.jon.examinator.server;
 
 
-import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 import com.jon.tron.exception.CompilationException;
 import com.jon.tron.service.processor.ClassProcessor;
+import com.jon.tron.service.processor.Crypt;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -18,6 +18,7 @@ import ua.com.jon.common.domain.Task;
 import ua.com.jon.common.domain.TaskHistory;
 import ua.com.jon.common.domain.TaskTemplate;
 import ua.com.jon.common.dto.mapper.SprintDtoMapper;
+import ua.com.jon.common.dto.mapper.TaskHistoryDtoMapper;
 import ua.com.jon.common.repository.SprintRepository;
 import ua.com.jon.common.repository.TaskHistoryRepository;
 import ua.com.jon.common.repository.TaskRepository;
@@ -25,10 +26,10 @@ import ua.com.jon.common.repository.TaskTemplateRepository;
 import ua.com.jon.examinator.client.ExamineService;
 import ua.com.jon.examinator.shared.SprintDTO;
 import ua.com.jon.examinator.shared.TaskDTO;
+import ua.com.jon.examinator.shared.TaskHistoryDto;
 
 import javax.annotation.Resource;
 import javax.servlet.ServletContext;
-import javax.servlet.SessionCookieConfig;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.net.URL;
@@ -36,6 +37,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 /**
  * Created with IntelliJ IDEA.
@@ -46,6 +49,9 @@ import java.util.Map;
 public class ExamineServiceImpl /*extends RemoteServiceServlet*/ implements ExamineService, ServletContextAware {
     private static final Logger log = Logger.getLogger(ExamineServiceImpl.class);
     public static final int TASK_PROCESSING_DELAY = 200;
+    private static final int THREADS_NUMBER = 10;
+    private static final int SAVING_RATE = 100;
+    ExecutorService executor = Executors.newFixedThreadPool(THREADS_NUMBER);
 
     private long lastTime;
 
@@ -110,14 +116,19 @@ public class ExamineServiceImpl /*extends RemoteServiceServlet*/ implements Exam
         ArrayList<SprintDTO> sprints = new ArrayList<SprintDTO>();
         for (Sprint sprint : sprintIterable) {
             List<Task> tasks = taskRepository.findBySprintName(sprint.getName());
-            sprints.add(SprintDtoMapper.cabinetDtoToExamine(tasks, sprint, true));
+            SprintDTO sprintDTO = SprintDtoMapper.cabinetDtoToExamine(tasks, sprint, true);
+            log.info("-== " + sprintDTO.getName() + " ==-");
+            sprints.add(sprintDTO);
         }
-        log.info("-== " + sprints + " ==-");
+
         return sprints;
     }
 
     @Override
     public String postForTest(final TaskDTO taskDTO, final String userName) {
+//        final PrintStream out = System.out;
+//        System.setOut(new PrintStream(new ByteArrayOutputStream()));
+
         if (System.currentTimeMillis() - lastTime < TASK_PROCESSING_DELAY) {
             return "Предыдущее задание еще не проверено, попробуйте позже";
         }
@@ -129,43 +140,82 @@ public class ExamineServiceImpl /*extends RemoteServiceServlet*/ implements Exam
         System.out.println(resource.getPath());
 
         Map.Entry<String, String> resultEntry;
-        final TaskTemplate template = templateRepository.findOne(taskDTO.getTaskTemplateId());
+//        final TaskTemplate template = templateRepository.findOne(taskDTO.getTaskTemplateId());
+
         try {
-            resultEntry = classProcessor.processClass(taskDTO.getCode(), template.getTestName(),
+            resultEntry = classProcessor.processClass(taskDTO.getCode(), taskDTO.getTestName(),
                     servletContext.getRealPath("/WEB-INF") + "/lib/" + coreJarName);
         } catch (CompilationException e) {
             resultEntry = e.getResult();
         } catch (Exception e) {
             log.error(e);
-            return "Ошибка проверки " + e.getMessage() + ". Обратитесь к разработчикам";
+            return "Ошибка проверки. Обратитесь к разработчикам";
         }
-        final String testResult = resultEntry.getKey() + '\n' + resultEntry.getValue();
-        final Integer key = Integer.valueOf(resultEntry.getKey());
+        Integer key = Integer.valueOf(resultEntry.getKey());
+        String sha1 = key >= SAVING_RATE ? Crypt.sha1(taskDTO.getCode() + taskDTO.getUserName() +
+                String.valueOf(System.currentTimeMillis())) : "";
+
+        String testResult = buildTestResult(userName, resultEntry, key, sha1);
+
         log.info("Cabinet test result is " + testResult);
 
-        new Thread(new Runnable() {
+        saveTaskHistoryAsync(taskDTO, userName, taskDTO.getTaskTemplateId(), key, sha1, testResult);
+
+        lastTime = System.currentTimeMillis();
+        return testResult;
+    }
+
+    private String buildTestResult(String userName, Map.Entry<String, String> resultEntry, Integer key, String sha1) {
+        String testResult = resultEntry.getKey() + '\n' + resultEntry.getValue();
+
+        if (key >= SAVING_RATE && userName != null && !userName.isEmpty()) {
+            testResult = testResult + '\n' + "Код решения: " + sha1;
+        } else if (key >= SAVING_RATE && userName != null && userName.isEmpty()) {
+            testResult = testResult + '\n' + "Решение не сохранено, не указано имя пользователя";
+        } else if (key < SAVING_RATE && userName != null && !userName.isEmpty()) {
+            testResult = testResult + '\n' + "Решение не сохранено, набранный бал меньше " + SAVING_RATE;
+        }
+        return testResult;
+    }
+
+    private void saveTaskHistoryAsync(final TaskDTO taskDTO, final String userName, final Long template, final Integer key, final String sha1, final String testResult) {
+        executor.execute(new Runnable() {
             @Override
             public void run() {
-                Task task = taskRepository.findOne(taskDTO.getId());
-                task.setCode(taskDTO.getCode());
-                /*        if(testResult.length() > 750) {
-                            testResult = testResult.substring(0, 740);
-                        }*/
+//                PrintStream out = System.out;
+//                System.setOut(new PrintStream(new ByteArrayOutputStream()));
                 try {
-                    task.setResult(testResult);
-                    taskRepository.save(task);
-                    if (key >= 10) {
-                        taskHistoryRepository.save(new TaskHistory(taskDTO.getCode(), template, userName, new Date(), testResult));
+//                    Task task = taskRepository.findOne(taskDTO.getId());
+//                    task.setCode(taskDTO.getCode());
+/*
+                        if(testResult.length() > 750) {
+                            testResult = testResult.substring(0, 740);
+                        }
+*/
+                    String result = testResult.length() > 1000 ? testResult.substring(0, 1000) : testResult;
+//                    taskRepository.save(task);
+                    if (key == 100 && !userName.isEmpty()) {
+                        TaskTemplate template = templateRepository.findOne(taskDTO.getTaskTemplateId());
+                        taskHistoryRepository.save(new TaskHistory(taskDTO.getCode(), template, userName, new Date(), result, sha1));
                     }
                 } catch (Exception de) {
                     log.error(de);
+                } finally {
+//                    System.setOut(out);
                 }
-                lastTime = System.currentTimeMillis();
-
             }
-        }).start();
+        });
+    }
 
-        return testResult;
+    public TaskHistoryDto getTaskHistoryByHash(String hash) {
+        TaskHistory taskHistory = null;
+        try {
+            taskHistory = taskHistoryRepository.findByHash(hash);
+            return TaskHistoryDtoMapper.domainToDto(taskHistory);
+        } catch (Exception e) {
+            log.error(e);
+            throw new RuntimeException("Ошибка получения решений с сервера");
+        }
     }
 
     public void createSession(String username) {
@@ -178,7 +228,7 @@ public class ExamineServiceImpl /*extends RemoteServiceServlet*/ implements Exam
     public String getUser() {
         HttpSession session = request.getSession();
         if (session.getAttribute("username") != null) {
-            return (String)session.getAttribute("username");
+            return (String) session.getAttribute("username");
         } else {
             return null;
         }
