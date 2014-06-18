@@ -81,7 +81,6 @@ public class SprintsTabPanel extends Composite {
 
             @Override
             public void onSuccess(ArrayList<SprintDTO> sprintDTOs) {
-                Window.alert("Sprints " + sprintDTOs);
                 addSprintsToTable(sprintDTOs);
             }
         };
@@ -246,7 +245,6 @@ public class SprintsTabPanel extends Composite {
 
         List<SprintDTO> list = dataProvider.getList();
         ArrayList<SprintDTO> listToSave = new ArrayList<SprintDTO>(list);
-        Window.alert("Save sprints: " + listToSave);
         adminService.saveSprints(listToSave, sprintsCallback);
     }
 }

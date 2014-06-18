@@ -1,7 +1,13 @@
 package ua.com.jon.examinator.client;
 
-import com.github.gwtbootstrap.client.ui.*;
-import com.github.gwtbootstrap.client.ui.constants.ButtonType;
+import com.github.gwtbootstrap.client.ui.Button;
+import com.github.gwtbootstrap.client.ui.CellTable;
+import com.github.gwtbootstrap.client.ui.CodeBlock;
+import com.github.gwtbootstrap.client.ui.Modal;
+import com.github.gwtbootstrap.client.ui.ProgressBar;
+import com.github.gwtbootstrap.client.ui.TextArea;
+import com.github.gwtbootstrap.client.ui.TextBox;
+import com.github.gwtbootstrap.client.ui.ValueListBox;
 import com.google.gwt.cell.client.FieldUpdater;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
@@ -12,7 +18,6 @@ import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.uibinder.client.UiHandler;
 import com.google.gwt.user.cellview.client.Column;
 import com.google.gwt.user.cellview.client.TextColumn;
-import com.google.gwt.user.client.Cookies;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Composite;
@@ -168,7 +173,6 @@ public class ExamineUiBinder extends Composite {
 
             @Override
             public void onSuccess(ArrayList<SprintDTO> sprints) {
-//                Window.alert("loadSprintsAndTasks sprints " + sprints);
 
                 sprintsListBox.setAcceptableValues(sprints);
 
@@ -178,7 +182,6 @@ public class ExamineUiBinder extends Composite {
                 }
                 if (lastSprint != null) {
                     sprintsListBox.setValue(lastSprint);
-                    Window.alert(lastSprint.getTasks().toString());
                     addTasksToTable(lastSprint.getTasks(), true);
                 }
 
@@ -256,9 +259,7 @@ public class ExamineUiBinder extends Composite {
         selectionModel.addSelectionChangeHandler(
                 new SelectionChangeEvent.Handler() {
                     public void onSelectionChange(SelectionChangeEvent event) {
-                        Window.alert("Select");
                         TaskDTO selected = selectionModel.getSelectedObject();
-                        Window.alert(selected.toString());
                         if (selected != null) {
                             result.setText(selected.getResult());
                             taskText.setText(selected.getText());

@@ -307,12 +307,10 @@ public class TasksManageTabPanel extends Composite {
                 Iterator<SprintDTO> itr = sprintDTOs.iterator();
                 if (itr.hasNext()) {
                     SprintDTO sprintDTO = itr.next();
-                    Window.alert(sprintDTO.toString());
 //                    addTasksToSprintNavList(spaceDTO.getTasks());
                     sprintsListBox.setValue(sprintDTO);
                     currentSprint = sprintDTO;
                 }
-                Window.alert(sprintsListBox.getValue().getTasks().toString());
                 addSprintsToTable(sprintsListBox.getValue().getTasks(), true);
             }
         };
@@ -418,7 +416,6 @@ public class TasksManageTabPanel extends Composite {
 //        ArrayList<SprintDTO> newSprints = new ArrayList<SprintDTO>();
 //        newSprints.add(currentSprint);
         relocateTasks(loadedSprints);
-        Window.alert("Sprints to save: " + loadedSprints);
         adminService.saveSprints(loadedSprints, callback);
     }
 

@@ -59,7 +59,10 @@ public class ReflectionUtil {
         return new int[0];  //To change body of created methods use File | Settings | File Templates.
     }
 
-    public static boolean invokeMethod(Object instance, Method unitMethod, int[] actualVector) {
+    public static Object invokeMethod(Object instance, Method unitMethod, Object ... actualVector) {
         return false;
+    }
+
+    public static void invokeMethodWithExceptions(Object instance, Method unitMethod, Object ... expectedVector) {
     }
 }

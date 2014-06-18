@@ -280,14 +280,11 @@ public class GroupsManageTabPanel extends Composite {
 
     @UiHandler("studentsDropdown")
     public void studentsDropDownHandler(ValueChangeEvent<UserDTO> event) {
-        Window.alert("value: " + event.getValue() + ";");
         saveStudentBtn.setEnabled(true);
     }
 
     private void createStudentDropdown() {
-        Window.alert("spacesDtos: " + globalData.getSpacesDtos());
         List<String> names = getStudentNamesFromSpaces(globalData.getSpacesDtos());
-        Window.alert("names: " + names);
         cell = new SelectionCell(names) {
 
             @Override
@@ -298,18 +295,15 @@ public class GroupsManageTabPanel extends Composite {
                 if (BrowserEvents.CHANGE.equals(event.getType())) {
                     SelectElement select = parent.getFirstChild().cast();
                     String newValue = select.getValue();
-                    Window.alert("newValue: " + newValue.toString());
                     UserDTO selected = selectionModel.getSelectedObject();
                     int selectedIndex = dataProvider.getList().indexOf(selected);
                     if (selectedIndex >= 0) {
                         selected = dataProvider.getList().get(selectedIndex);
                     } else {
-                        Window.alert("Добавлен новый объект " + selected.toString());
                         dataProvider.getList().add(selected);
                     }
                     if (selected != null) {
                         selected.setName(newValue);
-                        Window.alert("selected: " + selected);
                         //textArea.setText(text);
                     } else {
                         Window.alert("Выберите студента из списка");
@@ -335,17 +329,14 @@ public class GroupsManageTabPanel extends Composite {
         String currentGroupName = groupsListBox.getValue().getName();
         ArrayList<String> studentNames = new ArrayList<String>();
         SpaceDTO currentSpace = null;
-        Window.alert("currentGroupName: " + currentGroupName);
         for (SpaceDTO spaceDTO : spaceDTOs) {
             String name = spaceDTO.getName();
 
             if (name.equals(currentGroupName)) {
-                Window.alert("name: " + name);
                 currentSpace = spaceDTO;
                 break;
             }
         }
-        Window.alert("currentSpace: " + currentSpace);
         if (currentSpace != null) {
             for (UserDTO userDTO : currentSpace.getUsers()) {
                 studentNames.add(userDTO.getName());
@@ -368,7 +359,6 @@ public class GroupsManageTabPanel extends Composite {
 
             @Override
             public void onSuccess(ArrayList<GroupAndUsersDTO> groupAndUsersDTOs) {
-                Window.alert("groupAndUsersDTOs: " + groupAndUsersDTOs.toString());
                 sprintsProgress.setVisible(false);
                 groupsListBox.setVisible(true);
                 groupsListBox.setAcceptableValues(groupAndUsersDTOs);
@@ -487,7 +477,6 @@ public class GroupsManageTabPanel extends Composite {
 //        ArrayList<SprintDTO> newSprints = new ArrayList<SprintDTO>();
 //        newSprints.add(currentGroup);
 //        relocateTasks(loadedGroups);
-        Window.alert("Group to save: " + currentGroup);
 //        adminService.saveGroups(loadedGroups, callback);
         for (UserDTO userDTO : currentGroup.getUsers()) {
             if (userDTO.getName() == null) {
