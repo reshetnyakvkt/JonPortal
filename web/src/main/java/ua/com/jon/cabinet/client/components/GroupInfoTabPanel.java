@@ -1,6 +1,10 @@
 package ua.com.jon.cabinet.client.components;
 
-import com.github.gwtbootstrap.client.ui.*;
+import com.github.gwtbootstrap.client.ui.Button;
+import com.github.gwtbootstrap.client.ui.CellTable;
+import com.github.gwtbootstrap.client.ui.Label;
+import com.github.gwtbootstrap.client.ui.ProgressBar;
+import com.github.gwtbootstrap.client.ui.ValueListBox;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.text.shared.AbstractRenderer;
@@ -13,13 +17,21 @@ import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.gwt.view.client.ListDataProvider;
-import com.google.gwt.view.client.SelectionChangeEvent;
 import com.google.gwt.view.client.SingleSelectionModel;
 import ua.com.jon.cabinet.client.TasksService;
 import ua.com.jon.cabinet.client.TasksServiceAsync;
-import ua.com.jon.cabinet.shared.*;
+import ua.com.jon.cabinet.shared.GroupDTO;
+import ua.com.jon.cabinet.shared.NotificationEvent;
+import ua.com.jon.cabinet.shared.NotificationEventHandler;
+import ua.com.jon.cabinet.shared.SprintDTO;
+import ua.com.jon.cabinet.shared.TaskDTO;
+import ua.com.jon.cabinet.shared.UserDTO;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Set;
 
 /**
  * Created with IntelliJ IDEA.
@@ -33,13 +45,14 @@ public class GroupInfoTabPanel extends Composite {
     @UiField
     ProgressBar sprintsProgress;
 
-/*
-    @UiField
-    CellTable<TaskDTO> studentsGrid = new CellTable<TaskDTO>(5, GWT.<CellTable.SelectableResources>create(CellTable.SelectableResources.class));
-*/
+    final SingleSelectionModel<List<String>> selectionModel = new SingleSelectionModel<List<String>>();
 
     @UiField
+    CellTable<List<String>> studentsGrid = new CellTable<List<String>>(5, GWT.<CellTable.SelectableResources>create(CellTable.SelectableResources.class));
+
+    /*@UiField
     DataGrid<List<String>> studentsGrid = new DataGrid<List<String>>(20, GWT.<DataGrid.SelectableResources>create(DataGrid.SelectableResources.class));
+    */
 
     @UiField(provided=true)
     ValueListBox<GroupDTO> groupsListBox = new ValueListBox<GroupDTO>(new AbstractRenderer<GroupDTO>() {
@@ -59,10 +72,11 @@ public class GroupInfoTabPanel extends Composite {
 
     public GroupInfoTabPanel(final UiBinder<Widget, GroupInfoTabPanel> binder) {
         initWidget(binder.createAndBindUi(this));
-        buildTable(new HashSet<String>());
-        //loadGroupAndUsers();
         studentsGrid.setEmptyTableWidget(new Label("Please add data."));
-
+        //loadGroupAndUsers();
+        List<List<String>> sprintNames = load();
+        buildTable(sprintNames);
+        addSprintsToTable(sprintNames);
         RootPanel.CABINET_EVENT_BUS.addHandler(NotificationEvent.TYPE, new NotificationEventHandler()     {
             @Override
             public void onNotificationChanged(NotificationEvent authenticationEvent) {
@@ -71,11 +85,11 @@ public class GroupInfoTabPanel extends Composite {
         });
     }
 
-    public void buildTable(Set<String> sprints) {
+    public void buildTable(List<List<String>> sprints) {
         final int userNameIdx = 0;
-        final int globalRateIdx = 1;
+        final int globalRateIdx = 0;
         studentsGrid.setEmptyTableWidget(new Label("Please add data."));
-        dataProvider.addDataDisplay(studentsGrid);
+        /*dataProvider.addDataDisplay(studentsGrid);*/
 
         studentsGrid.addColumn(new TextColumn<List<String>>() {
             @Override
@@ -93,21 +107,20 @@ public class GroupInfoTabPanel extends Composite {
         }, "Общий рейтинг");
 
         int i = 0;
-        for (Iterator<String> itr = sprints.iterator(); itr.hasNext(); i++) {
-            String sprintName = itr.next();
-            final int sprintIdx = i;
+        for (String session : sprints.get(0)) {
+            final int sprintIdx = i++;
             studentsGrid.addColumn(new TextColumn<List<String>>() {
                 private int columnIdx = sprintIdx;
                 @Override
                 public String getValue(List<String> userList) {
                     return String.valueOf(userList.get(columnIdx));
                 }
-            }, sprintName);
+            }, session);
         }
 
-        final SingleSelectionModel<List<String>> selectionModel = new SingleSelectionModel<List<String>>();
-        studentsGrid.setSelectionModel(selectionModel);
-        selectionModel.addSelectionChangeHandler(
+        //final SingleSelectionModel<List<String>> selectionModel = new SingleSelectionModel<List<String>>();
+        //studentsGrid.setSelectionModel(selectionModel);
+        /*selectionModel.addSelectionChangeHandler(
                 new SelectionChangeEvent.Handler() {
                     public void onSelectionChange(SelectionChangeEvent event) {
                         List<String> selected = selectionModel.getSelectedObject();
@@ -116,7 +129,36 @@ public class GroupInfoTabPanel extends Composite {
                             Window.alert("Selected " + login);
                         }
                     }
-                });
+                });*/
+        dataProvider.addDataDisplay(studentsGrid);
+        Window.alert("buildTable finished");
+    }
+
+    private List<List<String>> load() {
+
+        HashMap<String, Integer> marks = new HashMap<String, Integer>();
+        marks.put("1", 50);
+        marks.put("2", 75);
+        marks.put("3", 100);
+        HashMap<String, Boolean> presents = new HashMap<String, Boolean>();
+        presents.put("1", true);
+        presents.put("2", false);
+        presents.put("3", true);
+        UserDTO user1 = new UserDTO("user1", marks, presents);
+        ArrayList<UserDTO> usersDTOs = new ArrayList<UserDTO>();
+        usersDTOs.add(user1);
+
+        List<List<String>> sprintNames = new ArrayList<List<String>>();
+        Window.alert(usersDTOs.toString());
+        if(usersDTOs != null && usersDTOs.size() > 0) {
+            Set<String> sprints = usersDTOs.get(0).getMarks().keySet();
+            Window.alert(sprints.toString());
+            for (String sprintName : sprints) {
+                sprintNames.add(Arrays.asList(sprintName));
+            }
+            Window.alert(sprintNames.toString());
+        }
+        return sprintNames;
     }
 
     private void loadGroupAndUsers() {
@@ -143,7 +185,7 @@ public class GroupInfoTabPanel extends Composite {
                         sprintNames.add(Arrays.asList(sprintName));
                     }
                     addSprintsToTable(sprintNames);
-                    buildTable(sprints);
+                    //buildTable(sprints);
                 }
             }
         };
@@ -167,6 +209,8 @@ public class GroupInfoTabPanel extends Composite {
 
     private void addSprintsToTable(List<List<String>> tasks) {
         dataProvider.setList(tasks);
+        //studentsGrid.setSelectionModel(selectionModel);
+        //dataProvider.addDataDisplay(studentsGrid);
 /*
         TaskDTO last = null;
         for (TaskDTO task : tasks) {
@@ -181,7 +225,8 @@ public class GroupInfoTabPanel extends Composite {
 
     @UiHandler("refreshGroupsBtn")
     public void refreshSprintsHandler(ClickEvent e) {
-        loadGroupAndUsers();
+        //loadGroupAndUsers();
+        load();
     }
 
     private void relocateTasks(List<SprintDTO> loadedSprints) {

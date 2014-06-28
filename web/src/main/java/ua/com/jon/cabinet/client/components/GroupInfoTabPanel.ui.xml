@@ -13,14 +13,14 @@
         <b:FluidRow>
           <b:Column size="12">
             <b:ProgressBar ui:field="sprintsProgress" type="ANIMATED" percent="100"/>
-<!--            <b:CellTable ui:field='cellTable' title=''
+            <b:CellTable ui:field='studentsGrid' title=''
                          bordered="true" condensed="true" striped="true">
-            </b:CellTable>-->
+            </b:CellTable>
 
-            <b:DataGrid ui:field="studentsGrid" title="" bordered="true"
+<!--            <b:DataGrid ui:field="studentsGrid" title="" bordered="true"
                     condensed="true" striped="true">
 
-            </b:DataGrid>
+            </b:DataGrid>-->
 
           </b:Column>
         </b:FluidRow>

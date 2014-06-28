@@ -11,4 +11,8 @@ public class CodeValidator {
     public static boolean isCodeSafe(String code) {
         return true;  //To change body of created methods use File | Settings | File Templates.
     }
+
+    public static boolean isCodeSafeFile(String code) {
+        return true;
+    }
 }
