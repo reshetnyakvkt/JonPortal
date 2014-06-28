@@ -12,11 +12,7 @@ import org.junit.runners.MethodSorters;
 import java.lang.reflect.Method;
 import java.util.Map;
 
-import static junit.framework.Assert.assertEquals;
-import static junit.framework.Assert.fail;
-import static junit.framework.TestCase.assertFalse;
-import static junit.framework.TestCase.assertNotNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 /**
  * Created with IntelliJ IDEA.
@@ -69,7 +65,7 @@ public class GreetingTest extends BaseTest {
     @Test(timeout = 1000)
     public void testSuccess() throws Throwable {
         if (instance == null || unitMethod == null) {
-            Assert.fail();
+            fail();
         }
         String name = names[rnd.nextInt(names.length)];
         getOut().print(name);

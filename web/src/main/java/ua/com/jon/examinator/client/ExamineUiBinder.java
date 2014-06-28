@@ -173,7 +173,6 @@ public class ExamineUiBinder extends Composite {
 
             @Override
             public void onSuccess(ArrayList<SprintDTO> sprints) {
-
                 sprintsListBox.setAcceptableValues(sprints);
 
                 SprintDTO lastSprint = null;

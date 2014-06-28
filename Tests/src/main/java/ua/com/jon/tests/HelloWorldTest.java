@@ -11,10 +11,8 @@ import org.junit.runners.MethodSorters;
 import java.lang.reflect.Method;
 import java.util.Map;
 
-import static junit.framework.Assert.assertSame;
-import static junit.framework.Assert.fail;
-import static junit.framework.TestCase.assertNotNull;
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 /**
  * Created with IntelliJ IDEA.
@@ -64,7 +62,7 @@ public class HelloWorldTest extends BaseTest {
     @Test(timeout = 1000)
     public void testClassMainMessage() throws Throwable {
         if (instance == null || unitMethod == null) {
-            Assert.fail();
+            fail();
         }
         try {
 //            getOut().println("\n");

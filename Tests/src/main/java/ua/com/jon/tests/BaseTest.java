@@ -126,6 +126,17 @@ public class BaseTest {
         return true;
     }
 
+    public boolean validateCodeFile(String code) {
+        if (code == null || code.isEmpty()) {
+            return true;
+        }
+        if (!CodeValidator.isCodeSafeFile(code)) {
+            fail("Текст задание содержит недопустимое содержимое");
+            return false;
+        }
+        return true;
+    }
+
     public PrintStream getOut() {
         return out;
     }

@@ -36,7 +36,7 @@
 
 <!--
     <bean id="jpaDataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource"
-          destroy-method="close"
+          destroy-methodName="close"
           p:driverClass="${jdbc.driverClassName}"
           p:jdbcUrl="${jdbc.url}"
           p:sprintEvent="${jdbc.username}"
