@@ -87,7 +87,7 @@ public class GroupInfoTabPanel extends Composite {
 
     public void buildTable(List<List<String>> sprints) {
         final int userNameIdx = 0;
-        final int globalRateIdx = 0;
+        final int globalRateIdx = 1;
         studentsGrid.setEmptyTableWidget(new Label("Please add data."));
         /*dataProvider.addDataDisplay(studentsGrid);*/
 
@@ -106,8 +106,9 @@ public class GroupInfoTabPanel extends Composite {
             }
         }, "Общий рейтинг");
 
-        int i = 0;
-        for (String session : sprints.get(0)) {
+        //int i = 0;
+        for (int i=0; i<sprints.get(0).size(); i++) {
+            String session = sprints.get(0).get(i);
             final int sprintIdx = i++;
             studentsGrid.addColumn(new TextColumn<List<String>>() {
                 private int columnIdx = sprintIdx;
@@ -145,20 +146,28 @@ public class GroupInfoTabPanel extends Composite {
         presents.put("2", false);
         presents.put("3", true);
         UserDTO user1 = new UserDTO("user1", marks, presents);
-        ArrayList<UserDTO> usersDTOs = new ArrayList<UserDTO>();
+        List<UserDTO> usersDTOs = new ArrayList<UserDTO>();
         usersDTOs.add(user1);
 
-        List<List<String>> sprintNames = new ArrayList<List<String>>();
-        Window.alert(usersDTOs.toString());
-        if(usersDTOs != null && usersDTOs.size() > 0) {
+        List<List<String>> users = new ArrayList<List<String>>();
+        for(UserDTO userDTO : usersDTOs) {
+            List<String> user = new ArrayList<String>();
+            user.add(userDTO.getLogin());
+            user.add("99");
+            for(String session : userDTO.getMarks().keySet()) {
+                user.add(String.valueOf(userDTO.getMarks().get(session)));
+            }
+            users.add(user);
+        }
+/*        if(usersDTOs != null && usersDTOs.size() > 0) {
             Set<String> sprints = usersDTOs.get(0).getMarks().keySet();
             Window.alert(sprints.toString());
             for (String sprintName : sprints) {
                 sprintNames.add(Arrays.asList(sprintName));
             }
             Window.alert(sprintNames.toString());
-        }
-        return sprintNames;
+        }*/
+        return users;
     }
 
     private void loadGroupAndUsers() {
