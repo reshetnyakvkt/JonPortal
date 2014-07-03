@@ -31,12 +31,14 @@ public class F1DigitsAvgTest extends BaseTest {
         java.util.Scanner scan = new java.util.Scanner(System.in);
         int number = scan.nextInt();
         double res = 0.0;
-        int por = 1;
+        int por = 10;
+        int count = 0;
         while (number % por != 0) {
             res += number % por;
-            number /= number;
+            number /= por;
+            count++;
         }
-        System.out.println(res);
+        System.out.println((int)(res/count));
     }
 
     private static final String UNIT_NAME = "DigitsAvg";

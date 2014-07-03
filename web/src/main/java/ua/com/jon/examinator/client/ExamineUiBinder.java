@@ -175,7 +175,12 @@ public class ExamineUiBinder extends Composite {
             public void onSuccess(ArrayList<SprintDTO> sprints) {
                 sprintsListBox.setAcceptableValues(sprints);
 
-                SprintDTO lastSprint = null;
+//                SprintDTO lastSprint = null;
+                if (sprints.size() >= 1 && sprints.get(0) != null) {
+                    sprintsListBox.setValue(sprints.get(0));
+                    addTasksToTable(sprints.get(0).getTasks(), true);
+                }
+/*
                 for (int i = 0; i < sprints.size(); i++) {
                     lastSprint = sprints.get(i);
                 }
@@ -183,17 +188,7 @@ public class ExamineUiBinder extends Composite {
                     sprintsListBox.setValue(lastSprint);
                     addTasksToTable(lastSprint.getTasks(), true);
                 }
-
-/*
-                for (SprintDTO sprint : sprints) {
-                    if(sprint.isActive()) {
-//                        Window.alert("sprint active " + sprint.getName());
-                        addTasksToTable(sprint.getTasks(), true);
-                        sprintsListBox.setValue(sprint);
-                    }
-                }
 */
-//                selectFirstTaskIfExists();
             }
         };
 
