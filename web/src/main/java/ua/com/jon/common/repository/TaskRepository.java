@@ -2,7 +2,6 @@ package ua.com.jon.common.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 import ua.com.jon.common.domain.Task;
 
@@ -47,4 +46,7 @@ public interface TaskRepository extends JpaRepository<Task, Long> {
 
     @Query("select t from ua.com.jon.common.domain.Task t JOIN t.group gs where t.user.login = :userName and gs.id = :groupId")
     List<Task> findByUserIdAndGroupId(@Param("groupId") String userName, @Param("groupId") Long groupId);
+
+    @Query(value = "select t.user_id from TASKS t", nativeQuery = true)
+    List<Object> findUserIds();
 }

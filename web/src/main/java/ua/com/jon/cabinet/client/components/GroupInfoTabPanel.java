@@ -68,9 +68,12 @@ public class GroupInfoTabPanel extends Composite {
 
     private ListDataProvider<List<String>> dataProvider = new ListDataProvider<List<String>>();
 
-    private TasksServiceAsync adminService = GWT.create(TasksService.class);
+    private TasksServiceAsync taskService = GWT.create(TasksService.class);
 
-    public GroupInfoTabPanel(final UiBinder<Widget, GroupInfoTabPanel> binder) {
+    private UserTasksTabPanel userPanel;
+
+    public GroupInfoTabPanel(final UiBinder<Widget, GroupInfoTabPanel> binder, UserTasksTabPanel userPanel) {
+        this.userPanel = userPanel;
         initWidget(binder.createAndBindUi(this));
         studentsGrid.setEmptyTableWidget(new Label("Please add data."));
         //loadGroupAndUsers();
@@ -137,6 +140,35 @@ public class GroupInfoTabPanel extends Composite {
 
     private List<List<String>> load() {
 
+        final AsyncCallback<List<List<String>>> groupCallback = new AsyncCallback<List<List<String>>>() {
+
+            @Override
+            public void onFailure(Throwable caught) {
+                sprintsProgress.setVisible(false);
+                Window.alert("Error callback groupsListBox");
+            }
+
+            @Override
+            public void onSuccess(List<List<String>> taskDTOs) {
+                /*sprintsProgress.setVisible(false);
+                for (TaskDTO taskDTO : taskDTOs) {
+                    Window.alert(taskDTO.toString());
+                }
+                List<List<String>> sprintNames = new ArrayList<List<String>>();*/
+                // TODO fill
+                /*if(taskDTOs != null && taskDTOs.size() > 0) {
+                    Set<String> sprints = taskDTOs.get(0).getMarks().keySet();
+                    for (String sprintName : sprints) {
+                        sprintNames.add(Arrays.asList(sprintName));
+                    }
+                    addSprintsToTable(sprintNames);
+                    //buildTable(sprints);
+                }
+                buildTable(sprintNames);*/
+                buildTable(taskDTOs);
+            }
+        };
+
         HashMap<String, Integer> marks = new HashMap<String, Integer>();
         marks.put("1", 50);
         marks.put("2", 75);
@@ -146,11 +178,11 @@ public class GroupInfoTabPanel extends Composite {
         presents.put("2", false);
         presents.put("3", true);
         UserDTO user1 = new UserDTO("user1", marks, presents);
-        List<UserDTO> usersDTOs = new ArrayList<UserDTO>();
-        usersDTOs.add(user1);
+        List<UserDTO> taskDTOs = new ArrayList<UserDTO>();
+        taskDTOs.add(user1);
 
         List<List<String>> users = new ArrayList<List<String>>();
-        for(UserDTO userDTO : usersDTOs) {
+        for(UserDTO userDTO : taskDTOs) {
             List<String> user = new ArrayList<String>();
             user.add(userDTO.getLogin());
             user.add("99");
@@ -159,14 +191,21 @@ public class GroupInfoTabPanel extends Composite {
             }
             users.add(user);
         }
-/*        if(usersDTOs != null && usersDTOs.size() > 0) {
-            Set<String> sprints = usersDTOs.get(0).getMarks().keySet();
+
+/*        if(userPanel.getSelectedTaskTemplateId() != null) {
+            taskService.getTasksByUserGroup(userPanel.getSelectedTaskTemplateId(), userPanel.getSelectedGroup().getId(),
+                    userPanel.getSelectedSprint().getId(), groupCallback);
+        }*/
+
+/*        if(taskDTOs != null && taskDTOs.size() > 0) {
+            Set<String> sprints = taskDTOs.get(0).getMarks().keySet();
             Window.alert(sprints.toString());
             for (String sprintName : sprints) {
                 sprintNames.add(Arrays.asList(sprintName));
             }
             Window.alert(sprintNames.toString());
         }*/
+        taskService.getGroupInfo(1L, groupCallback);
         return users;
     }
 
@@ -199,7 +238,7 @@ public class GroupInfoTabPanel extends Composite {
             }
         };
 /*        if(userPanel.getSelectedTaskTemplateId() != null) {
-            adminService.getTasksByUserGroup(userPanel.getSelectedTaskTemplateId(), userPanel.getSelectedGroup().getId(),
+            taskService.getTasksByUserGroup(userPanel.getSelectedTaskTemplateId(), userPanel.getSelectedGroup().getId(),
                     userPanel.getSelectedSprint().getId(), groupCallback);
         }*/
         HashMap<String, Integer> marks = new HashMap<String, Integer>();

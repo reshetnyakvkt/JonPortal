@@ -200,7 +200,12 @@ public class TasksServiceImpl implements TasksService, ServletContextAware {
         }
         return tasksList;
     }
+    @Override
+    public List<List<String>> getGroupInfo(Long selectedGroupId) {
+        Object ids = taskRepository.findUserIds();
+        return new ArrayList<List<String>>();
 
+    }
 
     private void removeTasksOfCurrentUser(ArrayList<TaskDTO> list, String userName) {
         for (int i = 0; i < list.size(); i++) {

@@ -141,7 +141,6 @@ public class GroupCreationTabPanel extends Composite {
             public void onSuccess(ArrayList<SpaceDTO> spaceDTOs) {
                 spacesProgress.setVisible(false);
                 spacesListBox.setVisible(true);
-//                Window.alert(spaceDTOs.toString());
                 spacesListBox.setAcceptableValues(spaceDTOs);
                 globalData.setSpacesDtos(spaceDTOs);
 /*                Window.alert("fireEvent");*/

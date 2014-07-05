@@ -35,5 +35,7 @@ public interface TasksServiceAsync {
     void dispatchTaskChecking(TaskDTO dto, AsyncCallback<String> async);
 
     void refreshTasks(List<Long> ids, AsyncCallback<List<TaskDTO>> async);
+
+    void getGroupInfo(Long selectedGroupId, AsyncCallback<List<List<String>>> async);
 }
 

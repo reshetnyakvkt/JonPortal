@@ -52,7 +52,7 @@ public class RootPanel extends Composite {
 
         UserTasksTabPanel userTasksTabPanel = new UserTasksTabPanel(userTasksUIBinder);
         GroupTasksTabPanel groupTasksTabPanel = new GroupTasksTabPanel(groupTasksUIBinder, userTasksTabPanel);
-        GroupInfoTabPanel groupInfoTabPanel  = new GroupInfoTabPanel(groupInfoUIBinder);
+        GroupInfoTabPanel groupInfoTabPanel  = new GroupInfoTabPanel(groupInfoUIBinder, userTasksTabPanel);
 
         userTasksHolderPanel.add(userTasksTabPanel);
         groupTasksHolderPanel.add(groupTasksTabPanel);
