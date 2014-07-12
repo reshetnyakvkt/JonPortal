@@ -5,17 +5,15 @@ import com.jon.tron.service.junit.UnitClass;
 import com.jon.tron.service.junit.UnitCode;
 import com.jon.tron.service.junit.UnitName;
 import com.jon.tron.service.reflect.ReflectionUtil;
-import org.junit.*;
-import org.junit.runner.RunWith;
+import org.junit.After;
+import org.junit.Before;
+import org.junit.FixMethodOrder;
+import org.junit.Test;
 import org.junit.runners.MethodSorters;
-import org.junit.runners.Parameterized;
 
 import java.lang.reflect.Method;
-import java.util.Arrays;
-import java.util.List;
 import java.util.Map;
 
-import static junit.framework.TestCase.assertNotNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
@@ -210,10 +208,12 @@ public class F1LeapYearTest extends BaseTest {
     }
 
     private String calcYearType(int year) {
+
         if ((year % 4 == 0 && year % 100 != 0) || year % 400 == 0) {
             return "Високосный";
         } else {
             return "Невисокосный";
         }
+
     }
 }

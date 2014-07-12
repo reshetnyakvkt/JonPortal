@@ -25,6 +25,8 @@ import javax.annotation.Resource;
 import javax.servlet.ServletContext;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
@@ -200,10 +202,37 @@ public class TasksServiceImpl implements TasksService, ServletContextAware {
         }
         return tasksList;
     }
+
     @Override
     public List<List<String>> getGroupInfo(Long selectedGroupId) {
-        Object ids = taskRepository.findUserIds();
-        return new ArrayList<List<String>>();
+        List<Task> tasks = taskRepository.findByGroupId(selectedGroupId);
+        Map<String, Map<Sprint, Integer>> groupInfo = new HashMap<String, Map<Sprint, Integer>>();
+        for (Task task : tasks) {
+            Map<Sprint, Integer> userSprints = groupInfo.get(task.getUser().getLogin());
+            if (userSprints == null) {
+                userSprints = new HashMap<Sprint, Integer>();
+                groupInfo.put(task.getUser().getLogin(), userSprints);
+            }
+            Integer rate = userSprints.get(task.getSprint());
+            if (rate == null) {
+                rate = 0;
+                userSprints.put(task.getSprint(), rate);
+            }
+            String rateStr = task.getResult().substring(0, task.getResult().indexOf("\n"));
+            rate += Integer.parseInt(rateStr);
+            userSprints.put(task.getSprint(), rate);
+        }
+
+        List<List<String>> resultInfo = new ArrayList<List<String>>();
+        for (Map.Entry<String, Map<Sprint, Integer>> sprints : groupInfo.entrySet()) {
+            List<String> userSprints = new LinkedList<String>();
+            for (Map.Entry<Sprint, Integer> sprint : sprints.getValue().entrySet()) {
+                userSprints.add(String.valueOf(sprint.getValue()));
+            }
+            resultInfo.add(userSprints);
+        }
+
+        return resultInfo;
 
     }
 
@@ -251,7 +280,7 @@ public class TasksServiceImpl implements TasksService, ServletContextAware {
                 doneCount++;
             }
         }
-        if(tasks.size() * doneCount == 0) {
+        if (tasks.size() * doneCount == 0) {
             return 0;
         } else {
             return 100 / tasks.size() * doneCount;
@@ -301,7 +330,7 @@ public class TasksServiceImpl implements TasksService, ServletContextAware {
     public List<TaskDTO> refreshTasks(List<Long> ids) {
         Iterable<Task> tasks = taskRepository.findAll(ids);
         List<TaskDTO> taskDTOs = TaskDtoMapper.domainsToDtos(tasks, 0.0);
-        for(TaskDTO taskDTO : taskDTOs) {
+        for (TaskDTO taskDTO : taskDTOs) {
             taskDTO.setClassName(null);
             taskDTO.setCode(null);
             taskDTO.setMaterial(null);

@@ -31,6 +31,7 @@ import com.google.gwt.view.client.SingleSelectionModel;
 import ua.com.jon.cabinet.client.TasksService;
 import ua.com.jon.cabinet.client.TasksServiceAsync;
 import ua.com.jon.cabinet.shared.GroupDTO;
+import ua.com.jon.cabinet.shared.GroupEvent;
 import ua.com.jon.cabinet.shared.NotificationEvent;
 import ua.com.jon.cabinet.shared.SprintDTO;
 import ua.com.jon.cabinet.shared.TaskDTO;
@@ -181,6 +182,7 @@ public class UserTasksTabPanel extends Composite {
                 groupsListBox.setValue(currentGroup);
                 selectedGroup = currentGroup;
                 getUserName();
+                RootPanel.CABINET_EVENT_BUS.fireEvent(new GroupEvent());
             }
         };
 

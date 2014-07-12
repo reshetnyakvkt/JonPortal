@@ -21,8 +21,8 @@ import com.google.gwt.view.client.SingleSelectionModel;
 import ua.com.jon.cabinet.client.TasksService;
 import ua.com.jon.cabinet.client.TasksServiceAsync;
 import ua.com.jon.cabinet.shared.GroupDTO;
-import ua.com.jon.cabinet.shared.NotificationEvent;
-import ua.com.jon.cabinet.shared.NotificationEventHandler;
+import ua.com.jon.cabinet.shared.GroupEvent;
+import ua.com.jon.cabinet.shared.GroupEventHandler;
 import ua.com.jon.cabinet.shared.SprintDTO;
 import ua.com.jon.cabinet.shared.TaskDTO;
 import ua.com.jon.cabinet.shared.UserDTO;
@@ -76,14 +76,12 @@ public class GroupInfoTabPanel extends Composite {
         this.userPanel = userPanel;
         initWidget(binder.createAndBindUi(this));
         studentsGrid.setEmptyTableWidget(new Label("Please add data."));
-        //loadGroupAndUsers();
-        List<List<String>> sprintNames = load();
-        buildTable(sprintNames);
-        addSprintsToTable(sprintNames);
-        RootPanel.CABINET_EVENT_BUS.addHandler(NotificationEvent.TYPE, new NotificationEventHandler()     {
+        RootPanel.CABINET_EVENT_BUS.addHandler(GroupEvent.TYPE, new GroupEventHandler()     {
             @Override
-            public void onNotificationChanged(NotificationEvent authenticationEvent) {
-                //loadGroupAndUsers();
+            public void onGroupChanged(GroupEvent groupEvent) {
+                List<List<String>> sprintNames = load();
+                //buildTable(sprintNames);
+                addSprintsToTable(sprintNames);
             }
         });
     }
@@ -205,7 +203,7 @@ public class GroupInfoTabPanel extends Composite {
             }
             Window.alert(sprintNames.toString());
         }*/
-        taskService.getGroupInfo(1L, groupCallback);
+        taskService.getGroupInfo(userPanel.getSelectedGroup().getId(), groupCallback);
         return users;
     }
 
