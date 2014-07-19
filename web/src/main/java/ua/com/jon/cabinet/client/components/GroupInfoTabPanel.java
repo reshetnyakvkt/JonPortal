@@ -87,6 +87,7 @@ public class GroupInfoTabPanel extends Composite {
     }
 
     public void buildTable(List<List<String>> sprints) {
+        Window.alert(sprints.toString());
         final int userNameIdx = 0;
         final int globalRateIdx = 1;
         studentsGrid.setEmptyTableWidget(new Label("Please add data."));
@@ -108,16 +109,17 @@ public class GroupInfoTabPanel extends Composite {
         }, "Общий рейтинг");
 
         //int i = 0;
-        for (int i=0; i<sprints.get(0).size(); i++) {
-            String session = sprints.get(0).get(i);
-            final int sprintIdx = i++;
+        for (int i=0; i<sprints.size(); i++) {
+            //final String session = sprints.get(i).get(888);
+            final int sprintIdx = i;
             studentsGrid.addColumn(new TextColumn<List<String>>() {
                 private int columnIdx = sprintIdx;
                 @Override
                 public String getValue(List<String> userList) {
-                    return String.valueOf(userList.get(columnIdx));
+                    Window.alert(userList.toString());
+                    return userList.get(sprintIdx + 2);
                 }
-            }, session);
+            }, String.valueOf(sprintIdx + 1));
         }
 
         //final SingleSelectionModel<List<String>> selectionModel = new SingleSelectionModel<List<String>>();
