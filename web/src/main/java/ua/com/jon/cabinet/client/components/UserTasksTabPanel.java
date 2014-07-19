@@ -1,9 +1,7 @@
 package ua.com.jon.cabinet.client.components;
 
-import com.github.gwtbootstrap.client.ui.CellTable;
-import com.github.gwtbootstrap.client.ui.Strong;
-import com.github.gwtbootstrap.client.ui.TextArea;
-import com.github.gwtbootstrap.client.ui.ValueListBox;
+import com.github.gwtbootstrap.client.ui.*;
+import com.github.gwtbootstrap.client.ui.constants.ButtonType;
 import com.google.gwt.cell.client.FieldUpdater;
 import com.google.gwt.cell.client.SelectionCell;
 import com.google.gwt.cell.client.ValueUpdater;
@@ -66,11 +64,14 @@ public class UserTasksTabPanel extends Composite {
     @UiField
     Strong courseRate;
 
-    @UiField(provided=true)
+    @UiField
+    Button serverAvailBtn;
+
+    @UiField(provided = true)
     ValueListBox<SprintDTO> sprintsListBox = new ValueListBox<SprintDTO>(new AbstractRenderer<SprintDTO>() {
         @Override
         public String render(SprintDTO sprintDTO) {
-            if(sprintDTO == null) {
+            if (sprintDTO == null) {
                 return "";
             } else {
                 return sprintDTO.getName();
@@ -78,11 +79,11 @@ public class UserTasksTabPanel extends Composite {
         }
     });
 
-    @UiField(provided=true)
+    @UiField(provided = true)
     ValueListBox<GroupDTO> groupsListBox = new ValueListBox<GroupDTO>(new AbstractRenderer<GroupDTO>() {
         @Override
         public String render(GroupDTO sprintDTO) {
-            if(sprintDTO == null) {
+            if (sprintDTO == null) {
                 return "";
             } else {
                 return sprintDTO.getName();
@@ -114,7 +115,7 @@ public class UserTasksTabPanel extends Composite {
             @Override
             public void run() {
                 List<Long> ids = new ArrayList<Long>();
-                for(TaskDTO taskDTO : dataProvider.getList()) {
+                for (TaskDTO taskDTO : dataProvider.getList()) {
                     if (taskDTO.getType().equals(TaskType.SVN.name())) {
                         ids.add(taskDTO.getId());
                     }
@@ -134,21 +135,32 @@ public class UserTasksTabPanel extends Composite {
 
             @Override
             public void onFailure(Throwable caught) {
-                Window.alert("Ошибка получения имени пользователя с сервера ");
+                serverAvailBtn.setText("Сервер недоступен");
+                serverAvailBtn.setType(ButtonType.DEFAULT);
+                serverAvailBtn.setEnabled(false);
+//                Window.alert("Ошибка получения имени пользователя с сервера ");
             }
 
             @Override
             public void onSuccess(List<TaskDTO> tasks) {
-                for(TaskDTO taskDTO : dataProvider.getList()) {
-                    for(TaskDTO task : tasks) {
-                        if(taskDTO.equals(task)) {
+                serverAvailBtn.setText("Сервер доступен");
+                serverAvailBtn.setType(ButtonType.SUCCESS);
+                serverAvailBtn.setEnabled(true);
+                boolean changed = false;
+                for (TaskDTO taskDTO : dataProvider.getList()) {
+                    for (TaskDTO task : tasks) {
+                        if (taskDTO.equals(task) && !taskDTO.getStatus().equals(task.getStatus())) {
+                            changed = true;
                             taskDTO.setStatus(task.getStatus());
                             taskDTO.setResult(task.getResult());
                         }
                     }
                 }
-                result.setText(selectionModel.getSelectedObject().getResult());
-                cellTable.redraw();
+//                Window.alert(String.valueOf("Changed: " + changed));
+                if (changed) {
+                    result.setText(selectionModel.getSelectedObject().getResult());
+                    cellTable.redraw();
+                }
             }
         };
         tasksService.refreshTasks(ids, tasksCallback);
@@ -163,7 +175,7 @@ public class UserTasksTabPanel extends Composite {
                 Window.alert(caught.getClass().getName());
                 Throwable cause = caught.getCause();
                 String errorMessage = "";
-                if(cause == null) {
+                if (cause == null) {
                     errorMessage = caught.getCause().getMessage();
                 }
                 Window.alert("Ошибка загрузки групп с сервера " + errorMessage);
@@ -196,7 +208,7 @@ public class UserTasksTabPanel extends Composite {
 //                Window.alert(caught.getClass().getName());
                 Throwable cause = caught.getCause();
                 String errorMessage = "";
-                if(cause == null) {
+                if (cause == null) {
                     errorMessage = caught.getCause().getMessage();
                 }
                 Window.alert("Ошибка получения имени пользователя с сервера " + errorMessage);
@@ -205,7 +217,7 @@ public class UserTasksTabPanel extends Composite {
 
             @Override
             public void onSuccess(String userName) {
-                if(userName == null) {
+                if (userName == null) {
                     Window.alert("Ошибка: Пользователь не определен");
                     return;
                 }
@@ -225,7 +237,7 @@ public class UserTasksTabPanel extends Composite {
 //                Window.alert(caught.getClass().getName());
                 Throwable cause = caught.getCause();
                 String errorMessage = "";
-                if(cause == null) {
+                if (cause == null) {
                     errorMessage = caught.getCause().getMessage();
                 }
                 Window.alert("Ошибка получения общего рейтинга с сервера " + errorMessage);
@@ -234,13 +246,13 @@ public class UserTasksTabPanel extends Composite {
 
             @Override
             public void onSuccess(Double rate) {
-                if(rate == null) {
+                if (rate == null) {
                     Window.alert("Ошибка получения общего рейтинга пользователя");
                     return;
                 }
-                if(rate < 50) {
+                if (rate < 50) {
                     courseRate.setStyleName("alert");
-                } else if(rate > 50 && rate < 70) {
+                } else if (rate > 50 && rate < 70) {
                     courseRate.setStyleName("muted");
                 } else {
                     courseRate.setStyleName("success");
@@ -261,7 +273,7 @@ public class UserTasksTabPanel extends Composite {
 //                Window.alert(caught.getClass().getName());
                 Throwable cause = caught.getCause();
                 String errorMessage = "";
-                if(cause == null) {
+                if (cause == null) {
                     errorMessage = caught.getCause().getMessage();
                 }
                 Window.alert("Ошибка получения недельного рейтинга с сервера " + errorMessage);
@@ -270,13 +282,13 @@ public class UserTasksTabPanel extends Composite {
 
             @Override
             public void onSuccess(Double rate) {
-                if(rate == null) {
+                if (rate == null) {
                     Window.alert("Ошибка получения недельного рейтинга пользователя");
                     return;
                 }
-                if(rate < 50) {
+                if (rate < 50) {
                     sprintRate.setStyleName("alert");
-                } else if(rate > 50 && rate < 70) {
+                } else if (rate > 50 && rate < 70) {
                     sprintRate.setStyleName("muted");
                 } else {
                     sprintRate.setStyleName("success");
@@ -291,7 +303,7 @@ public class UserTasksTabPanel extends Composite {
     @UiHandler("refreshTasksBtn")
     public void onClick(ClickEvent e) {
         result.setText("");
-        taskText.setText("");
+//        taskText.setText("");
         loadSprintsAndTasks();
     }
 
@@ -321,7 +333,7 @@ public class UserTasksTabPanel extends Composite {
 //                Window.alert(caught.getClass().getName());
                 Throwable cause = caught.getCause();
                 String errorMessage = "";
-                if(cause == null) {
+                if (cause == null) {
                     errorMessage = caught.getCause().getMessage();
                 }
                 Window.alert("Ошибка загрузки этапов с сервера " + errorMessage);
@@ -333,7 +345,7 @@ public class UserTasksTabPanel extends Composite {
                 SprintDTO currentSprint;
                 sprintsListBox.setAcceptableValues(sprints);
                 Iterator<SprintDTO> iterator = sprints.iterator();
-                if(iterator.hasNext()) {
+                if (iterator.hasNext()) {
                     currentSprint = iterator.next();
                     addTasksToTable(currentSprint.getTasks(), true);
                     sprintsListBox.setValue(currentSprint);
@@ -355,7 +367,7 @@ public class UserTasksTabPanel extends Composite {
             list.add(task);
             last = task;
         }
-        if(isSelectLast && last != null) {
+        if (isSelectLast && last != null) {
             selectionModel.setSelected(last, true);
         }
     }
@@ -374,7 +386,7 @@ public class UserTasksTabPanel extends Composite {
         TextColumn<TaskDTO> textColumn = new TextColumn<TaskDTO>() {
             @Override
             public String getValue(TaskDTO contact) {
-                if(contact.getText() != null){
+                if (contact.getText() != null) {
                     return "(" + contact.getGroupId() + ")" + contact.getText().substring(0, 51);
                 }
                 return "";
@@ -391,7 +403,7 @@ public class UserTasksTabPanel extends Composite {
                             result.setText(selected.getResult());
                             taskText.setText(selected.getText());
                             //Window.alert("Select: " + selected);
-                            if(selected.getResult() != null && !selected.getResult().isEmpty()) {
+                            if (selected.getResult() != null && !selected.getResult().isEmpty()) {
                                 code.setText(selected.getCode());
                             } else {
                                 code.setText(selected.getMaterial());
@@ -400,7 +412,8 @@ public class UserTasksTabPanel extends Composite {
                             RootPanel.CABINET_EVENT_BUS.fireEvent(new NotificationEvent());
                         }
                     }
-                });
+                }
+        );
 
         // Add the columns.
         cellTable.addColumn(nameColumn, "Название");
@@ -446,7 +459,7 @@ public class UserTasksTabPanel extends Composite {
             }
         };
 
-        statusCol =  new Column<TaskDTO, String>(cell) {
+        statusCol = new Column<TaskDTO, String>(cell) {
 
             @Override
             public String getValue(TaskDTO taskDto) {
@@ -459,7 +472,7 @@ public class UserTasksTabPanel extends Composite {
                 taskDTO.setStatus(status);
                 taskDTO.setText("");
                 taskDTO.setResult("");
-                if(taskDTO.getType().equals(TaskType.CLASS.name())) {
+                if (taskDTO.getType().equals(TaskType.CLASS.name())) {
                     taskDTO.setCode(code.getText());
                 }
                 //Window.alert("Update " + taskDTO);
@@ -530,17 +543,17 @@ public class UserTasksTabPanel extends Composite {
 
             @Override
             public String getValue(TaskDTO taskDto) {
-                if(taskDto == null) {
+                if (taskDto == null) {
                     return "null";
                 }
                 int newLineMarkIdx = taskDto.getResult().indexOf('\n');
                 String resStr;
-                if(newLineMarkIdx < 0){
+                if (newLineMarkIdx < 0) {
                     resStr = taskDto.getResult();
-                }else {
+                } else {
                     resStr = taskDto.getResult().substring(0, newLineMarkIdx);
                 }
-              //  Window.alert("!!! "+resStr + taskDto);
+                //  Window.alert("!!! "+resStr + taskDto);
                 return resStr;//taskDto.getResult().substring(0, newLineMarkIdx);
             }
         };
@@ -551,13 +564,13 @@ public class UserTasksTabPanel extends Composite {
     private void restructureTable(String taskName) {
         final int TEST_COLUMN = 3;
         final int STATUS_COLUMN = 2;
-        for(int i=0; i<cellTable.getRowCount(); i++){
+        for (int i = 0; i < cellTable.getRowCount(); i++) {
             String nameText = cellTable.getRowElement(i).getInnerText();
-            if(taskName == null || nameText.contains(taskName)){
+            if (taskName == null || nameText.contains(taskName)) {
                 int columnIndex = TEST_COLUMN;
                 TaskDTO taskDTO = cellTable.getVisibleItem(i);
                 //Window.alert("taskDTO = "+taskDTO.toString());
-                if(TaskType.CLASS.name().equals(taskDTO.getType())) {
+                if (TaskType.CLASS.name().equals(taskDTO.getType())) {
                     columnIndex = STATUS_COLUMN;
                 }
                 cellTable.getRowElement(i).deleteCell(columnIndex);

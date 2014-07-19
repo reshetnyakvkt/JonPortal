@@ -111,7 +111,7 @@ public class F1MaxMinOfThreeTest extends BaseTest {
 
         ReflectionUtil.invokeMain(instance);
 
-        String actualMaxString = getIn().toString().trim();
+        String actualMaxString = getLastStringFromOut();
         assertTrue("В задании должен выполняться вывод текста " + actualMaxString, !actualMaxString.isEmpty());
         int actualMax = 0;
         int actualMin = 0;

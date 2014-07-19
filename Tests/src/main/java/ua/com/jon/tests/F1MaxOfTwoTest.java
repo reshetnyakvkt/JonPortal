@@ -82,7 +82,7 @@ public class F1MaxOfTwoTest extends BaseTest {
 
         ReflectionUtil.invokeMain(instance);
         String expectedString = String.valueOf(maxOfTwo);
-        String actualString = getIn().toString().trim();
+        String actualString = getLastStringFromOut();
         assertTrue("В задании должен выполняться вывод текста " + actualString, !actualString.isEmpty());
         assertTrue("Ожидается другой вывод\nвместо [" + actualString + "], должно быть [" + expectedString + "]",
                 expectedString.equals(actualString));

@@ -107,7 +107,7 @@ public class F1LeapYearTest extends BaseTest {
 //        String expectedRes = calcYearType(year);//yearType;
 
         ReflectionUtil.invokeMain(instance);
-        String actualString = getIn().toString().trim();
+        String actualString = getLastStringFromOut();
 
         assertTrue("В задании должен выполняться вывод текста " + actualString, !actualString.isEmpty());
         assertTrue("\n--- Проверка на високосный год ---\nПри введенном году " + year +
@@ -126,7 +126,7 @@ public class F1LeapYearTest extends BaseTest {
 //        String expectedRes = calcYearType(year);//yearType;
 
         ReflectionUtil.invokeMain(instance);
-        String actualString = getIn().toString().trim();
+        String actualString = getLastStringFromOut();
 
 //        assertTrue("В задании должен выполняться вывод текста " + actualString, !actualString.isEmpty());
         assertTrue("\n--- Проверка на високосный год ---\nПри введенном году " + year +
@@ -145,7 +145,7 @@ public class F1LeapYearTest extends BaseTest {
 //        expectedRes = calcYearType(year);//yearType;
 
         ReflectionUtil.invokeMain(instance);
-        String actualString = getIn().toString().trim();
+        String actualString = getLastStringFromOut();
 
 //        assertTrue("В задании должен выполняться вывод текста " + actualString, !actualString.isEmpty());
         assertTrue("\n--- Проверка на високосный год ---\nПри введенном году " + year +
@@ -163,7 +163,7 @@ public class F1LeapYearTest extends BaseTest {
 //        String expectedRes = calcYearType(year);//yearType;
 
         ReflectionUtil.invokeMain(instance);
-        String actualString = getIn().toString().trim();
+        String actualString = getLastStringFromOut();
 
 //        assertTrue("В задании должен выполняться вывод текста " + actualString, !actualString.isEmpty());
         assertTrue("\n--- Проверка на невисокосный год ---\nПри введенном году " + year +
@@ -182,7 +182,7 @@ public class F1LeapYearTest extends BaseTest {
 //        String expectedRes = calcYearType(year);//yearType;
 
         ReflectionUtil.invokeMain(instance);
-        String actualString = getIn().toString().trim();
+        String actualString = getLastStringFromOut();
 
 //        assertTrue("В задании должен выполняться вывод текста " + actualString, !actualString.isEmpty());
         assertTrue("\n--- Проверка на не високосный год ---\nПри введенном году " + year +
@@ -201,7 +201,7 @@ public class F1LeapYearTest extends BaseTest {
 //        String expectedRes = calcYearType(year);//yearType;
 
         ReflectionUtil.invokeMain(instance);
-        String actualString = getIn().toString().trim();
+        String actualString = getLastStringFromOut();
 
 //        assertTrue("В задании должен выполняться вывод текста " + actualString, !actualString.isEmpty());
         assertTrue("\n--- Проверка на невисокосный год ---\nПри введенном году " + year +

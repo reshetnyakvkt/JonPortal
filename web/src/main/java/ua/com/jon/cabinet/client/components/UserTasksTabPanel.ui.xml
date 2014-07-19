@@ -12,15 +12,16 @@
                                 </b:DropdownButton>
                 -->
                 <!--<b:ValueListBox ui:field="sprintsListBox"/>-->
-                <b:Label>Ваш рейтинг</b:Label>
+                <b:Label>Рейтинг</b:Label>
                 <b:Strong ui:field="sprintRate"/>
                 <b:Strong ui:field="courseRate"/>
                 <b:Label>Группа</b:Label>
                 <b:ValueListBox ui:field="groupsListBox" size="2"/>
-                <b:Label>Выберите этап</b:Label>
+                <b:Label>Этап</b:Label>
                 <b:ValueListBox ui:field="sprintsListBox" size="2"/>
                 <b:ButtonGroup>
-                    <b:Button ui:field='refreshTasksBtn' type="INFO">Обновить задания</b:Button>
+                    <b:Button ui:field='refreshTasksBtn' type="DEFAULT">Обновить задания</b:Button>
+                    <b:Button ui:field='serverAvailBtn' type="SUCCESS">Сервер доступен</b:Button>
                 </b:ButtonGroup>
                 <b:Heading size="4">Ваши задания</b:Heading>
                 <b:CellTable ui:field='cellTable' title='Для просмотра результатов теста выберите задание' tabIndex='3'

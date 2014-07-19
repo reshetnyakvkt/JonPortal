@@ -4,7 +4,6 @@ import com.jon.tron.service.junit.Unit;
 import com.jon.tron.service.junit.UnitClass;
 import com.jon.tron.service.junit.UnitCode;
 import com.jon.tron.service.junit.UnitName;
-import com.jon.tron.service.reflect.JavaProcessBuilder;
 import com.jon.tron.service.reflect.ReflectionUtil;
 import org.junit.*;
 import org.junit.runners.MethodSorters;
@@ -15,6 +14,12 @@ import java.util.Map;
 import static org.junit.Assert.*;
 
 /**
+ Пользователь вводит своё имя с клавиатуры, поприветствовать (Hello ) пользователя по имени.
+ Пример:
+ Введите ваше имя:
+ William Nelson Joy
+ Hello William Nelson Joy
+
  * Created with IntelliJ IDEA.
  * User: Admin
  * Date: 19.09.13
@@ -23,9 +28,10 @@ import static org.junit.Assert.*;
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class GreetingTest extends BaseTest {
     public static void main(String[] args) {
+        System.out.println("Hello ");
         java.util.Scanner scan = new java.util.Scanner(System.in);
         String name = scan.nextLine();
-        System.out.println("Здравствуйте " + name);
+        System.out.println("Hello " + name);
     }
 
     private static final String UNIT_NAME = "Greeting";
@@ -42,7 +48,8 @@ public class GreetingTest extends BaseTest {
     private static Object instance;
     private static Method unitMethod;
 
-    private String[] names = {"Oksana", "Vampu", "Sinaps", "Maika"};
+    private String[] names = {"James Gosling", "Linus Torvalds", "Sergey Brin", "Doug Lee",
+            "Martin Odersky", "Lawrence Ellison", "Guy Lewis Steele"};
 
     @Before
     public void setUp() {
@@ -73,8 +80,8 @@ public class GreetingTest extends BaseTest {
             fail("В задании должен быть только один класс");
         }*/
         ReflectionUtil.invokeMain(instance);
-        String expectedString = "Здравствуйте " + name;
-        String actualString = getIn().toString().trim();
+        String expectedString = "Hello " + name;
+        String actualString = getLastStringFromOut();
         assertTrue("В задании должен выполняться вывод текста " + actualString, !actualString.isEmpty());
         assertTrue("Ожидается другой вывод\nвместо [" + actualString + " должно быть [" + expectedString,
                 expectedString.equals(actualString));

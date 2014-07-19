@@ -7,11 +7,12 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <ul class="nav nav-tabs">
+    <li id="mitem8"><a href="/trainings/practicum.html"><button class="btn btn-link" type="button">Участие в Open source проекте</button></a></li>
     <li id="mitem7"><a href="/trainings/registration.html"><button class="btn btn-link" type="button">Регистрация</button></a></li>
     <li id="mitem6"><a href="/trainings/newcomer.html"><button class="btn btn-link" type="button">Начинающим</button></a></li>
-    <li id="mitem1"><a href="/trainings/list.html"><button class="btn btn-link" type="button">Тренинг по Oracle</button></a></li>
+    <%--<li id="mitem1"><a href="/trainings/list.html"><button class="btn btn-link" type="button">Тренинг по Oracle</button></a></li>--%>
     <li id="mitem2"><a href="/trainings/scheduling.html"><button class="btn btn-link" type="button">Расписание</button></a></li>
-    <li id="mitem3"><a href="/trainings/rules.html"><button class="btn btn-link" type="button">Правила участия в тренингах</button></a></li>
+    <%--<li id="mitem3"><a href="/trainings/rules.html"><button class="btn btn-link" type="button">Правила участия в тренингах</button></a></li>--%>
     <li id="mitem4"><a href="/trainings/assistant.html"><button class="btn btn-link" type="button">Для помощников</button></a></li>
     <li id="mitem5"><a href="/trainings/reviews.html"><button class="btn btn-link" type="button">Отзывы</button></a></li>
 </ul>

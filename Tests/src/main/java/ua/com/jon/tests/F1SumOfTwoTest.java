@@ -75,7 +75,7 @@ public class F1SumOfTwoTest extends BaseTest {
 
         ReflectionUtil.invokeMain(instance);
 
-        String actualSumString = getIn().toString().trim();
+        String actualSumString = getLastStringFromOut();
         int actualSum = 0;
         try {
             actualSum = Integer.parseInt(actualSumString);

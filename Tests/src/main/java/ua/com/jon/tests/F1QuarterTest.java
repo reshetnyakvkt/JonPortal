@@ -121,7 +121,7 @@ public class F1QuarterTest extends BaseTest {
         int expectedRes = 1;//calcQuarter(x, y);
 
         ReflectionUtil.invokeMain(instance);
-        String actualString = getIn().toString().trim();
+        String actualString = getLastStringFromOut();
         double actualRes = 0.0;
         try {
             actualRes = Double.parseDouble(actualString);
@@ -145,7 +145,7 @@ public class F1QuarterTest extends BaseTest {
         int expectedRes = 2;//calcQuarter(x, y);
 
         ReflectionUtil.invokeMain(instance);
-        String actualString = getIn().toString().trim();
+        String actualString = getLastStringFromOut();
         double actualRes = 0.0;
         try {
             actualRes = Double.parseDouble(actualString);
@@ -169,7 +169,7 @@ public class F1QuarterTest extends BaseTest {
         int expectedRes = 3;//calcQuarter(x, y);
 
         ReflectionUtil.invokeMain(instance);
-        String actualString = getIn().toString().trim();
+        String actualString = getLastStringFromOut();
         double actualRes = 0.0;
         try {
             actualRes = Double.parseDouble(actualString);
@@ -194,7 +194,7 @@ public class F1QuarterTest extends BaseTest {
         int expectedRes = 4;//calcQuarter(x, y);
 
         ReflectionUtil.invokeMain(instance);
-        String actualString = getIn().toString().trim();
+        String actualString = getLastStringFromOut();
         double actualRes = 0.0;
         try {
             actualRes = Double.parseDouble(actualString);
@@ -219,7 +219,7 @@ public class F1QuarterTest extends BaseTest {
         int expectedRes = 0;//calcQuarter(x, y);
 
         ReflectionUtil.invokeMain(instance);
-        String actualString = getIn().toString().trim();
+        String actualString = getLastStringFromOut();
         double actualRes = 0.0;
         try {
             actualRes = Double.parseDouble(actualString);

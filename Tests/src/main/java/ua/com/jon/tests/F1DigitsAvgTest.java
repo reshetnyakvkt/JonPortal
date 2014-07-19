@@ -86,7 +86,7 @@ public class F1DigitsAvgTest extends BaseTest {
         int expectedRes = (int)calcAvgOfDigits(res);
 
         ReflectionUtil.invokeMain(instance);
-        String actualString = getIn().toString().trim();
+        String actualString = getLastStringFromOut();
 //        assertTrue("\n--- Проверка величины числа ---\nВместо [" + DIGITS_NUMBER + "] размер числа [" +
 //                actualString.length() + "] разрядов", actualString.length() == DIGITS_NUMBER);
         double actualRes = 0.0;

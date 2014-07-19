@@ -75,6 +75,11 @@
         <filter-name>springRequestFilter</filter-name>
         <url-pattern>/*</url-pattern>
     </filter-mapping>
+    <session-config>
+        <!--<session-timeout>259200</session-timeout>-->
+        <!--<session-timeout>10</session-timeout>-->
+        <session-timeout>2592000</session-timeout> <!--month-->
+    </session-config>
 
     <!-- Spring 4 GWT -->
     <servlet>

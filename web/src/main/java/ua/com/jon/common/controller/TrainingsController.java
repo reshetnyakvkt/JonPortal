@@ -28,12 +28,12 @@ public class TrainingsController {
         modelMap.put("item","mitem5");
         return "trainings/reviews";
     }
-
+/*
     @RequestMapping("/trainings/rules.html")
     public String trainingsRules(ModelMap modelMap)  {
         modelMap.put("item","mitem3");
         return "trainings/rules";
-    }
+    }*/
 
     @RequestMapping("/trainings/assistant.html")
     public String assistantRules(ModelMap modelMap)  {
@@ -51,5 +51,11 @@ public class TrainingsController {
     public String registration(ModelMap modelMap)  {
         modelMap.put("item","mitem7");
         return "trainings/registration";
+    }
+
+    @RequestMapping("/trainings/practicum.html")
+    public String practicum(ModelMap modelMap)  {
+        modelMap.put("item","mitem8");
+        return "trainings/practicum";
     }
 }

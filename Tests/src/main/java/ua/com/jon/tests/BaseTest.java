@@ -153,4 +153,13 @@ public class BaseTest {
         }
         return null;
     }
+
+    protected String getLastStringFromOut() {
+        String actualString = getIn().toString().trim();
+        String lines[] = actualString.split("\\r?\\n");
+        if (lines.length > 0) {
+            actualString = lines[lines.length - 1];
+        }
+        return actualString;
+    }
 }

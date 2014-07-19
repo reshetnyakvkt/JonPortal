@@ -109,9 +109,8 @@ public class F1QuadraticEquationTest extends BaseTest {
         getOut().println(coefC);
 
         ReflectionUtil.invokeMain(instance);
-        String actualString = getIn().toString();
+        String actualString = getLastStringFromOut();
         if (actualString != null) {
-            actualString = actualString.trim();
             assertTrue("В задании должен выполняться вывод текста " + actualString, !actualString.isEmpty());
         }
         assertTrue("\n--- Проверка отсутствия решений ---\nвместо [" + actualString + "], при коэффициентах " + coefA + " " + coefB + " " + coefC +
@@ -132,9 +131,8 @@ public class F1QuadraticEquationTest extends BaseTest {
         getOut().println(coefC);
 
         ReflectionUtil.invokeMain(instance);
-        String actualString = getIn().toString();
+        String actualString = getLastStringFromOut();
         if (actualString != null) {
-            actualString = actualString.trim();
             assertTrue("В задании должен выполняться вывод текста " + actualString, !actualString.isEmpty());
         }
         assertTrue("\n--- Проверка нулевого коэффициента ---\nвместо [" + actualString + "], при нулевых коэффициэнтах должно быть выведено [" + expectedResult + "]", expectedResult.equals(actualString));
@@ -154,9 +152,8 @@ public class F1QuadraticEquationTest extends BaseTest {
         getOut().println(coefC);
 
         ReflectionUtil.invokeMain(instance);
-        String actualString = getIn().toString();
+        String actualString = getLastStringFromOut();
         if (actualString != null) {
-            actualString = actualString.trim();
             assertTrue("В задании должен выполняться вывод текста " + actualString, !actualString.isEmpty());
         }
         int res1 = 3;
@@ -186,10 +183,9 @@ public class F1QuadraticEquationTest extends BaseTest {
         getOut().println(coefC);
 
         ReflectionUtil.invokeMain(instance);
-        String actualString = getIn().toString();
+        String actualString = getLastStringFromOut();
         String leedingStr = "\n--- Проверка решения с двумя корнями ---\n";
         if (actualString != null) {
-            actualString = actualString.trim();
             assertTrue(leedingStr + "В задании должен выполняться вывод текста " + actualString, !actualString.isEmpty());
             int res1 = Integer.parseInt(expectedResult);
             int res2 = Integer.parseInt(coefs[4]);

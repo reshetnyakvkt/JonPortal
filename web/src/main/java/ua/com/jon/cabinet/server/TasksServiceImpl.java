@@ -202,7 +202,7 @@ public class TasksServiceImpl implements TasksService, ServletContextAware {
     }
     @Override
     public List<List<String>> getGroupInfo(Long selectedGroupId) {
-        Object ids = taskRepository.findUserIds();
+        List<Task> ids = taskRepository.findByGroupId(selectedGroupId);
         return new ArrayList<List<String>>();
 
     }

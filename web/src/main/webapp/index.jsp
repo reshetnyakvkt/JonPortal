@@ -1,4 +1,3 @@
-<%-- Created by IntelliJ IDEA. --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
 <html>
@@ -13,6 +12,6 @@
     </noscript>
 </head>
 <body>
-Мы перебрались на <a href="http://com.jon.com.ua/">новое местечко</a>.
+Мы перебрались на <a href="http://www.jon.com.ua/">новое местечко</a>.
 </body>
 </html>

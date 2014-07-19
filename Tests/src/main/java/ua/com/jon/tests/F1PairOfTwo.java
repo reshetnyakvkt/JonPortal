@@ -82,7 +82,7 @@ public class F1PairOfTwo extends BaseTest {
         getOut().println(firstNumber);
 
         ReflectionUtil.invokeMain(instance);
-        String actualString = getIn().toString().trim();
+        String actualString = getLastStringFromOut();
         assertTrue("В задании должен выполняться вывод текста " + actualString, !actualString.isEmpty());
         assertTrue("При введенном числе " + firstNumber + ", должно быть выведено [" + expectedString + "], а не [" + actualString + "]",
                 expectedString.equals(actualString));
