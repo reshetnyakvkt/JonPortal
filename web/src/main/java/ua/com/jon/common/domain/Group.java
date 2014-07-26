@@ -39,19 +39,23 @@ public class Group {
     @Column(name = "REPOSITORY_URL")
     private String repositoryUrl;
 
+    @Column(length = 200)
+    private String code;
+
     public Group() {
     }
 
-    public Group(String name, Date startDate, boolean active, Iterable<User> users, String repositoryUrl) {
-        this(name, startDate, active, getUserSetByIter(users), repositoryUrl);
+    public Group(String name, Date startDate, boolean active, Iterable<User> users, String repositoryUrl, String code) {
+        this(name, startDate, active, getUserSetByIter(users), repositoryUrl, code);
     }
 
-    public Group(String name, Date startDate, boolean active, Set<User> users, String repositoryUrl) {
+    public Group(String name, Date startDate, boolean active, Set<User> users, String repositoryUrl, String code) {
         this.name = name;
         this.startDate = startDate;
         this.active = active;
         this.users = users;
         this.repositoryUrl = repositoryUrl;
+        this.code = code;
     }
 
 
@@ -119,6 +123,14 @@ public class Group {
         this.repositoryUrl = repositoryUrl;
     }
 
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
+    }
+
     @Override
     public String toString() {
         return "Group{" +
@@ -126,9 +138,10 @@ public class Group {
                 ", name='" + name + '\'' +
                 ", startDate=" + startDate +
                 ", active=" + active +
-                ", users=" + users.size() +
-                ", tasks=" + tasks.size() +
+                ", users=" + users +
+                ", tasks=" + tasks +
                 ", repositoryUrl='" + repositoryUrl + '\'' +
+                ", code='" + code + '\'' +
                 '}';
     }
 }

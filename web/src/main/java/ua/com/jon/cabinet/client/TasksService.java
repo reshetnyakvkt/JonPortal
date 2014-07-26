@@ -30,5 +30,5 @@ public interface TasksService extends RemoteService {
     void setValidationResult(Long id, String statusStr, String result);
 
     List<TaskDTO> refreshTasks(List<Long> ids);
-    List<List<String>> getGroupInfo(Long selectedGroupId);
+    List<List<String>> getGroupInfo(Long selectedGroupId) throws Exception;
 }

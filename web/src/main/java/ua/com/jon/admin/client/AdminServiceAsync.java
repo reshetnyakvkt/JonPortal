@@ -30,7 +30,7 @@ public interface AdminServiceAsync {
 
     void getSpaces(AsyncCallback<ArrayList<SpaceDTO>> async);
 
-    void createGroup(SpaceDTO group, AsyncCallback<Void> groupCallback);
+    void createGroup(SpaceDTO group, AsyncCallback<String> async);
 
     void saveSprints(List<SprintDTO> newSprints, AsyncCallback groupCallback);
 

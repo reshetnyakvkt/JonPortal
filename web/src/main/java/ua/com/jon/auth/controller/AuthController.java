@@ -10,9 +10,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import ua.com.jon.auth.service.AuthService;
 import ua.com.jon.common.domain.User;
+import ua.com.jon.common.dto.GroupDTO;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.List;
 
 /**
  * Created with IntelliJ IDEA.
@@ -84,7 +86,9 @@ public class AuthController {
                            HttpServletRequest request,
                            HttpServletResponse response,
                            @RequestParam("j_username") String login,
-                           @RequestParam("j_password") String password) {
+                           @RequestParam("j_password") String password,
+                           @RequestParam("group") String groupIdStr,
+                           @RequestParam("code") String code) {
 
         log.info("New User login: " + login);
         log.info("New User password: " + password);
@@ -94,16 +98,30 @@ public class AuthController {
             model.addAttribute("message", "Пароль не может быть пустым.");
             return "/register";
         }
+        if (code == null || code.equals("")) {
+            model.addAttribute("message", "Код не может быть пустым.");
+            return "/register";
+        }
         if (login == null || login.equals("")) {
             model.addAttribute("message", "Логин не может быть пустым.");
             return "/register";
         }
+        Long groupId;
+        try {
+            groupId = Long.parseLong(groupIdStr);
+        } catch (Exception nfe) {
+            model.addAttribute("message", "Выбрана неверная группа");
+            return "/register";
+        }
+
         try {
             User user = authService.getUserFromDBByName(login);
-            if (user == null) {
-                user = authService.createNewUser(login, password);
+            List<GroupDTO> activeGroups = authService.getGroupsById(groupId);
+            if (user == null && !activeGroups.isEmpty() && activeGroups.get(0).getCode().equals(code)) {
+                user = authService.createNewUser(login, password, activeGroups);
             } else if (user.getPassword() == null || user.getPassword().equals("") ||
-                    user.getLogin().equals(user.getPassword())) {
+                    user.getLogin().equals(user.getPassword()) && !activeGroups.isEmpty() &&
+                            activeGroups.get(0).getCode().equals(code)) {
                 user.setPassword(password);
                 authService.updateUser(user);
             }

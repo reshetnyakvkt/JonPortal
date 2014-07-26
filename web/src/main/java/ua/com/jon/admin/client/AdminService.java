@@ -28,7 +28,7 @@ public interface AdminService extends RemoteService {
 
     ArrayList<SpaceDTO> getSpaces();
 
-    void createGroup(SpaceDTO group) throws Exception;
+    String createGroup(SpaceDTO group) throws Exception;
 
     void saveSprints(List<SprintDTO> newSprints);
 

@@ -11,18 +11,22 @@ import java.util.List;
  */
 public class GroupDTO implements Serializable {
     private List<TaskDTO> tasks = new ArrayList<TaskDTO>();
+    private Long id;
     private String name;
     private boolean status;
     private String repository;
+    private String code;
 
     public GroupDTO() {
     }
 
-    public GroupDTO(List<TaskDTO> tasks, String groupName, boolean groupStatus, String repository) {
+    public GroupDTO(Long id, List<TaskDTO> tasks, String groupName, boolean groupStatus, String repository, String code) {
+        this.id = id;
         this.tasks = tasks;
         this.name = groupName;
         this.status = groupStatus;
         this.repository = repository;
+        this.code = code;
     }
 
     public List<TaskDTO> getTasks() {
@@ -57,13 +61,31 @@ public class GroupDTO implements Serializable {
         this.repository = repository;
     }
 
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
+    }
+
     @Override
     public String toString() {
         return "GroupDTO{" +
-                "tasks=" + tasks.size() +
+                "tasks=" + tasks +
+                ", id=" + id +
                 ", name='" + name + '\'' +
                 ", status=" + status +
                 ", repository='" + repository + '\'' +
+                ", code='" + code + '\'' +
                 '}';
     }
 }

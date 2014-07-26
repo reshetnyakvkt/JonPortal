@@ -36,6 +36,23 @@
                 <input type="text" id="username" class="span12" name="j_username" placeholder="Логин"/>
                 <br/>
                 <input type="password" id="password" class="span12" name="j_password" placeholder="Имя"/>
+                <select name="group" class="form-control span12">
+
+                    <c:forEach var="group" items="${groups}">
+                        <c:out value="${group}"/>
+                        <div class="alert alert-error">
+                            <option value="${group.id}">${group.name}</option>
+                        </div>
+                    </c:forEach>
+<%--
+                    <option value="one">One</option>
+                    <option value="two">Two</option>
+                    <option value="three">Three</option>
+                    <option value="four">Four</option>
+                    <option value="five">Five</option>
+--%>
+                </select>
+                <input type="text" id="code" class="span12" name="code" placeholder="Код группы"/>
                 <button type="submit" name="submit" class="btn btn-info btn-block">
                     Зарегистрироваться
                 </button>

@@ -6,6 +6,7 @@ import org.springframework.transaction.annotation.Transactional;
 import ua.com.jon.auth.domain.AssemblaSpace;
 import ua.com.jon.auth.domain.AssemblaUser;
 import ua.com.jon.common.domain.User;
+import ua.com.jon.common.dto.GroupDTO;
 
 import java.util.List;
 
@@ -21,13 +22,19 @@ public interface AuthService {
 
     boolean isAuth(String space, String userName);
 
+//    List<GroupDTO> getActiveGroups();
+
     AssemblaUser getAssemblaUser(String space, String userName);
+
+    List<GroupDTO> getGroupsById(Long groupId);
 
     List<AssemblaUser> getUsersBySpace(String spaceName);
 
     AssemblaSpace getSpace(String spaceName);
 
     List<AssemblaSpace> getSpaces();
+
+    User createNewUser(String login, String password, List<GroupDTO> groups);
 
     User createNewUser(String login, String password);
 

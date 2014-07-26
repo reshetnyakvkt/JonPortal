@@ -79,7 +79,13 @@ public class GroupInfoTabPanel extends Composite {
         RootPanel.CABINET_EVENT_BUS.addHandler(GroupEvent.TYPE, new GroupEventHandler()     {
             @Override
             public void onGroupChanged(GroupEvent groupEvent) {
-                List<List<String>> sprintNames = load();
+                List<List<String>> sprintNames = null;
+                try {
+                    sprintNames = load();
+                } catch (Exception e) {
+                    Window.alert(e.getMessage() + e.getCause().getMessage());
+                    e.printStackTrace();
+                }
                 //buildTable(sprintNames);
                 addSprintsToTable(sprintNames);
             }
@@ -87,7 +93,7 @@ public class GroupInfoTabPanel extends Composite {
     }
 
     public void buildTable(List<List<String>> sprints) {
-        Window.alert(sprints.toString());
+//        Window.alert(sprints.toString());
         final int userNameIdx = 0;
         final int globalRateIdx = 1;
         studentsGrid.setEmptyTableWidget(new Label("Please add data."));
@@ -116,7 +122,7 @@ public class GroupInfoTabPanel extends Composite {
                 private int columnIdx = sprintIdx;
                 @Override
                 public String getValue(List<String> userList) {
-                    Window.alert(userList.toString());
+//                    Window.alert(userList.toString());
                     return userList.get(sprintIdx + 2);
                 }
             }, String.valueOf(sprintIdx + 1));
@@ -138,7 +144,7 @@ public class GroupInfoTabPanel extends Composite {
         //Window.alert("buildTable finished");
     }
 
-    private List<List<String>> load() {
+    private List<List<String>> load() throws Exception {
 
         final AsyncCallback<List<List<String>>> groupCallback = new AsyncCallback<List<List<String>>>() {
 
@@ -215,7 +221,7 @@ public class GroupInfoTabPanel extends Composite {
             @Override
             public void onFailure(Throwable caught) {
                 sprintsProgress.setVisible(false);
-                Window.alert("Error callback groupsListBox");
+                Window.alert("Error callback loadGroupAndUsers");
             }
 
             @Override
@@ -274,7 +280,11 @@ public class GroupInfoTabPanel extends Composite {
     @UiHandler("refreshGroupsBtn")
     public void refreshSprintsHandler(ClickEvent e) {
         //loadGroupAndUsers();
-        load();
+        try {
+            load();
+        } catch (Exception e1) {
+            e1.printStackTrace();
+        }
     }
 
     private void relocateTasks(List<SprintDTO> loadedSprints) {

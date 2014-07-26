@@ -19,7 +19,8 @@ public class GroupAndTaskDtoMapper {
 /*        if(group == null) {
             return new GroupDTO();
         }*/
-        return new GroupDTO(tasksToDto(group.getTasks()), group.getName(), group.isActive(), group.getRepositoryUrl());
+        return new GroupDTO(group.getId(), tasksToDto(group.getTasks()), group.getName(), group.isActive(),
+                group.getRepositoryUrl(), group.getCode());
     }
 
     private static List<TaskDTO> tasksToDto(Set<Task> tasks) {
@@ -41,10 +42,12 @@ public class GroupAndTaskDtoMapper {
         for (Group group : groups) {
             groupDtos.add(
                     new GroupDTO(
+                            group.getId(),
                             tasksToDto(group.getTasks()),
                             group.getName(),
                             group.isActive(),
-                            group.getRepositoryUrl()
+                            group.getRepositoryUrl(),
+                            group.getCode()
                     )
             );
         }

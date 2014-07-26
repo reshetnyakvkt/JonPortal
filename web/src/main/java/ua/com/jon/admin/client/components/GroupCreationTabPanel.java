@@ -295,7 +295,7 @@ public class GroupCreationTabPanel extends Composite {
              Window.alert("Group name can't be empty");
             return;
         }
-        final AsyncCallback<Void> groupCallback = new AsyncCallback<Void>() {
+        final AsyncCallback<String> groupCallback = new AsyncCallback<String>() {
 
             @Override
             public void onFailure(Throwable caught) {
@@ -305,10 +305,10 @@ public class GroupCreationTabPanel extends Composite {
             }
 
             @Override
-            public void onSuccess(Void aVoid) {
+            public void onSuccess(String code) {
                 clearGroupUsersList();
                 groupName.setText("");
-                //Window.alert("GroupDTO created successfully: " + group);
+                Window.alert("Code of group: " + code);
             }
         };
 

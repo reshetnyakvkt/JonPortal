@@ -126,7 +126,7 @@ public class GroupTasksTabPanel extends Composite {
             @Override
             public void onFailure(Throwable caught) {
                 sprintsProgress.setVisible(false);
-                Window.alert("Error callback groupsListBox");
+                Window.alert("Error callback taskByUserGroup");
             }
 
             @Override

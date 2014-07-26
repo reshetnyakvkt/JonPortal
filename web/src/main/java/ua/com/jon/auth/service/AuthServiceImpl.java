@@ -17,7 +17,11 @@ import ua.com.jon.auth.domain.SpringUser;
 import ua.com.jon.auth.domain.UserRole;
 import ua.com.jon.auth.exceptions.RestException;
 import ua.com.jon.auth.util.UserMapper;
+import ua.com.jon.common.domain.Group;
 import ua.com.jon.common.domain.User;
+import ua.com.jon.common.dto.GroupDTO;
+import ua.com.jon.common.dto.mapper.GroupDtoMapper;
+import ua.com.jon.common.repository.GroupRepository;
 import ua.com.jon.common.repository.UserRepository;
 import ua.com.jon.utils.RestClient;
 
@@ -40,6 +44,9 @@ public class AuthServiceImpl implements UserDetailsService, AuthService, UserDet
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private GroupRepository groupRepository;
 
     private static Logger log = Logger.getLogger(AuthServiceImpl.class);
     /*
@@ -100,6 +107,12 @@ public class AuthServiceImpl implements UserDetailsService, AuthService, UserDet
         return res;
     }
 
+/*    @Override
+    public List<GroupDTO> getActiveGroups() {
+        List<Group> activeGroups = groupRepository.findByActiveTrue();
+        return GroupDtoMapper.domainToCommonDtos(activeGroups);
+    }*/
+
     @Override
     public AssemblaUser getAssemblaUser(String space, String userName) {
         AssemblaUser assemblaUser = null;
@@ -116,6 +129,13 @@ public class AuthServiceImpl implements UserDetailsService, AuthService, UserDet
     @Override
     public User getDBUser(String login, String password) {
         return userRepository.findByLoginAndPassword(login, password);
+    }
+
+    @Override
+    public List<GroupDTO> getGroupsById(Long groupId) {
+        List<GroupDTO> groups = new ArrayList<GroupDTO>(1);
+        groups.add(GroupDtoMapper.domainToCommonDto(groupRepository.findOne(groupId)));
+        return groups;
     }
 
     @Override
@@ -153,6 +173,21 @@ public class AuthServiceImpl implements UserDetailsService, AuthService, UserDet
             log.error(e);
         }
         return spacesList;
+    }
+
+    @Override
+    public User createNewUser(String login, String password, List<GroupDTO> groups) {
+        Set<Long> groupIds = new HashSet<Long>();
+        for (GroupDTO group : groups) {
+            groupIds.add(group.getId());
+        }
+        Iterable<Group> groupIter = groupRepository.findAll(groupIds);
+        Set<Group> groupSet = new HashSet<Group>();
+        for (Group group : groupIter) {
+            groupSet.add(group);
+        }
+        User user = new User(login, password, new Date(), groupSet, Collections.singleton(UserRole.USER));
+        return userRepository.save(user);
     }
 
     @Override

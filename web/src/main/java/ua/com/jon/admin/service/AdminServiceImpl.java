@@ -1,5 +1,6 @@
 package ua.com.jon.admin.service;
 
+import com.jon.tron.service.processor.Crypt;
 import com.jon.tron.service.reflect.ReflectionUtil;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +17,6 @@ import ua.com.jon.admin.shared.TaskTemplateDTO;
 import ua.com.jon.admin.shared.UserDTO;
 import ua.com.jon.auth.domain.AssemblaSpace;
 import ua.com.jon.auth.domain.AssemblaUser;
-import ua.com.jon.auth.domain.GitHubRepo;
 import ua.com.jon.auth.domain.UserRole;
 import ua.com.jon.auth.service.AuthService;
 import ua.com.jon.common.domain.Group;
@@ -129,38 +129,56 @@ public class AdminServiceImpl implements AdminService {
 
     @Override
     @Transactional
-    public void createGroup(SpaceDTO spaceDto) throws Exception {
+    public String createGroup(SpaceDTO spaceDto) throws Exception {
         log.info("-- createGroup() " + spaceDto);
         try {
 //            for (UserDTO userDTO : spaceDto.getUsers()) {
             Set<String> nameSet = userToNamesWithTrim(spaceDto.getUsers());
-            List<User> users = userRepository.findByNames(nameSet);
-            for (User user : users) {
-                nameSet.remove(user.getLogin());
+            List<User> users = new ArrayList<User>();
+            if (nameSet != null && !nameSet.isEmpty()) {
+                users = userRepository.findByNames(nameSet);
+                for (User user : users) {
+                    nameSet.remove(user.getLogin());
+                }
             }
-            Group group = new Group(spaceDto.getName(), new Date(), false, new HashSet<User>(), spaceDto.getRepositoryUrl());
-            Set<Group> groups = new HashSet<Group>();
-            groups.add(group);
-            Set<UserRole> roles = new HashSet<UserRole>();
-            for (String userName : nameSet) {
-                users.add(new User(userName, null, new Date(), groups, roles));
+            String sha1 = null;
+            if (spaceDto != null && !spaceDto.getName().isEmpty()) {
+                sha1 = Crypt.sha1(spaceDto.getName() + String.valueOf(System.currentTimeMillis()));
             }
-            groupRepository.save(group);
+
+            Group group = createAndSaveGroup(spaceDto, nameSet, users, sha1);
 //            userRepository.save(users);
-            for (User user : users) {
-                List<Group> tmpGroups = groupRepository.findByUsersIn(user.getLogin());
-                user.getGroups().addAll(tmpGroups);
-                user.getGroups().add(group);
-            }
-            group.getUsers().addAll(users);
-            groupRepository.save(group);
+            saveUsersToGroup(users, group);
             //userRepository.save(users);
             log.info("-- created group " + group);
+            return sha1;
 //            }
         } catch (Exception e) {
             log.error(e);
             throw e;
         }
+    }
+
+    private void saveUsersToGroup(List<User> users, Group group) {
+        for (User user : users) {
+            List<Group> tmpGroups = groupRepository.findByUsersIn(user.getLogin());
+            user.getGroups().addAll(tmpGroups);
+            user.getGroups().add(group);
+        }
+        group.getUsers().addAll(users);
+        groupRepository.save(group);
+    }
+
+    private Group createAndSaveGroup(SpaceDTO spaceDto, Set<String> nameSet, List<User> users, String code) {
+        Group group = new Group(spaceDto.getName(), new Date(), true, new HashSet<User>(), spaceDto.getRepositoryUrl(), code);
+        Set<Group> groups = new HashSet<Group>();
+        groups.add(group);
+        Set<UserRole> roles = new HashSet<UserRole>();
+        for (String userName : nameSet) {
+            users.add(new User(userName, null, new Date(), groups, roles));
+        }
+        groupRepository.save(group);
+        return group;
     }
 
     @Override

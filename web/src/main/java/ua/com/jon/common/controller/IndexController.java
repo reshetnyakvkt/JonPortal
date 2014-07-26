@@ -37,10 +37,4 @@ public class IndexController {
         modelMap.put("item","item6");
         return "tasksg";
     }
-
-    @RequestMapping("/register.html")
-    public String register(ModelMap modelMap)  {
-        //modelMap.put("item","item5");
-        return "register";
-    }
 }

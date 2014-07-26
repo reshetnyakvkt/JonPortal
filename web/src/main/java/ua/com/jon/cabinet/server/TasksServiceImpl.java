@@ -204,36 +204,44 @@ public class TasksServiceImpl implements TasksService, ServletContextAware {
     }
 
     @Override
-    public List<List<String>> getGroupInfo(Long selectedGroupId) {
-        List<Task> tasks = taskRepository.findByGroupId(selectedGroupId);
-        Map<String, Map<Sprint, Integer>> groupInfo = new HashMap<String, Map<Sprint, Integer>>();
-        for (Task task : tasks) {
-            Map<Sprint, Integer> userSprints = groupInfo.get(task.getUser().getLogin());
-            if (userSprints == null) {
-                userSprints = new HashMap<Sprint, Integer>();
-                groupInfo.put(task.getUser().getLogin(), userSprints);
-            }
-            Integer rate = userSprints.get(task.getSprint());
-            if (rate == null) {
-                rate = 0;
+    public List<List<String>> getGroupInfo(Long selectedGroupId) throws Exception {
+        try {
+            List<Task> tasks = taskRepository.findByGroupId(selectedGroupId);
+            Map<String, Map<Sprint, Integer>> groupInfo = new HashMap<String, Map<Sprint, Integer>>();
+            for (Task task : tasks) {
+                Map<Sprint, Integer> userSprints = groupInfo.get(task.getUser().getLogin());
+                if (userSprints == null) {
+                    userSprints = new HashMap<Sprint, Integer>();
+                    groupInfo.put(task.getUser().getLogin(), userSprints);
+                }
+                Integer rate = userSprints.get(task.getSprint());
+                if (rate == null) {
+                    rate = 0;
+                    userSprints.put(task.getSprint(), rate);
+                }
+                int index = task.getResult().indexOf("\n");
+                String rateStr;
+                if (index >= 0) {
+                    rateStr = task.getResult().substring(0, index);
+                    rate += Integer.parseInt(rateStr);
+                }
                 userSprints.put(task.getSprint(), rate);
             }
-            String rateStr = task.getResult().substring(0, task.getResult().indexOf("\n"));
-            rate += Integer.parseInt(rateStr);
-            userSprints.put(task.getSprint(), rate);
-        }
 
-        List<List<String>> resultInfo = new ArrayList<List<String>>();
-        for (Map.Entry<String, Map<Sprint, Integer>> sprints : groupInfo.entrySet()) {
-            List<String> userSprints = new LinkedList<String>();
-            for (Map.Entry<Sprint, Integer> sprint : sprints.getValue().entrySet()) {
-                userSprints.add(String.valueOf(sprint.getValue()));
+            List<List<String>> resultInfo = new ArrayList<List<String>>();
+            for (Map.Entry<String, Map<Sprint, Integer>> sprints : groupInfo.entrySet()) {
+                List<String> userSprints = new LinkedList<String>();
+                for (Map.Entry<Sprint, Integer> sprint : sprints.getValue().entrySet()) {
+                    userSprints.add(String.valueOf(sprint.getValue()));
+                }
+                resultInfo.add(userSprints);
             }
-            resultInfo.add(userSprints);
+
+            return resultInfo;
+        } catch (Exception e) {
+            log.error(e);
+            throw e;
         }
-
-        return resultInfo;
-
     }
 
     private void removeTasksOfCurrentUser(ArrayList<TaskDTO> list, String userName) {
