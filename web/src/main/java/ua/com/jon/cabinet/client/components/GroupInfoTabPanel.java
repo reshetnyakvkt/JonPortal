@@ -87,7 +87,7 @@ public class GroupInfoTabPanel extends Composite {
                     e.printStackTrace();
                 }
                 //buildTable(sprintNames);
-                addSprintsToTable(sprintNames);
+                //addSprintsToTable(sprintNames);
             }
         });
     }
@@ -115,17 +115,17 @@ public class GroupInfoTabPanel extends Composite {
         }, "Общий рейтинг");
 
         //int i = 0;
-        for (int i=0; i<sprints.size(); i++) {
+        for (int i=2; i<sprints.get(0).size(); i++) {
             //final String session = sprints.get(i).get(888);
             final int sprintIdx = i;
             studentsGrid.addColumn(new TextColumn<List<String>>() {
-                private int columnIdx = sprintIdx;
+                //private int columnIdx = sprintIdx;
                 @Override
                 public String getValue(List<String> userList) {
-//                    Window.alert(userList.toString());
-                    return userList.get(sprintIdx + 2);
+                    //Window.alert(userList.toString());
+                    return userList.get(sprintIdx);
                 }
-            }, String.valueOf(sprintIdx + 1));
+            }, String.valueOf(sprintIdx - 1));
         }
 
         //final SingleSelectionModel<List<String>> selectionModel = new SingleSelectionModel<List<String>>();
@@ -140,6 +140,7 @@ public class GroupInfoTabPanel extends Composite {
                         }
                     }
                 });*/
+
         dataProvider.addDataDisplay(studentsGrid);
         //Window.alert("buildTable finished");
     }
@@ -155,11 +156,12 @@ public class GroupInfoTabPanel extends Composite {
             }
 
             @Override
-            public void onSuccess(List<List<String>> taskDTOs) {
-                /*sprintsProgress.setVisible(false);
-                for (TaskDTO taskDTO : taskDTOs) {
+            public void onSuccess(List<List<String>> groupInfo) {
+                sprintsProgress.setVisible(false);
+                /*for (List<String> taskDTO : taskDTOs) {
                     Window.alert(taskDTO.toString());
-                }
+                }*/
+                /*
                 List<List<String>> sprintNames = new ArrayList<List<String>>();*/
                 // TODO fill
                 /*if(taskDTOs != null && taskDTOs.size() > 0) {
@@ -171,7 +173,8 @@ public class GroupInfoTabPanel extends Composite {
                     //buildTable(sprints);
                 }
                 buildTable(sprintNames);*/
-                buildTable(taskDTOs);
+                addSprintsToTable(groupInfo);
+                buildTable(groupInfo);
             }
         };
 

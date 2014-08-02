@@ -15,11 +15,21 @@ import ua.com.jon.cabinet.client.TasksService;
 import ua.com.jon.cabinet.shared.GroupDTO;
 import ua.com.jon.cabinet.shared.SprintDTO;
 import ua.com.jon.cabinet.shared.TaskDTO;
-import ua.com.jon.common.domain.*;
+import ua.com.jon.common.domain.Group;
+import ua.com.jon.common.domain.Sprint;
+import ua.com.jon.common.domain.Status;
+import ua.com.jon.common.domain.Task;
+import ua.com.jon.common.domain.TaskTemplate;
+import ua.com.jon.common.domain.TaskType;
+import ua.com.jon.common.domain.User;
 import ua.com.jon.common.dto.mapper.GroupDtoMapper;
 import ua.com.jon.common.dto.mapper.SprintDtoMapper;
 import ua.com.jon.common.dto.mapper.TaskDtoMapper;
-import ua.com.jon.common.repository.*;
+import ua.com.jon.common.repository.GroupRepository;
+import ua.com.jon.common.repository.SprintRepository;
+import ua.com.jon.common.repository.TaskRepository;
+import ua.com.jon.common.repository.TaskTemplateRepository;
+import ua.com.jon.common.repository.UserRepository;
 
 import javax.annotation.Resource;
 import javax.servlet.ServletContext;
@@ -231,6 +241,16 @@ public class TasksServiceImpl implements TasksService, ServletContextAware {
             List<List<String>> resultInfo = new ArrayList<List<String>>();
             for (Map.Entry<String, Map<Sprint, Integer>> sprints : groupInfo.entrySet()) {
                 List<String> userSprints = new LinkedList<String>();
+                userSprints.add(sprints.getKey());
+                Long sprintId = sprints.getValue().entrySet().iterator().next().getKey().getId();
+                // TODO avoid unnecessary DB query
+                Long sum = 0L;
+                for (Map.Entry<Sprint, Integer> sprint : sprints.getValue().entrySet()) {
+                    sum += sprint.getValue();
+                }
+                userSprints.add(String.valueOf(sum/sprints.getValue().size()));
+
+
                 for (Map.Entry<Sprint, Integer> sprint : sprints.getValue().entrySet()) {
                     userSprints.add(String.valueOf(sprint.getValue()));
                 }
