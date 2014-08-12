@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import ua.com.jon.auth.service.AuthService;
 import ua.com.jon.common.domain.User;
 import ua.com.jon.common.dto.GroupDTO;
+import ua.com.jon.common.service.RegisterService;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -27,6 +28,9 @@ public class AuthController {
 
     @Autowired
     private AuthService authService;
+
+    @Autowired
+    private RegisterService registerService;
 
     @RequestMapping(value = "/loginfailed", method = RequestMethod.GET)
     public String showArticlesList(Model model
@@ -95,16 +99,13 @@ public class AuthController {
 
         String forwardUrl;
         if (password == null || password.equals("")) {
-            model.addAttribute("message", "Пароль не может быть пустым.");
-            return "/register";
+            return gotoRegisterWithError(model, "Пароль не может быть пустым.");
         }
         if (code == null || code.equals("")) {
-            model.addAttribute("message", "Код не может быть пустым.");
-            return "/register";
+            return gotoRegisterWithError(model, "Код не может быть пустым.");
         }
         if (login == null || login.equals("")) {
-            model.addAttribute("message", "Логин не может быть пустым.");
-            return "/register";
+            return gotoRegisterWithError(model, "Логин не может быть пустым.");
         }
         Long groupId;
         try {
@@ -113,29 +114,39 @@ public class AuthController {
             model.addAttribute("message", "Выбрана неверная группа");
             return "/register";
         }
+        User user = authService.getUserFromDBByName(login);
+        if (user != null) {
+            model.addAttribute("message", "Пользователь с таким логином уже сущестует");
+            return "/register";
+        }
+        List<GroupDTO> activeGroups = authService.getGroupsById(groupId);
+        if (!activeGroups.isEmpty() && !activeGroups.get(0).getCode().equals(code)) {
+            model.addAttribute("message", "Неверный код группы");
+            return "/register";
+        }
 
         try {
-            User user = authService.getUserFromDBByName(login);
-            List<GroupDTO> activeGroups = authService.getGroupsById(groupId);
-            if (user == null && !activeGroups.isEmpty() && activeGroups.get(0).getCode().equals(code)) {
+            if (!activeGroups.isEmpty() && activeGroups.get(0).getCode().equals(code)) {
                 user = authService.createNewUser(login, password, activeGroups);
-            } else if (user.getPassword() == null || user.getPassword().equals("") ||
-                    user.getLogin().equals(user.getPassword()) && !activeGroups.isEmpty() &&
-                            activeGroups.get(0).getCode().equals(code)) {
-                user.setPassword(password);
-                authService.updateUser(user);
-            }
-            if (password.equals(user.getPassword())) {
                 forwardUrl = "/j_spring_security_check?j_username=" + login + "&j_password=" + password;
                 return "forward:" + forwardUrl;
-            } else {
-                model.addAttribute("message", "Пользователь с таким именем уже существует.");
             }
+            /*else if (!activeGroups.isEmpty() && activeGroups.get(0).getCode().equals(code)) {
+                user.setPassword(password);
+                authService.updateUser(user);
+            }*/
             return "/register";
 
         } catch (UsernameNotFoundException e) {
             model.addAttribute("message", "Логин неверный");
             return "/register";
         }
+    }
+
+    private String gotoRegisterWithError(Model model, String message) {
+        List<GroupDTO> activeGroups = registerService.getActiveGroups();
+        model.addAttribute("groups", activeGroups);
+        model.addAttribute("message", message);
+        return "/register";
     }
 }

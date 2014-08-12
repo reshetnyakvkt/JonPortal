@@ -1,5 +1,6 @@
 package ua.com.jon.utils;
 
+import org.apache.log4j.Logger;
 import org.kohsuke.github.GHRepository;
 import org.kohsuke.github.GHUser;
 import org.kohsuke.github.GitHub;
@@ -20,7 +21,7 @@ import java.util.Set;
  * Date: 26.04.14
  */
 public class GitHubClient {
-
+    private static final Logger log = Logger.getLogger(GitHubClient.class);
     public static ArrayList<SpaceDTO> getRepositoriesAndCollaborators() throws IOException {
         GitHub github = GitHub.connectUsingPassword("sergey_zagalskiy@mail.ru", "darcyk123");
         Map<String, GHRepository> reposMap = github.getMyself().getAllRepositories();

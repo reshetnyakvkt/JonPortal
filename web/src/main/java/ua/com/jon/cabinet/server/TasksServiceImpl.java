@@ -74,7 +74,7 @@ public class TasksServiceImpl implements TasksService, ServletContextAware {
 
     @Override
     public String greet(String name) {
-        System.out.println(name);
+        log.info(name);
         return "great";
     }
 
@@ -102,7 +102,7 @@ public class TasksServiceImpl implements TasksService, ServletContextAware {
         } else if (dto.getType().equals(TaskType.SVN.name())) {
             result = taskStatusChanged(dto);
         }
-        System.out.println("dispatchTaskChecking " + dto);
+        log.info("dispatchTaskChecking " + dto);
         return result;
     }
 
@@ -113,7 +113,7 @@ public class TasksServiceImpl implements TasksService, ServletContextAware {
         task.setStatus(newStatus);
         taskRepository.save(task);
 
-        System.out.println("taskStatusChanged " + dto);
+        log.info("taskStatusChanged " + dto);
 
         return "";
     }
@@ -131,31 +131,15 @@ public class TasksServiceImpl implements TasksService, ServletContextAware {
             List<Task> tasks = taskRepository.findByUserAndSprintAndGroup(userName, sprint.getId(), selectedGroup.getId());
             sprints.add(SprintDtoMapper.domainToDto(tasks, sprint, 0.0));
         }
-        log.info("--- " + sprints + " ---");
+        log.info("--- Sent sprints to client " + sprints.size() + " ---");
         return sprints;
-//        List<TaskDTO> tasks1 = getUserTasks();
-//        List<TaskDTO> tasks2 = new ArrayList<TaskDTO>();
-//        tasks2.add(new TaskDTO("1", "schema", "status", "0%\n qq"));
-//
-//        SprintDTO sprint1 = new SprintDTO("Core", false);
-//        sprint1.setTasks(tasks1);
-//
-//        SprintDTO sprint2 = new SprintDTO("DB", true);
-//        sprint2.setTasks(tasks2);
-//
-//        ArrayList<SprintDTO> sprints = new ArrayList<SprintDTO>();
-//        sprints.add(sprint1);
-//        sprints.add(sprint2);
-//
-//        System.out.println("Sprints: " + sprints);
-//        return sprints;
     }
 
     @Override
     public String postForTest(TaskDTO taskDTO) {
         log.info("-== Cabinet post task for test: " + taskDTO.getCode());
         URL resource = this.getClass().getResource("/forbid.policy");
-        System.out.println(resource.getPath());
+        log.info(resource.getPath());
 
         Map.Entry<String, String> resultEntry;
         try {
@@ -183,7 +167,6 @@ public class TasksServiceImpl implements TasksService, ServletContextAware {
     @Override
     public ArrayList<TaskDTO> getTasksByUserGroup(Long taskTemplateId, Long selectedGroupId, Long selectedSprintId) {
         log.info("-== getTasksByUserGroup: " + taskTemplateId);
-        System.out.println("-== getTasksByUserGroup: " + taskTemplateId);
         ArrayList<TaskDTO> tasksList = new ArrayList<TaskDTO>();
         try {
             String userName = getSpringUserName();
@@ -202,10 +185,7 @@ public class TasksServiceImpl implements TasksService, ServletContextAware {
 //        list.add(new TaskDTO(1L, "task1", "task1", "", "", "", "", "", ""));
 //        list.add(new TaskDTO(1L, "task2", "task2", "", "", "", "", "", ""));
             }
-            System.out.println("Tasks for group " + tasksList.size());
-/*            for (TaskDTO taskDTO : tasksList) {
-                System.out.println(taskDTO.getName() + ", " + taskDTO.getResult());
-            }*/
+            log.info("Tasks for group " + tasksList.size());
         } catch (Exception e) {
             e.printStackTrace();
             throw new RuntimeException(e);
@@ -281,7 +261,6 @@ public class TasksServiceImpl implements TasksService, ServletContextAware {
         } catch (Exception e) {
             e.printStackTrace();
             log.error(e);
-            System.out.println(e.getMessage());
         }
         return 0.0;
     }

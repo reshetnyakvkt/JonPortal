@@ -80,8 +80,7 @@ public class ExamineServiceImpl /*extends RemoteServiceServlet*/ implements Exam
 
     @Override
     public String greet(String name) {
-        System.out.println(name);
-        return "great";
+        return null;
     }
 
     @Override
@@ -137,7 +136,7 @@ public class ExamineServiceImpl /*extends RemoteServiceServlet*/ implements Exam
         }
         log.info("-== Cabinet post task for test: " + taskDTO.getCode());
         URL resource = this.getClass().getResource("/forbid.policy");
-        System.out.println(resource.getPath());
+        log.info(resource.getPath());
 
         Map.Entry<String, String> resultEntry;
 //        final TaskTemplate template = templateRepository.findOne(taskDTO.getTaskTemplateId());
@@ -194,7 +193,7 @@ public class ExamineServiceImpl /*extends RemoteServiceServlet*/ implements Exam
 */
                     String result = testResult.length() > 1000 ? testResult.substring(0, 1000) : testResult;
 //                    taskRepository.save(task);
-                    if (key == 100 && !userName.isEmpty()) {
+                    if (key > 10 ) {
                         TaskTemplate template = templateRepository.findOne(taskDTO.getTaskTemplateId());
                         taskHistoryRepository.save(new TaskHistory(taskDTO.getCode(), template, userName, new Date(), result, sha1));
                     }

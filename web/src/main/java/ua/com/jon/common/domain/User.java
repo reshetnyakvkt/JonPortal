@@ -58,6 +58,10 @@ public class User {
         this.roles = roles;
     }
 
+    public boolean isAdmin() {
+        return roles.contains(UserRole.ROLE_ADMIN);
+    }
+
     public Long getId() {
         return id;
     }

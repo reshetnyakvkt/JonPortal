@@ -53,7 +53,7 @@ public class BaseTest {
         try {
             return unitClass.newInstance();
         } catch (InstantiationException e) {
-            instantateErrorMEssage = e.getMessage();
+            instantateErrorMEssage = "Невозможно создать объект класса "+ e.getMessage()+", возможно нет конструктора по умолчанию";
             throwable = e;
         } catch (IllegalAccessException e) {
             instantateErrorMEssage = "Невозможно создать объект класса, возможно класс не public";
@@ -87,7 +87,6 @@ public class BaseTest {
                         "", (Object) new String[0]);
             }
         } catch (Throwable throwable) {
-            //System.out.println("Во время выполнения метода main произошла ошибка");
             throwable.printStackTrace();
             fail("Во время выполнения метода main произошла ошибка " + throwable.toString());
         }
@@ -109,7 +108,6 @@ public class BaseTest {
                         "", (Object) new String[0]);
             }*/
         } catch (Throwable throwable) {
-            //System.out.println("Во время выполнения метода main произошла ошибка");
             throwable.printStackTrace();
             fail("Во время выполнения метода main произошла ошибка " + throwable.toString());
         }
@@ -120,7 +118,7 @@ public class BaseTest {
             return true;
         }
         if (!CodeValidator.isCodeSafe(code)) {
-            fail("Текст задание содержит недопустимое содержимое");
+            fail("Текст задание содержит недопустимое содержимое: " + CodeValidator.getMatches(code));
             return false;
         }
         return true;

@@ -19,7 +19,7 @@ import static org.junit.Assert.*;
 
 /**
  Написать метод заполняющий массив случайными числами в диапазоне от 0 до 10
- Имя метода: fillVectorByRandom
+ Имя метода: fillMatrixByRandom
 
  * Created with IntelliJ IDEA.
  * User: al1
@@ -35,7 +35,7 @@ public class F2VectorRandomFillTest extends BaseTest {
     }
 
     private static final String UNIT_NAME = "VectorRandomFill";
-    private static final String UNIT_METHOD_NAME = "fillVectorByRandom";
+    private static final String UNIT_METHOD_NAME = "fillMatrixByRandom";
 
     @UnitCode
     private static Map<String, String> codes;

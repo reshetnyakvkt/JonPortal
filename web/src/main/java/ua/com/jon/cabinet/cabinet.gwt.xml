@@ -19,7 +19,7 @@
     <!-- values="safari" />-->
     <!-- values="opera" />-->
     <!-- fallback-value="ie8" />-->
-    <set-property name="user.agent" value="safari" />
+    <!--<set-property name="user.agent" value="safari" />-->
 
     <!-- Specify the app entry point class.                         -->
     <entry-point class='ua.com.jon.cabinet.client.CabinetMain'/>

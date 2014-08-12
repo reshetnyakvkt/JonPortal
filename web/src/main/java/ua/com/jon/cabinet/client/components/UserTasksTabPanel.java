@@ -420,7 +420,7 @@ public class UserTasksTabPanel extends Composite {
         // Add the columns.
         cellTable.addColumn(nameColumn, "Название");
         cellTable.addColumn(textColumn, "Текст задания");
-        SelectionCell cell = new SelectionCell(getAcceptableValues()) {
+        final SelectionCell cell = new SelectionCell(getAcceptableValues()) {
 
             @Override
             public void onBrowserEvent(Context context, Element parent, String value, NativeEvent event, ValueUpdater<String> valueUpdater) {
@@ -465,6 +465,7 @@ public class UserTasksTabPanel extends Composite {
 
             @Override
             public String getValue(TaskDTO taskDto) {
+//                Window.alert(taskDto.toString());
                 return taskDto.getStatus();
             }
         };
@@ -487,11 +488,13 @@ public class UserTasksTabPanel extends Composite {
 
                     @Override
                     public void onSuccess(String testResult) {
-                        // Window.alert(testResult.toString());
+//                        Window.alert(taskDTO.toString());
+                        taskDTO.setStatus("NEW");
                         taskDTO.setResult(testResult);
                         result.setText(testResult);
-                        //dataProvider.flush();
-                        dataProvider.refresh();
+                        dataProvider.flush();
+//                        dataProvider.refresh();
+                        cellTable.redraw();
                         //restructureTable(null);
                     }
                 });

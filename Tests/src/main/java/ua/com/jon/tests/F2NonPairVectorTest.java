@@ -20,33 +20,32 @@ import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 /**
-Написать метод, возвращающий среднее арифметическое значение для всех элементов массива
+Написать метод возвращающий количество нечетных элементов массива
 В случае, если размер вектора некорректный, выводить сообщение "Неверный размер вектора"
-Название метода: calcVectorAvg
+Название метода: calcNonPairCount
 Пример:
- calcVectorAvg(int[] vector); // [1234567]
-14
+ calcNonPairCount(int[] vector); // [1234567]
+4
 
  * Created with IntelliJ IDEA.
  * User: al1
  * Date: 13.06.14
  */
-@Unit(testName = "F2VectorAvgTest", value = "weekend1.task1")
+@Unit(testName = "F2NonPairVectorTest", value = "weekend1.task1")
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
-public class F2VectorAvgTest extends BaseTest {
-    public int calcVectorAvg(int[] vector) {
-        if (vector == null || vector.length == 0) {
-            System.out.println("Неверный размер вектора");
-        }
+public class F2NonPairVectorTest extends BaseTest {
+    public int calcNonPairCount(int[] vector) {
         int sum = 0;
         for (int i = 0; i < vector.length; i++) {
-            sum += vector[i];
+            if (vector[i] % 2 != 0) {
+                sum++;
+            }
         }
-        return sum / vector.length;
+        return sum;
     }
 
-    private static final String UNIT_NAME = "VectorAvg";
-    private static final String UNIT_METHOD_NAME = "calcVectorAvg";
+    private static final String UNIT_NAME = "NonPairVector";
+    private static final String UNIT_METHOD_NAME = "calcNonPairCount";
 
     @UnitCode
     private static Map<String, String> codes;
@@ -77,6 +76,7 @@ public class F2VectorAvgTest extends BaseTest {
         instance = instanciate(unitClasses[0]);
         unitMethod = ReflectionUtil.checkMethod(unitClasses[0], UNIT_METHOD_NAME, int.class,
                 new MethodModifier[]{MethodModifier.PUBLIC}, int[].class);
+        System.out.println(unitMethod);
     }
 
     @Test(timeout = 1000)
@@ -84,14 +84,14 @@ public class F2VectorAvgTest extends BaseTest {
         if (instance == null || unitMethod == null) {
             fail();
         }
-        int from = generateInt(3, 6);
-        int to = generateInt(7, 10);
+        int from = generateInt(0, 3);
+        int to = generateInt(8, 10);
         int[] expectedVector = generateVector(from, to);
         int actualRes = (Integer) ReflectionUtil.invokeMethod(instance, unitMethod, expectedVector.clone());
-        int expectedRes = calcAvg(expectedVector);
+        int expectedRes = calcNonPairs(expectedVector);
 
-        assertTrue("\n--- Проверка правильности вычисление среднего " + Arrays.toString(expectedVector) + " ---\n" +
-                "Метод должен возвращать значение среднего арифметического " + expectedRes + ", а не "
+        assertTrue("\n--- Проверка правильности вычисление нечетных " + Arrays.toString(expectedVector) + " ---\n" +
+                "Метод должен возвращать количество нечетных " + expectedRes + ", а не "
                 + actualRes, expectedRes == actualRes);
     }
 
@@ -143,16 +143,16 @@ public class F2VectorAvgTest extends BaseTest {
 */
 
     @Test(timeout = 1000)
-    public void testLengthOne() throws Throwable {
+    public void testLengthOneNonPair() throws Throwable {
         if (instance == null || unitMethod == null) {
             fail();
         }
-        int[] expectedVector = new int[]{generateInt(3, 10)};
+        int[] expectedVector = new int[]{generateInt(3, 10) / 2 + 1};
         int actualRes = (Integer) ReflectionUtil.invokeMethod(instance, unitMethod, expectedVector.clone());
-        int expectedRes = calcAvg(expectedVector);
+        int expectedRes = calcNonPairs(expectedVector);
 
-        assertTrue("\n--- Проверка правильности вычисление среднего для " + Arrays.toString(expectedVector) + " ---\n" +
-                "Метод должен возвращать значение среднего арифметического " + expectedRes + ", а не "
+        assertTrue("\n--- Проверка правильности подсчета количества нечетных " + Arrays.toString(expectedVector) + " ---\n" +
+                "Метод должен возвращать количество нечетных " + expectedRes + ", а не "
                 + actualRes, expectedRes == actualRes);
     }
 
@@ -171,11 +171,13 @@ public class F2VectorAvgTest extends BaseTest {
         return (int) (Math.random() * range + from);
     }
 
-    private int calcAvg(int[] vector) {
+    private int calcNonPairs(int[] vector) {
         int sum = 0;
         for (int i = 0; i < vector.length; i++) {
-            sum += vector[i];
+            if (vector[i] % 2 != 0) {
+                sum++;
+            }
         }
-        return sum / vector.length;
+        return sum;
     }
 }

@@ -198,7 +198,7 @@ public class AdminServiceImpl implements AdminService {
 
     @Override
     public void saveGroups(ArrayList<GroupAndUsersDTO> newGroup) {
-         System.out.println("-- saveGroup " + newGroup);
+         log.info("-- saveGroup " + newGroup);
 
         // TODO save group
     }
@@ -253,7 +253,7 @@ public class AdminServiceImpl implements AdminService {
         sprint.setType(newType);
         sprintRepository.save(sprint);
 
-        System.out.println("Changed sprint is " + dto);
+        log.info("Changed sprint is " + dto);
     }
 
     @Override
@@ -399,8 +399,6 @@ public class AdminServiceImpl implements AdminService {
     @Override
     public void postTasksByNames(GroupDTO groupDto, ArrayList<Long> taskIds, SprintDTO sprintDto) {
         log.info("-- Post tasks " + taskIds + " to groupDto " + groupDto);
-     //   System.out.println("-- Post tasks " + taskIds + " to groupDto " + groupDto);
-//        System.out.println("Post tasks " + taskNames + " to groupDto " + groupName);
         Sprint sprint = sprintRepository.findOne(sprintDto.getId());
         Group group = groupRepository.findOne(groupDto.getId());
         try {
