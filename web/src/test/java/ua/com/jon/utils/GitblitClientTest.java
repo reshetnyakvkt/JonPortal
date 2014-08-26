@@ -22,6 +22,6 @@ public class GitblitClientTest {
 
     @Test
     public void testMain() throws Exception {
-        client.getUsers();
+        client.createUser("a", "a");
     }
 }

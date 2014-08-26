@@ -58,4 +58,10 @@ public class TrainingsController {
         modelMap.put("item","mitem8");
         return "trainings/practicum";
     }
+
+    @RequestMapping("/trainings/jon.html")
+    public String jon(ModelMap modelMap)  {
+        modelMap.put("item","mitem9");
+        return "trainings/jon";
+    }
 }

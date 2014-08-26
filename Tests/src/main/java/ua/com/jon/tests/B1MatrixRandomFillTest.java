@@ -97,7 +97,7 @@ public class B1MatrixRandomFillTest extends BaseTest {
     }
 
     @Test(timeout = 1000)
-    public void testCheckMainMethod() throws Throwable {
+    public void test() throws Throwable {
         assertTrue("В задании должен быть только один класс", unitClasses.length == 1);
         validateCode(codes.entrySet().iterator().next().getValue());
         instance = instanciate(unitClasses[0]);
@@ -173,17 +173,18 @@ public class B1MatrixRandomFillTest extends BaseTest {
         ReflectionUtil.invokeMain(instance);
         String actualMatrixStr = getIn().toString().trim();
 
-        assertTrue("При неправильном размере массива, необходимо выводить сообщение " + ILLEGAL_SIZE, ILLEGAL_SIZE.equals(actualMatrixStr));
+        assertTrue("При неправильном размере массива (высота -1), необходимо выводить сообщение " + ILLEGAL_SIZE, ILLEGAL_SIZE.equals(actualMatrixStr));
 
         height = rnd.nextInt(MAX_SIZE + MIN_SIZE);
         width = -1;
 
+        super.setUp();
         getOut().println(height);
         getOut().println(width);
         ReflectionUtil.invokeMain(instance);
         actualMatrixStr = getIn().toString().trim();
 
-        assertTrue("При неправильном размере массива, необходимо выводить сообщение " + ILLEGAL_SIZE, ILLEGAL_SIZE.equals(actualMatrixStr));
+        assertTrue("При неправильном размере массива (ширина -1), необходимо выводить сообщение " + ILLEGAL_SIZE, ILLEGAL_SIZE.equals(actualMatrixStr));
     }
 
     private boolean checkSize(String actualMatrixStr, int height, int width) {

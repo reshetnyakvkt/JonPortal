@@ -66,20 +66,21 @@ public class B2FirmTest extends BaseTest {
         super.tearDown();
     }
 
-    @Test(timeout = 1000)
-    public void testCheckMainMethod() throws Throwable {
-        assertTrue("В задании должен быть только один класс", unitClasses.length == 1);
+    @Test(timeout = 1100)
+    public void test() throws Throwable {
+        assertTrue("В задании должно быть не более 2х классов", unitClasses.length <= 2);
         validateCode(codes.entrySet().iterator().next().getValue());
 
         Class unitClass = getUnitClass(unitClasses, UNIT_NAME);
         assertNotNull("В задании не найден класс " + UNIT_NAME, unitClass);
 
-        instance = instanciate(unitClasses[0]);
-        addMethod = ReflectionUtil.checkMethod(unitClasses[0], PRINT_METHOD_NAME, void.class,
+        instance = instanciate(unitClass);
+        addMethod = ReflectionUtil.checkMethod(unitClass, PRINT_METHOD_NAME, void.class,
                 new MethodModifier[]{MethodModifier.PUBLIC});
-        addMethod = ReflectionUtil.checkMethod(unitClasses[0], GIVE_SALARY_METHOD_NAME, void.class,
+        addMethod = ReflectionUtil.checkMethod(unitClass, GIVE_SALARY_METHOD_NAME, void.class,
                 new MethodModifier[]{MethodModifier.PUBLIC});
-        addMethod = ReflectionUtil.checkMethod(unitClasses[0], CALC_VOCATIONS_METHOD_NAME, void.class,
+        addMethod = ReflectionUtil.checkMethod(unitClass, CALC_VOCATIONS_METHOD_NAME, void.class,
                 new MethodModifier[]{MethodModifier.PUBLIC});
     }
 }
+

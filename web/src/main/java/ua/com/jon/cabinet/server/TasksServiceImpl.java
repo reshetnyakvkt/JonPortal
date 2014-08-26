@@ -90,7 +90,8 @@ public class TasksServiceImpl implements TasksService, ServletContextAware {
             taskDtos.add(TaskDtoMapper.domainToDto(task, 0.0));
 
         }
-        log.info("--- " + taskDtos + " ---");
+        log.debug("--- " + taskDtos + " ---");
+        log.info("--- " + taskDtos.size() + " ---");
         return taskDtos;
     }
 
@@ -98,11 +99,12 @@ public class TasksServiceImpl implements TasksService, ServletContextAware {
     public String dispatchTaskChecking(TaskDTO dto) {
         String result = "";
         if (dto.getType().equals(TaskType.CLASS.name()) && dto.getStatus().equals("TEST")) {
+            log.info("-== Cabinet dispatchTaskChecking: " + dto);
             result = postForTest(dto);
         } else if (dto.getType().equals(TaskType.SVN.name())) {
             result = taskStatusChanged(dto);
         }
-        log.info("dispatchTaskChecking " + dto);
+//        log.info("dispatchTaskChecking " + dto);
         return result;
     }
 
@@ -131,13 +133,12 @@ public class TasksServiceImpl implements TasksService, ServletContextAware {
             List<Task> tasks = taskRepository.findByUserAndSprintAndGroup(userName, sprint.getId(), selectedGroup.getId());
             sprints.add(SprintDtoMapper.domainToDto(tasks, sprint, 0.0));
         }
-        log.info("--- Sent sprints to client " + sprints.size() + " ---");
+        log.info("--- Sent sprint to client " + sprints.size() + " ---");
         return sprints;
     }
 
     @Override
     public String postForTest(TaskDTO taskDTO) {
-        log.info("-== Cabinet post task for test: " + taskDTO.getCode());
         URL resource = this.getClass().getResource("/forbid.policy");
         log.info(resource.getPath());
 
@@ -185,6 +186,7 @@ public class TasksServiceImpl implements TasksService, ServletContextAware {
 //        list.add(new TaskDTO(1L, "task1", "task1", "", "", "", "", "", ""));
 //        list.add(new TaskDTO(1L, "task2", "task2", "", "", "", "", "", ""));
             }
+            log.debug("Tasks for group " + tasksList);
             log.info("Tasks for group " + tasksList.size());
         } catch (Exception e) {
             e.printStackTrace();
@@ -197,12 +199,12 @@ public class TasksServiceImpl implements TasksService, ServletContextAware {
     public List<List<String>> getGroupInfo(Long selectedGroupId) throws Exception {
         try {
             List<Task> tasks = taskRepository.findByGroupId(selectedGroupId);
-            Map<String, Map<Sprint, Integer>> groupInfo = new HashMap<String, Map<Sprint, Integer>>();
+            Map<User, Map<Sprint, Integer>> groupInfo = new HashMap<User, Map<Sprint, Integer>>();
             for (Task task : tasks) {
-                Map<Sprint, Integer> userSprints = groupInfo.get(task.getUser().getLogin());
+                Map<Sprint, Integer> userSprints = groupInfo.get(task.getUser());
                 if (userSprints == null) {
                     userSprints = new HashMap<Sprint, Integer>();
-                    groupInfo.put(task.getUser().getLogin(), userSprints);
+                    groupInfo.put(task.getUser(), userSprints);
                 }
                 Integer rate = userSprints.get(task.getSprint());
                 if (rate == null) {
@@ -218,17 +220,27 @@ public class TasksServiceImpl implements TasksService, ServletContextAware {
                 userSprints.put(task.getSprint(), rate);
             }
 
+            for (Map.Entry<User, Map<Sprint, Integer>> users : groupInfo.entrySet()) {
+                for (Map.Entry<Sprint, Integer> sprint : users.getValue().entrySet()) {
+                    List<Task> userTasks = taskRepository.findByUserAndSprintAndGroup(users.getKey().getLogin(),
+                            sprint.getKey().getId(), selectedGroupId);//sprint.getKey().getTasks().size();
+                    sprint.setValue(sprint.getValue() / userTasks.size());
+                }
+            }
+
             List<List<String>> resultInfo = new ArrayList<List<String>>();
-            for (Map.Entry<String, Map<Sprint, Integer>> sprints : groupInfo.entrySet()) {
+            for (Map.Entry<User, Map<Sprint, Integer>> sprints : groupInfo.entrySet()) {
                 List<String> userSprints = new LinkedList<String>();
-                userSprints.add(sprints.getKey());
+                String userName = sprints.getKey().getLogin();
+                userSprints.add(userName);
                 Long sprintId = sprints.getValue().entrySet().iterator().next().getKey().getId();
                 // TODO avoid unnecessary DB query
                 Long sum = 0L;
                 for (Map.Entry<Sprint, Integer> sprint : sprints.getValue().entrySet()) {
                     sum += sprint.getValue();
                 }
-                userSprints.add(String.valueOf(sum/sprints.getValue().size()));
+                double globalRate = getCourseRate(selectedGroupId, userName);//String.valueOf(sum / sprints.getValue().size());
+                userSprints.add(String.valueOf((int)globalRate));
 
 
                 for (Map.Entry<Sprint, Integer> sprint : sprints.getValue().entrySet()) {
@@ -267,6 +279,7 @@ public class TasksServiceImpl implements TasksService, ServletContextAware {
 
     private double calcTasksRate(List<Task> tasks) {
         int doneCount = 0;
+        int sumResult = 0;
         for (Task task : tasks) {
             String resultStr = "0";
             if (task.getResult() != null && !task.getResult().isEmpty()) {
@@ -283,6 +296,7 @@ public class TasksServiceImpl implements TasksService, ServletContextAware {
             } catch (Exception e) {
                 log.error(e);
             }
+            sumResult += result;
             if (result >= 10) {
                 doneCount++;
             }
@@ -290,7 +304,8 @@ public class TasksServiceImpl implements TasksService, ServletContextAware {
         if (tasks.size() * doneCount == 0) {
             return 0;
         } else {
-            return 100 / tasks.size() * doneCount;
+//            return 100 / tasks.size() * doneCount;
+            return sumResult / tasks.size();
         }
     }
 

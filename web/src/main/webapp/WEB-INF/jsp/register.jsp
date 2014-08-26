@@ -33,7 +33,7 @@
             </c:if>
 
             <form name="lform" method="POST" action="/register">
-                imya_familiya
+                Формат логина: imya_familiya
                 <input type="text" id="username" class="span12" name="j_username" placeholder="Логин"/>
                 <br/>
                 <input type="password" id="password" class="span12" name="j_password" placeholder="Пароль"/>

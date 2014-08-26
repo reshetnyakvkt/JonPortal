@@ -84,7 +84,7 @@ public class B2FractionTest extends BaseTest {
         super.tearDown();
     }
 
-    @Test(timeout = 1000)
+    @Test(timeout = 1100)
     public void testCheckMainMethod() throws Throwable {
         assertTrue("В задании должен быть только один класс", unitClasses.length == 1);
         validateCode(codes.entrySet().iterator().next().getValue());

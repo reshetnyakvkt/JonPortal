@@ -72,7 +72,7 @@ public class B2PhoneTest extends BaseTest {
         super.tearDown();
     }
 
-    @Test(timeout = 1000)
+    @Test(timeout = 1100)
     public void testCheckMainMethod() throws Throwable {
         assertTrue("В задании должен быть только один класс", unitClasses.length == 1);
         validateCode(codes.entrySet().iterator().next().getValue());
@@ -80,14 +80,14 @@ public class B2PhoneTest extends BaseTest {
         Class unitClass = getUnitClass(unitClasses, UNIT_NAME);
         assertNotNull("В задании не найден класс " + UNIT_NAME, unitClass);
 
-        instance = instanciate(unitClasses[0]);
-        addMethod = ReflectionUtil.checkMethod(unitClasses[0], CALL_METHOD_NAME, void.class,
+        instance = instanciate(unitClass);
+        addMethod = ReflectionUtil.checkMethod(unitClass, CALL_METHOD_NAME, void.class,
                 new MethodModifier[]{MethodModifier.PUBLIC}, String.class, int.class);
-        addMethod = ReflectionUtil.checkMethod(unitClasses[0], SEND_SMS_METHOD_NAME, boolean.class,
+        addMethod = ReflectionUtil.checkMethod(unitClass, SEND_SMS_METHOD_NAME, boolean.class,
                 new MethodModifier[]{MethodModifier.PUBLIC}, String.class, String.class);
-        addMethod = ReflectionUtil.checkMethod(unitClasses[0], CHARGE_METHOD_NAME, boolean.class,
+        addMethod = ReflectionUtil.checkMethod(unitClass, CHARGE_METHOD_NAME, boolean.class,
                 new MethodModifier[]{MethodModifier.PUBLIC}, int.class);
-        addMethod = ReflectionUtil.checkMethod(unitClasses[0], IS_NUMBER_EXISTS_METHOD_NAME, boolean.class,
+        addMethod = ReflectionUtil.checkMethod(unitClass, IS_NUMBER_EXISTS_METHOD_NAME, boolean.class,
                 new MethodModifier[]{MethodModifier.PUBLIC}, String.class);
     }
 }

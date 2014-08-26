@@ -1,10 +1,6 @@
 package ua.com.jon.cabinet.client.components;
 
-import com.github.gwtbootstrap.client.ui.Button;
-import com.github.gwtbootstrap.client.ui.CellTable;
-import com.github.gwtbootstrap.client.ui.Label;
-import com.github.gwtbootstrap.client.ui.ProgressBar;
-import com.github.gwtbootstrap.client.ui.ValueListBox;
+import com.github.gwtbootstrap.client.ui.*;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.text.shared.AbstractRenderer;
@@ -27,11 +23,7 @@ import ua.com.jon.cabinet.shared.SprintDTO;
 import ua.com.jon.cabinet.shared.TaskDTO;
 import ua.com.jon.cabinet.shared.UserDTO;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 /**
  * Created with IntelliJ IDEA.
@@ -44,6 +36,9 @@ public class GroupInfoTabPanel extends Composite {
 
     @UiField
     ProgressBar sprintsProgress;
+
+    @UiField
+    Strong groupRate;
 
     final SingleSelectionModel<List<String>> selectionModel = new SingleSelectionModel<List<String>>();
 
@@ -81,7 +76,7 @@ public class GroupInfoTabPanel extends Composite {
             public void onGroupChanged(GroupEvent groupEvent) {
                 List<List<String>> sprintNames = null;
                 try {
-                    sprintNames = load();
+                    load();
                 } catch (Exception e) {
                     Window.alert(e.getMessage() + e.getCause().getMessage());
                     e.printStackTrace();
@@ -145,10 +140,10 @@ public class GroupInfoTabPanel extends Composite {
         //Window.alert("buildTable finished");
     }
 
-    private List<List<String>> load() throws Exception {
+    private void load() throws Exception {
 
         final AsyncCallback<List<List<String>>> groupCallback = new AsyncCallback<List<List<String>>>() {
-
+            private static final int RATE_INDEX = 1;
             @Override
             public void onFailure(Throwable caught) {
                 sprintsProgress.setVisible(false);
@@ -173,12 +168,27 @@ public class GroupInfoTabPanel extends Composite {
                     //buildTable(sprints);
                 }
                 buildTable(sprintNames);*/
+                int grpRate = 0;
+                for (List<String> user : groupInfo) {
+                    grpRate += Integer.parseInt(user.get(RATE_INDEX));
+                }
+                grpRate /= groupInfo.size();
+                groupRate.setText(String.valueOf(grpRate));
+                Collections.sort(groupInfo, new Comparator<List<String>>() {
+
+                    @Override
+                    public int compare(List<String> o1, List<String> o2) {
+                        int firstRate = Integer.parseInt(o1.get(RATE_INDEX));
+                        int secondRate = Integer.parseInt(o2.get(RATE_INDEX));
+                        return firstRate - secondRate;
+                    }
+                });
                 addSprintsToTable(groupInfo);
                 buildTable(groupInfo);
             }
         };
 
-        HashMap<String, Integer> marks = new HashMap<String, Integer>();
+/*        HashMap<String, Integer> marks = new HashMap<String, Integer>();
         marks.put("1", 50);
         marks.put("2", 75);
         marks.put("3", 100);
@@ -200,7 +210,7 @@ public class GroupInfoTabPanel extends Composite {
             }
             users.add(user);
         }
-
+*/
 /*        if(userPanel.getSelectedTaskTemplateId() != null) {
             taskService.getTasksByUserGroup(userPanel.getSelectedTaskTemplateId(), userPanel.getSelectedGroup().getId(),
                     userPanel.getSelectedSprint().getId(), groupCallback);
@@ -215,10 +225,42 @@ public class GroupInfoTabPanel extends Composite {
             Window.alert(sprintNames.toString());
         }*/
         taskService.getGroupInfo(userPanel.getSelectedGroup().getId(), groupCallback);
-        return users;
+//        return null;
     }
 
     private void loadGroupAndUsers() {
+        final AsyncCallback<List<List<String>>> groupCallback = new AsyncCallback<List<List<String>>>() {
+            private static final int RATE_INDEX = 1;
+            @Override
+            public void onFailure(Throwable caught) {
+                sprintsProgress.setVisible(false);
+                Window.alert("Error callback groupsListBox");
+            }
+
+            @Override
+            public void onSuccess(List<List<String>> groupInfo) {
+                sprintsProgress.setVisible(false);
+                int grpRate = 0;
+                for (List<String> user : groupInfo) {
+                    grpRate += Integer.parseInt(user.get(RATE_INDEX));
+                }
+                grpRate /= groupInfo.size();
+                groupRate.setText(String.valueOf(grpRate));
+                Collections.sort(groupInfo, new Comparator<List<String>>() {
+
+                    @Override
+                    public int compare(List<String> o1, List<String> o2) {
+                        int firstRate = Integer.parseInt(o1.get(RATE_INDEX));
+                        int secondRate = Integer.parseInt(o2.get(RATE_INDEX));
+                        return firstRate - secondRate;
+                    }
+                });
+                addSprintsToTable(groupInfo);
+//                buildTable(groupInfo);
+            }
+        };
+
+/*
         final AsyncCallback<ArrayList<UserDTO>> groupCallback = new AsyncCallback<ArrayList<UserDTO>>() {
 
             @Override
@@ -229,6 +271,7 @@ public class GroupInfoTabPanel extends Composite {
 
             @Override
             public void onSuccess(ArrayList<UserDTO> usersDTOs) {
+
                 sprintsProgress.setVisible(false);
                 for (UserDTO userDTO : usersDTOs) {
                     Window.alert(userDTO.toString());
@@ -246,10 +289,12 @@ public class GroupInfoTabPanel extends Composite {
                 }
             }
         };
+*/
 /*        if(userPanel.getSelectedTaskTemplateId() != null) {
             taskService.getTasksByUserGroup(userPanel.getSelectedTaskTemplateId(), userPanel.getSelectedGroup().getId(),
                     userPanel.getSelectedSprint().getId(), groupCallback);
         }*/
+/*
         HashMap<String, Integer> marks = new HashMap<String, Integer>();
         marks.put("1", 50);
         marks.put("2", 75);
@@ -262,6 +307,7 @@ public class GroupInfoTabPanel extends Composite {
         ArrayList<UserDTO> usersDTOs = new ArrayList<UserDTO>();
         usersDTOs.add(user1);
         groupCallback.onSuccess(usersDTOs);
+*/
     }
 
     private void addSprintsToTable(List<List<String>> tasks) {
@@ -282,12 +328,14 @@ public class GroupInfoTabPanel extends Composite {
 
     @UiHandler("refreshGroupsBtn")
     public void refreshSprintsHandler(ClickEvent e) {
-        //loadGroupAndUsers();
+        loadGroupAndUsers();
+/*
         try {
             load();
         } catch (Exception e1) {
             e1.printStackTrace();
         }
+*/
     }
 
     private void relocateTasks(List<SprintDTO> loadedSprints) {

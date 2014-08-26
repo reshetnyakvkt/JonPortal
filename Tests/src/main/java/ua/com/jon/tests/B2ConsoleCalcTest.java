@@ -71,7 +71,7 @@ public class B2ConsoleCalcTest extends BaseTest {
         super.tearDown();
     }
 
-    @Test(timeout = 1000)
+    @Test(timeout = 1100)
     public void testCheckMainMethod() throws Throwable {
         assertTrue("В задании должен быть только один класс", unitClasses.length == 1);
         validateCode(codes.entrySet().iterator().next().getValue());
@@ -79,7 +79,7 @@ public class B2ConsoleCalcTest extends BaseTest {
         Class unitClass = getUnitClass(unitClasses, UNIT_NAME);
         assertNotNull("В задании не найден класс " + UNIT_NAME, unitClass);
 
-        instance = instanciate(unitClasses[0]);
-        addMethod = ReflectionUtil.checkMainMethod(unitClasses[0]);
+        instance = instanciate(unitClass);
+        addMethod = ReflectionUtil.checkMainMethod(unitClass);
     }
 }

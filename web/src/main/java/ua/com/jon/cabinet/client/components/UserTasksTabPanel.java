@@ -472,13 +472,14 @@ public class UserTasksTabPanel extends Composite {
         statusCol.setFieldUpdater(new FieldUpdater<TaskDTO, String>() {
             @Override
             public void update(int i, final TaskDTO taskDTO, String status) {
+//                Window.alert("dispatchTaskChecking " + taskDTO);
                 taskDTO.setStatus(status);
                 taskDTO.setText("");
                 taskDTO.setResult("");
                 if (taskDTO.getType().equals(TaskType.CLASS.name())) {
                     taskDTO.setCode(code.getText());
                 }
-                //Window.alert("Update " + taskDTO);
+//                Window.alert("dispatchTaskChecking " + taskDTO);
                 tasksService.dispatchTaskChecking(taskDTO, new AsyncCallback<String>() {
 
                     @Override

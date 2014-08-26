@@ -1,7 +1,9 @@
 package ua.com.jon.auth.controller;
 
+import com.jon.tron.domain.GitUser;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,6 +14,7 @@ import ua.com.jon.auth.service.AuthService;
 import ua.com.jon.common.domain.User;
 import ua.com.jon.common.dto.GroupDTO;
 import ua.com.jon.common.service.RegisterService;
+import ua.com.jon.utils.GitblitClient;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -31,6 +34,9 @@ public class AuthController {
 
     @Autowired
     private RegisterService registerService;
+
+    @Autowired
+    private GitblitClient gitblitClient;
 
     @RequestMapping(value = "/loginfailed", method = RequestMethod.GET)
     public String showArticlesList(Model model
@@ -107,6 +113,9 @@ public class AuthController {
         if (login == null || login.equals("")) {
             return gotoRegisterWithError(model, "Логин не может быть пустым.");
         }
+        if (!login.matches("^[a-zA-Z]{1,30}_[a-zA-Z]{1,30}$")) {
+            return gotoRegisterWithError(model, "Логин должен быть в формате \"имя_фамилия\", латинскими буквами");
+        }
         Long groupId;
         try {
             groupId = Long.parseLong(groupIdStr);
@@ -128,6 +137,8 @@ public class AuthController {
         try {
             if (!activeGroups.isEmpty() && activeGroups.get(0).getCode().equals(code)) {
                 user = authService.createNewUser(login, password, activeGroups);
+                ResponseEntity<GitUser> entity = gitblitClient.createUser(login, password);
+                log.info("Создание пользователя gitblit: " + entity);
                 forwardUrl = "/j_spring_security_check?j_username=" + login + "&j_password=" + password;
                 return "forward:" + forwardUrl;
             }
@@ -139,6 +150,9 @@ public class AuthController {
 
         } catch (UsernameNotFoundException e) {
             model.addAttribute("message", "Логин неверный");
+            return "/register";
+        } catch (Exception e) {
+            model.addAttribute("message", e.getMessage());
             return "/register";
         }
     }

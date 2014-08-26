@@ -95,7 +95,7 @@ public class B2NumberTest extends BaseTest {
         super.tearDown();
     }
 
-    @Test(timeout = 1000)
+    @Test(timeout = 1100)
     public void testCheckMainMethod() throws Throwable {
         assertTrue("В задании должен быть только один класс", unitClasses.length == 1);
         validateCode(codes.entrySet().iterator().next().getValue());
@@ -104,21 +104,21 @@ public class B2NumberTest extends BaseTest {
         assertNotNull("В задании не найден класс " + UNIT_NAME, unitClass);
 
         instance = instanciate(unitClasses[0]);
-        addMethod = ReflectionUtil.checkMethod(unitClasses[0], GET_METHOD_NAME, int.class,
+        addMethod = ReflectionUtil.checkMethod(unitClass, GET_METHOD_NAME, int.class,
                 new MethodModifier[]{MethodModifier.PUBLIC});
-        addMethod = ReflectionUtil.checkMethod(unitClasses[0], ADD_METHOD_NAME, "Number",
+        addMethod = ReflectionUtil.checkMethod(unitClass, ADD_METHOD_NAME, "Number",
                 new MethodModifier[]{MethodModifier.PUBLIC}, "Number");
-        addMethod = ReflectionUtil.checkMethod(unitClasses[0], SUB_METHOD_NAME, "Number",
+        addMethod = ReflectionUtil.checkMethod(unitClass, SUB_METHOD_NAME, "Number",
                 new MethodModifier[]{MethodModifier.PUBLIC}, "Number");
-        addMethod = ReflectionUtil.checkMethod(unitClasses[0], MUL_METHOD_NAME, "Number",
+        addMethod = ReflectionUtil.checkMethod(unitClass, MUL_METHOD_NAME, "Number",
                 new MethodModifier[]{MethodModifier.PUBLIC}, "Number");
-        addMethod = ReflectionUtil.checkMethod(unitClasses[0], DIV_METHOD_NAME, "Number",
+        addMethod = ReflectionUtil.checkMethod(unitClass, DIV_METHOD_NAME, "Number",
                 new MethodModifier[]{MethodModifier.PUBLIC}, "Number");
-        addMethod = ReflectionUtil.checkMethod(unitClasses[0], POW_METHOD_NAME, "Number",
+        addMethod = ReflectionUtil.checkMethod(unitClass, POW_METHOD_NAME, "Number",
                 new MethodModifier[]{MethodModifier.PUBLIC}, "Number");
-        addMethod = ReflectionUtil.checkMethod(unitClasses[0], FACT_METHOD_NAME, "Number",
+        addMethod = ReflectionUtil.checkMethod(unitClass, FACT_METHOD_NAME, "Number",
                 new MethodModifier[]{MethodModifier.PUBLIC});
-        addMethod = ReflectionUtil.checkMethod(unitClasses[0], MOD_METHOD_NAME, "Number",
+        addMethod = ReflectionUtil.checkMethod(unitClass, MOD_METHOD_NAME, "Number",
                 new MethodModifier[]{MethodModifier.PUBLIC}, "Number");
     }
 }

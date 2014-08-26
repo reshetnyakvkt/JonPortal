@@ -48,28 +48,12 @@ public class BaseTest {
     }
 
     public Object instanciate(Class unitClass) throws Throwable {
-        String instantateErrorMEssage = "Ошибка создания объекта класса " + unitClass.getName();
-        Throwable throwable;
-        try {
-            return unitClass.newInstance();
-        } catch (InstantiationException e) {
-            instantateErrorMEssage = "Невозможно создать объект класса "+ e.getMessage()+", возможно нет конструктора по умолчанию";
-            throwable = e;
-        } catch (IllegalAccessException e) {
-            instantateErrorMEssage = "Невозможно создать объект класса, возможно класс не public";
-            throwable = new IllegalAccessException(instantateErrorMEssage);
-        } catch (Throwable t) {
-            instantateErrorMEssage = t.getMessage();
-            throwable = t;
-        }
-        throwable.printStackTrace();
-        fail(instantateErrorMEssage);
-        return null;
-//        throw throwable;
+        return ReflectionUtil.instanciate(unitClass);
     }
 
     public void tearDown() {
         evaluationUtil.restoreInOut();
+        ReflectionUtil.close();
     }
 
     public void invokeMainAsProcess(Class unitClass, String unitName, String input) {
@@ -129,7 +113,7 @@ public class BaseTest {
             return true;
         }
         if (!CodeValidator.isCodeSafeFile(code)) {
-            fail("Текст задание содержит недопустимое содержимое");
+            fail("Текст задание содержит недопустимое содержимое: " + CodeValidator.getMatches(code));
             return false;
         }
         return true;
