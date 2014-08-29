@@ -55,14 +55,12 @@ public class P1HashTable extends BaseTest {
 
     @Test(timeout = 1000)
     public void testCheckUnitPresent() throws Throwable {
-        Class unitClass;
-        if(unitClasses.length != 1) {
-            unitClass = getUnitClass(unitClasses, UNIT_NAME);
-            assertNotNull("В задании не найден класс " + UNIT_NAME, unitClass);
-        } else {
-            unitClass = unitClasses[0];
-        }
-        assertTrue("В задании не найден класс " + UNIT_NAME, UNIT_NAME.equals(unitClass.getSimpleName()));
+        assertTrue("В задании должен быть 1 класс", unitClasses.length == 1);
+        validateCodeFile(codes.entrySet().iterator().next().getValue());
+
+        Class unitClass = getUnitClass(unitClasses, UNIT_NAME);
+        assertNotNull("В задании не найден класс " + UNIT_NAME, unitClass);
+
         Method methodPut = ReflectionUtil.checkMethod(unitClass, PUT_METHOD_NAME, boolean.class,
                 new MethodModifier[]{MethodModifier.PUBLIC}, hw2.hash.User.class);
         Method methodIterator = ReflectionUtil.checkMethod(unitClass, ITERATOR_METHOD_NAME, Iterator.class,

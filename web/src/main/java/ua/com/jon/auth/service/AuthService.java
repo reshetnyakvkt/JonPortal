@@ -5,6 +5,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.transaction.annotation.Transactional;
 import ua.com.jon.auth.domain.AssemblaSpace;
 import ua.com.jon.auth.domain.AssemblaUser;
+import ua.com.jon.common.domain.Group;
 import ua.com.jon.common.domain.User;
 import ua.com.jon.common.dto.GroupDTO;
 
@@ -43,4 +44,8 @@ public interface AuthService {
     void updateUser(User user);
 
     User getDBUser(String login, String password);
+
+    boolean isUserInGroup(User user, Long groupId);
+
+    void addUserToGroup(User user, String groupId);
 }

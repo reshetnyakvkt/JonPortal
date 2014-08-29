@@ -72,6 +72,9 @@ public class TasksServiceImpl implements TasksService, ServletContextAware {
     @Value("${core.jar}")
     private String coreJarName;
 
+    @Value("${junit.jar}")
+    private String junitJarName;
+
     @Override
     public String greet(String name) {
         log.info(name);
@@ -145,8 +148,10 @@ public class TasksServiceImpl implements TasksService, ServletContextAware {
         Map.Entry<String, String> resultEntry;
         try {
             TaskTemplate template = templateRepository.findOne(taskDTO.getTaskTemplateId());
+            String tronCoreJar = servletContext.getRealPath("/WEB-INF") + "/lib/" + coreJarName;
+            String junitJar = servletContext.getRealPath("/WEB-INF") + "/lib/" + junitJarName;
             resultEntry = classProcessor.processClass(taskDTO.getCode(), template.getTestName(),
-                    servletContext.getRealPath("/WEB-INF") + "/lib/" + coreJarName);
+                    tronCoreJar, junitJar);
         } catch (CompilationException e) {
             resultEntry = e.getResult();
         } catch (Exception e) {

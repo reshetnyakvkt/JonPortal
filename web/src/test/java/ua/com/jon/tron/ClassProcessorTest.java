@@ -16,6 +16,6 @@ public class ClassProcessorTest {
     @Ignore
     @Test
     public void testProcess() {
-        classProcessor.processClass("", "", null);
+        classProcessor.processClass("", "", null, null);
     }
 }

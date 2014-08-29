@@ -6,6 +6,8 @@ import com.jon.tron.service.junit.UnitCode;
 import com.jon.tron.service.junit.UnitName;
 import com.jon.tron.service.reflect.MethodModifier;
 import com.jon.tron.service.reflect.ReflectionUtil;
+import hw2.*;
+import hw2.Number;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.FixMethodOrder;
@@ -14,27 +16,18 @@ import org.junit.runners.MethodSorters;
 
 import java.lang.reflect.Method;
 import java.util.Map;
-import hw2.Number;
 
 import static junit.framework.TestCase.assertNotNull;
-import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
 
 /**
- Написать класс число (Number), выполняющий следующие операции:
- - получение примитива (метод int get())
- - сложение (метод Number add(Number num))
- - вычитание (метод Number sub(Number num))
- - умножение (метод Number mul(Number num))
- - деление (метод Number div(Number num))
- - возведение в степень (метод Number pow(Number exponent))
- - вычисление факториала (метод Number fact())
- - вычисление остатка от деления (метод Number mod(Number num))
+ * Created with IntelliJ IDEA.
+ * User: al1
+ * Date: 27.08.14
  */
 @Unit(testName = "B2NumberTest", value = "checked.HelloWorld")
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
-public class B2NumberTest extends BaseTest {
+public class P1NumberTestTest extends BaseTest {
     public class Number {
         public int get() {
             return 0;
@@ -63,6 +56,7 @@ public class B2NumberTest extends BaseTest {
     }
 
     private static final String UNIT_NAME = "Number";
+    private static final String TEST_NAME = "NumberTest";
     private static final String GET_METHOD_NAME = "get";
     private static final String ADD_METHOD_NAME = "add";
     private static final String SUB_METHOD_NAME = "sub";
@@ -96,8 +90,8 @@ public class B2NumberTest extends BaseTest {
     }
 
     @Test(timeout = 1100)
-    public void testCheckMainMethod() throws Throwable {
-        assertTrue("В задании должен быть только один класс", unitClasses.length == 1);
+    public void test() throws Throwable {
+        assertTrue("В задании должно быть не более 2х классов", unitClasses.length <= 2);
         validateCode(codes.entrySet().iterator().next().getValue());
 
         Class unitClass = getUnitClass(unitClasses, UNIT_NAME);
@@ -120,5 +114,11 @@ public class B2NumberTest extends BaseTest {
                 new MethodModifier[]{MethodModifier.PUBLIC});
         addMethod = ReflectionUtil.checkMethod(unitClass, MOD_METHOD_NAME, "Number",
                 new MethodModifier[]{MethodModifier.PUBLIC}, "Number");
+    }
+
+    @Test(timeout = 1100)
+    public void testTest() throws Throwable {
+        Class unitClass = getUnitClass(unitClasses, TEST_NAME);
+        assertNotNull("В задании не найден класс теста" + TEST_NAME, unitClass);
     }
 }

@@ -6,60 +6,63 @@ import com.jon.tron.service.junit.UnitCode;
 import com.jon.tron.service.junit.UnitName;
 import com.jon.tron.service.reflect.MethodModifier;
 import com.jon.tron.service.reflect.ReflectionUtil;
-import org.junit.*;
+import org.junit.After;
+import org.junit.Before;
+import org.junit.FixMethodOrder;
+import org.junit.Test;
 import org.junit.runners.MethodSorters;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
-import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.fail;
 import static junit.framework.TestCase.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
 /**
-Написать собственную реализацию динамического массива MyArrayList,
-содержащего целые числа. Реализовать следующие методы
-- void add(int value)
-- int get(int index)
-- boolean set(int index, int value)
-- boolean add(int index, int value)
-- int indexOf(int value)
-- int size()
-- boolean remove(int index)
+ Написать собственную реализацию динамического массива MyArrayList,
+ содержащего целые числа.
+ Сделать параметризированную релизацию списка, параметр E.
+ Реализовать в списке интерфейсы Iterable.
+ Реализовать следующие методы
+ - void add(E value)
+ - int get(int index)
+ - boolean set(int index, E value)
+ - boolean add(int index, E value)
+ - int indexOf(E value)
+ - int size()
+ - E remove(int index)
+ - Iterator<E> iterator()
  */
-@Unit(testName = "P0ArrayListTest", value = "weekend1.task1")
+@Unit(testName = "P0ArrayListGenericTest", value = "weekend1.task1")
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
-public class P0ArrayListTest extends BaseTest {
-
+public class P0ArrayListGenericTest extends BaseTest {
     private static final int MAX_VALUE = 10;
     private static final int MIN_VALUE = 1;
 
-    //import java.util.Arrays;
-    public class MyArrayList {
-        private int[] myArray;
+//    import java.util.Arrays;
+//    import java.util.Iterator;
+    public class MyArrayList<E> implements Iterable {
+        private E[] myArray;
         private int realSize = 0;
 
         public MyArrayList(int size) {
-            this.myArray = new int[size];
+            this.myArray = (E[]) new Object[size];
         }
 
         public MyArrayList() {
-            this.myArray = new int[16];
+            this.myArray = (E[]) new Object[16];
         }
 
-        public void add(int element) {
+        public void add(E element) {
             checkSize();
             myArray[realSize++] = element;
 //        realSize++;
         }
 
-        public boolean add(int index, int element) {
+        public boolean add(int index, E element) {
             if ((index < 0) || (index > realSize)) {
                 return false;
             } else {
@@ -71,7 +74,7 @@ public class P0ArrayListTest extends BaseTest {
             return true;
         }
 
-        public int get(int index) {
+        public E get(int index) {
             if ((index < 0) || (index > realSize)) {
                 throw new IndexOutOfBoundsException(String.valueOf(index));
             } else {
@@ -98,17 +101,17 @@ public class P0ArrayListTest extends BaseTest {
             return realSize;
         }
 
-        public int remove(int index) {
+        public E remove(int index) {
             if ((index < 0) || (index > realSize) && (index - 1 < 0) || (index - 1 > realSize)) {
                 throw new IndexOutOfBoundsException(String.valueOf(index));
             }
-            int removedElement = myArray[index];
+            E removedElement = myArray[index];
             resize(index + 1, index);
             realSize--;
             return removedElement;
         }
 
-        public boolean set(int index, int element) {
+        public boolean set(int index, E element) {
             if ((index < 0) || (index > realSize)) {
                 return false;
                 //throw new IndexOutOfBoundsException();
@@ -119,9 +122,9 @@ public class P0ArrayListTest extends BaseTest {
             return true;
         }
 
-        public int indexOf(int element) {
+        public int indexOf(E element) {
             for (int i = 0; i < myArray.length; i++) {
-                if (myArray[i] == element) {
+                if (myArray[i].equals(element)) {
                     return i;
                 }
             }
@@ -154,8 +157,28 @@ public class P0ArrayListTest extends BaseTest {
         }
 
         public void clear() {
-            myArray = new int[16];
+            myArray = (E[]) new Object[16];
             realSize = 16;
+        }
+
+        @Override
+        public Iterator iterator() {
+            return new Iterator() {
+                @Override
+                public boolean hasNext() {
+                    return false;
+                }
+
+                @Override
+                public Object next() {
+                    return null;
+                }
+
+                @Override
+                public void remove() {
+
+                }
+            };
         }
     }
 
@@ -168,6 +191,7 @@ public class P0ArrayListTest extends BaseTest {
     private static final String INDEX_OF_METHOD_NAME = "indexOf";
     private static final String SIZE_METHOD_NAME = "size";
     private static final String REMOVE_METHOD_NAME = "remove";
+    private static final String ITERATOR_METHOD_NAME = "iterator";
 
     @UnitCode
     private static Map<String, String> codes;
@@ -186,6 +210,7 @@ public class P0ArrayListTest extends BaseTest {
     private static Method indexOfMethod;
     private static Method sizeMethod;
     private static Method removeMethod;
+    private static Method iteratorMethod;
 
     @Before
     public void setUp() {
@@ -197,53 +222,57 @@ public class P0ArrayListTest extends BaseTest {
         super.tearDown();
     }
 
-    @Test(timeout = 10000)
+    @Test(timeout = 1100)
     public void test() throws Throwable {
-        assertTrue("В задании должен быть 1 класс", unitClasses.length == 1);
+        assertTrue("В задании должен не более 2х классов", unitClasses.length <= 2);
         validateCode(codes.entrySet().iterator().next().getValue());
 
         Class unitClass = unitClasses[0];
         assertNotNull("В задании не найден класс " + UNIT_NAME, unitClass);
 
         instance = instanciate(unitClass);
+        ReflectionUtil.checkHasParent(unitClass, "Iterable");
+        ReflectionUtil.checkHasGeneric(unitClass, "E");
         addMethod = ReflectionUtil.checkMethod(unitClass, ADD_METHOD_NAME, void.class,
-                new MethodModifier[]{MethodModifier.PUBLIC}, int.class);
+                new MethodModifier[]{MethodModifier.PUBLIC}, Object.class);
         add2Method = ReflectionUtil.checkMethod(unitClass, ADD2_METHOD_NAME, boolean.class,
-                new MethodModifier[]{MethodModifier.PUBLIC}, int.class, int.class);
-        getMethod = ReflectionUtil.checkMethod(unitClass, GET_METHOD_NAME, int.class,
+                new MethodModifier[]{MethodModifier.PUBLIC}, int.class, Object.class);
+        getMethod = ReflectionUtil.checkMethod(unitClass, GET_METHOD_NAME, Object.class,
                 new MethodModifier[]{MethodModifier.PUBLIC}, int.class);
         setMethod = ReflectionUtil.checkMethod(unitClass, SET_METHOD_NAME, boolean.class,
-                new MethodModifier[]{MethodModifier.PUBLIC}, int.class, int.class);
+                new MethodModifier[]{MethodModifier.PUBLIC}, int.class, Object.class);
         indexOfMethod = ReflectionUtil.checkMethod(unitClass, INDEX_OF_METHOD_NAME, int.class,
-                new MethodModifier[]{MethodModifier.PUBLIC}, int.class);
+                new MethodModifier[]{MethodModifier.PUBLIC}, Object.class);
         sizeMethod = ReflectionUtil.checkMethod(unitClass, SIZE_METHOD_NAME, int.class,
                 new MethodModifier[]{MethodModifier.PUBLIC});
-        removeMethod = ReflectionUtil.checkMethod(unitClass, REMOVE_METHOD_NAME, int.class,
+        removeMethod = ReflectionUtil.checkMethod(unitClass, REMOVE_METHOD_NAME, Object.class,
                 new MethodModifier[]{MethodModifier.PUBLIC}, int.class);
+        iteratorMethod = ReflectionUtil.checkMethod(unitClass, ITERATOR_METHOD_NAME, Iterator.class,
+                new MethodModifier[]{MethodModifier.PUBLIC});
     }
 
-    @Test(timeout = 1000)
+    @Test(timeout = 1100)
     public void testAdd() throws Throwable {
         Class unitClass = unitClasses[0];
         instance = instanciate(unitClass);
         if (instance == null || addMethod == null) {
             fail();
         }
-        int expectedElement = rnd.nextInt(MAX_VALUE) + MIN_VALUE;
+        Integer expectedElement = rnd.nextInt(MAX_VALUE) + MIN_VALUE;
 
         ReflectionUtil.invokeMethod(instance, addMethod, expectedElement);
-        int actualElement = getElementFromList(0);
+        Integer actualElement = getElementFromList(0);
         assertTrue("Метод add работает не верно, после добавления первого элемента " + expectedElement + ", список содержит " +
-                actualElement, expectedElement == actualElement);
+                actualElement, expectedElement.equals(actualElement));
 
         expectedElement = rnd.nextInt(MAX_VALUE) + MIN_VALUE;
         ReflectionUtil.invokeMethod(instance, addMethod, expectedElement);
         actualElement = getElementFromList(1);
         assertTrue("Метод add работает не верно, после добавления второго элемента " + expectedElement + ", список содержит " +
-                actualElement, expectedElement == actualElement);
+                actualElement, expectedElement.equals(actualElement));
     }
 
-    @Test(timeout = 1000)
+    @Test(timeout = 1100)
     public void testAdd2() throws Throwable {
         Class unitClass = unitClasses[0];
         instance = instanciate(unitClass);
@@ -269,16 +298,16 @@ public class P0ArrayListTest extends BaseTest {
         List<Field> array = new ArrayList<Field>();
         Field[] fields = instance.getClass().getDeclaredFields();
         for (Field field : fields) {
-            if (field.getType() == int[].class) {
+            if (field.getType() == Object[].class) {
                 field.setAccessible(true);
                 array.add(field);
             }
         }
         if (array.size() == 1) {
             try {
-                int[] elements = (int[]) array.get(0).get(instance);
+                Object[] elements = (Object[]) array.get(0).get(instance);
                 if (elements.length > 0) {
-                    return elements[index];
+                    return (Integer) elements[index];
                 }
             } catch (IllegalAccessException e) {
                 fail("Ошибка тестирования!, массив с элементами недоступен");
@@ -286,7 +315,7 @@ public class P0ArrayListTest extends BaseTest {
         } else if (!array.isEmpty()) {
             return invokeGet();
         }
-        fail("Список должен содержать массив типа int");
+        fail("Список должен содержать массив типа E");
         return null;
     }
 
@@ -294,7 +323,7 @@ public class P0ArrayListTest extends BaseTest {
         return (Integer) getMethod.invoke(instance, 0);
     }
 
-    @Test(timeout = 1000)
+    @Test(timeout = 1100)
     public void testGet() throws Throwable {
         Class unitClass = unitClasses[0];
         instance = instanciate(unitClass);
@@ -314,7 +343,7 @@ public class P0ArrayListTest extends BaseTest {
                 actualElement, expectedElement == actualElement);
     }
 
-    @Test(timeout = 1000)
+    @Test(timeout = 1100)
     public void testSet() throws Throwable {
         Class unitClass = unitClasses[0];
         instance = instanciate(unitClass);
@@ -338,7 +367,7 @@ public class P0ArrayListTest extends BaseTest {
                 actualElement, expectedElement == actualElement);
     }
 
-    @Test(timeout = 100000)
+    @Test(timeout = 1100)
     public void testIndexOf() throws Throwable {
         Class unitClass = unitClasses[0];
         instance = instanciate(unitClass);
@@ -362,7 +391,7 @@ public class P0ArrayListTest extends BaseTest {
                 actualIndex, 1 == actualIndex);
     }
 
-    @Test(timeout = 1000)
+    @Test(timeout = 1100)
     public void testSize() throws Throwable {
         Class unitClass = unitClasses[0];
         instance = instanciate(unitClass);
@@ -382,7 +411,7 @@ public class P0ArrayListTest extends BaseTest {
                 actualSize, 2 == actualSize);
     }
 
-    @Test(timeout = 1000)
+    @Test(timeout = 1100)
     public void testRemove() throws Throwable {
         Class unitClass = unitClasses[0];
         instance = instanciate(unitClass);
@@ -409,5 +438,18 @@ public class P0ArrayListTest extends BaseTest {
                 removedElement, expectedElement == actualElement);
         assertTrue("Метод remove работает не верно, после удалении первого элемента из двух" + expectedElement + ", размер списка равен " +
                 actualSize, 1 == actualSize);
+    }
+
+    @Test(timeout = 1100)
+    public void testIterator() throws Throwable {
+        Class unitClass = unitClasses[0];
+        instance = instanciate(unitClass);
+        if (instance == null || removeMethod == null) {
+            fail();
+        }
+        Object iterator = ReflectionUtil.invokeMethod(instance, iteratorMethod);
+        if (!(iterator instanceof Iterator)) {
+            fail("Метод itearator() должен возрващать значение типа Iterator");
+        }
     }
 }

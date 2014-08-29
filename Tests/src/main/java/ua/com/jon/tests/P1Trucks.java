@@ -50,18 +50,16 @@ public class P1Trucks extends BaseTest {
         super.tearDown();
     }
 
-    @Test(timeout = 1000)
-    public void testCheckUnitPresent() throws Throwable {
-        Class unitClass;
-        if(unitClasses.length != 1) {
-            unitClass = getUnitClass(unitClasses, UNIT_NAME);
-            assertNotNull("В задании не найден класс " + UNIT_NAME, unitClass);
-        } else {
-            unitClass = unitClasses[0];
-        }
-        assertTrue("В задании не найден класс " + UNIT_NAME, UNIT_NAME.equals(unitClass.getSimpleName()));
-        Method methodPut = ReflectionUtil.checkMethod(unitClass, PARK_METHOD_NAME, int.class,
-                new MethodModifier[]{MethodModifier.PUBLIC}, hw2.park.Truck.class);
+    @Test(timeout = 1100)
+    public void test() throws Throwable {
+        assertTrue("В задании должено быть не более 3х классов", unitClasses.length <= 3);
+        validateCodeFile(codes.entrySet().iterator().next().getValue());
+
+        Class unitClass = getUnitClass(unitClasses, UNIT_NAME);
+        assertNotNull("В задании не найден класс " + UNIT_NAME, unitClass);
+
+        Method methodPut = ReflectionUtil.checkMethod(unitClass, PARK_METHOD_NAME, "int",
+                new MethodModifier[]{MethodModifier.PUBLIC}, "Truck");
     }
 
     @Test(timeout = 1000)

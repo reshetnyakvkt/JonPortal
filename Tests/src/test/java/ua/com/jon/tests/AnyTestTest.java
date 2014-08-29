@@ -44,7 +44,7 @@ public class AnyTestTest {
                         "}" +
                         "}";
         final String testName = "AnyTest";
-        Map.Entry<String,String> processResult = classProcessor.processClass(classCode, testName, null);
+        Map.Entry<String,String> processResult = classProcessor.processClass(classCode, testName, null, null);
         String resultString = processResult.getValue();
         String markString = processResult.getKey();
         assertEquals("Задание принято", resultString);
@@ -56,7 +56,7 @@ public class AnyTestTest {
         final String className = "";
         final String classCode = "public class A{}";
         String testName = "AnyTest";
-        Map.Entry<String,String> processResult = classProcessor.processClass(classCode, testName, null);
+        Map.Entry<String,String> processResult = classProcessor.processClass(classCode, testName, null, null);
         String resultString = processResult.getValue();
         String markString = processResult.getKey();
         assertEquals("Задание принято", resultString);
@@ -72,7 +72,7 @@ public class AnyTestTest {
                 "}" +
                 "}";
         String testName = "AnyTest";
-        Map.Entry<String,String> processResult = classProcessor.processClass(classCode, testName, null);
+        Map.Entry<String,String> processResult = classProcessor.processClass(classCode, testName, null, null);
         String resultString = processResult.getValue();
         String markString = processResult.getKey();
         assertEquals("Задание принято", resultString);
@@ -91,7 +91,7 @@ public class AnyTestTest {
                 "}" +
                 "}";
         String testName = "AnyTest";
-        Map.Entry<String,String> processResult = classProcessor.processClass(classCode, testName, null);
+        Map.Entry<String,String> processResult = classProcessor.processClass(classCode, testName, null, null);
         String resultString = processResult.getValue();
         String markString = processResult.getKey();
         assertEquals("Задание принято", resultString);
@@ -110,7 +110,7 @@ public class AnyTestTest {
                 "}" +
                 "}";
         String testName = "AnyTest";
-        Map.Entry<String,String> processResult = classProcessor.processClass(classCode, testName, null);
+        Map.Entry<String,String> processResult = classProcessor.processClass(classCode, testName, null, null);
         String resultString = processResult.getValue();
         String markString = processResult.getKey();
         assertEquals("Задание принято", resultString);

@@ -52,14 +52,12 @@ public class P1Auth extends BaseTest {
 
     @Test(timeout = 1000)
     public void testCheckUnitPresent() throws Throwable {
-        Class unitClass;
-        if(unitClasses.length != 1) {
-            unitClass = getUnitClass(unitClasses, UNIT_NAME);
-            assertNotNull("В задании не найден класс " + UNIT_NAME, unitClass);
-        } else {
-            unitClass = unitClasses[0];
-        }
-        assertTrue("В задании не найден класс " + UNIT_NAME, UNIT_NAME.equals(unitClass.getSimpleName()));
+        assertTrue("В задании должно быть не более 2х классов", unitClasses.length <= 2);
+        validateCodeFile(codes.entrySet().iterator().next().getValue());
+
+        Class unitClass = getUnitClass(unitClasses, UNIT_NAME);
+        assertNotNull("В задании не найден класс " + UNIT_NAME, unitClass);
+
         Method methodAuthenticate = ReflectionUtil.checkMethod(unitClass, AUTH_METHOD_NAME, boolean.class,
                 new MethodModifier[]{MethodModifier.PUBLIC}, String.class, String.class);
     }

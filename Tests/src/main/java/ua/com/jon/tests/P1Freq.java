@@ -53,14 +53,12 @@ public class P1Freq extends BaseTest {
 
     @Test(timeout = 1000)
     public void testCheckUnitPresent() throws Throwable {
-        Class unitClass;
-        if(unitClasses.length != 1) {
-            unitClass = getUnitClass(unitClasses, UNIT_NAME);
-            assertNotNull("В задании не найден класс " + UNIT_NAME, unitClass);
-        } else {
-            unitClass = unitClasses[0];
-        }
-        assertTrue("В задании не найден класс " + UNIT_NAME, UNIT_NAME.equals(unitClass.getSimpleName()));
+        assertTrue("В задании должен быть 1 класс", unitClasses.length == 1);
+        validateCodeFile(codes.entrySet().iterator().next().getValue());
+
+        Class unitClass = getUnitClass(unitClasses, UNIT_NAME);
+        assertNotNull("В задании не найден класс " + UNIT_NAME, unitClass);
+
         Method methodGetWordsByFrequency = ReflectionUtil.checkMethod(unitClass, FREQ_METHOD_NAME, Set.class,
                 new MethodModifier[]{MethodModifier.PUBLIC}, int.class);
     }

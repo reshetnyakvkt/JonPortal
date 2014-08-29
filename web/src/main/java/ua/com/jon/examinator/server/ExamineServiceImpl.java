@@ -143,7 +143,7 @@ public class ExamineServiceImpl /*extends RemoteServiceServlet*/ implements Exam
 
         try {
             resultEntry = classProcessor.processClass(taskDTO.getCode(), taskDTO.getTestName(),
-                    servletContext.getRealPath("/WEB-INF") + "/lib/" + coreJarName);
+                    servletContext.getRealPath("/WEB-INF") + "/lib/" + coreJarName, null);
         } catch (CompilationException e) {
             resultEntry = e.getResult();
         } catch (Exception e) {

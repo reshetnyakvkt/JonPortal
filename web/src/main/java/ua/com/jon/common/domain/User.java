@@ -150,10 +150,8 @@ public class User {
                 ", password='" + password + '\'' +
                 ", mail='" + mail + '\'' +
                 ", regDate=" + regDate +
-                ", tasks=" + tasks +
-                ", groups=" + groups +
-                ", sprints=" + sprints +
-                ", roles=" + roles +
+                ", groups=" + groups.size() +
+                ", roles=" + roles.size() +
                 '}';
     }
 }

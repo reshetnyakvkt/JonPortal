@@ -9,6 +9,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.provisioning.UserDetailsManager;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.client.ResourceAccessException;
 import ua.com.jon.auth.domain.AssemblaSpace;
 import ua.com.jon.auth.domain.AssemblaSpaces;
@@ -132,6 +133,28 @@ public class AuthServiceImpl implements UserDetailsService, AuthService, UserDet
     }
 
     @Override
+    public boolean isUserInGroup(User user, Long groupId) {
+        Set<Group> groups = userRepository.findWithGroupsByUserName(user.getLogin()).getGroups();
+        for (Group group : groups) {
+            if (groupId.equals(group.getId())) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    @Override
+//    @Transactional
+    public void addUserToGroup(User usr, String groupName) {
+        Group group = groupRepository.findGroupAndUsersByName(groupName);
+//        User user = userRepository.findWithGroupsByUserName(usr.getLogin());
+        usr.getGroups().add(group);
+        group.getUsers().add(usr);
+        groupRepository.save(group);
+//        userRepository.save(user);
+    }
+
+    @Override
     public List<GroupDTO> getGroupsById(Long groupId) {
         List<GroupDTO> groups = new ArrayList<GroupDTO>(1);
         groups.add(GroupDtoMapper.domainToCommonDto(groupRepository.findOne(groupId)));
@@ -166,7 +189,6 @@ public class AuthServiceImpl implements UserDetailsService, AuthService, UserDet
     public List<AssemblaSpace> getSpaces() {
         List<AssemblaSpace> spacesList = new ArrayList<AssemblaSpace>();
         try {
-
             AssemblaSpaces spaces = restClient.getSpaces();
             return spaces.getSpaces();
         } catch (RestException e) {
@@ -198,7 +220,7 @@ public class AuthServiceImpl implements UserDetailsService, AuthService, UserDet
 
     @Override
     public User getUserFromDBByName(String login) {
-        return userRepository.findByUserName(login);
+        return userRepository.findWithGroupsByUserName(login);
     }
 
     @Override

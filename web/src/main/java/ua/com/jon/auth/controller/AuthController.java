@@ -123,17 +123,22 @@ public class AuthController {
             model.addAttribute("message", "Выбрана неверная группа");
             return "/register";
         }
-        User user = authService.getUserFromDBByName(login);
-        if (user != null) {
-            model.addAttribute("message", "Пользователь с таким логином уже сущестует");
-            return "/register";
-        }
+
         List<GroupDTO> activeGroups = authService.getGroupsById(groupId);
         if (!activeGroups.isEmpty() && !activeGroups.get(0).getCode().equals(code)) {
             model.addAttribute("message", "Неверный код группы");
             return "/register";
         }
+        User user = authService.getUserFromDBByName(login);
 
+        if (user != null && !authService.isUserInGroup(user, groupId)) {
+            authService.addUserToGroup(user, activeGroups.get(0).getName());
+            forwardUrl = "/j_spring_security_check?j_username=" + login + "&j_password=" + password;
+            return "forward:" + forwardUrl;
+        } else if (user != null) {
+            model.addAttribute("message", "Пользователь с таким логином уже сущестует");
+            return "/register";
+        }
         try {
             if (!activeGroups.isEmpty() && activeGroups.get(0).getCode().equals(code)) {
                 user = authService.createNewUser(login, password, activeGroups);

@@ -45,7 +45,7 @@ public class FactorialIterTestTest {
                         "}" +
                  "}";
         final String testName = "FactorialIter";
-        Map.Entry<String,String> processResult = classProcessor.processClass(classCode, testName, null);
+        Map.Entry<String,String> processResult = classProcessor.processClass(classCode, testName, null, null);
         String resultString = processResult.getValue();
         String markString = processResult.getKey();
         assertEquals("Задание выполнено", resultString);
@@ -74,7 +74,7 @@ public class FactorialIterTestTest {
                         "}" +
                  "}";
         final String testName = "FactorialIter";
-        Map.Entry<String,String> processResult = classProcessor.processClass(classCode, testName, null);
+        Map.Entry<String,String> processResult = classProcessor.processClass(classCode, testName, null, null);
         String resultString = processResult.getValue();
         String markString = processResult.getKey();
         assertTrue(resultString.contains("Ожидаемый результат"));
@@ -96,7 +96,7 @@ public class FactorialIterTestTest {
                         "   }" +
                         "}";
         final String testName = "FactorialIter";
-        Map.Entry<String,String> processResult = classProcessor.processClass(classCode, testName, null);
+        Map.Entry<String,String> processResult = classProcessor.processClass(classCode, testName, null, null);
         String resultString = processResult.getValue();
         String markString = processResult.getKey();
         assertEquals("Во время выполнения метода main произошла ошибка java.lang.RuntimeException", resultString);

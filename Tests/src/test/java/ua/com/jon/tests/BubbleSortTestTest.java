@@ -43,7 +43,7 @@ public class BubbleSortTestTest {
 //                        "}" +
                         "}";
         final String testName = "Bubble";
-        Map.Entry<String,String> processResult = classProcessor.processClass(classCode, testName, null);
+        Map.Entry<String,String> processResult = classProcessor.processClass(classCode, testName, null, null);
         String resultString = processResult.getValue();
         String markString = processResult.getKey();
         assertEquals("Задание выполнено", resultString);
@@ -55,7 +55,7 @@ public class BubbleSortTestTest {
         final String className = "";
         final String classCode = "public class A{}";
         String testName = "Bubble";
-        Map.Entry<String,String> processResult = classProcessor.processClass(classCode, testName, null);
+        Map.Entry<String,String> processResult = classProcessor.processClass(classCode, testName, null, null);
         String resultString = processResult.getValue();
         String markString = processResult.getKey();
         assertEquals("В классе отсутствует метод int[] bubbleSort( int[] )", resultString);
@@ -71,7 +71,7 @@ public class BubbleSortTestTest {
                 "}" +
                 "}";
         String testName = "Bubble";
-        Map.Entry<String,String> processResult = classProcessor.processClass(classCode, testName, null);
+        Map.Entry<String,String> processResult = classProcessor.processClass(classCode, testName, null, null);
         String resultString = processResult.getValue();
         String markString = processResult.getKey();
         assertEquals("test timed out after 1000 milliseconds", resultString);
@@ -87,7 +87,7 @@ public class BubbleSortTestTest {
                 "}" +
                 "}";
         String testName = "Bubble";
-        Map.Entry<String,String> processResult = classProcessor.processClass(classCode, testName, null);
+        Map.Entry<String,String> processResult = classProcessor.processClass(classCode, testName, null, null);
         String resultString = processResult.getValue();
         String markString = processResult.getKey();
         assertTrue(resultString.contains("ожидается вектор"));
@@ -103,7 +103,7 @@ public class BubbleSortTestTest {
                 "}" +
                 "}";
         String testName = "Bubble";
-        Map.Entry<String,String> processResult = classProcessor.processClass(classCode, testName, null);
+        Map.Entry<String,String> processResult = classProcessor.processClass(classCode, testName, null, null);
         String resultString = processResult.getValue();
         String markString = processResult.getKey();
         assertTrue( resultString.contains("ожидается вектор"));
@@ -130,7 +130,7 @@ public class BubbleSortTestTest {
                 "    }" +
                 "}";
         String testName = "Bubble";
-        Map.Entry<String,String> processResult = classProcessor.processClass(classCode, testName, null);
+        Map.Entry<String,String> processResult = classProcessor.processClass(classCode, testName, null, null);
         String resultString = processResult.getValue();
         String markString = processResult.getKey();
         System.out.println(resultString);
@@ -150,7 +150,7 @@ public class BubbleSortTestTest {
                 "}" +
                 "}";
         String testName = "Bubble";
-        Map.Entry<String,String> processResult = classProcessor.processClass(classCode, testName, null);
+        Map.Entry<String,String> processResult = classProcessor.processClass(classCode, testName, null, null);
         String resultString = processResult.getValue();
         String markString = processResult.getKey();
         assertEquals("test timed out after 1000 milliseconds", resultString);

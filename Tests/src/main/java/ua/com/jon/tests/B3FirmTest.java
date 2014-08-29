@@ -121,7 +121,7 @@ public class B3FirmTest  extends BaseTest {
     @Test(timeout = 1100)
     public void test() throws Throwable {
         assertTrue("В задании должно быть 4 класса", unitClasses.length == 4);
-        validateCode(codes.entrySet().iterator().next().getValue());
+        validateCodeFile(codes.entrySet().iterator().next().getValue());
 
         Class firmClass = getUnitClass(unitClasses, FIRM_NAME);
         assertNotNull("В задании не найден класс " + FIRM_NAME, firmClass);
