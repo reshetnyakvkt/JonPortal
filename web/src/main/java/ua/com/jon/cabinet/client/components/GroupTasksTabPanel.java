@@ -145,16 +145,6 @@ public class GroupTasksTabPanel extends Composite {
     private void addSprintsToTable(List<TaskDTO> tasks) {
 //        dataProvider.addDataDisplay(cellTable);
         dataProvider.setList(tasks);
-/*
-        TaskDTO last = null;
-        for (TaskDTO task : tasks) {
-            list.add(task);
-            last = task;
-        }
-*/
-//        if(isSelectLast && last != null) {
-//            selectionModel.setSelected(last, true);
-//        }
     }
 
     @UiHandler("refreshTasksBtn")

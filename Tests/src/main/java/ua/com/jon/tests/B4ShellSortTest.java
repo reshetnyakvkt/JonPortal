@@ -25,9 +25,9 @@ import static org.junit.Assert.assertTrue;
 
  Класс задания: hw5.shell.ShellSorter
  */
-@Unit(testName = "B5ShellSortTest", value = "weekend1.task1")
+@Unit(testName = "B4ShellSortTest", value = "weekend1.task1")
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
-public class B5ShellSortTest extends BaseTest {
+public class B4ShellSortTest extends BaseTest {
     public class ShellSorter {
         public void sortShell(int[] vector) {}
     }

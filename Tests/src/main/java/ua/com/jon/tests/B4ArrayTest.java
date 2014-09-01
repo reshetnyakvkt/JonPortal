@@ -24,7 +24,7 @@ import static org.junit.Assert.assertTrue;
  - нахождение максимального, метод int max()
  - заполнение случайными числами в диапазоне, метод void fillRandom(int left, int right)
  - красивый вывод на экран {2 4 5 6}, метод void print()
- -* частичное упорядочивание, метод void sortPartly()
+ -* частичное упорядочивание, метод void sortPartly(int index)
  -* увеличить размер на указанное кол-во элементов, метод void resize(int newSize) */
 @Unit(testName = "B4ArrayTest", value = "weekend1.task1")
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
@@ -40,13 +40,13 @@ public class B4ArrayTest extends BaseTest {
         }
         public void print() {
         }
-        public void sortPartly() {
+        public void sortPartly(int index) {
         }
         public void resize(int newSize) {
         }
     }
 
-    private static final String UNIT_NAME = "Number";
+    private static final String UNIT_NAME = "Array";
     private static final String MIN_METHOD_NAME = "min";
     private static final String MAX_METHOD_NAME = "max";
     private static final String FILL_METHOD_NAME = "fillRandom";
@@ -97,7 +97,7 @@ public class B4ArrayTest extends BaseTest {
         addMethod = ReflectionUtil.checkMethod(unitClass, PRINT_METHOD_NAME, void.class,
                 new MethodModifier[]{MethodModifier.PUBLIC});
         addMethod = ReflectionUtil.checkMethod(unitClass, SORT_METHOD_NAME, void.class,
-                new MethodModifier[]{MethodModifier.PUBLIC});
+                new MethodModifier[]{MethodModifier.PUBLIC}, int.class);
         addMethod = ReflectionUtil.checkMethod(unitClass, RESIZE_METHOD_NAME, void.class,
                 new MethodModifier[]{MethodModifier.PUBLIC}, int.class);
     }

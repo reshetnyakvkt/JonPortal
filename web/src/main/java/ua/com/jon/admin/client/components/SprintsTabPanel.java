@@ -74,8 +74,6 @@ public class SprintsTabPanel extends Composite {
 
             @Override
             public void onFailure(Throwable caught) {
-//                sprintsProgress.setVisible(false);
-//                groupsListBox.setVisible(true);
                 Window.alert("Error callback groupsListBox");
             }
 

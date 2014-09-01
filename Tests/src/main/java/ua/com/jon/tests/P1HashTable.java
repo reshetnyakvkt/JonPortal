@@ -29,8 +29,8 @@ import static org.junit.Assert.assertTrue;
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class P1HashTable extends BaseTest {
 
-    private static final String UNIT_NAME = "HashTable";
-    private static final String TEST_NAME = "HashTableTest";
+    private static final String UNIT_NAME = "HashMap";
+    private static final String TEST_NAME = "HashMapTest";
     private static final String PUT_METHOD_NAME = "put";
     private static final String ITERATOR_METHOD_NAME = "iterator";
 
@@ -55,14 +55,14 @@ public class P1HashTable extends BaseTest {
 
     @Test(timeout = 1000)
     public void testCheckUnitPresent() throws Throwable {
-        assertTrue("В задании должен быть 1 класс", unitClasses.length == 1);
+        assertTrue("В задании должно быть не более 4х классов", unitClasses.length <= 4);
         validateCodeFile(codes.entrySet().iterator().next().getValue());
 
         Class unitClass = getUnitClass(unitClasses, UNIT_NAME);
         assertNotNull("В задании не найден класс " + UNIT_NAME, unitClass);
 
         Method methodPut = ReflectionUtil.checkMethod(unitClass, PUT_METHOD_NAME, boolean.class,
-                new MethodModifier[]{MethodModifier.PUBLIC}, hw2.hash.User.class);
+                new MethodModifier[]{MethodModifier.PUBLIC}, int.class, hw2.hash.User.class);
         Method methodIterator = ReflectionUtil.checkMethod(unitClass, ITERATOR_METHOD_NAME, Iterator.class,
                 new MethodModifier[]{MethodModifier.PUBLIC});
 //        assertTrue("В задании не найден метод " + UNIT_NAME, UNIT_NAME.equals(unitClass.getSimpleName()));

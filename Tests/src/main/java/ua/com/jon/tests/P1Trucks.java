@@ -52,14 +52,14 @@ public class P1Trucks extends BaseTest {
 
     @Test(timeout = 1100)
     public void test() throws Throwable {
-        assertTrue("В задании должено быть не более 3х классов", unitClasses.length <= 3);
-        validateCodeFile(codes.entrySet().iterator().next().getValue());
+        assertTrue("В задании должено быть не более 6и классов", unitClasses.length <= 6);
+        validateCode(codes.entrySet().iterator().next().getValue());
 
         Class unitClass = getUnitClass(unitClasses, UNIT_NAME);
         assertNotNull("В задании не найден класс " + UNIT_NAME, unitClass);
 
         Method methodPut = ReflectionUtil.checkMethod(unitClass, PARK_METHOD_NAME, "int",
-                new MethodModifier[]{MethodModifier.PUBLIC}, "Truck");
+                new MethodModifier[]{MethodModifier.PUBLIC}, "Car");
     }
 
     @Test(timeout = 1000)

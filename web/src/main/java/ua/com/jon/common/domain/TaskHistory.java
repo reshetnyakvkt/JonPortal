@@ -38,7 +38,7 @@ public class TaskHistory {
     @Temporal(value = TemporalType.DATE)
     private Date date;
 
-    @Column(length = 1000)
+    @Column(length = 2000)
     private String result;
 
     @Column(length = 50)

@@ -142,7 +142,7 @@ public class TasksServiceImpl implements TasksService, ServletContextAware {
 
     @Override
     public String postForTest(TaskDTO taskDTO) {
-        URL resource = this.getClass().getResource("/forbid.policy");
+        URL resource = TasksServiceImpl.class.getResource("/forbid.policy");
         log.info(resource.getPath());
 
         Map.Entry<String, String> resultEntry;

@@ -53,7 +53,7 @@ public class P1Translator extends BaseTest {
 
     @Test(timeout = 1000)
     public void testCheckUnitPresent() throws Throwable {
-        assertTrue("В задании должен быть 1 класс", unitClasses.length == 1);
+        assertTrue("В задании должно быть не более 2х классов", unitClasses.length <= 2);
         validateCodeFile(codes.entrySet().iterator().next().getValue());
 
         Class unitClass = getUnitClass(unitClasses, UNIT_NAME);

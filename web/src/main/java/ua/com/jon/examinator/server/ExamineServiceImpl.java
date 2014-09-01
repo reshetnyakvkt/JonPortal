@@ -135,7 +135,7 @@ public class ExamineServiceImpl /*extends RemoteServiceServlet*/ implements Exam
             createSession(userName);
         }
         log.info("-== Cabinet post task for test: " + taskDTO.getCode());
-        URL resource = this.getClass().getResource("/forbid.policy");
+        URL resource = ExamineServiceImpl.class.getResource("/forbid.policy");
         log.info(resource.getPath());
 
         Map.Entry<String, String> resultEntry;

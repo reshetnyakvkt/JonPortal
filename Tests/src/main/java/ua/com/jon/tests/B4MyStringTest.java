@@ -89,19 +89,19 @@ public class B4MyStringTest extends BaseTest {
 //        ReflectionUtil.checkConstructor(unitClass, "");
 
         instance = instanciate(unitClasses[0]);
-        addMethod = ReflectionUtil.checkMethod(unitClass, CONCAT_METHOD_NAME, int.class,
+        addMethod = ReflectionUtil.checkMethod(unitClass, CONCAT_METHOD_NAME, "MyString",
                 new MethodModifier[]{MethodModifier.PUBLIC});
-        addMethod = ReflectionUtil.checkMethod(unitClass, LOWER_METHOD_NAME, int.class,
+        addMethod = ReflectionUtil.checkMethod(unitClass, LOWER_METHOD_NAME, void.class,
                 new MethodModifier[]{MethodModifier.PUBLIC});
         addMethod = ReflectionUtil.checkMethod(unitClass, UPPER_METHOD_NAME, void.class,
-                new MethodModifier[]{MethodModifier.PUBLIC}, int.class,  int.class);
+                new MethodModifier[]{MethodModifier.PUBLIC});
         addMethod = ReflectionUtil.checkMethod(unitClass, PRINT_METHOD_NAME, void.class,
                 new MethodModifier[]{MethodModifier.PUBLIC});
-        addMethod = ReflectionUtil.checkMethod(unitClass, INDEX_OF_METHOD_NAME, void.class,
+        addMethod = ReflectionUtil.checkMethod(unitClass, INDEX_OF_METHOD_NAME, int.class,
                 new MethodModifier[]{MethodModifier.PUBLIC});
-        addMethod = ReflectionUtil.checkMethod(unitClass, SUBSTRING_METHOD_NAME, void.class,
-                new MethodModifier[]{MethodModifier.PUBLIC}, int.class);
+        addMethod = ReflectionUtil.checkMethod(unitClass, SUBSTRING_METHOD_NAME, "void",
+                new MethodModifier[]{MethodModifier.PUBLIC}, "MyString");
         addMethod = ReflectionUtil.checkMethod(unitClass, TRIM_METHOD_NAME, void.class,
-                new MethodModifier[]{MethodModifier.PUBLIC}, int.class);
+                new MethodModifier[]{MethodModifier.PUBLIC});
     }
 }

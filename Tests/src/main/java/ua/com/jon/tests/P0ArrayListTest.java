@@ -7,6 +7,7 @@ import com.jon.tron.service.junit.UnitName;
 import com.jon.tron.service.reflect.MethodModifier;
 import com.jon.tron.service.reflect.ReflectionUtil;
 import org.junit.*;
+import static org.junit.Assert.*;
 import org.junit.runners.MethodSorters;
 
 import java.lang.reflect.Field;
@@ -17,9 +18,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
-import static junit.framework.Assert.assertEquals;
-import static junit.framework.Assert.fail;
-import static junit.framework.TestCase.assertNotNull;
+
 import static org.junit.Assert.assertTrue;
 
 /**
@@ -36,7 +35,7 @@ import static org.junit.Assert.assertTrue;
 @Unit(testName = "P0ArrayListTest", value = "weekend1.task1")
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class P0ArrayListTest extends BaseTest {
-
+                                           ArrayList l;
     private static final int MAX_VALUE = 10;
     private static final int MIN_VALUE = 1;
 

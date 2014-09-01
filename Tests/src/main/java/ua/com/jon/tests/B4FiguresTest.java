@@ -76,7 +76,7 @@ public class B4FiguresTest extends BaseTest {
 
     @Test(timeout = 1100)
     public void test() throws Throwable {
-        assertTrue("В задании должно быть 5 классов", unitClasses.length == 5);
+        assertTrue("В задании должно быть не более 7 классов", unitClasses.length <= 7);
         validateCode(codes.entrySet().iterator().next().getValue());
 
         Class unitClass = getUnitClass(unitClasses, FIGURE_NAME);
