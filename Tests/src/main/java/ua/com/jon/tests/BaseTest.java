@@ -119,6 +119,28 @@ public class BaseTest {
         return true;
     }
 
+    public boolean validateCodeFileThreadNet(String code) {
+        if (code == null || code.isEmpty()) {
+            return true;
+        }
+        if (!CodeValidator.isCodeSafeFileThreadNet(code)) {
+            fail("Текст задание содержит недопустимое содержимое: " + CodeValidator.getMatches(code));
+            return false;
+        }
+        return true;
+    }
+
+    public boolean validateCodeFileThread(String code) {
+        if (code == null || code.isEmpty()) {
+            return true;
+        }
+        if (!CodeValidator.isCodeSafeFileThread(code)) {
+            fail("Текст задание содержит недопустимое содержимое: " + CodeValidator.getMatches(code));
+            return false;
+        }
+        return true;
+    }
+
     public PrintStream getOut() {
         return out;
     }

@@ -19,18 +19,24 @@ import static junit.framework.TestCase.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
 /**
- Написать чат, в котором можно отправлять и принимать сообщения в любом порядке.
- public void process()
+ Пользователь выбирает график функции (x*x, 10*sin(x/5), x). Построить график выбранной функции звездочками в консоле, на промежутке 0-5.
 
- Класс задания hw3.chat.AsyncChat
- Класс теста hw3.chat.AsyncChatTest
+ public void print()
+
+ Плавно строить график заданной функции (задержка в 0.5 секунды) пока пользователь не нажмет ентер.
+
+ Класс задания:
+ hw3.graph.GraphPresenter
+
+ Класс теста:
+ hw3.graph.GraphPresenterTest
  */
-@Unit(testName = "P2AsyncChatTest", value = {"hw3.chat.AsyncChat", "hw3.chat.AsyncChatTest"})
+@Unit(testName = "P2GraphPresenterTest", value = {"hw3.graph.GraphPresenter", "hw3.graph.GraphPresenterTest"})
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
-public class P2AsyncChatTest extends BaseTest {
-    private static final String UNIT_NAME = "AsyncChat";
-    private static final String TEST_NAME = "AsyncChatTest";
-    private static final String PROCESS_METHOD_NAME = "process";
+public class P2GraphPresenterTest extends BaseTest {
+    private static final String UNIT_NAME = "GraphPresenter";
+    private static final String TEST_NAME = "GraphPresenterTest";
+    private static final String PRINT_METHOD_NAME = "print";
 
     @UnitCode
     private static Map<String, String> codes;
@@ -56,8 +62,8 @@ public class P2AsyncChatTest extends BaseTest {
 
     @Test(timeout = 1100)
     public void test() throws Throwable {
-        assertTrue("В задании должено быть не более 4х классов", unitClasses.length <= 4);
-        validateCodeFileThreadNet(codes.entrySet().iterator().next().getValue());
+        assertTrue("В задании должено быть не более 3х классов", unitClasses.length <= 3);
+        validateCodeFileThread(codes.entrySet().iterator().next().getValue());
 
         Class unitClass = getUnitClass(unitClasses, TEST_NAME);
         assertNotNull("В задании не найден класс " + TEST_NAME, unitClass);
@@ -67,7 +73,7 @@ public class P2AsyncChatTest extends BaseTest {
         ReflectionUtil.checkConstructor(unitClass);
 
         instance = instanciate(unitClass);
-        addMethod = ReflectionUtil.checkMethod(unitClass, PROCESS_METHOD_NAME, void.class,
-                new MethodModifier[]{MethodModifier.PUBLIC});
+        addMethod = ReflectionUtil.checkMethod(unitClass, PRINT_METHOD_NAME, void.class,
+                new MethodModifier[]{MethodModifier.PUBLIC}, Object.class);
     }
 }

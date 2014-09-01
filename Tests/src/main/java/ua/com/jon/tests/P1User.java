@@ -63,8 +63,7 @@ public class P1User extends BaseTest {
         Class unitClass = getUnitClass(unitClasses, UNIT_NAME);
         assertNotNull("В задании не найден класс " + UNIT_NAME, unitClass);
 
-//        ReflectionUtil.checkConstructor(unitClass, Reader.class);
-//        ReflectionUtil.checkConstructor(unitClass, String.class);
+        ReflectionUtil.checkConstructor(unitClass);
 
         instance = instanciate(unitClass);
         addMethod = ReflectionUtil.checkMethod(unitClass, EQUALS_METHOD_NAME, boolean.class,
