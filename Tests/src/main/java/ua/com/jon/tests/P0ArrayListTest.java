@@ -196,7 +196,7 @@ public class P0ArrayListTest extends BaseTest {
         super.tearDown();
     }
 
-    @Test(timeout = 10000)
+    @Test(timeout = 1100)
     public void test() throws Throwable {
         assertTrue("В задании должен быть 1 класс", unitClasses.length == 1);
         validateCode(codes.entrySet().iterator().next().getValue());
@@ -221,7 +221,7 @@ public class P0ArrayListTest extends BaseTest {
                 new MethodModifier[]{MethodModifier.PUBLIC}, int.class);
     }
 
-    @Test(timeout = 1000)
+    @Test(timeout = 1100)
     public void testAdd() throws Throwable {
         Class unitClass = unitClasses[0];
         instance = instanciate(unitClass);
@@ -242,7 +242,7 @@ public class P0ArrayListTest extends BaseTest {
                 actualElement, expectedElement == actualElement);
     }
 
-    @Test(timeout = 1000)
+    @Test(timeout = 1100)
     public void testAdd2() throws Throwable {
         Class unitClass = unitClasses[0];
         instance = instanciate(unitClass);
@@ -293,7 +293,7 @@ public class P0ArrayListTest extends BaseTest {
         return (Integer) getMethod.invoke(instance, 0);
     }
 
-    @Test(timeout = 1000)
+    @Test(timeout = 1100)
     public void testGet() throws Throwable {
         Class unitClass = unitClasses[0];
         instance = instanciate(unitClass);
@@ -313,7 +313,7 @@ public class P0ArrayListTest extends BaseTest {
                 actualElement, expectedElement == actualElement);
     }
 
-    @Test(timeout = 1000)
+    @Test(timeout = 1100)
     public void testSet() throws Throwable {
         Class unitClass = unitClasses[0];
         instance = instanciate(unitClass);
@@ -337,7 +337,7 @@ public class P0ArrayListTest extends BaseTest {
                 actualElement, expectedElement == actualElement);
     }
 
-    @Test(timeout = 100000)
+    @Test(timeout = 1100)
     public void testIndexOf() throws Throwable {
         Class unitClass = unitClasses[0];
         instance = instanciate(unitClass);
@@ -361,7 +361,7 @@ public class P0ArrayListTest extends BaseTest {
                 actualIndex, 1 == actualIndex);
     }
 
-    @Test(timeout = 1000)
+    @Test(timeout = 1100)
     public void testSize() throws Throwable {
         Class unitClass = unitClasses[0];
         instance = instanciate(unitClass);
@@ -381,9 +381,10 @@ public class P0ArrayListTest extends BaseTest {
                 actualSize, 2 == actualSize);
     }
 
-    @Test(timeout = 1000)
+    @Test(timeout = 110000) //TODO
+
     public void testRemove() throws Throwable {
-        Class unitClass = unitClasses[0];
+        Class unitClass = getUnitClass(unitClasses, UNIT_NAME);
         instance = instanciate(unitClass);
         if (instance == null || removeMethod == null) {
             fail();
@@ -392,10 +393,10 @@ public class P0ArrayListTest extends BaseTest {
         ReflectionUtil.invokeMethod(instance, addMethod, expectedElement);
         int removedElement = (Integer) ReflectionUtil.invokeMethod(instance, removeMethod, 0);
         int actualSize = (Integer) ReflectionUtil.invokeMethod(instance, sizeMethod);
-        assertTrue("Метод remove работает не верно, при удалении первого элемента " + expectedElement + ", удаляемый элемент должен быть " +
-                removedElement, expectedElement == removedElement);
         assertTrue("Метод remove работает не верно, после удалении первого элемента " + expectedElement + ", размер списка равен " +
                 actualSize, 0 == actualSize);
+        assertTrue("Метод remove работает не верно, при удалении первого элемента " + expectedElement + ", метод должен возвращать удаляемый элемент " +
+                removedElement, expectedElement == removedElement);
 
         expectedElement = rnd.nextInt(MAX_VALUE) + MIN_VALUE;
         ReflectionUtil.invokeMethod(instance, addMethod, expectedElement);
@@ -404,9 +405,9 @@ public class P0ArrayListTest extends BaseTest {
         removedElement = (Integer) ReflectionUtil.invokeMethod(instance, removeMethod, 0);
         int actualElement = getElementFromList(0);
         actualSize = (Integer) ReflectionUtil.invokeMethod(instance, sizeMethod);
-        assertTrue("Метод remove работает не верно, при удалении первого элемента из двух" + expectedElement + ", удаляемый элемент должен быть " +
-                removedElement, expectedElement == actualElement);
         assertTrue("Метод remove работает не верно, после удалении первого элемента из двух" + expectedElement + ", размер списка равен " +
                 actualSize, 1 == actualSize);
+        assertTrue("Метод remove работает не верно, при удалении первого элемента из двух" + expectedElement + ", удаляемый элемент должен быть " +
+                removedElement, expectedElement == actualElement);
     }
 }

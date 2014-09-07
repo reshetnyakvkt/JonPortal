@@ -47,6 +47,9 @@ public class User {
     @Enumerated(EnumType.STRING)
     private Set<UserRole> roles = new HashSet<UserRole>();
 
+    @Column(length=1, nullable=false, columnDefinition="bit(1) default '0'")
+    private Boolean ignore;
+
     public User() {
     }
 
@@ -142,6 +145,14 @@ public class User {
         this.sprints = sprints;
     }
 
+    public Boolean getIgnore() {
+        return ignore;
+    }
+
+    public void setIgnore(Boolean ignore) {
+        this.ignore = ignore;
+    }
+
     @Override
     public String toString() {
         return "User{" +
@@ -152,6 +163,7 @@ public class User {
                 ", regDate=" + regDate +
                 ", groups=" + groups.size() +
                 ", roles=" + roles.size() +
+                ", ignore=" + ignore +
                 '}';
     }
 }

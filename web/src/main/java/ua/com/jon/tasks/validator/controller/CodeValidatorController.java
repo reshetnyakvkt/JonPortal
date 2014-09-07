@@ -1,7 +1,7 @@
 package ua.com.jon.tasks.validator.controller;
 
 
-import com.google.gson.Gson;
+//import com.google.gson.Gson;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -72,6 +72,7 @@ public class CodeValidatorController extends HttpServlet {
     @ResponseBody
     String validate(@RequestBody String data) {
 
+/*
         Gson gson=new Gson();
 
         JSONTaskRequest jsonTaskRequest=gson.fromJson(data,JSONTaskRequest.class);
@@ -82,6 +83,7 @@ public class CodeValidatorController extends HttpServlet {
                 return codeValidator.validateCode(jsonTaskRequest.getTaskClasses(),codeValidator.getTaskName());
             }
         }
+*/
         return null; // если нет такого задания
 
     }

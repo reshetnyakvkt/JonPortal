@@ -36,7 +36,7 @@ import static org.junit.Assert.assertTrue;
 @Unit(testName = "P0ScannerTest", value = "checked.HelloWorld")
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class P0ScannerTest extends BaseTest {
-    // import java.util.Reader;
+    // import java.io.Reader;
     public class MyScanner {
         public MyScanner() {
 

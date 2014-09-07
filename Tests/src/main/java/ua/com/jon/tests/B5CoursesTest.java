@@ -22,13 +22,13 @@ import static org.junit.Assert.*;
  Написать приложение управления курсами.
  Используемые сущности: Группа (название, студенты), Студент (имя, фамилия, отчество, оценки по викендам).
  Добавить следующие возможности в виде консольного меню, а так же методы в класс Courses:
- - Задать новое имя группы (старое имя, новое имя), void setGroupName(String groupName) throws NoSuchGroupException
+ - Задать новое имя группы (старое имя, новое имя), void setGroupName(String groupName, String newName) throws NoSuchGroupException
  - Добавить студента на курсы, void addStudent(Student student)
  - Добавить группу по имени, void addGroup(String groupName) throws GroupExistsException
  - Вывести информацию о группе, void printGroupInfo(String groupName) throws NoSuchGroupException
  - Добавить студента в группу по фамилии, void addStudentToGroup(String studentSName, String groupName) throws NoSuchStudentException
  - Удалить студента из группы по фамилии (на курсах студент остается), void removeStudentFromGroup(String studentSName, String groupName) throws NoSuchStudentException
- - Создать копию группы со студентами, void cloneGroup(String groupName) throws NoSuchGroupException
+ - Создать копию группы со студентами, void cloneGroup(String groupName, String newName) throws NoSuchGroupException
  - Сохранить информацию о курсах в файл, void serialize()
  - Прочитать информацию о курсах из файла, void deserialize()
 
@@ -44,13 +44,13 @@ import static org.junit.Assert.*;
 public class B5CoursesTest extends BaseTest {
     public class Courses {
         public Courses() {}
-        public void setGroupName() throws NoSuchGroupException {}
+        public void setGroupName(String groupName, String newName) throws NoSuchGroupException {}
         public void addStudent(Student student) {}
         public void addGroup(String groupName) throws GroupExistsException {}
         public void printGroupInfo() throws NoSuchGroupException {}
         public void addStudentToGroup(String studentSName, String groupName) throws NoSuchStudentException {}
         public void removeStudentFromGroup(String studentSName, String groupName) throws NoSuchStudentException {}
-        public void cloneGroup(String groupName) throws NoSuchGroupException {}
+        public void cloneGroup(String groupName, String newName) throws NoSuchGroupException {}
         public void serialize() {}
         public void deserialize() {}
     }
@@ -124,7 +124,7 @@ public class B5CoursesTest extends BaseTest {
 
         instance = instanciate(unitClasses[0]);
         addMethod = ReflectionUtil.checkMethod(unitClass, SET_GROUP_METHOD_NAME, "NoSuchGroupException", void.class,
-                new MethodModifier[]{MethodModifier.PUBLIC});
+                new MethodModifier[]{MethodModifier.PUBLIC}, String.class, String.class);
         addMethod = ReflectionUtil.checkMethod(unitClass, ADD_STUDENT_COURSE_METHOD_NAME, "void",
                 new MethodModifier[]{MethodModifier.PUBLIC}, "Student");
         addMethod = ReflectionUtil.checkMethod(unitClass, ADD_GROUP_METHOD_NAME, "GroupExistsException", String.class,
@@ -136,11 +136,10 @@ public class B5CoursesTest extends BaseTest {
         addMethod = ReflectionUtil.checkMethod(unitClass, REMOVE_STUDENT_METHOD_NAME, "NoSuchStudentException", void.class,
                 new MethodModifier[]{MethodModifier.PUBLIC}, String.class, String.class);
         addMethod = ReflectionUtil.checkMethod(unitClass, CLONE_METHOD_NAME, "NoSuchGroupException", void.class,
-                new MethodModifier[]{MethodModifier.PUBLIC}, String.class);
+                new MethodModifier[]{MethodModifier.PUBLIC}, String.class, String.class);
         addMethod = ReflectionUtil.checkMethod(unitClass, SERIALIZE_METHOD_NAME, void.class,
                 new MethodModifier[]{MethodModifier.PUBLIC});
         addMethod = ReflectionUtil.checkMethod(unitClass, DESERIALIZE_METHOD_NAME, void.class,
                 new MethodModifier[]{MethodModifier.PUBLIC});
-
     }
 }

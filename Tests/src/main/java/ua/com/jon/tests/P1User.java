@@ -20,14 +20,27 @@ import static junit.framework.TestCase.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
 /**
- * Created with IntelliJ IDEA.
- * User: al1
- * Date: 11.05.14
+ Написать модульные тесты для класса пользователь, на методы equals и hashCode.
+ Поля класса пользователь:
+ 1. Логин
+ 2. Пароль
+ 3. Дата регистрации
+ 4. Рейтинг (вещественное число)
+ 5. Пол
+
+ Класс задания hw2.hash.User
+ Класс теста hw2.hash.UserTest
  */
 @Unit(testName = "P1User", value = {"hw2.hash.User", "hw2.hash.UserTest"})
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class P1User extends BaseTest {
 
+    public class User {
+
+    }
+    class UserTest {
+
+    }
     private static final String UNIT_NAME = "User";
     private static final String TEST_NAME = "UserTest";
     private static final String EQUALS_METHOD_NAME = "equals";
@@ -58,10 +71,12 @@ public class P1User extends BaseTest {
     @Test(timeout = 1100)
     public void test() throws Throwable {
         assertTrue("В задании должено быть не более 2х классов", unitClasses.length <= 2);
-        validateCode(codes.entrySet().iterator().next().getValue());
 
-        Class unitClass = getUnitClass(unitClasses, UNIT_NAME);
+        Class unitClass = getUnitClass(unitClasses, TEST_NAME);
+        assertNotNull("В задании не найден класс " + TEST_NAME, unitClass);
+        unitClass = getUnitClass(unitClasses, UNIT_NAME);
         assertNotNull("В задании не найден класс " + UNIT_NAME, unitClass);
+        validateCode(unitClass.getName());
 
         ReflectionUtil.checkConstructor(unitClass);
 

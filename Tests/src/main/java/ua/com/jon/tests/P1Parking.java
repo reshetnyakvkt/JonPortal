@@ -20,16 +20,36 @@ import static junit.framework.TestCase.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
 /**
- * Created with IntelliJ IDEA.
- * User: al1
- * Date: 11.05.14
+ Написать класс представляющий парковку. С методами:
+ - int park(Car car) - поместить машину на парковку, возвращает номер паркоместа
+ - Car leave(int placeNumber) - удалить машину с парковки по номеру парокместа, возвращает удаляемую машину
+ Методы выбрасывают ислключения IndexOutOfBoundsException и ParkFullException
+
+ Написать модульный тест на класс Parking.
+
+ Классы задания:
+ hw2.park.Parking
+ hw2.park.Car
  */
 @Unit(testName = "P1Parking", value = "hw2.park.Parking")
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class P1Parking extends BaseTest {
+    public class Parking {
+        public int park(Car car) {
+            return 0;
+        }
+    }
+    class ParkingTest {
+
+    }
+    class Car {
+
+    }
+
     private static final String UNIT_NAME = "Parking";
     private static final String TEST_NAME = "ParkingTest";
     private static final String PARK_METHOD_NAME = "park";
+    private static final String LEAVE_METHOD_NAME = "leave";
 
     @UnitCode
     private static Map<String, String> codes;
@@ -52,14 +72,16 @@ public class P1Parking extends BaseTest {
 
     @Test(timeout = 1000)
     public void testCheckUnitPresent() throws Throwable {
-        assertTrue("В задании должно быть не более 3х классов", unitClasses.length <= 3);
-        validateCodeFile(codes.entrySet().iterator().next().getValue());
+        assertTrue("В задании должно быть не более 4х классов", unitClasses.length <= 4);
 
         Class unitClass = getUnitClass(unitClasses, UNIT_NAME);
         assertNotNull("В задании не найден класс " + UNIT_NAME, unitClass);
+        validateCodeFile(unitClass.getName());
 
         Method parkPut = ReflectionUtil.checkMethod(unitClass, PARK_METHOD_NAME, "int",
                 new MethodModifier[]{MethodModifier.PUBLIC}, "Car");
+        parkPut = ReflectionUtil.checkMethod(unitClass, PARK_METHOD_NAME, "Car",
+                new MethodModifier[]{MethodModifier.PUBLIC}, "int");
     }
 
     @Test(timeout = 1000)

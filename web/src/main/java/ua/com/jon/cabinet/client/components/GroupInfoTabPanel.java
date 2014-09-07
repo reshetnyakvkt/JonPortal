@@ -88,7 +88,6 @@ public class GroupInfoTabPanel extends Composite {
     }
 
     public void buildTable(List<List<String>> sprints) {
-//        Window.alert(sprints.toString());
         final int userNameIdx = 0;
         final int globalRateIdx = 1;
         studentsGrid.setEmptyTableWidget(new Label("Please add data."));
@@ -183,6 +182,7 @@ public class GroupInfoTabPanel extends Composite {
                         return firstRate - secondRate;
                     }
                 });
+//                Window.alert(groupInfo.toString());
                 addSprintsToTable(groupInfo);
                 buildTable(groupInfo);
             }
@@ -228,7 +228,7 @@ public class GroupInfoTabPanel extends Composite {
 //        return null;
     }
 
-    private void loadGroupAndUsers() {
+    private void loadGroupAndUsers() throws Exception {
         final AsyncCallback<List<List<String>>> groupCallback = new AsyncCallback<List<List<String>>>() {
             private static final int RATE_INDEX = 1;
             @Override
@@ -239,6 +239,7 @@ public class GroupInfoTabPanel extends Composite {
 
             @Override
             public void onSuccess(List<List<String>> groupInfo) {
+//                Window.alert(groupInfo.toString());
                 sprintsProgress.setVisible(false);
                 int grpRate = 0;
                 for (List<String> user : groupInfo) {
@@ -260,6 +261,7 @@ public class GroupInfoTabPanel extends Composite {
             }
         };
 
+        taskService.getGroupInfo(userPanel.getSelectedGroup().getId(), groupCallback);
 /*
         final AsyncCallback<ArrayList<UserDTO>> groupCallback = new AsyncCallback<ArrayList<UserDTO>>() {
 
@@ -328,7 +330,11 @@ public class GroupInfoTabPanel extends Composite {
 
     @UiHandler("refreshGroupsBtn")
     public void refreshSprintsHandler(ClickEvent e) {
-        loadGroupAndUsers();
+        try {
+            loadGroupAndUsers();
+        } catch (Exception e1) {
+            e1.printStackTrace();
+        }
 /*
         try {
             load();

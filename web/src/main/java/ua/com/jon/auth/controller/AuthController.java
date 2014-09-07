@@ -1,6 +1,7 @@
 package ua.com.jon.auth.controller;
 
 import com.jon.tron.domain.GitUser;
+import com.jon.tron.service.vc.git.GitblitClient;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -14,7 +15,6 @@ import ua.com.jon.auth.service.AuthService;
 import ua.com.jon.common.domain.User;
 import ua.com.jon.common.dto.GroupDTO;
 import ua.com.jon.common.service.RegisterService;
-import ua.com.jon.utils.GitblitClient;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;

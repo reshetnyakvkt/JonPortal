@@ -1,9 +1,10 @@
 package context;
 
 import com.jon.tron.domain.*;
+import com.jon.tron.service.vc.git.GitblitClient;
+import com.jon.tron.service.vc.git.GitblitClientImpl;
 import org.junit.Test;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
@@ -14,7 +15,6 @@ import org.springframework.http.converter.xml.MarshallingHttpMessageConverter;
 import org.springframework.oxm.xstream.XStreamMarshaller;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.web.client.RestTemplate;
-import ua.com.jon.utils.GitblitClient;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -32,7 +32,7 @@ import java.util.List;
 public class TestConfig {
     @Bean
     public static GitblitClient gitblitClient() {
-        GitblitClient client = new GitblitClient();
+        GitblitClient client = new GitblitClientImpl();
         return client;
     }
 

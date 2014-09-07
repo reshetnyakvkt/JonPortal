@@ -17,6 +17,13 @@
     mvn install:install-file -DgroupId=Testeron -DartifactId=Testeron -Dversion=1.0-SNAPSHOT -Dpackaging=jar -Dfile=C:\Users\Julia\Downloads\Testeron-1.0-SNAPSHOT.jar -DgeneratePom=true
     -->
 
+    <dependencies>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context</artifactId>
+        </dependency>
+
+    </dependencies>
     <build>
         <plugins>
             <plugin>

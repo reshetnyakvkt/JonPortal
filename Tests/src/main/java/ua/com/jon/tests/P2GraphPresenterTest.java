@@ -63,17 +63,17 @@ public class P2GraphPresenterTest extends BaseTest {
     @Test(timeout = 1100)
     public void test() throws Throwable {
         assertTrue("В задании должено быть не более 3х классов", unitClasses.length <= 3);
-        validateCodeFileThread(codes.entrySet().iterator().next().getValue());
-
         Class unitClass = getUnitClass(unitClasses, TEST_NAME);
         assertNotNull("В задании не найден класс " + TEST_NAME, unitClass);
 
+
         unitClass = getUnitClass(unitClasses, UNIT_NAME);
         assertNotNull("В задании не найден класс " + UNIT_NAME, unitClass);
+        validateCodeFileThread(codes.get(unitClass.getName()));
         ReflectionUtil.checkConstructor(unitClass);
 
         instance = instanciate(unitClass);
         addMethod = ReflectionUtil.checkMethod(unitClass, PRINT_METHOD_NAME, void.class,
-                new MethodModifier[]{MethodModifier.PUBLIC}, Object.class);
+                new MethodModifier[]{MethodModifier.PUBLIC});
     }
 }

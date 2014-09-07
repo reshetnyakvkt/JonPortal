@@ -36,7 +36,7 @@ public class B4MyStringTest extends BaseTest {
         public MyString() {}
         public MyString(char[] chars) {}
         public void print() {}
-        public MyString concat() {
+        public MyString concat(MyString str) {
             return new MyString();
         }
         public void toLower() {}
@@ -90,17 +90,17 @@ public class B4MyStringTest extends BaseTest {
 
         instance = instanciate(unitClasses[0]);
         addMethod = ReflectionUtil.checkMethod(unitClass, CONCAT_METHOD_NAME, "MyString",
-                new MethodModifier[]{MethodModifier.PUBLIC});
+                new MethodModifier[]{MethodModifier.PUBLIC}, "MyString");
         addMethod = ReflectionUtil.checkMethod(unitClass, LOWER_METHOD_NAME, void.class,
                 new MethodModifier[]{MethodModifier.PUBLIC});
         addMethod = ReflectionUtil.checkMethod(unitClass, UPPER_METHOD_NAME, void.class,
                 new MethodModifier[]{MethodModifier.PUBLIC});
         addMethod = ReflectionUtil.checkMethod(unitClass, PRINT_METHOD_NAME, void.class,
                 new MethodModifier[]{MethodModifier.PUBLIC});
-        addMethod = ReflectionUtil.checkMethod(unitClass, INDEX_OF_METHOD_NAME, int.class,
-                new MethodModifier[]{MethodModifier.PUBLIC});
-        addMethod = ReflectionUtil.checkMethod(unitClass, SUBSTRING_METHOD_NAME, "void",
+        addMethod = ReflectionUtil.checkMethod(unitClass, INDEX_OF_METHOD_NAME, "int",
                 new MethodModifier[]{MethodModifier.PUBLIC}, "MyString");
+        addMethod = ReflectionUtil.checkMethod(unitClass, SUBSTRING_METHOD_NAME, "MyString",
+                new MethodModifier[]{MethodModifier.PUBLIC}, "int", "int");
         addMethod = ReflectionUtil.checkMethod(unitClass, TRIM_METHOD_NAME, void.class,
                 new MethodModifier[]{MethodModifier.PUBLIC});
     }

@@ -51,6 +51,7 @@
 
     <mvc:annotation-driven/>
 
+<!--
     <bean class="org.springframework.web.servlet.view.ContentNegotiatingViewResolver">
         <property name="ignoreAcceptHeader" value="true" />
         <property name="favorPathExtension" value="false" />
@@ -66,6 +67,7 @@
             </list>
         </property>
     </bean>
+-->
 
     <bean class="org.springframework.web.servlet.view.BeanNameViewResolver">
         <property name="order" value="2"/>

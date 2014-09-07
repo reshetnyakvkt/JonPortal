@@ -87,7 +87,7 @@ public class B5MyScannerTest extends BaseTest {
     @Test(timeout = 1100)
     public void test() throws Throwable {
         assertTrue("В задании должен быть только один класс", unitClasses.length == 1);
-        validateCode(codes.entrySet().iterator().next().getValue());
+        validateCodeFile(codes.entrySet().iterator().next().getValue());
 
         Class unitClass = getUnitClass(unitClasses, UNIT_NAME);
         assertNotNull("В задании не найден класс " + UNIT_NAME, unitClass);

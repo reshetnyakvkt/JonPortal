@@ -1,7 +1,7 @@
 package ua.com.jon.tasks.validator.codeValidator.templates;
 
 
-import com.google.gson.Gson;
+//import com.google.gson.Gson;
 import ua.com.jon.tasks.validator.codeValidator.jsonObjects.JSONTaskResponse;
 import ua.com.jon.tasks.validator.sourceCompiler.CompilationError;
 import ua.com.jon.tasks.validator.sourceCompiler.CompilationResult;
@@ -84,8 +84,9 @@ public abstract class CodeValidator {
             jsonResponse.setCompilation_success(false);
             jsonResponse.addCompilationError(1L,e.getMessage());
         }
-        Gson gson=new Gson();
-        return gson.toJson(jsonResponse);
+//        Gson gson=new Gson();
+//        return gson.toJson(jsonResponse);
+        return null;
     }
 
 }

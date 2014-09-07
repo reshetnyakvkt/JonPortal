@@ -30,12 +30,12 @@ import static org.junit.Assert.assertTrue;
  - единственного существующего файла в единственном каталоге
 
  Класс задания:
- hw4.parallel.FileFinder
+ hw3.parallel.FileFinder
 
  Класс теста:
- hw4.parallel.FileFinderTest
+ hw3.parallel.FileFinderTest
  */
-@Unit(testName = "P3ParallelFileFindTest", value = {"hw4.parallel.FileFinder", "hw4.parallel.FileFinderTest"})
+@Unit(testName = "P3ParallelFileFindTest", value = {"hw3.parallel.FileFinder", "hw3.parallel.FileFinderTest"})
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class P3ParallelFileFindTest  extends BaseTest {
     private static final String UNIT_NAME = "FileFinder";
@@ -67,13 +67,14 @@ public class P3ParallelFileFindTest  extends BaseTest {
     @Test(timeout = 1100)
     public void test() throws Throwable {
         assertTrue("В задании должено быть не более 3х классов", unitClasses.length <= 3);
-        validateCodeFileThread(codes.entrySet().iterator().next().getValue());
+//        validateCodeFileThread(codes.entrySet().iterator().next().getValue());
 
         Class unitClass = getUnitClass(unitClasses, TEST_NAME);
         assertNotNull("В задании не найден класс " + TEST_NAME, unitClass);
 
         unitClass = getUnitClass(unitClasses, UNIT_NAME);
         assertNotNull("В задании не найден класс " + UNIT_NAME, unitClass);
+        validateCodeFileThread(codes.get(unitClass.getName()));
         ReflectionUtil.checkConstructor(unitClass);
 
         instance = instanciate(unitClass);

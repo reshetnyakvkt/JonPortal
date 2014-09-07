@@ -64,4 +64,10 @@ public class TrainingsController {
         modelMap.put("item","mitem9");
         return "trainings/jon";
     }
+
+    @RequestMapping("/trainings/nedocode.html")
+    public String nedocode(ModelMap modelMap)  {
+        modelMap.put("item","mitem10");
+        return "trainings/nedocode";
+    }
 }

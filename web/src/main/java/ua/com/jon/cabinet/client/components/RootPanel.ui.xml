@@ -4,9 +4,9 @@
              xmlns:b="urn:import:com.github.gwtbootstrap.client.ui">
     <g:HTMLPanel ui:field="basePanel">
         <b:Container>
-            <b:Container>
+<!--            <b:Container>
                 <b:Heading size="4" ui:field="userName"/>
-            </b:Container>
+            </b:Container>-->
             <b:TabPanel>
                 <b:TabPane active="true" heading="Ваши задания">
                     <g:FlowPanel ui:field="userTasksHolderPanel"/>

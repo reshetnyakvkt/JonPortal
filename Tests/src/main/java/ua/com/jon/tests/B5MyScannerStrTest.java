@@ -86,7 +86,7 @@ public class B5MyScannerStrTest extends BaseTest {
     @Test(timeout = 1100)
     public void test() throws Throwable {
         assertTrue("В задании должно быть не более 2х классов", unitClasses.length <= 2);
-        validateCode(codes.entrySet().iterator().next().getValue());
+        validateCodeFile(codes.entrySet().iterator().next().getValue());
 
         Class unitClass = getUnitClass(unitClasses, UNIT_NAME);
         assertNotNull("В задании не найден класс " + UNIT_NAME, unitClass);

@@ -44,9 +44,12 @@ public interface TaskRepository extends JpaRepository<Task, Long> {
     @Query("select t from ua.com.jon.common.domain.Task t JOIN t.group gs where gs.id = :groupId")
     List<Task> findByGroupId(@Param("groupId") Long groupId);
 
+    @Query("select t from ua.com.jon.common.domain.Task t JOIN t.group gs JOIN t.user u where gs.id = :groupId and u.ignore = false")
+    List<Task> findByGroupIdAndUserNotIgnore(@Param("groupId") Long groupId);
+
     @Query("select t from ua.com.jon.common.domain.Task t JOIN t.group gs where t.user.login = :userName and gs.id = :groupId")
     List<Task> findByUserIdAndGroupId(@Param("groupId") String userName, @Param("groupId") Long groupId);
 
-    @Query(value = "select t.user_id from TASKS t", nativeQuery = true)
+    @Query(value = "select t.user.id from TASKS t", nativeQuery = true)
     List<Object> findUserIds();
 }

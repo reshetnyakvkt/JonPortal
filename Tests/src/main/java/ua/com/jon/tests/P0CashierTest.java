@@ -86,8 +86,7 @@ public class P0CashierTest extends BaseTest {
         Class unitClass = getUnitClass(unitClasses, UNIT_NAME);
         assertNotNull("В задании не найден класс " + UNIT_NAME, unitClass);
 
-        ReflectionUtil.checkConstructor(unitClass, Reader.class);
-        ReflectionUtil.checkConstructor(unitClass, String.class);
+        ReflectionUtil.checkConstructor(unitClass);
 
         instance = instanciate(unitClass);
         addMethod = ReflectionUtil.checkMethod(unitClass, IS_AUTHORIZED_METHOD_NAME, boolean.class,
@@ -102,7 +101,7 @@ public class P0CashierTest extends BaseTest {
                 new MethodModifier[]{MethodModifier.PUBLIC}, String.class, int.class);
         addMethod = ReflectionUtil.checkMethod(unitClass, CANCEL_METHOD_NAME, void.class,
                 new MethodModifier[]{MethodModifier.PUBLIC});
-        addMethod = ReflectionUtil.checkMethod(unitClass, CLOSE_METHOD_NAME, void.class,
+        addMethod = ReflectionUtil.checkMethod(unitClass, CLOSE_METHOD_NAME, double.class,
                 new MethodModifier[]{MethodModifier.PUBLIC});
     }
 }

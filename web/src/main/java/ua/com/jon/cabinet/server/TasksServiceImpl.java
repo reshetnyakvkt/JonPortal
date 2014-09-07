@@ -34,11 +34,8 @@ import ua.com.jon.common.repository.UserRepository;
 import javax.annotation.Resource;
 import javax.servlet.ServletContext;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+import java.util.function.Predicate;
 
 /**
  * Created with IntelliJ IDEA.
@@ -101,10 +98,11 @@ public class TasksServiceImpl implements TasksService, ServletContextAware {
     @Override
     public String dispatchTaskChecking(TaskDTO dto) {
         String result = "";
+
         if (dto.getType().equals(TaskType.CLASS.name()) && dto.getStatus().equals("TEST")) {
             log.info("-== Cabinet dispatchTaskChecking: " + dto);
             result = postForTest(dto);
-        } else if (dto.getType().equals(TaskType.SVN.name())) {
+        } else if (dto.getType().equals(TaskType.SVN.name()) && dto.getStatus().equals("TEST")) {
             result = taskStatusChanged(dto);
         }
 //        log.info("dispatchTaskChecking " + dto);
@@ -116,9 +114,10 @@ public class TasksServiceImpl implements TasksService, ServletContextAware {
         Task task = taskRepository.findOne(dto.getId());
         Status newStatus = Status.valueOf(dto.getStatus());
         task.setStatus(newStatus);
+        task.setResult("");
         taskRepository.save(task);
 
-        log.info("taskStatusChanged " + dto);
+        log.info("taskStatusChanged " + task.getStatus().name());
 
         return "";
     }
@@ -203,61 +202,97 @@ public class TasksServiceImpl implements TasksService, ServletContextAware {
     @Override
     public List<List<String>> getGroupInfo(Long selectedGroupId) throws Exception {
         try {
-            List<Task> tasks = taskRepository.findByGroupId(selectedGroupId);
-            Map<User, Map<Sprint, Integer>> groupInfo = new HashMap<User, Map<Sprint, Integer>>();
-            for (Task task : tasks) {
-                Map<Sprint, Integer> userSprints = groupInfo.get(task.getUser());
-                if (userSprints == null) {
-                    userSprints = new HashMap<Sprint, Integer>();
-                    groupInfo.put(task.getUser(), userSprints);
-                }
-                Integer rate = userSprints.get(task.getSprint());
-                if (rate == null) {
-                    rate = 0;
-                    userSprints.put(task.getSprint(), rate);
-                }
-                int index = task.getResult().indexOf("\n");
-                String rateStr;
-                if (index >= 0) {
-                    rateStr = task.getResult().substring(0, index);
-                    rate += Integer.parseInt(rateStr);
-                }
-                userSprints.put(task.getSprint(), rate);
-            }
+            List<Task> tasks = taskRepository.findByGroupIdAndUserNotIgnore(selectedGroupId);
+            Map<User, Map<Sprint, Integer>> groupInfo = createGroupInfo(tasks);
+            Map<Sprint, Integer> templateSprints = calcMaxSprintsNumber(groupInfo);
+            calculateRates(selectedGroupId, groupInfo);
 
-            for (Map.Entry<User, Map<Sprint, Integer>> users : groupInfo.entrySet()) {
-                for (Map.Entry<Sprint, Integer> sprint : users.getValue().entrySet()) {
-                    List<Task> userTasks = taskRepository.findByUserAndSprintAndGroup(users.getKey().getLogin(),
-                            sprint.getKey().getId(), selectedGroupId);//sprint.getKey().getTasks().size();
-                    sprint.setValue(sprint.getValue() / userTasks.size());
-                }
-            }
-
-            List<List<String>> resultInfo = new ArrayList<List<String>>();
-            for (Map.Entry<User, Map<Sprint, Integer>> sprints : groupInfo.entrySet()) {
-                List<String> userSprints = new LinkedList<String>();
-                String userName = sprints.getKey().getLogin();
-                userSprints.add(userName);
-                Long sprintId = sprints.getValue().entrySet().iterator().next().getKey().getId();
-                // TODO avoid unnecessary DB query
-                Long sum = 0L;
-                for (Map.Entry<Sprint, Integer> sprint : sprints.getValue().entrySet()) {
-                    sum += sprint.getValue();
-                }
-                double globalRate = getCourseRate(selectedGroupId, userName);//String.valueOf(sum / sprints.getValue().size());
-                userSprints.add(String.valueOf((int)globalRate));
-
-
-                for (Map.Entry<Sprint, Integer> sprint : sprints.getValue().entrySet()) {
-                    userSprints.add(String.valueOf(sprint.getValue()));
-                }
-                resultInfo.add(userSprints);
-            }
-
+            List<List<String>> resultInfo = createResultInfo(selectedGroupId, groupInfo, templateSprints);
             return resultInfo;
         } catch (Exception e) {
             log.error(e);
             throw e;
+        }
+    }
+
+    private Map<Sprint, Integer> calcMaxSprintsNumber(Map<User, Map<Sprint, Integer>> groupInfo) {
+        Map<Sprint, Integer> maxSprintsEntry = new HashMap<>();
+        int maxSprintsNumber = 0;
+        for (Map.Entry<User, Map<Sprint, Integer>> userEntry : groupInfo.entrySet()) {
+            if (userEntry.getValue().size() > maxSprintsNumber) {
+                maxSprintsNumber = userEntry.getValue().size();
+                maxSprintsEntry = userEntry.getValue();
+            }
+        }
+        return maxSprintsEntry;
+    }
+
+    private Map<User, Map<Sprint, Integer>> createGroupInfo(List<Task> tasks) {
+        Map<User, Map<Sprint, Integer>> groupInfo = new HashMap<User, Map<Sprint, Integer>>();
+        for (Task task : tasks) {
+            Map<Sprint, Integer> userSprints = groupInfo.get(task.getUser());
+            if (userSprints == null) {
+                userSprints = new HashMap<Sprint, Integer>();
+                groupInfo.put(task.getUser(), userSprints);
+            }
+            Integer rate = userSprints.get(task.getSprint());
+            if (rate == null) {
+                rate = 0;
+                userSprints.put(task.getSprint(), rate);
+            }
+            int index = task.getResult().indexOf("\n");
+            String rateStr;
+            if (index >= 0) {
+                rateStr = task.getResult().substring(0, index).trim();
+                rate += Integer.parseInt(rateStr);
+            }
+            userSprints.put(task.getSprint(), rate);
+        }
+        return groupInfo;
+    }
+
+    private List<List<String>> createResultInfo(Long selectedGroupId, Map<User, Map<Sprint, Integer>> groupInfo,
+                                                Map<Sprint, Integer> templateSprints) {
+        List<List<String>> resultInfo = new ArrayList<List<String>>();
+        for (Map.Entry<User, Map<Sprint, Integer>> sprints : groupInfo.entrySet()) {
+            List<String> userSprints = new LinkedList<String>();
+            String userName = sprints.getKey().getLogin();
+            userSprints.add(userName);
+//            Long sprintId = sprints.getValue().entrySet().iterator().next().getKey().getId();
+            // TODO avoid unnecessary DB query
+/*            Long sum = 0L;
+            for (Map.Entry<Sprint, Integer> sprint : sprints.getValue().entrySet()) {
+                sum += sprint.getValue();
+            }*/
+            double globalRate = getCourseRate(selectedGroupId, userName);//String.valueOf(sum / sprints.getValue().size());
+            userSprints.add(String.valueOf((int)globalRate));
+
+            sprintsCountCorrection(templateSprints, sprints, userSprints);
+            resultInfo.add(userSprints);
+        }
+        return resultInfo;
+    }
+
+    private void sprintsCountCorrection(Map<Sprint, Integer> templateSprints, Map.Entry<User, Map<Sprint, Integer>> sprints, List<String> userSprints) {
+        Map<Sprint, Integer> sprintsMap = sprints.getValue();
+        for (Map.Entry<Sprint, Integer> tmplSprint : templateSprints.entrySet()) {
+            if (!sprintsMap.containsKey(tmplSprint.getKey())) {
+                userSprints.add(String.valueOf(0));
+            } else {
+                userSprints.add(String.valueOf(sprintsMap.get(tmplSprint.getKey())));
+            }
+        }
+    }
+
+    private void calculateRates(Long selectedGroupId, Map<User, Map<Sprint, Integer>> groupInfo) {
+        for (Map.Entry<User, Map<Sprint, Integer>> users : groupInfo.entrySet()) {
+            for (Map.Entry<Sprint, Integer> sprint : users.getValue().entrySet()) {
+                List<Task> userTasks = taskRepository.findByUserAndSprintAndGroup(users.getKey().getLogin(),
+                        sprint.getKey().getId(), selectedGroupId);//sprint.getKey().getTasks().size();
+                if (userTasks.size() != 0) {
+                    sprint.setValue(sprint.getValue() / userTasks.size());
+                }
+            }
         }
     }
 

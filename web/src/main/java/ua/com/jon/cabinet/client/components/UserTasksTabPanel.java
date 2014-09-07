@@ -68,6 +68,9 @@ public class UserTasksTabPanel extends Composite {
     @UiField
     Button serverAvailBtn;
 
+    @UiField
+    Heading user;
+
     @UiField(provided = true)
     ValueListBox<SprintDTO> sprintsListBox = new ValueListBox<SprintDTO>(new AbstractRenderer<SprintDTO>() {
         @Override
@@ -127,7 +130,7 @@ public class UserTasksTabPanel extends Composite {
             }
         };
 
-        t.scheduleRepeating(10000);
+        t.scheduleRepeating(5000);
     }
 
     private void refreshTasks(List<Long> ids) {
@@ -149,11 +152,12 @@ public class UserTasksTabPanel extends Composite {
                 serverAvailBtn.setEnabled(true);
                 boolean changed = false;
                 for (TaskDTO taskDTO : dataProvider.getList()) {
-                    for (TaskDTO task : tasks) {
-                        if (taskDTO.equals(task) && !taskDTO.getStatus().equals(task.getStatus())) {
+                    for (TaskDTO serverTask : tasks) {
+                        if (taskDTO.equals(serverTask) && !taskDTO.getStatus().equals(serverTask.getStatus())) {
+//                            Window.alert(String.valueOf("Changed: " + taskDTO.getName() + taskDTO.getStatus()));
                             changed = true;
-                            taskDTO.setStatus(task.getStatus());
-                            taskDTO.setResult(task.getResult());
+                            taskDTO.setStatus(serverTask.getStatus());
+                            taskDTO.setResult(serverTask.getResult());
                         }
                     }
                 }
@@ -224,6 +228,7 @@ public class UserTasksTabPanel extends Composite {
                     return;
                 }
                 UserTasksTabPanel.this.userName = userName;
+                user.setText('[' + userName + ']' + " - ваши задания");
                 loadSprintsAndTasks();
             }
         };

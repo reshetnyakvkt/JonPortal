@@ -61,8 +61,8 @@ public class P1HashTable extends BaseTest {
         Class unitClass = getUnitClass(unitClasses, UNIT_NAME);
         assertNotNull("В задании не найден класс " + UNIT_NAME, unitClass);
 
-        Method methodPut = ReflectionUtil.checkMethod(unitClass, PUT_METHOD_NAME, boolean.class,
-                new MethodModifier[]{MethodModifier.PUBLIC}, int.class, hw2.hash.User.class);
+        Method methodPut = ReflectionUtil.checkMethod(unitClass, PUT_METHOD_NAME, "boolean",
+                new MethodModifier[]{MethodModifier.PUBLIC}, "int", "User");
         Method methodIterator = ReflectionUtil.checkMethod(unitClass, ITERATOR_METHOD_NAME, Iterator.class,
                 new MethodModifier[]{MethodModifier.PUBLIC});
 //        assertTrue("В задании не найден метод " + UNIT_NAME, UNIT_NAME.equals(unitClass.getSimpleName()));

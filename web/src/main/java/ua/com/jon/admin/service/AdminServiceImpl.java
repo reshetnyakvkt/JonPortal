@@ -36,7 +36,7 @@ import ua.com.jon.common.repository.SprintRepository;
 import ua.com.jon.common.repository.TaskRepository;
 import ua.com.jon.common.repository.TaskTemplateRepository;
 import ua.com.jon.common.repository.UserRepository;
-import ua.com.jon.utils.GitHubClient;
+//import ua.com.jon.utils.GitHubClient;
 
 import javax.annotation.Resource;
 import java.io.IOException;
@@ -349,11 +349,13 @@ public class AdminServiceImpl implements AdminService {
     @Override
     public ArrayList<SpaceDTO> getGitHubRepos() {
         ArrayList<SpaceDTO> repos = null;
+/*
         try {
             repos = GitHubClient.getRepositoriesAndCollaborators();
         } catch (IOException e) {
             e.printStackTrace();
         }
+*/
         return repos;
     }
 

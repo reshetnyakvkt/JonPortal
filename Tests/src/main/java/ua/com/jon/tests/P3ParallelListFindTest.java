@@ -32,12 +32,12 @@ import static org.junit.Assert.assertTrue;
  - элемента со значением null
 
  Класс задания:
- hw4.parallel.MyArrayList
+ hw3.parallel.MyArrayList
 
  Класс теста:
- hw4.parallel.MyArrayListTest
+ hw3.parallel.MyArrayListTest
  */
-@Unit(testName = "P3ParallelListFindTest", value = {"hw4.parallel.MyArrayList", "hw4.parallel.MyArrayListTest"})
+@Unit(testName = "P3ParallelListFindTest", value = {"hw3.parallel.MyArrayList", "hw3.parallel.MyArrayListTest"})
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class P3ParallelListFindTest extends BaseTest {
     private static final String UNIT_NAME = "MyArrayList";
@@ -69,13 +69,14 @@ public class P3ParallelListFindTest extends BaseTest {
     @Test(timeout = 1100)
     public void test() throws Throwable {
         assertTrue("В задании должено быть не более 3х классов", unitClasses.length <= 3);
-        validateCodeFileThread(codes.entrySet().iterator().next().getValue());
+//        validateCodeFileThread(codes.entrySet().iterator().next().getValue());
 
         Class unitClass = getUnitClass(unitClasses, TEST_NAME);
         assertNotNull("В задании не найден класс " + TEST_NAME, unitClass);
 
         unitClass = getUnitClass(unitClasses, UNIT_NAME);
         assertNotNull("В задании не найден класс " + UNIT_NAME, unitClass);
+        validateCodeFileThread(codes.get(unitClass.getName()));
         ReflectionUtil.checkConstructor(unitClass);
 
         instance = instanciate(unitClass);

@@ -6,7 +6,6 @@ import ua.com.jon.admin.shared.GroupDTO;
 import ua.com.jon.admin.shared.SpaceDTO;
 import ua.com.jon.admin.shared.SprintDTO;
 import ua.com.jon.admin.shared.TaskTemplateDTO;
-import ua.com.jon.cabinet.shared.TaskDTO;
 
 import java.util.ArrayList;
 import java.util.HashSet;

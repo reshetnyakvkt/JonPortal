@@ -18,12 +18,8 @@ import static junit.framework.TestCase.assertNotNull;
 import static org.junit.Assert.*;
 
 /**
- Написать метод заполняющий массив случайными числами в диапазоне от 0 до 10
- Имя метода: fillMatrixByRandom
-
- * Created with IntelliJ IDEA.
- * User: al1
- * Date: 06.06.14
+ Написать класс с методом заполняющий массив случайными числами в диапазоне от 0 до 10
+ Имя метода: fillVectorByRandom
  */
 @Unit(testName = "F2VectorRandomFillTest", value = "weekend1.task1")
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
@@ -35,7 +31,7 @@ public class F2VectorRandomFillTest extends BaseTest {
     }
 
     private static final String UNIT_NAME = "VectorRandomFill";
-    private static final String UNIT_METHOD_NAME = "fillMatrixByRandom";
+    private static final String UNIT_METHOD_NAME = "fillVectorByRandom";
 
     @UnitCode
     private static Map<String, String> codes;
