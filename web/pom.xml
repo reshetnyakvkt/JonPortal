@@ -118,7 +118,6 @@
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
-            <version>${mysql.connector.version}</version>
         </dependency>
 
         <dependency>
@@ -146,18 +145,25 @@
         <dependency>
             <groupId>com.google.gwt</groupId>
             <artifactId>gwt-servlet</artifactId>
-            <version>${gwt.version}</version>
         </dependency>
         <dependency>
             <groupId>com.google.gwt</groupId>
             <artifactId>gwt-user</artifactId>
-            <version>${gwt.version}</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>com.github.gwtbootstrap</groupId>
             <artifactId>gwt-bootstrap</artifactId>
-            <version>${gwtbootstrap.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-log4j12</artifactId>
         </dependency>
 
         <dependency>
@@ -165,10 +171,12 @@
             <artifactId>log4j</artifactId>
         </dependency>
 
+<!--
         <dependency>
             <artifactId>commons-logging</artifactId>
             <groupId>commons-logging</groupId>
         </dependency>
+-->
     </dependencies>
 
     <build>

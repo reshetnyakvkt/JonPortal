@@ -4,6 +4,7 @@ import com.jon.tron.service.junit.Unit;
 import com.jon.tron.service.junit.UnitClass;
 import com.jon.tron.service.junit.UnitCode;
 import com.jon.tron.service.junit.UnitName;
+import com.jon.tron.service.processor.CodeValidator;
 import com.jon.tron.service.reflect.JavaProcessBuilder;
 import com.jon.tron.service.reflect.MethodModifier;
 import com.jon.tron.service.reflect.ReflectionUtil;
@@ -76,11 +77,11 @@ public class P1Parking extends BaseTest {
 
         Class unitClass = getUnitClass(unitClasses, UNIT_NAME);
         assertNotNull("В задании не найден класс " + UNIT_NAME, unitClass);
-        validateCodeFile(unitClass.getName());
+        CodeValidator.checkCodeFile(unitClass.getName());
 
-        Method parkPut = ReflectionUtil.checkMethod(unitClass, PARK_METHOD_NAME, "int",
+        ReflectionUtil.checkMethod(unitClass, PARK_METHOD_NAME, "int",
                 new MethodModifier[]{MethodModifier.PUBLIC}, "Car");
-        parkPut = ReflectionUtil.checkMethod(unitClass, PARK_METHOD_NAME, "Car",
+        ReflectionUtil.checkMethod(unitClass, LEAVE_METHOD_NAME, "Car",
                 new MethodModifier[]{MethodModifier.PUBLIC}, "int");
     }
 

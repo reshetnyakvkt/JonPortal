@@ -4,6 +4,7 @@ import com.jon.tron.service.junit.Unit;
 import com.jon.tron.service.junit.UnitClass;
 import com.jon.tron.service.junit.UnitCode;
 import com.jon.tron.service.junit.UnitName;
+import com.jon.tron.service.processor.CodeValidator;
 import com.jon.tron.service.reflect.MethodModifier;
 import com.jon.tron.service.reflect.ReflectionUtil;
 import org.junit.After;
@@ -28,7 +29,7 @@ import static org.junit.Assert.assertTrue;
 public class P3ChatServerTest extends BaseTest {
     private static final String UNIT_NAME = "ChatServer";
     private static final String TEST_NAME = "ChatServerTest";
-    private static final String PARALLEL_SUM_METHOD_NAME = "parallelSumOfSequence";
+    private static final String LISTEN_METHOD_NAME = "listenConnections";
 
     @UnitCode
     private static Map<String, String> codes;
@@ -38,6 +39,9 @@ public class P3ChatServerTest extends BaseTest {
     private static String[] unitNames;
     @Unit
     private static String unitJarClasspath;
+
+    private static Object instance;
+    private static Method method;
 
     @Before
     public void setUp() {
@@ -49,29 +53,21 @@ public class P3ChatServerTest extends BaseTest {
         super.tearDown();
     }
 
-    @Test(timeout = 1000)
+    @Test(timeout = 1100)
     public void testCheckUnitPresent() throws Throwable {
-        Class unitClass;
-        if(unitClasses.length != 1) {
-            unitClass = getUnitClass(unitClasses, UNIT_NAME);
-            assertNotNull("В задании не найден класс " + UNIT_NAME, unitClass);
-        } else {
-            unitClass = unitClasses[0];
-        }
-        assertTrue("В задании не найден класс " + UNIT_NAME, UNIT_NAME.equals(unitClass.getSimpleName()));
-        Method methodProduce = ReflectionUtil.checkMethod(unitClass, PARALLEL_SUM_METHOD_NAME, long.class,
-                new MethodModifier[]{MethodModifier.PUBLIC}, int.class);
+//        assertTrue("В задании должено быть не более 3х классов", unitClasses.length <= 3);
+        Class unitClass = getUnitClass(unitClasses, TEST_NAME);
+        assertNotNull("В задании не найден класс " + TEST_NAME, unitClass);
+
+
+        unitClass = getUnitClass(unitClasses, UNIT_NAME);
+        assertNotNull("В задании не найден класс " + UNIT_NAME, unitClass);
+        CodeValidator.checkCodeFileThread(codes.get(unitClass.getName()));
+        ReflectionUtil.checkConstructor(unitClass);
+
+        instance = instanciate(unitClass);
+        method = ReflectionUtil.checkMethod(unitClass, LISTEN_METHOD_NAME, void.class,
+                new MethodModifier[]{MethodModifier.PUBLIC});
     }
 
-    @Test(timeout = 1000)
-    public void testCheckTestPresent() throws Throwable {
-        Class unitClass;
-        if(unitClasses.length != 1) {
-            unitClass = getUnitClass(unitClasses, TEST_NAME);
-            assertNotNull("В задании не найден класс теста " + TEST_NAME, unitClass);
-        } else {
-            unitClass = unitClasses[0];
-        }
-        assertTrue("В задании не найден класс теста " + TEST_NAME, TEST_NAME.equals(unitClass.getSimpleName()));
-    }
 }

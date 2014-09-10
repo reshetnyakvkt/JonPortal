@@ -4,6 +4,7 @@ import com.jon.tron.service.junit.Unit;
 import com.jon.tron.service.junit.UnitClass;
 import com.jon.tron.service.junit.UnitCode;
 import com.jon.tron.service.junit.UnitName;
+import com.jon.tron.service.processor.CodeValidator;
 import com.jon.tron.service.reflect.JavaProcessBuilder;
 import com.jon.tron.service.reflect.MethodModifier;
 import com.jon.tron.service.reflect.ReflectionUtil;
@@ -54,10 +55,10 @@ public class P1Translator extends BaseTest {
     @Test(timeout = 1000)
     public void testCheckUnitPresent() throws Throwable {
         assertTrue("В задании должно быть не более 2х классов", unitClasses.length <= 2);
-        validateCodeFile(codes.entrySet().iterator().next().getValue());
 
         Class unitClass = getUnitClass(unitClasses, UNIT_NAME);
         assertNotNull("В задании не найден класс " + UNIT_NAME, unitClass);
+        CodeValidator.checkCodeFile(unitClass.getName());
         Method methodTranslate = ReflectionUtil.checkMethod(unitClass, TRANSLATE_METHOD_NAME, String.class,
                 new MethodModifier[]{MethodModifier.PUBLIC}, Reader.class, Reader.class);
     }

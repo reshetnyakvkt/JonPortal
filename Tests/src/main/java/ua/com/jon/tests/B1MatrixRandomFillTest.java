@@ -1,6 +1,7 @@
 package ua.com.jon.tests;
 
 import com.jon.tron.service.junit.*;
+import com.jon.tron.service.processor.CodeValidator;
 import com.jon.tron.service.reflect.ReflectionUtil;
 import org.junit.After;
 import org.junit.Before;
@@ -99,7 +100,7 @@ public class B1MatrixRandomFillTest extends BaseTest {
     @Test(timeout = 1000)
     public void test() throws Throwable {
         assertTrue("В задании должен быть только один класс", unitClasses.length == 1);
-        validateCode(codes.entrySet().iterator().next().getValue());
+        CodeValidator.checkCode(codes.entrySet().iterator().next().getValue());
         instance = instanciate(unitClasses[0]);
         unitMethod = ReflectionUtil.checkMainMethod(unitClasses[0]);
     }

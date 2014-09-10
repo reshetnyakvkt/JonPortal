@@ -4,6 +4,7 @@ import com.jon.tron.service.junit.Unit;
 import com.jon.tron.service.junit.UnitClass;
 import com.jon.tron.service.junit.UnitCode;
 import com.jon.tron.service.junit.UnitName;
+import com.jon.tron.service.processor.CodeValidator;
 import com.jon.tron.service.reflect.MethodModifier;
 import com.jon.tron.service.reflect.ReflectionUtil;
 import org.junit.After;
@@ -76,7 +77,7 @@ public class P1User extends BaseTest {
         assertNotNull("В задании не найден класс " + TEST_NAME, unitClass);
         unitClass = getUnitClass(unitClasses, UNIT_NAME);
         assertNotNull("В задании не найден класс " + UNIT_NAME, unitClass);
-        validateCode(unitClass.getName());
+        CodeValidator.checkCode(unitClass.getName());
 
         ReflectionUtil.checkConstructor(unitClass);
 

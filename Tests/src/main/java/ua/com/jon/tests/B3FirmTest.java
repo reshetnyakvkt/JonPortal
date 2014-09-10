@@ -4,6 +4,7 @@ import com.jon.tron.service.junit.Unit;
 import com.jon.tron.service.junit.UnitClass;
 import com.jon.tron.service.junit.UnitCode;
 import com.jon.tron.service.junit.UnitName;
+import com.jon.tron.service.processor.CodeValidator;
 import com.jon.tron.service.reflect.MethodModifier;
 import com.jon.tron.service.reflect.ReflectionUtil;
 import org.junit.After;
@@ -121,7 +122,7 @@ public class B3FirmTest  extends BaseTest {
     @Test(timeout = 1100)
     public void test() throws Throwable {
         assertTrue("В задании должно быть 4 класса", unitClasses.length == 4);
-        validateCodeFile(codes.entrySet().iterator().next().getValue());
+        CodeValidator.checkCodeFile(codes.entrySet().iterator().next().getValue());
 
         Class firmClass = getUnitClass(unitClasses, FIRM_NAME);
         assertNotNull("В задании не найден класс " + FIRM_NAME, firmClass);

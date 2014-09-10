@@ -4,6 +4,7 @@ import com.jon.tron.service.junit.Unit;
 import com.jon.tron.service.junit.UnitClass;
 import com.jon.tron.service.junit.UnitCode;
 import com.jon.tron.service.junit.UnitName;
+import com.jon.tron.service.processor.CodeValidator;
 import com.jon.tron.service.reflect.JavaProcessBuilder;
 import com.jon.tron.service.reflect.MethodModifier;
 import com.jon.tron.service.reflect.ReflectionUtil;
@@ -53,10 +54,10 @@ public class P1Trucks extends BaseTest {
     @Test(timeout = 1100)
     public void test() throws Throwable {
         assertTrue("В задании должено быть не более 6и классов", unitClasses.length <= 6);
-        validateCode(codes.entrySet().iterator().next().getValue());
 
         Class unitClass = getUnitClass(unitClasses, UNIT_NAME);
         assertNotNull("В задании не найден класс " + UNIT_NAME, unitClass);
+        CodeValidator.checkCode(unitClass.getName());
 
         Method methodPut = ReflectionUtil.checkMethod(unitClass, PARK_METHOD_NAME, "int",
                 new MethodModifier[]{MethodModifier.PUBLIC}, "Car");

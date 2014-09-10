@@ -2,6 +2,7 @@ package ua.com.jon.tests;
 
 import com.jon.tron.service.executor.RemoteMethodInvoker;
 import com.jon.tron.service.junit.*;
+import com.jon.tron.service.processor.CodeValidator;
 import com.jon.tron.service.reflect.ReflectionUtil;
 import org.junit.*;
 import org.junit.runners.MethodSorters;
@@ -15,6 +16,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
+import static junit.framework.TestCase.assertNotNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
@@ -83,9 +85,9 @@ public class B3FileSorterTest extends BaseTest {
 
     @Test(timeout = 1100)
     public void test() throws Throwable {
-        assertTrue("В задании должен быть один класс", unitClasses != null && classCodes != null &&
-                unitClasses.length == 1 && classCodes.length == 1);
-        validateCodeFile(codes.entrySet().iterator().next().getValue());
+        assertTrue("В задании должно быть не более 1го класса", unitClasses.length == 1);
+
+        CodeValidator.checkCodeFile(codes.entrySet().iterator().next().getValue());
         unitMethod = ReflectionUtil.checkMainMethod(unitClasses[0]);
     }
 

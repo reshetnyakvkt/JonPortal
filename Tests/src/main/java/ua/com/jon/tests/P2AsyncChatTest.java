@@ -4,6 +4,7 @@ import com.jon.tron.service.junit.Unit;
 import com.jon.tron.service.junit.UnitClass;
 import com.jon.tron.service.junit.UnitCode;
 import com.jon.tron.service.junit.UnitName;
+import com.jon.tron.service.processor.CodeValidator;
 import com.jon.tron.service.reflect.MethodModifier;
 import com.jon.tron.service.reflect.ReflectionUtil;
 import org.junit.After;
@@ -64,7 +65,7 @@ public class P2AsyncChatTest extends BaseTest {
 
         unitClass = getUnitClass(unitClasses, UNIT_NAME);
         assertNotNull("В задании не найден класс " + UNIT_NAME, unitClass);
-        validateCodeFileThreadNet(codes.get(unitClass.getName()));
+        CodeValidator.checkCodeFileThreadNet(codes.get(unitClass.getName()));
         ReflectionUtil.checkConstructor(unitClass);
 
         instance = instanciate(unitClass);

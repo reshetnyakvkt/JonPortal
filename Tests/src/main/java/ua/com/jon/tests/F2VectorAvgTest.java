@@ -4,6 +4,7 @@ import com.jon.tron.service.junit.Unit;
 import com.jon.tron.service.junit.UnitClass;
 import com.jon.tron.service.junit.UnitCode;
 import com.jon.tron.service.junit.UnitName;
+import com.jon.tron.service.processor.CodeValidator;
 import com.jon.tron.service.reflect.MethodModifier;
 import com.jon.tron.service.reflect.ReflectionUtil;
 import org.junit.After;
@@ -73,7 +74,7 @@ public class F2VectorAvgTest extends BaseTest {
     @Test(timeout = 1000)
     public void testCheckUnitMethod() throws Throwable {
         assertTrue("В задании должен быть только один класс", unitClasses.length == 1);
-        validateCode(codes.entrySet().iterator().next().getValue());
+        CodeValidator.checkCode(codes.entrySet().iterator().next().getValue());
         instance = instanciate(unitClasses[0]);
         unitMethod = ReflectionUtil.checkMethod(unitClasses[0], UNIT_METHOD_NAME, int.class,
                 new MethodModifier[]{MethodModifier.PUBLIC}, int[].class);

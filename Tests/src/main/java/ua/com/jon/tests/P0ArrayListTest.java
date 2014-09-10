@@ -4,6 +4,7 @@ import com.jon.tron.service.junit.Unit;
 import com.jon.tron.service.junit.UnitClass;
 import com.jon.tron.service.junit.UnitCode;
 import com.jon.tron.service.junit.UnitName;
+import com.jon.tron.service.processor.CodeValidator;
 import com.jon.tron.service.reflect.MethodModifier;
 import com.jon.tron.service.reflect.ReflectionUtil;
 import org.junit.*;
@@ -30,7 +31,7 @@ import static org.junit.Assert.assertTrue;
 - boolean add(int index, int value)
 - int indexOf(int value)
 - int size()
-- boolean remove(int index)
+- int remove(int index)
  */
 @Unit(testName = "P0ArrayListTest", value = "weekend1.task1")
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
@@ -199,10 +200,10 @@ public class P0ArrayListTest extends BaseTest {
     @Test(timeout = 1100)
     public void test() throws Throwable {
         assertTrue("В задании должен быть 1 класс", unitClasses.length == 1);
-        validateCode(codes.entrySet().iterator().next().getValue());
 
-        Class unitClass = unitClasses[0];
+        Class unitClass = getUnitClass(unitClasses, UNIT_NAME);
         assertNotNull("В задании не найден класс " + UNIT_NAME, unitClass);
+        CodeValidator.checkCode(unitClass.getName());
 
         instance = instanciate(unitClass);
         addMethod = ReflectionUtil.checkMethod(unitClass, ADD_METHOD_NAME, void.class,

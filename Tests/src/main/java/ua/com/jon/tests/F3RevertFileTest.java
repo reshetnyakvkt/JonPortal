@@ -2,6 +2,7 @@ package ua.com.jon.tests;
 
 import com.jon.tron.service.executor.RemoteMethodInvoker;
 import com.jon.tron.service.junit.*;
+import com.jon.tron.service.processor.CodeValidator;
 import com.jon.tron.service.reflect.MethodModifier;
 import com.jon.tron.service.reflect.ReflectionUtil;
 import org.junit.After;
@@ -82,7 +83,7 @@ public class F3RevertFileTest extends BaseTest {
     public void testCheckMainMethod() throws Throwable {
         assertTrue("В задании должен быть один класс", unitClasses != null && classCodes != null &&
                 unitClasses.length == 1 && classCodes.length == 1);
-        validateCodeFile(codes.entrySet().iterator().next().getValue());
+        CodeValidator.checkCodeFile(codes.entrySet().iterator().next().getValue());
 //        instance = instanciate(unitClasses[0]);
         unitMethod = ReflectionUtil.checkMainMethod(unitClasses[0]);
     }

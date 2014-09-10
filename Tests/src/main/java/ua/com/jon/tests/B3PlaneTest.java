@@ -4,6 +4,7 @@ import com.jon.tron.service.junit.Unit;
 import com.jon.tron.service.junit.UnitClass;
 import com.jon.tron.service.junit.UnitCode;
 import com.jon.tron.service.junit.UnitName;
+import com.jon.tron.service.processor.CodeValidator;
 import com.jon.tron.service.reflect.MethodModifier;
 import com.jon.tron.service.reflect.ReflectionUtil;
 import org.junit.After;
@@ -76,7 +77,7 @@ public class B3PlaneTest extends BaseTest {
     @Test(timeout = 1100)
     public void test() throws Throwable {
         assertTrue("В задании должно быть не более 2х классов", unitClasses.length <= 2);
-        validateCode(codes.entrySet().iterator().next().getValue());
+        CodeValidator.checkCode(codes.entrySet().iterator().next().getValue());
 
         Class planeClass = getUnitClass(unitClasses, PLANE_NAME);
         assertNotNull("В задании не найден класс " + PLANE_NAME, planeClass);

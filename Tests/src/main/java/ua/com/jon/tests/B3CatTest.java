@@ -4,6 +4,7 @@ import com.jon.tron.service.junit.Unit;
 import com.jon.tron.service.junit.UnitClass;
 import com.jon.tron.service.junit.UnitCode;
 import com.jon.tron.service.junit.UnitName;
+import com.jon.tron.service.processor.CodeValidator;
 import com.jon.tron.service.reflect.MethodModifier;
 import com.jon.tron.service.reflect.ReflectionUtil;
 import org.junit.After;
@@ -86,12 +87,13 @@ public class B3CatTest extends BaseTest {
     @Test(timeout = 1100)
     public void test() throws Throwable {
         assertTrue("В задании должно быть не более 2х классов", unitClasses.length <= 2);
-        validateCode(codes.entrySet().iterator().next().getValue());
 
         Class catClass = getUnitClass(unitClasses, CAT_NAME);
         assertNotNull("В задании не найден класс " + CAT_NAME, catClass);
+        CodeValidator.checkCode(catClass.getName());
         Class animalClass = getUnitClass(unitClasses, ANIMAL_NAME);
         assertNotNull("В задании не найден класс " + ANIMAL_NAME, animalClass);
+        CodeValidator.checkCode(animalClass.getName());
 
 //        animal = instanciate(animalClass);
         instance = instanciate(catClass);

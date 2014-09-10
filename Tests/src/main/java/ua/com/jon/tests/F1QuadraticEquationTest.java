@@ -4,6 +4,7 @@ import com.jon.tron.service.junit.Unit;
 import com.jon.tron.service.junit.UnitClass;
 import com.jon.tron.service.junit.UnitCode;
 import com.jon.tron.service.junit.UnitName;
+import com.jon.tron.service.processor.CodeValidator;
 import com.jon.tron.service.reflect.ReflectionUtil;
 import org.junit.*;
 import org.junit.runners.MethodSorters;
@@ -90,7 +91,7 @@ public class F1QuadraticEquationTest extends BaseTest {
     @Test(timeout = 1000)
     public void testCheckMainMethod() throws Throwable {
         assertTrue("В задании должен быть только один класс", unitClasses.length == 1);
-        validateCode(codes.entrySet().iterator().next().getValue());
+        CodeValidator.checkCode(codes.entrySet().iterator().next().getValue());
         instance = instanciate(unitClasses[0]);
         unitMethod = ReflectionUtil.checkMainMethod(unitClasses[0]);
     }

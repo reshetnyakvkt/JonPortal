@@ -4,6 +4,7 @@ import com.jon.tron.service.junit.Unit;
 import com.jon.tron.service.junit.UnitClass;
 import com.jon.tron.service.junit.UnitCode;
 import com.jon.tron.service.junit.UnitName;
+import com.jon.tron.service.processor.CodeValidator;
 import com.jon.tron.service.reflect.MethodModifier;
 import com.jon.tron.service.reflect.ReflectionUtil;
 import org.junit.After;
@@ -39,8 +40,8 @@ import static org.junit.Assert.assertTrue;
 @Unit(testName = "P0ArrayListGenericTest", value = "weekend1.task1")
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class P0ArrayListGenericTest extends BaseTest {
-    private static final int MAX_VALUE = 10;
-    private static final int MIN_VALUE = 1;
+    public static final int MAX_VALUE = 10;
+    public static final int MIN_VALUE = 1;
 
 //    import java.util.Arrays;
 //    import java.util.Iterator;
@@ -131,6 +132,15 @@ public class P0ArrayListGenericTest extends BaseTest {
             return -1;
         }
 
+        public int parallelIndexOf(E element) {
+            for (int i = 0; i < myArray.length; i++) {
+                if (myArray[i].equals(element)) {
+                    return i;
+                }
+            }
+            return -1;
+        }
+
         public boolean contains(Integer element) {
             for (int i = 0; i < myArray.length; i++) {
                 if (myArray[i] == element) {
@@ -181,9 +191,11 @@ public class P0ArrayListGenericTest extends BaseTest {
             };
         }
     }
+    class MyArrayListTest {}
 
 
     private static final String UNIT_NAME = "MyArrayList";
+    private static final String TEST_NAME = "MyArrayListTest";
     private static final String ADD_METHOD_NAME = "add";
     private static final String ADD2_METHOD_NAME = "add";
     private static final String GET_METHOD_NAME = "get";
@@ -194,16 +206,16 @@ public class P0ArrayListGenericTest extends BaseTest {
     private static final String ITERATOR_METHOD_NAME = "iterator";
 
     @UnitCode
-    private static Map<String, String> codes;
+    protected static Map<String, String> codes;
     @UnitClass
-    private static Class[] unitClasses;
+    protected static Class[] unitClasses;
     @UnitName
-    private static String[] unitNames;
+    protected static String[] unitNames;
     @Unit
-    private static String unitJarClasspath;
+    protected static String unitJarClasspath;
 
     private static Object instance;
-    private static Method addMethod;
+    protected static Method addMethod;
     private static Method add2Method;
     private static Method getMethod;
     private static Method setMethod;
@@ -224,11 +236,14 @@ public class P0ArrayListGenericTest extends BaseTest {
 
     @Test(timeout = 1100)
     public void test() throws Throwable {
-        assertTrue("В задании должен не более 2х классов", unitClasses.length <= 2);
-        validateCode(codes.entrySet().iterator().next().getValue());
+        assertTrue("В задании должен не более 3х классов", unitClasses.length <= 3);
 
-        Class unitClass = unitClasses[0];
+        Class testClass = getUnitClass(unitClasses, TEST_NAME);
+        assertNotNull("В задании не найден класс теста " + TEST_NAME, testClass);
+
+        Class unitClass = getUnitClass(unitClasses, UNIT_NAME);
         assertNotNull("В задании не найден класс " + UNIT_NAME, unitClass);
+        CodeValidator.checkCode(codes.get(unitClass.getName()));
 
         instance = instanciate(unitClass);
         ReflectionUtil.checkHasParent(unitClass, "Iterable");

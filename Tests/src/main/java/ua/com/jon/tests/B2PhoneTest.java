@@ -4,6 +4,7 @@ import com.jon.tron.service.junit.Unit;
 import com.jon.tron.service.junit.UnitClass;
 import com.jon.tron.service.junit.UnitCode;
 import com.jon.tron.service.junit.UnitName;
+import com.jon.tron.service.processor.CodeValidator;
 import com.jon.tron.service.reflect.MethodModifier;
 import com.jon.tron.service.reflect.ReflectionUtil;
 import org.junit.After;
@@ -75,7 +76,7 @@ public class B2PhoneTest extends BaseTest {
     @Test(timeout = 1100)
     public void testCheckMainMethod() throws Throwable {
         assertTrue("В задании должен быть только один класс", unitClasses.length == 1);
-        validateCode(codes.entrySet().iterator().next().getValue());
+        CodeValidator.checkCode(codes.entrySet().iterator().next().getValue());
 
         Class unitClass = getUnitClass(unitClasses, UNIT_NAME);
         assertNotNull("В задании не найден класс " + UNIT_NAME, unitClass);
