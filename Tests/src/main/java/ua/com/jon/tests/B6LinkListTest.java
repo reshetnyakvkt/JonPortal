@@ -31,7 +31,7 @@ import static org.junit.Assert.assertTrue;
  6. Поменять местами наибольший и наименьший элементы, в случае если реализован интерфейс Comparable, метод void swapMaxMin()
  7. Частично упорядочить элементы списка, в случае если реализован интерфейс Comparable, метод void sortPartial(int index)
  8. Сравнение двух списков, метод boolean equals(LinkList list)
- 9. Сложение двух списков, метод LinkList concat(LinkList first, LinkList second)
+ 9. Сложение двух списков, метод LinkList concat(LinkList list)
  10*. Отсортировать список, в случае если реализован интерфейс Comparable, метод void sort()
  11*. Удалить повторяющиеся элементы из списка, в случае если реализован интерфейс Comparable, метод boolean removeDuplicates()
  */

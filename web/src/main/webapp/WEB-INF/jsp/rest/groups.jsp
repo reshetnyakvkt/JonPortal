@@ -31,6 +31,16 @@
                     </task>
                 </c:forEach>
             </tasks>
+            <users>
+                <c:forEach var="user" items="${group.users}">
+                    <user>
+                        <id>${user.id}</id>
+                        <userName>${user.userName}</userName>
+                        <admin>${user.admin}</admin>
+                        <ignore>${user.ignore}</ignore>
+                    </user>
+                </c:forEach>
+            </users>
         </group>
     </c:forEach>
 </groups>

@@ -5373,3 +5373,16 @@ a.label:hover, a.badge:hover {
 .affix {
     position: fixed
 }
+
+
+
+/*new*/
+
+.row-fluid > div {
+    box-shadow: 0px 0px 15px -3px;
+}
+
+.row-fluid > div:hover{
+    box-shadow: 0px 0px 15px 0px;
+    transition: 0.5s;
+}

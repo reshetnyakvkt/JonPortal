@@ -17,10 +17,10 @@
 </head>
 <body onload='document.lform.j_username.focus();'>
 
-<%@include file="header.jsp" %>
 
 <div id="container" class="container-fluid">
 
+    <%@include file="header.jsp" %>
     <div class="row-fluid">
         <div class="span3 well">
             <h4 class="error">Вход</h4>
@@ -65,7 +65,9 @@
             <div class="well">
                 <h3>Новости</h3>
 
-                <p><a href="http://www.jon.com.ua/trainings/nedocode.html">Добавлена статья "Вредоносный код"</a></p>
+                <p>Улучшен дизайн открытой части портала (Благодаря Stefan &#0169;)</p>
+
+                <p><a href="/trainings/nedocode.html">Добавлена статья "Вредоносный код"</a></p>
 
                 <p>Закончена миграци на Git</p>
 

@@ -49,7 +49,7 @@ public class RestService {
     }
 
     public List<GroupDTO> getActiveGroupsDtoWithTasks() {
-        List<Group> groups = groupRepository.findActiveGroupAndTestTasks();
+        List<Group> groups = groupRepository.findActiveGroupAndTasksAndUsers();
         if(groups == null) {
             return Collections.emptyList();
         }

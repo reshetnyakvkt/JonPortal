@@ -95,7 +95,7 @@ public class F2VectorHalfSwapperTest extends BaseTest {
         int to = generateInt(7, 10);
         int[] expectedVector = generateVector(from, to);
         ReflectionUtil.invokeMethod(instance, unitMethod, expectedVector.clone());
-        expectedVector = swapHalvesSup(expectedVector);
+        swapHalvesSup(expectedVector);
         String actualVector = getIn().toString().trim();
 
         assertTrue("В задании должен выполняться вывод текста ", !actualVector.isEmpty());
@@ -175,10 +175,12 @@ public class F2VectorHalfSwapperTest extends BaseTest {
     }
 
     private int[] swapHalvesSup(int[] vector) {
-        int[] newVector = new int[vector.length];
+//        int[] newVector = new int[vector.length];
         for (int i = 0, j = vector.length / 2; i < vector.length / 2; i++, j++) {
-            newVector[j] = vector[i];
+            int tmp = vector[j];
+            vector[j] = vector[i];
+            vector[i] = tmp;
         }
-        return newVector;
+        return vector;
     }
 }

@@ -175,7 +175,7 @@ public class AdminServiceImpl implements AdminService {
         groups.add(group);
         Set<UserRole> roles = new HashSet<UserRole>();
         for (String userName : nameSet) {
-            users.add(new User(userName, null, new Date(), groups, roles));
+            users.add(new User(userName, null, new Date(), groups, roles, false));
         }
         groupRepository.save(group);
         return group;
@@ -339,7 +339,7 @@ public class AdminServiceImpl implements AdminService {
             Set<Group> groups = new HashSet<Group>();
             groups.add(group);
             HashSet<UserRole> roles = new HashSet<UserRole>();
-            user = new User(userName, null, new Date(), groups, roles);
+            user = new User(userName, null, new Date(), groups, roles, false);
         }
         group.getUsers().add(user);
         user.getGroups().add(group);
@@ -374,7 +374,7 @@ public class AdminServiceImpl implements AdminService {
         Set<UserRole> roles = new HashSet<UserRole>();
         for (UserDTO user : users) {
             if (user.getId() == null) {
-                User newUser = new User(user.getName(), null, new Date(), userGroups, roles);
+                User newUser = new User(user.getName(), null, new Date(), userGroups, roles, false);
                 newUsers.add(newUser);
                 userRepository.save(newUser);
             }

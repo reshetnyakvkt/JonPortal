@@ -20,21 +20,17 @@ import static junit.framework.TestCase.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
 /**
- Пользователь вводит количество сортируемых чисел, затем вводит числа.
- Отсортировать введенные числа методом Шелла.
- Метод void sortShell(int[] vector)
-
- Класс задания: hw5.shell.ShellSorter
+ Написать метод, выполняющий двоичный поиск (не рекурсивный) элемента в массиве.
  */
-@Unit(testName = "B4ShellSortTest", value = "weekend1.task1")
+@Unit(testName = "B7BinarySearchTest", value = "hw8.bsearch.BinarySearcher")
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
-public class B4ShellSortTest extends BaseTest {
-    public class ShellSorter {
-        public void sortShell(int[] vector) {}
+public class B7BinarySearchTest extends BaseTest {
+    class BinarySearcher {
+        public void binarySearch(int[] vector) {
+        }
     }
-
-    private static final String UNIT_NAME = "ShellSorter";
-    private static final String SORT_METHOD_NAME = "sortShell";
+    private static final String UNIT_NAME = "BinarySearcher";
+    private static final String SEARCH_METHOD_NAME = "binarySearch";
 
     @UnitCode
     private static Map<String, String> codes;
@@ -46,8 +42,7 @@ public class B4ShellSortTest extends BaseTest {
     private static String unitJarClasspath;
 
     private static Object instance;
-    private static Method getMethod;
-    private static Method addMethod;
+    private static Method method;
 
     @Before
     public void setUp() {
@@ -65,12 +60,11 @@ public class B4ShellSortTest extends BaseTest {
 
         Class unitClass = getUnitClass(unitClasses, UNIT_NAME);
         assertNotNull("В задании не найден класс " + UNIT_NAME, unitClass);
+
         CodeValidator.checkCode(codes.get(unitClass.getName()));
         ReflectionUtil.checkConstructor(unitClass);
-//        ReflectionUtil.checkConstructor(unitClass, "");
 
-        addMethod = ReflectionUtil.checkMethod(unitClass, SORT_METHOD_NAME, void.class,
-                new MethodModifier[]{MethodModifier.PUBLIC}, int[].class);
+        ReflectionUtil.checkMethod(unitClass, SEARCH_METHOD_NAME, void.class,
+                new MethodModifier[]{MethodModifier.PUBLIC}, int[].class, int.class);
     }
-
 }

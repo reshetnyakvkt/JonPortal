@@ -19,7 +19,7 @@ public class GroupDtoMapper {
     }
 
     public static ua.com.jon.common.dto.GroupDTO domainToCommonDto(Group group) {
-        return new ua.com.jon.common.dto.GroupDTO(group.getId(), null, group.getName(), group.isActive(),
+        return new ua.com.jon.common.dto.GroupDTO(group.getId(), null, null,group.getName(), group.isActive(),
                 group.getRepositoryUrl(), group.getCode());
     }
 
@@ -38,7 +38,7 @@ public class GroupDtoMapper {
     public static List<ua.com.jon.common.dto.GroupDTO> domainToCommonDtos(List<Group> groups) {
         List<ua.com.jon.common.dto.GroupDTO> groupDTOs = new ArrayList<ua.com.jon.common.dto.GroupDTO>(groups.size());
         for (Group group : groups) {
-            groupDTOs.add(new ua.com.jon.common.dto.GroupDTO(group.getId(), null, group.getName(),
+            groupDTOs.add(new ua.com.jon.common.dto.GroupDTO(group.getId(), null, null, group.getName(),
                     group.isActive(), group.getRepositoryUrl(), group.getCode()));
         }
         return groupDTOs;

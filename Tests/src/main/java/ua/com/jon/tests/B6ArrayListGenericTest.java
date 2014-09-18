@@ -69,10 +69,13 @@ public class B6ArrayListGenericTest extends P0ArrayListGenericTest {
 
         Class unitClass = getUnitClass(unitClasses, UNIT_NAME);
         assertNotNull("В задании не найден класс " + UNIT_NAME, unitClass);
-        CodeValidator.checkCodeFileThread(codes.get(unitClass.getName()));
+        CodeValidator.checkCode(codes.get(unitClass.getName()));
         ReflectionUtil.checkConstructor(unitClass);
+        instance = instanciate(unitClass);
+        ReflectionUtil.checkHasGeneric(unitClass, "E");
     }
 
+/*
     @Test(timeout = 1100)
     public void testAdd() throws Throwable {
         super.testAdd();
@@ -106,5 +109,10 @@ public class B6ArrayListGenericTest extends P0ArrayListGenericTest {
     @Test(timeout = 1100)
     public void testRemove() throws Throwable {
         super.testRemove();
+    }
+
+*/
+    public void testIterator() throws Throwable {
+
     }
 }

@@ -77,10 +77,10 @@ public class B3PlaneTest extends BaseTest {
     @Test(timeout = 1100)
     public void test() throws Throwable {
         assertTrue("В задании должно быть не более 2х классов", unitClasses.length <= 2);
-        CodeValidator.checkCode(codes.entrySet().iterator().next().getValue());
 
         Class planeClass = getUnitClass(unitClasses, PLANE_NAME);
         assertNotNull("В задании не найден класс " + PLANE_NAME, planeClass);
+        CodeValidator.checkCode(codes.get(planeClass.getName()));
         Class wingClass = getUnitClass(unitClasses, WING_NAME);
         assertNotNull("В задании не найден класс " + WING_NAME, wingClass);
 

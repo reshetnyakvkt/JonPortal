@@ -3,6 +3,9 @@
              xmlns:g="urn:import:com.google.gwt.user.client.ui"
              xmlns:b="urn:import:com.github.gwtbootstrap.client.ui">
     <g:HTMLPanel ui:field="basePanel">
+<!--        <b:Row>
+            <b:Button ui:field='refreshTasksBtn' type="DEFAULT">Обновить задания</b:Button>
+        </b:Row>-->
         <b:Container>
 <!--            <b:Container>
                 <b:Heading size="4" ui:field="userName"/>
@@ -19,6 +22,9 @@
                 <b:TabPane heading="Группа">
                     <g:FlowPanel ui:field="groupInfoHolderPanel"/>
                 </b:TabPane>
+                <b:TabLink ui:field="admin" href="/admin/index.html">
+                    <!--<b:Button ui:field="admin"/>-->
+                </b:TabLink>
             </b:TabPanel>
         </b:Container>
     </g:HTMLPanel>

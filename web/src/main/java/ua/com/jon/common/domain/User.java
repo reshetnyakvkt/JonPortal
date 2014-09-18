@@ -47,18 +47,19 @@ public class User {
     @Enumerated(EnumType.STRING)
     private Set<UserRole> roles = new HashSet<UserRole>();
 
-    @Column(length=1, nullable=false, columnDefinition="bit(1) default '0'")
-    private Boolean ignore;
+    @Column(name="IGNORE_STATISTIC", length=1, nullable=false, columnDefinition="bit(1) default '0'")
+    private Boolean ignore = false;
 
     public User() {
     }
 
-    public User(String login, String password, Date regDate, Set<Group> groups, Set<UserRole>  roles) {
+    public User(String login, String password, Date regDate, Set<Group> groups, Set<UserRole> roles, boolean ignore) {
         this.login = login;
         this.password = password;
         this.regDate = regDate;
         this.groups = groups;
         this.roles = roles;
+        this.ignore = ignore;
     }
 
     public boolean isAdmin() {

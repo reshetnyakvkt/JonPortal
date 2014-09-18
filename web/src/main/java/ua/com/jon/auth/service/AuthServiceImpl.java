@@ -9,7 +9,6 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.provisioning.UserDetailsManager;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.client.ResourceAccessException;
 import ua.com.jon.auth.domain.AssemblaSpace;
 import ua.com.jon.auth.domain.AssemblaSpaces;
@@ -208,13 +207,13 @@ public class AuthServiceImpl implements UserDetailsService, AuthService, UserDet
         for (Group group : groupIter) {
             groupSet.add(group);
         }
-        User user = new User(login, password, new Date(), groupSet, Collections.singleton(UserRole.USER));
+        User user = new User(login, password, new Date(), groupSet, Collections.singleton(UserRole.USER), false);
         return userRepository.save(user);
     }
 
     @Override
     public User createNewUser(String login, String password) {
-        User user = new User(login, password, new Date(), null, Collections.singleton(UserRole.USER));
+        User user = new User(login, password, new Date(), null, Collections.singleton(UserRole.USER), false);
         return userRepository.save(user);
     }
 

@@ -11,6 +11,7 @@ import java.util.HashMap;
 public class UserDTO implements Serializable {
 
     private String login;
+    private Boolean isAdmin;
     private HashMap<String, Integer> marks;
     private HashMap<String, Boolean> presents;
 

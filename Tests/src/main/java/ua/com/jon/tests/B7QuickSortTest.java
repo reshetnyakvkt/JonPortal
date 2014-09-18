@@ -7,6 +7,7 @@ import com.jon.tron.service.junit.UnitName;
 import com.jon.tron.service.processor.CodeValidator;
 import com.jon.tron.service.reflect.MethodModifier;
 import com.jon.tron.service.reflect.ReflectionUtil;
+import hw8.sort.User;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.FixMethodOrder;
@@ -20,21 +21,19 @@ import static junit.framework.TestCase.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
 /**
- Пользователь вводит количество сортируемых чисел, затем вводит числа.
- Отсортировать введенные числа методом Шелла.
- Метод void sortShell(int[] vector)
+ Написать метод быстрой сортировки для массива студентов по оценкам, от отличников к двоечникам.
+ void sort(Student[] students)
 
- Класс задания: hw5.shell.ShellSorter
+ Студент (имя, фамилия, отчество, оценки по викендам).
+ Оценки по викендам представляют собой массив целых чисел.
+
+ Классы задания: hw8.sort.QuickSorter, hw8.sort.Student
  */
-@Unit(testName = "B4ShellSortTest", value = "weekend1.task1")
+@Unit(testName = "B7QuickSortTest", value = "hw8.sort.QuickSorter, hw8.sort.User")
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
-public class B4ShellSortTest extends BaseTest {
-    public class ShellSorter {
-        public void sortShell(int[] vector) {}
-    }
-
-    private static final String UNIT_NAME = "ShellSorter";
-    private static final String SORT_METHOD_NAME = "sortShell";
+public class B7QuickSortTest extends BaseTest {
+    private static final String UNIT_NAME = "QuickSorter";
+    private static final String SORT_METHOD_NAME = "sort";
 
     @UnitCode
     private static Map<String, String> codes;
@@ -46,8 +45,7 @@ public class B4ShellSortTest extends BaseTest {
     private static String unitJarClasspath;
 
     private static Object instance;
-    private static Method getMethod;
-    private static Method addMethod;
+    private static Method method;
 
     @Before
     public void setUp() {
@@ -67,10 +65,8 @@ public class B4ShellSortTest extends BaseTest {
         assertNotNull("В задании не найден класс " + UNIT_NAME, unitClass);
         CodeValidator.checkCode(codes.get(unitClass.getName()));
         ReflectionUtil.checkConstructor(unitClass);
-//        ReflectionUtil.checkConstructor(unitClass, "");
 
-        addMethod = ReflectionUtil.checkMethod(unitClass, SORT_METHOD_NAME, void.class,
-                new MethodModifier[]{MethodModifier.PUBLIC}, int[].class);
+        ReflectionUtil.checkMethod(unitClass, SORT_METHOD_NAME, void.class,
+                new MethodModifier[]{MethodModifier.PUBLIC}, User[].class);
     }
-
 }

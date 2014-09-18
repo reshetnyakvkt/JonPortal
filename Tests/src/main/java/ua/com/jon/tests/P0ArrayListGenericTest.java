@@ -214,15 +214,15 @@ public class P0ArrayListGenericTest extends BaseTest {
     @Unit
     protected static String unitJarClasspath;
 
-    private static Object instance;
-    protected static Method addMethod;
-    private static Method add2Method;
-    private static Method getMethod;
-    private static Method setMethod;
-    private static Method indexOfMethod;
-    private static Method sizeMethod;
-    private static Method removeMethod;
-    private static Method iteratorMethod;
+    protected Object instance;
+    protected Method addMethod;
+    protected Method add2Method;
+    protected Method getMethod;
+    protected Method setMethod;
+    protected Method indexOfMethod;
+    protected Method sizeMethod;
+    protected Method removeMethod;
+    protected Method iteratorMethod;
 
     @Before
     public void setUp() {
@@ -248,28 +248,30 @@ public class P0ArrayListGenericTest extends BaseTest {
         instance = instanciate(unitClass);
         ReflectionUtil.checkHasParent(unitClass, "Iterable");
         ReflectionUtil.checkHasGeneric(unitClass, "E");
-        addMethod = ReflectionUtil.checkMethod(unitClass, ADD_METHOD_NAME, void.class,
+        ReflectionUtil.checkMethod(unitClass, ADD_METHOD_NAME, void.class,
                 new MethodModifier[]{MethodModifier.PUBLIC}, Object.class);
-        add2Method = ReflectionUtil.checkMethod(unitClass, ADD2_METHOD_NAME, boolean.class,
+        ReflectionUtil.checkMethod(unitClass, ADD2_METHOD_NAME, boolean.class,
                 new MethodModifier[]{MethodModifier.PUBLIC}, int.class, Object.class);
-        getMethod = ReflectionUtil.checkMethod(unitClass, GET_METHOD_NAME, Object.class,
+        ReflectionUtil.checkMethod(unitClass, GET_METHOD_NAME, Object.class,
                 new MethodModifier[]{MethodModifier.PUBLIC}, int.class);
-        setMethod = ReflectionUtil.checkMethod(unitClass, SET_METHOD_NAME, boolean.class,
+        ReflectionUtil.checkMethod(unitClass, SET_METHOD_NAME, boolean.class,
                 new MethodModifier[]{MethodModifier.PUBLIC}, int.class, Object.class);
-        indexOfMethod = ReflectionUtil.checkMethod(unitClass, INDEX_OF_METHOD_NAME, int.class,
+        ReflectionUtil.checkMethod(unitClass, INDEX_OF_METHOD_NAME, int.class,
                 new MethodModifier[]{MethodModifier.PUBLIC}, Object.class);
-        sizeMethod = ReflectionUtil.checkMethod(unitClass, SIZE_METHOD_NAME, int.class,
+        ReflectionUtil.checkMethod(unitClass, SIZE_METHOD_NAME, int.class,
                 new MethodModifier[]{MethodModifier.PUBLIC});
-        removeMethod = ReflectionUtil.checkMethod(unitClass, REMOVE_METHOD_NAME, Object.class,
+        ReflectionUtil.checkMethod(unitClass, REMOVE_METHOD_NAME, Object.class,
                 new MethodModifier[]{MethodModifier.PUBLIC}, int.class);
-        iteratorMethod = ReflectionUtil.checkMethod(unitClass, ITERATOR_METHOD_NAME, Iterator.class,
+        ReflectionUtil.checkMethod(unitClass, ITERATOR_METHOD_NAME, Iterator.class,
                 new MethodModifier[]{MethodModifier.PUBLIC});
     }
 
     @Test(timeout = 1100)
     public void testAdd() throws Throwable {
-        Class unitClass = unitClasses[0];
+        Class unitClass = getUnitClass(unitClasses, UNIT_NAME);
         instance = instanciate(unitClass);
+        addMethod = ReflectionUtil.checkMethod(unitClass, ADD_METHOD_NAME, void.class,
+                new MethodModifier[]{MethodModifier.PUBLIC}, Object.class);
         if (instance == null || addMethod == null) {
             fail();
         }
@@ -289,8 +291,10 @@ public class P0ArrayListGenericTest extends BaseTest {
 
     @Test(timeout = 1100)
     public void testAdd2() throws Throwable {
-        Class unitClass = unitClasses[0];
+        Class unitClass = getUnitClass(unitClasses, UNIT_NAME);
         instance = instanciate(unitClass);
+        add2Method = ReflectionUtil.checkMethod(unitClass, ADD2_METHOD_NAME, boolean.class,
+                new MethodModifier[]{MethodModifier.PUBLIC}, int.class, Object.class);
         if (instance == null || add2Method == null) {
             fail();
         }
@@ -311,7 +315,8 @@ public class P0ArrayListGenericTest extends BaseTest {
 
     private Integer getElementFromList(int index) throws IllegalAccessException, InvocationTargetException, NoSuchMethodException {
         List<Field> array = new ArrayList<Field>();
-        Field[] fields = instance.getClass().getDeclaredFields();
+        Class unitClass = getUnitClass(unitClasses, UNIT_NAME);
+        Field[] fields = unitClass.getDeclaredFields();
         for (Field field : fields) {
             if (field.getType() == Object[].class) {
                 field.setAccessible(true);
@@ -340,8 +345,12 @@ public class P0ArrayListGenericTest extends BaseTest {
 
     @Test(timeout = 1100)
     public void testGet() throws Throwable {
-        Class unitClass = unitClasses[0];
+        Class unitClass = getUnitClass(unitClasses, UNIT_NAME);
         instance = instanciate(unitClass);
+        getMethod = ReflectionUtil.checkMethod(unitClass, GET_METHOD_NAME, Object.class,
+                new MethodModifier[]{MethodModifier.PUBLIC}, int.class);
+        addMethod = ReflectionUtil.checkMethod(unitClass, ADD_METHOD_NAME, void.class,
+                new MethodModifier[]{MethodModifier.PUBLIC}, Object.class);
         if (instance == null || getMethod == null) {
             fail();
         }
@@ -360,8 +369,14 @@ public class P0ArrayListGenericTest extends BaseTest {
 
     @Test(timeout = 1100)
     public void testSet() throws Throwable {
-        Class unitClass = unitClasses[0];
+        Class unitClass = getUnitClass(unitClasses, UNIT_NAME);
         instance = instanciate(unitClass);
+        setMethod = ReflectionUtil.checkMethod(unitClass, SET_METHOD_NAME, boolean.class,
+                new MethodModifier[]{MethodModifier.PUBLIC}, int.class, Object.class);
+        addMethod = ReflectionUtil.checkMethod(unitClass, ADD_METHOD_NAME, void.class,
+                new MethodModifier[]{MethodModifier.PUBLIC}, Object.class);
+        getMethod = ReflectionUtil.checkMethod(unitClass, GET_METHOD_NAME, Object.class,
+                new MethodModifier[]{MethodModifier.PUBLIC}, int.class);
         if (instance == null || setMethod == null) {
             fail();
         }
@@ -384,8 +399,12 @@ public class P0ArrayListGenericTest extends BaseTest {
 
     @Test(timeout = 1100)
     public void testIndexOf() throws Throwable {
-        Class unitClass = unitClasses[0];
+        Class unitClass = getUnitClass(unitClasses, UNIT_NAME);
         instance = instanciate(unitClass);
+        indexOfMethod = ReflectionUtil.checkMethod(unitClass, INDEX_OF_METHOD_NAME, int.class,
+                new MethodModifier[]{MethodModifier.PUBLIC}, Object.class);
+        addMethod = ReflectionUtil.checkMethod(unitClass, ADD_METHOD_NAME, void.class,
+                new MethodModifier[]{MethodModifier.PUBLIC}, Object.class);
         if (instance == null || indexOfMethod == null) {
             fail();
         }
@@ -408,8 +427,12 @@ public class P0ArrayListGenericTest extends BaseTest {
 
     @Test(timeout = 1100)
     public void testSize() throws Throwable {
-        Class unitClass = unitClasses[0];
+        Class unitClass = getUnitClass(unitClasses, UNIT_NAME);
         instance = instanciate(unitClass);
+        sizeMethod = ReflectionUtil.checkMethod(unitClass, SIZE_METHOD_NAME, int.class,
+                new MethodModifier[]{MethodModifier.PUBLIC});
+        addMethod = ReflectionUtil.checkMethod(unitClass, ADD_METHOD_NAME, void.class,
+                new MethodModifier[]{MethodModifier.PUBLIC}, Object.class);
         if (instance == null || sizeMethod == null) {
             fail();
         }
@@ -428,8 +451,14 @@ public class P0ArrayListGenericTest extends BaseTest {
 
     @Test(timeout = 1100)
     public void testRemove() throws Throwable {
-        Class unitClass = unitClasses[0];
+        Class unitClass = getUnitClass(unitClasses, UNIT_NAME);
         instance = instanciate(unitClass);
+        removeMethod = ReflectionUtil.checkMethod(unitClass, REMOVE_METHOD_NAME, Object.class,
+                new MethodModifier[]{MethodModifier.PUBLIC}, int.class);
+        addMethod = ReflectionUtil.checkMethod(unitClass, ADD_METHOD_NAME, void.class,
+                new MethodModifier[]{MethodModifier.PUBLIC}, Object.class);
+        sizeMethod = ReflectionUtil.checkMethod(unitClass, SIZE_METHOD_NAME, int.class,
+                new MethodModifier[]{MethodModifier.PUBLIC});
         if (instance == null || removeMethod == null) {
             fail();
         }
@@ -457,8 +486,10 @@ public class P0ArrayListGenericTest extends BaseTest {
 
     @Test(timeout = 1100)
     public void testIterator() throws Throwable {
-        Class unitClass = unitClasses[0];
+        Class unitClass = getUnitClass(unitClasses, UNIT_NAME);
         instance = instanciate(unitClass);
+        iteratorMethod = ReflectionUtil.checkMethod(unitClass, ITERATOR_METHOD_NAME, Iterator.class,
+                new MethodModifier[]{MethodModifier.PUBLIC});
         if (instance == null || removeMethod == null) {
             fail();
         }

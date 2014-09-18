@@ -2,8 +2,10 @@ package ua.com.jon.common.dto.mapper;
 
 import ua.com.jon.common.domain.Group;
 import ua.com.jon.common.domain.Task;
+import ua.com.jon.common.domain.User;
 import ua.com.jon.common.dto.GroupDTO;
 import ua.com.jon.common.dto.TaskDTO;
+import ua.com.jon.common.dto.UserDTO;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,7 +21,7 @@ public class GroupAndTaskDtoMapper {
 /*        if(group == null) {
             return new GroupDTO();
         }*/
-        return new GroupDTO(group.getId(), tasksToDto(group.getTasks()), group.getName(), group.isActive(),
+        return new GroupDTO(group.getId(), tasksToDto(group.getTasks()), usersToDto(group.getUsers()), group.getName(), group.isActive(),
                 group.getRepositoryUrl(), group.getCode());
     }
 
@@ -44,6 +46,7 @@ public class GroupAndTaskDtoMapper {
                     new GroupDTO(
                             group.getId(),
                             tasksToDto(group.getTasks()),
+                            usersToDto(group.getUsers()),
                             group.getName(),
                             group.isActive(),
                             group.getRepositoryUrl(),
@@ -52,5 +55,17 @@ public class GroupAndTaskDtoMapper {
             );
         }
         return groupDtos;
+    }
+
+    private static List<UserDTO> usersToDto(Set<User> users) {
+        List<UserDTO> taskDtos = new ArrayList<UserDTO>(users.size());
+        for (User task : users) {
+            taskDtos.add(new UserDTO(
+                    task.getId(),
+                    task.getLogin(),
+                    task.isAdmin(),
+                    task.getIgnore()));
+        }
+        return taskDtos;
     }
 }

@@ -1,13 +1,22 @@
 package ua.com.jon.cabinet.client.components;
 
+import com.github.gwtbootstrap.client.ui.Button;
+import com.github.gwtbootstrap.client.ui.TabLink;
 import com.google.gwt.core.client.GWT;
+import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.event.shared.SimpleEventBus;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
+import com.google.gwt.uibinder.client.UiHandler;
 import com.google.gwt.uibinder.client.UiTemplate;
+import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.Widget;
+import ua.com.jon.cabinet.shared.GroupEvent;
+import ua.com.jon.cabinet.shared.GroupEventHandler;
+
+import java.util.List;
 
 /**
  * Created with IntelliJ IDEA.
@@ -30,6 +39,9 @@ public class RootPanel extends Composite {
     @UiTemplate("GroupInfoTabPanel.ui.xml")
     interface GroupInfoTabPanelUiBinder extends UiBinder<Widget, GroupInfoTabPanel> {
     }
+
+    @UiField
+    TabLink admin;
 
     @UiField
     com.google.gwt.user.client.ui.FlowPanel userTasksHolderPanel;
@@ -57,5 +69,23 @@ public class RootPanel extends Composite {
         userTasksHolderPanel.add(userTasksTabPanel);
         groupTasksHolderPanel.add(groupTasksTabPanel);
         groupInfoHolderPanel.add(groupInfoTabPanel);
+
+        // TODO deep remove
+        CABINET_EVENT_BUS.addHandler(GroupEvent.TYPE, new GroupEventHandler()     {
+            @Override
+            public void onGroupChanged(GroupEvent groupEvent) {
+
+            }
+        });
     }
+    // TODO add method check if admin
+    @UiHandler("admin")
+    public void onClick(ClickEvent e) {
+//        Window.alert("lll");
+        Window.Location.replace("/admin/index.html");
+//        result.setText("");
+//        taskText.setText("");
+//        loadSprintsAndTasks();
+    }
+
 }
