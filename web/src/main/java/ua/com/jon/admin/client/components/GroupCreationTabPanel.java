@@ -61,6 +61,9 @@ public class GroupCreationTabPanel extends Composite {
     TextBox groupName;
 
     @UiField
+    TextBox groupCode;
+
+    @UiField
     ProgressBar spacesProgress;
 
     private AdminServiceAsync adminService = GWT.create(AdminService.class);
@@ -308,7 +311,8 @@ public class GroupCreationTabPanel extends Composite {
             public void onSuccess(String code) {
                 clearGroupUsersList();
                 groupName.setText("");
-                Window.alert("Code of group: " + code);
+                groupCode.setText(code);
+//                Window.alert("Code of group: " + code);
             }
         };
 

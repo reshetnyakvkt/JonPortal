@@ -4,6 +4,7 @@ import com.jon.tron.service.junit.Unit;
 import com.jon.tron.service.junit.UnitClass;
 import com.jon.tron.service.junit.UnitCode;
 import com.jon.tron.service.junit.UnitName;
+import com.jon.tron.service.processor.CodeValidator;
 import com.jon.tron.service.reflect.MethodModifier;
 import com.jon.tron.service.reflect.ReflectionUtil;
 import org.junit.After;
@@ -14,26 +15,41 @@ import org.junit.runners.MethodSorters;
 
 import java.lang.reflect.Method;
 import java.lang.reflect.ParameterizedType;
+import java.util.List;
 import java.util.Map;
 
 import static junit.framework.TestCase.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
 /**
- * Created with IntelliJ IDEA.
- * User: al1
- * Date: 14.06.14
+ * Создать DAO для таблицы ноутбуки
+ Таблица ноутбуки имеет следующую структуру
+ (id, serial, vendor, model, manufacture date, price)
+ domain
+    hw6.notes.domain.Notebook
+ dao
+    hw6.notes.dao.NotebookDao
+        Long create(Notebook ntb)
+        Notebook read(Long ig)
+        boolean update(Notebook ntb)
+        boolean delete(Notebook ntb)
+        List<Notebook> findAll()
+    hw6.notes.dao.NotebookDaoImpl
  */
-@Unit(testName = "P5NotebookDaoTest", value = {"hw6.notes.domain.Notebook", "hw6.notes.dao.NotebookDao", "hw6.notes.dao.NotebookDaoImpl"})
+@Unit(testName = "P5NotebookDaoTest", value = {
+        "hw6.notes.domain.Notebook",
+        "hw6.notes.dao.NotebookDao",
+        "hw6.notes.dao.NotebookDaoImpl"})
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class P5NotebookDaoTest extends BaseTest {
     private static final String UNIT_DAO_NAME = "NotebookDao";
     private static final String UNIT_DAO_IMPL_NAME = "NotebookDaoImpl";
     private static final String UNIT_DOMAIN_NAME = "Notebook";
-    //    private static final String TEST_NAME = "SequenceSummatorTest";
-    private static final String MANAGER_CREATE_METHOD_NAME = "create";
-    private static final String MANAGER_FIND_ALL_METHOD_NAME = "findAll";
-
+    private static final String CREATE_METHOD_NAME = "create";
+    private static final String READ_METHOD_NAME = "read";
+    private static final String UPDATE_METHOD_NAME = "update";
+    private static final String DELETE_METHOD_NAME = "delete";
+    private static final String FIND_ALL_METHOD_NAME = "findAll";
 
     @UnitCode
     private static Map<String, String> codes;
@@ -54,33 +70,56 @@ public class P5NotebookDaoTest extends BaseTest {
         super.tearDown();
     }
 
+    private static Object instance;
+    private static Method method;
+
     @Test(timeout = 1000)
     public void testCheckMainUnitPresent() throws Throwable {
-        Class unitClass;
-        if(unitClasses.length != 1) {
-            unitClass = getUnitClass(unitClasses, UNIT_DAO_NAME);
-            assertNotNull("В задании не найден класс " + UNIT_DAO_NAME, unitClass);
-        } else {
-            unitClass = unitClasses[0];
-        }
-//        assertTrue("В задании не найден класс " + UNIT_NAME, UNIT_NAME.equals(unitClass.getSimpleName()));
-//        Method methodProduce = ReflectionUtil.checkMethod(unitClass, PARALLEL_SUM_METHOD_NAME, long.class,
-//                new MethodModifier[]{MethodModifier.PUBLIC}, int.class);
+//        assertTrue("В задании должено быть не более 3х классов", unitClasses.length <= 3);
+        Class unitClass = getUnitClass(unitClasses, UNIT_DOMAIN_NAME);
+        assertNotNull("В задании не найден класс " + UNIT_DOMAIN_NAME, unitClass);
+        CodeValidator.checkCodePkg(codes.get(unitClass.getName()));
+        ReflectionUtil.checkConstructor(unitClass);
     }
 
     @Test(timeout = 1000)
-    public void testCheckManagerUnitPresent() throws Throwable {
-        Class unitClass;
-        if(unitClasses.length != 1) {
-            unitClass = getUnitClass(unitClasses, UNIT_DAO_IMPL_NAME);
-            assertNotNull("В задании не найден класс " + UNIT_DAO_IMPL_NAME, unitClass);
-        } else {
-            unitClass = unitClasses[0];
-        }
-        assertTrue("В задании не найден класс " + UNIT_DAO_IMPL_NAME, UNIT_DAO_IMPL_NAME.equals(unitClass.getSimpleName()));
-        Method methodCreate = ReflectionUtil.checkMethod(unitClass, MANAGER_CREATE_METHOD_NAME, int.class,
-                new MethodModifier[]{MethodModifier.PUBLIC}, hw6.notes.domain.Notebook.class);
-        Method methodFindAll = ReflectionUtil.checkMethod(unitClass, MANAGER_FIND_ALL_METHOD_NAME, ParameterizedType.class,
+    public void testCheckDaoPresent() throws Throwable {
+        Class daoInterface = getUnitClass(unitClasses, UNIT_DAO_NAME);
+        assertNotNull("В задании не найден класс " + UNIT_DAO_NAME, daoInterface);
+        CodeValidator.checkCodePkg(codes.get(daoInterface.getName()));
+//        ReflectionUtil.checkConstructor(daoInterface);
+
+//        instance = instanciate(daoInterface);
+        ReflectionUtil.checkMethod(daoInterface, CREATE_METHOD_NAME, "Long",
+                new MethodModifier[]{MethodModifier.PUBLIC}, "Notebook");
+        ReflectionUtil.checkMethod(daoInterface, READ_METHOD_NAME, "Notebook",
+                new MethodModifier[]{MethodModifier.PUBLIC}, "Long");
+        ReflectionUtil.checkMethod(daoInterface, UPDATE_METHOD_NAME, "boolean",
+                new MethodModifier[]{MethodModifier.PUBLIC}, "Notebook");
+        ReflectionUtil.checkMethod(daoInterface, DELETE_METHOD_NAME, "boolean",
+                new MethodModifier[]{MethodModifier.PUBLIC}, "Notebook");
+        ReflectionUtil.checkMethod(daoInterface, FIND_ALL_METHOD_NAME, List.class,
+                new MethodModifier[]{MethodModifier.PUBLIC});
+    }
+
+    @Test(timeout = 1000)
+    public void testCheckDaoImplPresent() throws Throwable {
+        Class daoImpl = getUnitClass(unitClasses, UNIT_DAO_IMPL_NAME);
+        assertNotNull("В задании не найден класс " + UNIT_DAO_IMPL_NAME, daoImpl);
+        CodeValidator.checkCodePkg(codes.get(daoImpl.getName()));
+        ReflectionUtil.checkConstructor(daoImpl);
+        ReflectionUtil.checkHasParent(daoImpl, UNIT_DAO_NAME);
+
+        instance = instanciate(daoImpl);
+        ReflectionUtil.checkMethod(daoImpl, CREATE_METHOD_NAME, "Long",
+                new MethodModifier[]{MethodModifier.PUBLIC}, "Notebook");
+        ReflectionUtil.checkMethod(daoImpl, READ_METHOD_NAME, "Notebook",
+                new MethodModifier[]{MethodModifier.PUBLIC}, "Long");
+        ReflectionUtil.checkMethod(daoImpl, UPDATE_METHOD_NAME, "boolean",
+                new MethodModifier[]{MethodModifier.PUBLIC}, "Notebook");
+        ReflectionUtil.checkMethod(daoImpl, DELETE_METHOD_NAME, "boolean",
+                new MethodModifier[]{MethodModifier.PUBLIC}, "Notebook");
+        ReflectionUtil.checkMethod(daoImpl, FIND_ALL_METHOD_NAME, List.class,
                 new MethodModifier[]{MethodModifier.PUBLIC});
     }
 }

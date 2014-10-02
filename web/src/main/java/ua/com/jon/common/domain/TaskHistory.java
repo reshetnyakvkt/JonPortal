@@ -32,7 +32,7 @@ public class TaskHistory {
     @JoinColumn(name = "template_id")
     private TaskTemplate taskTemplate;
 
-    @Column(length = 10)
+    @Column(length = 20)
     private String userName;
 
     @Temporal(value = TemporalType.DATE)

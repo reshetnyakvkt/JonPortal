@@ -25,6 +25,8 @@
                           <b:Label>SVN url: </b:Label><b:TextBox ui:field="repoName"/>
                           <b:Paragraph/>
                           <b:Label>Group Name: </b:Label> <b:TextBox ui:field="groupName"/>
+                          <b:Paragraph/>
+                          <b:Label>Group code: </b:Label> <b:TextBox ui:field="groupCode"/>
                         </b:Column>
                     </b:FluidRow>
                     <b:FluidRow>

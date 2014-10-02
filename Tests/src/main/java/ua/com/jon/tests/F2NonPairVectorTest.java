@@ -71,13 +71,12 @@ public class F2NonPairVectorTest extends BaseTest {
     }
 
     @Test(timeout = 1000)
-    public void testCheckUnitMethod() throws Throwable {
+    public void test() throws Throwable {
         assertTrue("В задании должен быть только один класс", unitClasses.length == 1);
         CodeValidator.checkCode(codes.entrySet().iterator().next().getValue());
         instance = instanciate(unitClasses[0]);
         unitMethod = ReflectionUtil.checkMethod(unitClasses[0], UNIT_METHOD_NAME, int.class,
                 new MethodModifier[]{MethodModifier.PUBLIC}, int[].class);
-        System.out.println(unitMethod);
     }
 
     @Test(timeout = 1000)

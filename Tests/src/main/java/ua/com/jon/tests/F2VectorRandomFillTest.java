@@ -57,7 +57,7 @@ public class F2VectorRandomFillTest extends BaseTest {
     }
 
     @Test(timeout = 1000)
-    public void testCheckMainMethod() throws Throwable {
+    public void test() throws Throwable {
         assertTrue("В задании должен быть только один класс", unitClasses.length == 1);
         CodeValidator.checkCode(codes.entrySet().iterator().next().getValue());
         instance = instanciate(unitClasses[0]);

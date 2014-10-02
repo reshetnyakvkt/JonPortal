@@ -59,7 +59,7 @@ public class B7QuickSortTest extends BaseTest {
 
     @Test(timeout = 1100)
     public void test() throws Throwable {
-        assertTrue("В задании должен быть только один класс", unitClasses.length == 1);
+        assertTrue("В задании должно быть не более 2х классов", unitClasses.length <= 2);
 
         Class unitClass = getUnitClass(unitClasses, UNIT_NAME);
         assertNotNull("В задании не найден класс " + UNIT_NAME, unitClass);

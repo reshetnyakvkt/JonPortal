@@ -47,5 +47,5 @@ public interface AuthService {
 
     boolean isUserInGroup(User user, Long groupId);
 
-    void addUserToGroup(User user, String groupId);
+    void addUserToGroup(User user, Long groupId);
 }

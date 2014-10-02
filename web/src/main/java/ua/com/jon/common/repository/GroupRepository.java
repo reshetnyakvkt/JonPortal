@@ -25,6 +25,9 @@ public interface GroupRepository extends CrudRepository<Group, Long> {
     @Query("select g from Group g JOIN FETCH g.users where g.name = ?1")
     Group findGroupAndUsersByName(String groupName);
 
+    @Query("select g from Group g JOIN FETCH g.users where g.id = ?1")
+    Group findGroupAndUsers(Long id);
+
     @Query("select distinct g from Group g JOIN FETCH g.tasks where g.active = true")
     List<Group> findActiveGroupAndTestTasks();
 

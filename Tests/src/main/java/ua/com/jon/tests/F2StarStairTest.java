@@ -75,15 +75,13 @@ public class F2StarStairTest extends BaseTest {
     }
 
     @Test(timeout = 1000)
-    public void testCheckUnitMethod() throws Throwable {
+    public void test() throws Throwable {
         assertTrue("В задании должен быть только один класс", unitClasses.length == 1);
 
-        Class unitClass = getUnitClass(unitClasses, UNIT_NAME);
-        CodeValidator.checkCode(unitClass.getName());
-        instance = instanciate(unitClass);
-        unitMethod = ReflectionUtil.checkMethod(unitClass, UNIT_METHOD_NAME, void.class,
+        CodeValidator.checkCode(codes.entrySet().iterator().next().getValue());
+        instance = instanciate(unitClasses[0]);
+        unitMethod = ReflectionUtil.checkMethod(unitClasses[0], UNIT_METHOD_NAME, void.class,
                 new MethodModifier[]{MethodModifier.PUBLIC}, int.class);
-        System.out.println(unitMethod);
     }
 
     @Test(timeout = 1000)

@@ -9,6 +9,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.provisioning.UserDetailsManager;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.client.ResourceAccessException;
 import ua.com.jon.auth.domain.AssemblaSpace;
 import ua.com.jon.auth.domain.AssemblaSpaces;
@@ -143,9 +144,9 @@ public class AuthServiceImpl implements UserDetailsService, AuthService, UserDet
     }
 
     @Override
-//    @Transactional
-    public void addUserToGroup(User usr, String groupName) {
-        Group group = groupRepository.findGroupAndUsersByName(groupName);
+    @Transactional
+    public void addUserToGroup(User usr, Long id) {
+        Group group = groupRepository.findOne(id);
 //        User user = userRepository.findWithGroupsByUserName(usr.getLogin());
         usr.getGroups().add(group);
         group.getUsers().add(usr);

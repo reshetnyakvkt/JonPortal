@@ -177,13 +177,15 @@ public class ExamineServiceImpl /*extends RemoteServiceServlet*/ implements Exam
         return testResult;
     }
 
+
     private void saveTaskHistoryAsync(final TaskDTO taskDTO, final String userName, final Long template, final Integer key, final String sha1, final String testResult) {
-        executor.execute(new Runnable() {
-            @Override
-            public void run() {
+        if (key > 10 && !userName.isEmpty()) {
+            executor.execute(new Runnable() {
+                @Override
+                public void run() {
 //                PrintStream out = System.out;
 //                System.setOut(new PrintStream(new ByteArrayOutputStream()));
-                try {
+                    try {
 //                    Task task = taskRepository.findOne(taskDTO.getId());
 //                    task.setCode(taskDTO.getCode());
 /*
@@ -191,19 +193,20 @@ public class ExamineServiceImpl /*extends RemoteServiceServlet*/ implements Exam
                             testResult = testResult.substring(0, 740);
                         }
 */
-                    String result = testResult.length() > 1000 ? testResult.substring(0, 1000) : testResult;
+                        String result = testResult.length() > 1000 ? testResult.substring(0, 1000) : testResult;
 //                    taskRepository.save(task);
-                    if (key > 10 ) {
+
                         TaskTemplate template = templateRepository.findOne(taskDTO.getTaskTemplateId());
                         taskHistoryRepository.save(new TaskHistory(taskDTO.getCode(), template, userName, new Date(), result, sha1));
-                    }
-                } catch (Exception de) {
-                    log.error(de);
-                } finally {
+
+                    } catch (Exception de) {
+                        log.error(de);
+                    } finally {
 //                    System.setOut(out);
+                    }
                 }
-            }
-        });
+            });
+        }
     }
 
     public TaskHistoryDto getTaskHistoryByHash(String hash) {

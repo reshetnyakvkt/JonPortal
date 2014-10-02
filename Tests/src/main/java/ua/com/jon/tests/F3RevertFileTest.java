@@ -80,7 +80,7 @@ public class F3RevertFileTest extends BaseTest {
     }
 
     @Test(timeout = 1000)
-    public void testCheckMainMethod() throws Throwable {
+    public void test() throws Throwable {
         assertTrue("В задании должен быть один класс", unitClasses != null && classCodes != null &&
                 unitClasses.length == 1 && classCodes.length == 1);
         CodeValidator.checkCodeFile(codes.entrySet().iterator().next().getValue());

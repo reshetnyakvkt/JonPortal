@@ -297,6 +297,20 @@ public class ExamineUiBinder extends Composite {
                     return;
                 }
 
+                if (userName.getText().isEmpty()) {
+                    userName.setFocus(true);
+                    result.setText("Проверка не выполена, не введено имя пользователя");
+                    cellTable.redraw();
+                    return;
+                }
+
+                if (userName.getText().length() >= 20) {
+                    userName.setFocus(true);
+                    result.setText("Проверка не выполена, имя пользователя не может превышать 20 символов");
+                    cellTable.redraw();
+                    return;
+                }
+
                 taskDTO.setCode(code.getText());
                 final AsyncCallback<String> callback = new AsyncCallback<String>() {
 

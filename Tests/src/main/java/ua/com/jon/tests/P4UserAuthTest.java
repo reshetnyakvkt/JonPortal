@@ -14,6 +14,7 @@ import org.junit.runners.MethodSorters;
 
 import java.lang.reflect.Method;
 import java.lang.reflect.ParameterizedType;
+import java.util.List;
 import java.util.Map;
 
 import static junit.framework.TestCase.assertNotNull;
@@ -79,12 +80,12 @@ public class P4UserAuthTest extends BaseTest {
             unitClass = unitClasses[0];
         }
         assertTrue("В задании не найден класс " + MANAGER_UNIT_NAME, MANAGER_UNIT_NAME.equals(unitClass.getSimpleName()));
-        Method methodCreate = ReflectionUtil.checkMethod(unitClass, MANAGER_CREATE_METHOD_NAME, int.class,
-                new MethodModifier[]{MethodModifier.PUBLIC}, hw5.users.User.class);
-        Method methodFindAll = ReflectionUtil.checkMethod(unitClass, MANAGER_FIND_ALL_METHOD_NAME, ParameterizedType.class,
+        Method methodCreate = ReflectionUtil.checkMethod(unitClass, MANAGER_CREATE_METHOD_NAME, "int",
+                new MethodModifier[]{MethodModifier.PUBLIC},"User");
+        Method methodFindAll = ReflectionUtil.checkMethod(unitClass, MANAGER_FIND_ALL_METHOD_NAME, List.class,
                 new MethodModifier[]{MethodModifier.PUBLIC});
-        Method methodReadByName = ReflectionUtil.checkMethod(unitClass, READ_BY_NAME_METHOD_NAME, hw5.auth.User.class,
-                new MethodModifier[]{MethodModifier.PUBLIC}, String.class, String.class);
+        Method methodReadByName = ReflectionUtil.checkMethod(unitClass, READ_BY_NAME_METHOD_NAME, "User",
+                new MethodModifier[]{MethodModifier.PUBLIC}, "String", "String");
     }
 /*
 

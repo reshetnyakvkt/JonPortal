@@ -132,7 +132,7 @@ public class AuthController {
         User user = authService.getUserFromDBByName(login);
 
         if (user != null && !authService.isUserInGroup(user, groupId)) {
-            authService.addUserToGroup(user, activeGroups.get(0).getName());
+            authService.addUserToGroup(user, activeGroups.get(0).getId());
             forwardUrl = "/j_spring_security_check?j_username=" + login + "&j_password=" + password;
             return "forward:" + forwardUrl;
         } else if (user != null) {
