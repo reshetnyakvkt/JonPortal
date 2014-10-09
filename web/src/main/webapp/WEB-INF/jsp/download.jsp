@@ -22,7 +22,7 @@
 
         <ul class="well nav nav-pills nav-stacked">
             <li class="slideable">
-                <a href="#">Скачать с ftp сервера</a>
+                <a href="#"><button class="btn btn-link" type="button">Скачать с ftp сервера</button></a>
                 <ul class="nav nav-pills nav-stacked">
                     <li>
                         <a href="#">

@@ -34,7 +34,8 @@ public class GroupAndTaskDtoMapper {
                     task.getTaskTemplate().getTaskText(),
                     task.getStatus().name(),
                     task.getUser().getLogin(),
-                    task.getTaskTemplate().getTestName()));
+                    task.getTaskTemplate().getTestName(),
+                    task.getTaskTemplate().getSuffix()));
         }
         return taskDtos;
     }

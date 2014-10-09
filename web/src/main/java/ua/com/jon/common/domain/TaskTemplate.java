@@ -35,8 +35,8 @@ public class TaskTemplate {
     @Column(length = 10000)
     private String materials;
 
-    @Column(name = "CLASS_NAME")
-    private String className;
+    @Column(name = "MODULE_SUFFIX", columnDefinition = "default ''")
+    private String suffix;
 
     @OneToMany(mappedBy = "taskTemplate", cascade = CascadeType.ALL)
     private Set<Task> tasks = new HashSet<Task>();
@@ -58,12 +58,12 @@ public class TaskTemplate {
         this.taskText = taskText;
     }
 
-    public TaskTemplate(Long id, String taskText, String name, TaskType type, String className, String materials, String testName) {
+    public TaskTemplate(Long id, String taskText, String name, TaskType type, String moduleSuffix, String materials, String testName) {
         this.id = id;
         this.taskText = taskText;
         this.name = name;
         this.type = type;
-        this.className = className;
+        this.suffix = moduleSuffix;
         this.materials = materials;
         this.testName = testName;
     }
@@ -116,12 +116,12 @@ public class TaskTemplate {
         this.type = type;
     }
 
-    public String getClassName() {
-        return className;
+    public String getSuffix() {
+        return suffix;
     }
 
-    public void setClassName(String className) {
-        this.className = className;
+    public void setSuffix(String className) {
+        this.suffix = className;
     }
 
     public String getTestName() {
@@ -139,7 +139,7 @@ public class TaskTemplate {
                 ", taskText='" + taskText + '\'' +
                 ", name='" + name + '\'' +
                 ", materials=" + materials +
-                ", className='" + className + '\'' +
+                ", moduleSuffix='" + suffix + '\'' +
                 ", tasks=" + tasks +
                 ", sprint=" + (sprint==null?"":sprint.getName()) +
                 ", type=" + (type==null?"":type.name()) +

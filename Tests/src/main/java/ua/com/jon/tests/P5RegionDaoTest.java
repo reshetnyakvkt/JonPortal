@@ -5,6 +5,7 @@ import com.jon.tron.service.junit.UnitClass;
 import com.jon.tron.service.junit.UnitCode;
 import com.jon.tron.service.junit.UnitName;
 import com.jon.tron.service.processor.CodeValidator;
+import com.jon.tron.service.reflect.JavaProcessBuilder;
 import com.jon.tron.service.reflect.MethodModifier;
 import com.jon.tron.service.reflect.ReflectionUtil;
 import org.junit.After;
@@ -14,37 +15,33 @@ import org.junit.Test;
 import org.junit.runners.MethodSorters;
 
 import java.lang.reflect.Method;
-import java.lang.reflect.ParameterizedType;
 import java.util.List;
 import java.util.Map;
 
 import static junit.framework.TestCase.assertNotNull;
-import static org.junit.Assert.assertTrue;
 
 /**
- Создать DAO для таблицы ноутбуки
- Таблица ноутбуки имеет следующую структуру
- (id, serial, vendor, model, manufacture date, price)
+ Написать DAO для таблицы REGIONS с использованием Hibernate
  domain
-    hw6.notes.domain.Notebook
+    hw6.regions.domain.Region
  dao
-    hw6.notes.dao.NotebookDao
-        Long create(Notebook ntb)
-        Notebook read(Long ig)
-        boolean update(Notebook ntb)
-        boolean delete(Notebook ntb)
-        List<Notebook> findAll()
-    hw6.notes.dao.NotebookDaoImpl
+    hw6.regions.dao.RegionDao
+        Long create(Region region)
+        Region read(Long ig)
+        boolean update(Region region)
+        boolean delete(Region region)
+        List<Region> findAll()
+    hw6.regions.dao.RegionDaoImpl
  */
-@Unit(testName = "P5NotebookDaoTest", value = {
-        "hw6.notes.domain.Notebook",
-        "hw6.notes.dao.NotebookDao",
-        "hw6.notes.dao.NotebookDaoImpl"})
+@Unit(testName = "P5RegionDaoTest", value = {
+        "hw6.regions.domain.Region",
+        "hw6.regions.dao.RegionDao",
+        "hw6.regions.dao.RegionDaoImpl"})
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
-public class P5NotebookDaoTest extends BaseTest {
-    private static final String UNIT_DAO_NAME = "NotebookDao";
-    private static final String UNIT_DAO_IMPL_NAME = "NotebookDaoImpl";
-    private static final String UNIT_DOMAIN_NAME = "Notebook";
+public class P5RegionDaoTest extends BaseTest {
+    private static final String UNIT_DAO_NAME = "RegionDao";
+    private static final String UNIT_DAO_IMPL_NAME = "RegionDaoImpl";
+    private static final String UNIT_DOMAIN_NAME = "Region";
     private static final String CREATE_METHOD_NAME = "create";
     private static final String READ_METHOD_NAME = "read";
     private static final String UPDATE_METHOD_NAME = "update";
@@ -91,13 +88,13 @@ public class P5NotebookDaoTest extends BaseTest {
 
 //        instance = instanciate(daoInterface);
         ReflectionUtil.checkMethod(daoInterface, CREATE_METHOD_NAME, "Long",
-                new MethodModifier[]{MethodModifier.PUBLIC}, "Notebook");
-        ReflectionUtil.checkMethod(daoInterface, READ_METHOD_NAME, "Notebook",
+                new MethodModifier[]{MethodModifier.PUBLIC}, "Region");
+        ReflectionUtil.checkMethod(daoInterface, READ_METHOD_NAME, "Region",
                 new MethodModifier[]{MethodModifier.PUBLIC}, "Long");
         ReflectionUtil.checkMethod(daoInterface, UPDATE_METHOD_NAME, "boolean",
-                new MethodModifier[]{MethodModifier.PUBLIC}, "Notebook");
+                new MethodModifier[]{MethodModifier.PUBLIC}, "Region");
         ReflectionUtil.checkMethod(daoInterface, DELETE_METHOD_NAME, "boolean",
-                new MethodModifier[]{MethodModifier.PUBLIC}, "Notebook");
+                new MethodModifier[]{MethodModifier.PUBLIC}, "Region");
         ReflectionUtil.checkMethod(daoInterface, FIND_ALL_METHOD_NAME, List.class,
                 new MethodModifier[]{MethodModifier.PUBLIC});
     }
@@ -112,13 +109,13 @@ public class P5NotebookDaoTest extends BaseTest {
 
         instance = instanciate(daoImpl);
         ReflectionUtil.checkMethod(daoImpl, CREATE_METHOD_NAME, "Long",
-                new MethodModifier[]{MethodModifier.PUBLIC}, "Notebook");
-        ReflectionUtil.checkMethod(daoImpl, READ_METHOD_NAME, "Notebook",
+                new MethodModifier[]{MethodModifier.PUBLIC}, "Region");
+        ReflectionUtil.checkMethod(daoImpl, READ_METHOD_NAME, "Region",
                 new MethodModifier[]{MethodModifier.PUBLIC}, "Long");
         ReflectionUtil.checkMethod(daoImpl, UPDATE_METHOD_NAME, "boolean",
-                new MethodModifier[]{MethodModifier.PUBLIC}, "Notebook");
+                new MethodModifier[]{MethodModifier.PUBLIC}, "Region");
         ReflectionUtil.checkMethod(daoImpl, DELETE_METHOD_NAME, "boolean",
-                new MethodModifier[]{MethodModifier.PUBLIC}, "Notebook");
+                new MethodModifier[]{MethodModifier.PUBLIC}, "Region");
         ReflectionUtil.checkMethod(daoImpl, FIND_ALL_METHOD_NAME, List.class,
                 new MethodModifier[]{MethodModifier.PUBLIC});
     }

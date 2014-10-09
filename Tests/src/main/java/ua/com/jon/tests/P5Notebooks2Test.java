@@ -14,42 +14,61 @@ import org.junit.Test;
 import org.junit.runners.MethodSorters;
 
 import java.lang.reflect.Method;
-import java.lang.reflect.ParameterizedType;
 import java.util.List;
 import java.util.Map;
 
 import static junit.framework.TestCase.assertNotNull;
-import static org.junit.Assert.assertTrue;
 
 /**
- Создать DAO для таблицы ноутбуки
- Таблица ноутбуки имеет следующую структуру
- (id, serial, vendor, model, manufacture date, price)
  domain
     hw6.notes.domain.Notebook
  dao
     hw6.notes.dao.NotebookDao
-        Long create(Notebook ntb)
+        Long create(Notebook notebook)
         Notebook read(Long ig)
-        boolean update(Notebook ntb)
-        boolean delete(Notebook ntb)
+        boolean update(Notebook notebook)
+        boolean delete(Notebook notebook)
         List<Notebook> findAll()
     hw6.notes.dao.NotebookDaoImpl
+ util
+    hw6.notes.util.HibernateUtil
+ service
+    hw6.notes.service.NotebookService
+        Long add(Notebook notebook)
+        List<Notebook> findAll()
+        void changePrice(Long id, double price)
+        void changeSerialVendor(Long id, String serial, String vendor)
+    hw6.notes.service.NotebookServiceImpl
+ view
+    hw6.notes.service.Menu
+        main()
+        void deleteNtb(Notebook notebook)
+        void changePrice(Notebook notebook)
+        void changeSerialVendor(Notebook notebook)
  */
-@Unit(testName = "P5NotebookDaoTest", value = {
+@Unit(testName = "P5Notebooks2Test", value = {
         "hw6.notes.domain.Notebook",
         "hw6.notes.dao.NotebookDao",
-        "hw6.notes.dao.NotebookDaoImpl"})
+        "hw6.notes.dao.NotebookDaoImpl",
+        "hw6.notes.util.HibernateUtil",
+        "hw6.notes.service.NotebookService",
+        "hw6.notes.service.NotebookServiceImpl",
+        "hw6.notes.service.Menu"
+        })
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
-public class P5NotebookDaoTest extends BaseTest {
+public class P5Notebooks2Test extends BaseTest {
     private static final String UNIT_DAO_NAME = "NotebookDao";
+    private static final String UNIT_SERVICE_NAME = "NotebookService";
+    private static final String UNIT_SERVICE_IMPL_NAME = "NotebookServiceImpl";
     private static final String UNIT_DAO_IMPL_NAME = "NotebookDaoImpl";
     private static final String UNIT_DOMAIN_NAME = "Notebook";
     private static final String CREATE_METHOD_NAME = "create";
+    private static final String CREATE_SERVICE_METHOD_NAME = "add";
     private static final String READ_METHOD_NAME = "read";
     private static final String UPDATE_METHOD_NAME = "update";
     private static final String DELETE_METHOD_NAME = "delete";
     private static final String FIND_ALL_METHOD_NAME = "findAll";
+    private static final String FIND_ALL_SERVICE_METHOD_NAME = "findAll";
 
     @UnitCode
     private static Map<String, String> codes;
@@ -120,6 +139,35 @@ public class P5NotebookDaoTest extends BaseTest {
         ReflectionUtil.checkMethod(daoImpl, DELETE_METHOD_NAME, "boolean",
                 new MethodModifier[]{MethodModifier.PUBLIC}, "Notebook");
         ReflectionUtil.checkMethod(daoImpl, FIND_ALL_METHOD_NAME, List.class,
+                new MethodModifier[]{MethodModifier.PUBLIC});
+    }
+
+    @Test(timeout = 1000)
+    public void testCheckServicePresent() throws Throwable {
+        Class daoImpl = getUnitClass(unitClasses, UNIT_SERVICE_NAME);
+        assertNotNull("В задании не найден класс " + UNIT_SERVICE_NAME, daoImpl);
+        CodeValidator.checkCodePkg(codes.get(daoImpl.getName()));
+//        ReflectionUtil.checkConstructor(daoImpl);
+
+//        instance = instanciate(daoImpl);
+        ReflectionUtil.checkMethod(daoImpl, CREATE_SERVICE_METHOD_NAME, "Long",
+                new MethodModifier[]{MethodModifier.PUBLIC}, "Notebook");
+        ReflectionUtil.checkMethod(daoImpl, FIND_ALL_SERVICE_METHOD_NAME, List.class,
+                new MethodModifier[]{MethodModifier.PUBLIC});
+    }
+
+    @Test(timeout = 1000)
+    public void testCheckServiceImplPresent() throws Throwable {
+        Class daoImpl = getUnitClass(unitClasses, UNIT_SERVICE_IMPL_NAME);
+        assertNotNull("В задании не найден класс " + UNIT_SERVICE_IMPL_NAME, daoImpl);
+        CodeValidator.checkCodePkg(codes.get(daoImpl.getName()));
+        ReflectionUtil.checkConstructor(daoImpl);
+        ReflectionUtil.checkHasParent(daoImpl, UNIT_SERVICE_NAME);
+
+        instance = instanciate(daoImpl);
+        ReflectionUtil.checkMethod(daoImpl, CREATE_SERVICE_METHOD_NAME, "Long",
+                new MethodModifier[]{MethodModifier.PUBLIC}, "Notebook");
+        ReflectionUtil.checkMethod(daoImpl, FIND_ALL_SERVICE_METHOD_NAME, List.class,
                 new MethodModifier[]{MethodModifier.PUBLIC});
     }
 }

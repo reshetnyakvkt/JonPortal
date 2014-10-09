@@ -33,10 +33,16 @@
                     </ul>
                 </li>
             </ul>
+            <ul class="nav nav-pills nav-stacked">
+                <li>
+                    <a href="#"><button class="btn btn-link" type="button">Видеоуроки</button></a>
+                    <iframe width="560" height="315" src="//www.youtube.com/embed/vNDsoiOzJ_M?list=PLDbSS0ZrUpXU8RmniZWvVLomYOGmSNF_G" frameborder="0" allowfullscreen></iframe>
+                    <iframe width="560" height="315" src="//www.youtube.com/embed/miDSIWHQk34?list=PLDbSS0ZrUpXU8RmniZWvVLomYOGmSNF_G" frameborder="0" allowfullscreen></iframe>
+                    <iframe width="560" height="315" src="//www.youtube.com/embed/bbFtvdFno_0?list=PLDbSS0ZrUpXU8RmniZWvVLomYOGmSNF_G" frameborder="0" allowfullscreen></iframe>
+                    <iframe width="560" height="315" src="//www.youtube.com/embed/WfdXkrNvFPI?list=PLDbSS0ZrUpXU8RmniZWvVLomYOGmSNF_G" frameborder="0" allowfullscreen></iframe>
+                </li>            </ul>
 
         </div>
-
-
     </div>
 
     <footer id="footer"></footer>

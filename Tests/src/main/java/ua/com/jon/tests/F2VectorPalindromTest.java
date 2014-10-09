@@ -23,13 +23,10 @@ import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 /**
-Написать метод определяющий, является ли массив палиндромом (одинаково читается и справа и слева)
-Пирмер палиндрома: 1234321
-Имя метода: isVectorPalindrom
+ Написать метод определяющий, является ли массив палиндромом (одинаково читается и справа и слева)
+ Пирмер палиндрома: 1234321
+ Имя метода: boolean isVectorPalindrom(int[] vector)
 
- * Created with IntelliJ IDEA.
- * User: al1
- * Date: 07.06.14
  */
 @Unit(testName = "F2VectorPalindromTest", value = "weekend1.task1")
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)

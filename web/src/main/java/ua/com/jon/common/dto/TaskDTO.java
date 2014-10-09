@@ -14,14 +14,16 @@ public class TaskDTO implements Serializable {
     private String status;
     private String userName;
     private String testClassName;
+    private String suffix;
 
-    public TaskDTO(Long id, String templateName, String templateDesk, String status, String userName, String testClassName) {
+    public TaskDTO(Long id, String templateName, String templateDesk, String status, String userName, String testClassName, String suffix) {
         this.id = id;
         this.templateName = templateName;
         this.templateDesk = templateDesk;
         this.status = status;
         this.userName = userName;
         this.testClassName = testClassName;
+        this.suffix = suffix;
     }
 
     public Long getId() {
@@ -72,6 +74,14 @@ public class TaskDTO implements Serializable {
         this.testClassName = testClassName;
     }
 
+    public String getSuffix() {
+        return suffix;
+    }
+
+    public void setSuffix(String suffix) {
+        this.suffix = suffix;
+    }
+
     @Override
     public String toString() {
         return "TaskDTO{" +
@@ -81,6 +91,7 @@ public class TaskDTO implements Serializable {
                 ", status='" + status + '\'' +
                 ", userName='" + userName + '\'' +
                 ", testClassName='" + testClassName + '\'' +
+                ", moduleSuffix='" + suffix + '\'' +
                 '}';
     }
 }

@@ -16,7 +16,7 @@ public class TaskTemplateDTO implements Serializable {
     private String name;
     private String text;
     private String type;
-    private String className;
+    private String suffix;
     private String testName;
     private String materials;
 
@@ -38,7 +38,7 @@ public class TaskTemplateDTO implements Serializable {
         this.name = name;
         this.text = text;
         this.type = type;
-        this.className = className;
+        this.suffix = className;
         this.testName = testName;
         this.materials = materials;
     }
@@ -75,12 +75,12 @@ public class TaskTemplateDTO implements Serializable {
         this.type = type;
     }
 
-    public String getClassName() {
-        return className;
+    public String getSuffix() {
+        return suffix;
     }
 
-    public void setClassName(String className) {
-        this.className = className;
+    public void setSuffix(String suffix) {
+        this.suffix = suffix;
     }
 
     public String getTestName() {
@@ -106,7 +106,7 @@ public class TaskTemplateDTO implements Serializable {
                 ", name='" + name + '\'' +
                 ", text='" + text + '\'' +
                 ", type='" + type + '\'' +
-                ", className='" + className + '\'' +
+                ", suffix='" + suffix + '\'' +
                 ", testName='" + testName + '\'' +
                 ", materials='" + materials + '\'' +
                 '}';

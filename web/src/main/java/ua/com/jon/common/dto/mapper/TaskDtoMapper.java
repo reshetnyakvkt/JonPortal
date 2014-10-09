@@ -28,7 +28,7 @@ public class TaskDtoMapper {
             taskText = taskTemplate.getTaskText();
             taskName = taskTemplate.getName();
             taskType = taskTemplate.getType();
-            className = taskTemplate.getClassName();
+            className = taskTemplate.getSuffix();
             templateId = taskTemplate.getId();
             materials = taskTemplate.getMaterials();
             groupId = task.getGroup().getId();
@@ -64,7 +64,7 @@ public class TaskDtoMapper {
             taskText = taskTemplate.getTaskText();
             taskName = taskTemplate.getName();
             taskType = taskTemplate.getType();
-            className = taskTemplate.getClassName();
+            className = taskTemplate.getSuffix();
             templateId = taskTemplate.getId();
             materials = taskTemplate.getMaterials();
         }
@@ -118,7 +118,7 @@ public class TaskDtoMapper {
                 task.getCode(),
                 task.getTaskTemplate().getType().name(),
                 task.getUser().getLogin(),
-                task.getTaskTemplate().getClassName(),
+                task.getTaskTemplate().getSuffix(),
                 task.getTaskTemplate().getTestName(),
                 task.getTaskTemplate().getId(),
                 task.getTaskTemplate().getMaterials(),

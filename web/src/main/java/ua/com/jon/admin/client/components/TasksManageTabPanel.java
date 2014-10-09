@@ -90,9 +90,10 @@ public class TasksManageTabPanel extends Composite {
         dataProvider.addDataDisplay(cellTable);
 
         createTaskNameColumn();
-        createClassNameColumn();
 
         loadTestNamesToDropbox();
+
+        createSuffixColumn();
 
         createStatusDropdown();
 
@@ -146,7 +147,7 @@ public class TasksManageTabPanel extends Composite {
         };
 
         cellTable.insertColumn(beforeIndex, testNameCol, "Имя теста");
-        cellTable.setColumnWidth(testNameCol, 10.0, Style.Unit.PCT);
+//        cellTable.setColumnWidth(testNameCol, 10.0, Style.Unit.PCT);
     }
 
     private void loadTestNamesToDropbox() {
@@ -184,10 +185,7 @@ public class TasksManageTabPanel extends Composite {
                         Window.alert("Не выбрано ни одного задания!");
                         return;
                     }
-/*                    if (dto.getType().equals(TaskType.CLASS.name())) {
-                        Window.alert("Для проверки измените статус задания на \"TEST\"");
-                        return;
-                    }*/
+
                     dto.setType(newValue);
                 }
             }
@@ -201,6 +199,7 @@ public class TasksManageTabPanel extends Composite {
             }
         };
         cellTable.addColumn(statusCol, "Тип");
+        cellTable.setColumnWidth(statusCol, 10.0, Style.Unit.PCT);
     }
 
     private void createRemoveButton() {
@@ -220,7 +219,7 @@ public class TasksManageTabPanel extends Composite {
             }
         });
         cellTable.addColumn(buttonDelCol);
-        cellTable.setColumnWidth(buttonDelCol, 10.0, Style.Unit.PCT);
+        cellTable.setColumnWidth(buttonDelCol, 5.0, Style.Unit.PCT);
     }
 
     private void createSaveButton() {
@@ -240,7 +239,7 @@ public class TasksManageTabPanel extends Composite {
                 taskTemplateDTO.setMaterials(materials.getText());
             }
         });
-        cellTable.setColumnWidth(buttonSaveCol, 10.0, Style.Unit.PCT);
+        cellTable.setColumnWidth(buttonSaveCol, 5.0, Style.Unit.PCT);
     }
 
     private void createTaskNameColumn() {
@@ -262,24 +261,24 @@ public class TasksManageTabPanel extends Composite {
         cellTable.addColumn(nameColumn, "Название");
     }
 
-    private void createClassNameColumn() {
-        Column<TaskTemplateDTO, String> nameColumn = new Column<TaskTemplateDTO, String>(new TextInputCell()) {
+    private void createSuffixColumn() {
+        Column<TaskTemplateDTO, String> suffixColumn = new Column<TaskTemplateDTO, String>(new TextInputCell()) {
             @Override
             public String getValue(TaskTemplateDTO object) {
-                return object.getClassName() == null ? "" : object.getClassName();
+                return object.getSuffix() == null ? "" : object.getSuffix();
             }
         };
-        nameColumn.setFieldUpdater(new FieldUpdater<TaskTemplateDTO, String>() {
+        suffixColumn.setFieldUpdater(new FieldUpdater<TaskTemplateDTO, String>() {
             @Override
             public void update(int index, TaskTemplateDTO object, String value) {
-//                Window.alert(value);
-                dataProvider.getList().get(index).setClassName(value);
+                dataProvider.getList().get(index).setSuffix(value);
                 dataProvider.flush();
                 dataProvider.refresh();
             }
         });
-        cellTable.addColumn(nameColumn, "Имя класса");
-        cellTable.setColumnWidth(nameColumn, 10.0, Style.Unit.PCT);
+
+        cellTable.addColumn(suffixColumn, "Суффикс модуля");
+        cellTable.setColumnWidth(suffixColumn, 15.0, Style.Unit.PCT);
     }
 
     private void loadSprints() {

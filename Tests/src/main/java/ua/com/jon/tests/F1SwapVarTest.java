@@ -84,7 +84,7 @@ public class F1SwapVarTest extends BaseTest {
 
         ReflectionUtil.invokeMain(instance);
 
-        String actualString = getLastStringFromOut();
+        String actualString =  getIn().toString().trim();
         String[] strings = actualString.split("\n");
         assertTrue(PREFIX + "Должно быть выведено две строки, сначала до обмена, затем после, а не " + actualString, strings.length == 2);
 

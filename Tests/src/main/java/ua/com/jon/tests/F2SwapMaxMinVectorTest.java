@@ -15,44 +15,51 @@ import org.junit.runners.MethodSorters;
 
 import java.lang.reflect.Method;
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 /**
-Написать метод меняющий местами половины массива, если размер нечетный - центральный элемент не учитывается
+Написать метод, меняющий местами первые найденные наибольший и наименьший элементы вектора.
 В случае, если размер вектора некорректный, выводить сообщение "Неверный размер вектора"
-Метод: void swapHalves(int[] vector)
+Название метода: swapMaxMinVector
 Пример:
- swapHalves(int[] vector); // [1234567]
-[5674123]
-
- * Created with IntelliJ IDEA.
- * User: al1
- * Date: 10.06.14
+ swapMaxMinVector(int[] vector); // [4,4,3,3,1,1]
+ [1,4,3,3,4,1]
  */
-@Unit(testName = "F2VectorHalfSwapTest", value = "weekend1.task1")
+@Unit(testName = "F2SwapMaxMinVectorTest", value = "weekend1.task1")
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
-public class F2VectorHalfSwapperTest extends BaseTest {
-    public void swapHalves(int[] vector) {
-        if (vector == null || vector.length <= 0) {
-            System.out.println("Неверный размер вектора");
-            return;
-        }
-        if (vector.length == 1) {
+public class F2SwapMaxMinVectorTest extends BaseTest {
+//    import java.util.Arrays;
+    public class A {
+        public void swapMaxMinVector(int[] vector) {
+            if (vector.length == 0) {
+                System.out.println("Неверный размер вектора");
+                return;
+            }
+            int maxIdx = 0;
+            int minIdx = 0;
+            for (int i = 0; i < vector.length; i++) {
+                if (vector[i] > vector[maxIdx]) {
+                    maxIdx = i;
+                }
+                if (vector[i] < vector[minIdx]) {
+                    minIdx = i;
+                }
+            }
+            int tmp = vector[maxIdx];
+            vector[maxIdx] = vector[minIdx];
+            vector[minIdx] = tmp;
+
             System.out.println(Arrays.toString(vector));
-            return;
         }
-        int[] newVector = new int[vector.length];
-        for (int i = 0, j = vector.length / 2; i < vector.length / 2; i++, j++) {
-            newVector[j] = vector[i];
-        }
-        System.out.println(Arrays.toString(newVector));
     }
 
-    private static final String UNIT_NAME = "StarStair";
-    private static final String UNIT_METHOD_NAME = "swapHalves";
+    private static final String UNIT_NAME = "RevertVector";
+    private static final String UNIT_METHOD_NAME = "swapMaxMinVector";
 
     @UnitCode
     private static Map<String, String> codes;
@@ -90,17 +97,18 @@ public class F2VectorHalfSwapperTest extends BaseTest {
         if (instance == null || unitMethod == null) {
             fail();
         }
-        int from = generateInt(3, 6);
+        int from = generateInt(0, 2);
         int to = generateInt(7, 10);
         int[] expectedVector = generateVector(from, to);
         ReflectionUtil.invokeMethod(instance, unitMethod, expectedVector.clone());
-        swapHalvesSup(expectedVector);
+        int[] reverted = expectedVector.clone();
+        swapMaxMinVector(reverted);
         String actualVector = getIn().toString().trim();
 
         assertTrue("В задании должен выполняться вывод текста ", !actualVector.isEmpty());
-        assertTrue("\n--- Проверка правильности вывода массива ---\n" +
-                "Метод должен выводить массив с обмененными половинами " + Arrays.toString(expectedVector) + ", а не "
-                + actualVector, Arrays.toString(expectedVector).equals(actualVector));
+        assertTrue("\n--- Проверка правильности вывода массива "+Arrays.toString(expectedVector)+" ---\n" +
+                "Метод должен выводить массив с обмененными наибольшим и наименьшим элементами " + Arrays.toString(reverted) + ", а не "
+                + actualVector, Arrays.toString(reverted).equals(actualVector));
     }
 
     @Test(timeout = 1000)
@@ -123,24 +131,10 @@ public class F2VectorHalfSwapperTest extends BaseTest {
         }
         String actualMessage = getIn().toString().trim();
 
-        assertTrue("\n--- Проверка некорректного значения размера 0 ---\n" +
-                "При неправильном размере вектора должно быть выведено сообщение " + expectedMessage + ", а не "
-                + actualMessage, expectedMessage.equals(actualMessage));
+        assertTrue("\n--- Проверка нулевого размера вектора ---\n" +
+                "При неправильном размере вектора должно быть выведено сообщение " + expectedMessage + ", а не ["
+                + actualMessage + "]", expectedMessage.equals(actualMessage));
     }
-
-/*    @Test(timeout = 1000)
-    public void testLengthNull() throws Throwable {
-        if (instance == null || unitMethod == null) {
-            fail();
-        }
-        String expectedMessage = "Неверный размер вектора";
-        ReflectionUtil.invokeMethod(instance, unitMethod, null);
-        String actualMessage = getIn().toString().trim();
-
-        assertTrue("\n--- Проверка некорректного значения размера ---\n" +
-                "При неправильном размере вектора должно быть выведено сообщение " + expectedMessage + ", а не "
-                + actualMessage, expectedMessage.equals(actualMessage));
-    }*/
 
     @Test(timeout = 1000)
     public void testLengthOne() throws Throwable {
@@ -153,18 +147,23 @@ public class F2VectorHalfSwapperTest extends BaseTest {
 
         assertTrue("\n--- Проверка единичного массива ---\n" +
                 "В задании должен выполняться вывод текста ", !actualVector.isEmpty());
-        assertTrue("\n--- Проверка единичного массива ---\n" +
-                "Метод должен выводить массив с обмененными половинами " + Arrays.toString(expectedVector) + ", а не "
+        assertTrue("\n--- Проверка правильности вывода массива "+Arrays.toString(expectedVector)+" ---\n" +
+                "Метод должен выводить массив c обмененными наибольшим и наименьшим элементами " + Arrays.toString(expectedVector) + ", а не "
                 + actualVector, Arrays.toString(expectedVector).equals(actualVector));
     }
 
     private int[] generateVector(int from, int to) {
-        int length = (int)(Math.random() * 10 + 10);
+        int length = (int)(Math.random() * 7 + 3);
+//        Set<Integer> vector = new HashSet<>();
         int[] vector = new int[length];
         int range = to - from;
         for (int i = 0; i < vector.length; i++) {
-            vector[i] = (int)(Math.random() * range + from);
+            vector[i] =(int) (Math.random() * range + from);
         }
+//        while (vector.size() < length) {
+//            vector.add((int) (Math.random() * range + from));
+//        }
+//        return vector.stream().mapToInt(Integer::intValue).toArray();
         return vector;
     }
 
@@ -173,13 +172,19 @@ public class F2VectorHalfSwapperTest extends BaseTest {
         return (int) (Math.random() * range + from);
     }
 
-    private int[] swapHalvesSup(int[] vector) {
-//        int[] newVector = new int[vector.length];
-        for (int i = 0, j = vector.length / 2; i < vector.length / 2; i++, j++) {
-            int tmp = vector[j];
-            vector[j] = vector[i];
-            vector[i] = tmp;
+    private void swapMaxMinVector(int[] vector) {
+        int maxIdx = 0;
+        int minIdx = 0;
+        for (int i = 0; i < vector.length; i++) {
+            if (vector[i] > vector[maxIdx]) {
+                maxIdx = i;
+            }
+            if (vector[i] < vector[minIdx]) {
+                minIdx = i;
+            }
         }
-        return vector;
+        int tmp = vector[maxIdx];
+        vector[maxIdx] = vector[minIdx];
+        vector[minIdx] = tmp;
     }
 }

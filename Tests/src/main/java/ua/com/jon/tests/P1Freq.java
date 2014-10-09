@@ -60,8 +60,8 @@ public class P1Freq extends BaseTest {
         Class unitClass = getUnitClass(unitClasses, UNIT_NAME);
         assertNotNull("В задании не найден класс " + UNIT_NAME, unitClass);
 
-        Method methodGetWordsByFrequency = ReflectionUtil.checkMethod(unitClass, FREQ_METHOD_NAME, Set.class,
-                new MethodModifier[]{MethodModifier.PUBLIC}, int.class);
+        Method methodGetWordsByFrequency = ReflectionUtil.checkMethod(unitClass, FREQ_METHOD_NAME, "Set",
+                new MethodModifier[]{MethodModifier.PUBLIC}, "int");
     }
 
     @Test(timeout = 1000)

@@ -20,7 +20,7 @@ import static org.junit.Assert.*;
 
 /**
  Написать класс с методом заполняющий массив случайными числами в диапазоне от 0 до 10
- Имя метода: fillVectorByRandom
+ Имя метода: void fillVectorByRandom(int[] vector)
  */
 @Unit(testName = "F2VectorRandomFillTest", value = "weekend1.task1")
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
@@ -61,7 +61,7 @@ public class F2VectorRandomFillTest extends BaseTest {
         assertTrue("В задании должен быть только один класс", unitClasses.length == 1);
         CodeValidator.checkCode(codes.entrySet().iterator().next().getValue());
         instance = instanciate(unitClasses[0]);
-        unitMethod = ReflectionUtil.checkMethod(unitClasses[0], UNIT_METHOD_NAME, boolean.class,
+        unitMethod = ReflectionUtil.checkMethod(unitClasses[0], UNIT_METHOD_NAME, void.class,
                 new MethodModifier[]{MethodModifier.PUBLIC}, int[].class);
     }
 

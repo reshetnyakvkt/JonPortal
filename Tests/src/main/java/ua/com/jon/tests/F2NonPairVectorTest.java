@@ -23,7 +23,7 @@ import static org.junit.Assert.fail;
 /**
 Написать метод возвращающий количество нечетных элементов массива
 В случае, если размер вектора некорректный, выводить сообщение "Неверный размер вектора"
-Название метода: calcNonPairCount
+Метод: int calcNonPairCount(int[] vector)
 Пример:
  calcNonPairCount(int[] vector); // [1234567]
 4

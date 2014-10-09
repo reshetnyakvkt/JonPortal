@@ -28,6 +28,7 @@
                             <description>${task.templateDesk}</description>
                         </task-template>
                         <task-status>${task.status}</task-status>
+                        <module-suffix>${task.suffix}</module-suffix>
                     </task>
                 </c:forEach>
             </tasks>

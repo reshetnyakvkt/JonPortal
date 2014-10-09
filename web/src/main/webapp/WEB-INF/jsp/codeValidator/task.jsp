@@ -32,7 +32,7 @@
         <%--edit field--%>
         <ul id="BarTabbed">
             <c:forEach var="taskClass" items="${codeValidator.taskClasses}">
-                <li title="<c:out value="${taskClass.className}"/>">
+                <li title="<c:out value="${taskClass.suffix}"/>">
                     <div class="well editField" id="TextField" contenteditable="true"
                          spellcheck="false"><c:out value="${taskClass.classCode}"/></div>
                 </li>

@@ -23,10 +23,10 @@ import static org.junit.Assert.fail;
 /**
 Написать метод, возвращающий среднее арифметическое значение для всех элементов массива
 В случае, если размер вектора некорректный, выводить сообщение "Неверный размер вектора"
-Название метода: calcVectorAvg
+Метод: int calcVectorAvg(int[] vector)
 Пример:
  calcVectorAvg(int[] vector); // [1234567]
-14
+ 14
 
  * Created with IntelliJ IDEA.
  * User: al1

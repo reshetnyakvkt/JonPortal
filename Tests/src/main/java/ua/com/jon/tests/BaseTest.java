@@ -1,13 +1,14 @@
 package ua.com.jon.tests;
 
 import com.jon.tron.service.evaluation.EvaluationUtil;
-import com.jon.tron.service.processor.CodeValidator;
 import com.jon.tron.service.reflect.JavaProcessBuilder;
 import com.jon.tron.service.reflect.ReflectionUtil;
 
 import java.io.ByteArrayOutputStream;
 import java.io.OutputStream;
 import java.io.PrintStream;
+import java.net.URL;
+import java.util.List;
 import java.util.Random;
 
 import static org.junit.Assert.assertTrue;
@@ -85,10 +86,10 @@ public class BaseTest {
                 Object instance = instanciate(unitClass);
                 ReflectionUtil.invokeMain(instance);
                 // TODO check is correct invocation
-//                JavaProcessBuilder.buildProcessAndInvokeMethod(unitClass.getSimpleName(), "main", "/forbid.policy", null,
+//                JavaProcessBuilder.buildProcessAndInvokeMethod(file.getSimpleName(), "main", "/forbid.policy", null,
 //                        "", (Object) new String[0]);
             } /*else {
-                JavaProcessBuilder.buildProcessAndInvokeMethod(unitName, "main", "/forbid.policy", "",
+                JavaProcessBuilder.buildProcessAndInvokeMethod(urlName, "main", "/forbid.policy", "",
                         "", (Object) new String[0]);
             }*/
         } catch (Throwable throwable) {
@@ -109,6 +110,15 @@ public class BaseTest {
         for (Class unitClass : unitClasses) {
             if(unitClass.getSimpleName().equals(unitName)) {
                 return unitClass;
+            }
+        }
+        return null;
+    }
+
+    public URL getResource(List<URL> files, String urlName) {
+        for (URL file : files ) {
+            if(file.getFile().contains(urlName)) {
+                return file;
             }
         }
         return null;
