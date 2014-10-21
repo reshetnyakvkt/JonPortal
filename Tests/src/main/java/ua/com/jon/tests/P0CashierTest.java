@@ -13,8 +13,8 @@ import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runners.MethodSorters;
 
-import java.io.Reader;
 import java.lang.reflect.Method;
+import java.util.List;
 import java.util.Map;
 
 import static junit.framework.TestCase.assertNotNull;
@@ -92,17 +92,17 @@ public class P0CashierTest extends BaseTest {
         instance = instanciate(unitClass);
         addMethod = ReflectionUtil.checkMethod(unitClass, IS_AUTHORIZED_METHOD_NAME, boolean.class,
                 new MethodModifier[]{MethodModifier.PUBLIC}, String.class, String.class);
-        addMethod = ReflectionUtil.checkMethod(unitClass, SHOW_MENU_METHOD_NAME, void.class,
-                new MethodModifier[]{MethodModifier.PUBLIC});
-        addMethod = ReflectionUtil.checkMethod(unitClass, CREATE_METHOD_NAME, void.class,
-                new MethodModifier[]{MethodModifier.PUBLIC});
+        addMethod = ReflectionUtil.checkMethod(unitClass, SHOW_MENU_METHOD_NAME, "NoSuchCourseException", void.class,
+                new MethodModifier[]{MethodModifier.PUBLIC}, String.class, List.class);
+        addMethod = ReflectionUtil.checkMethod(unitClass, CREATE_METHOD_NAME, "NoSuchCourseException", void.class,
+                new MethodModifier[]{MethodModifier.PUBLIC}, String.class, List.class);
         addMethod = ReflectionUtil.checkMethod(unitClass, ADD_METHOD_NAME, void.class,
                 new MethodModifier[]{MethodModifier.PUBLIC}, String.class, int.class);
         addMethod = ReflectionUtil.checkMethod(unitClass, REMOVE_METHOD_NAME, void.class,
                 new MethodModifier[]{MethodModifier.PUBLIC}, String.class, int.class);
-        addMethod = ReflectionUtil.checkMethod(unitClass, CANCEL_METHOD_NAME, void.class,
-                new MethodModifier[]{MethodModifier.PUBLIC});
-        addMethod = ReflectionUtil.checkMethod(unitClass, CLOSE_METHOD_NAME, double.class,
-                new MethodModifier[]{MethodModifier.PUBLIC});
+        addMethod = ReflectionUtil.checkMethod(unitClass, CANCEL_METHOD_NAME, "NoSuchCourseException", void.class,
+                new MethodModifier[]{MethodModifier.PUBLIC}, String.class, List.class);
+        addMethod = ReflectionUtil.checkMethod(unitClass, CLOSE_METHOD_NAME, "NoSuchCourseException", double.class,
+                new MethodModifier[]{MethodModifier.PUBLIC}, String.class, List.class);
     }
 }

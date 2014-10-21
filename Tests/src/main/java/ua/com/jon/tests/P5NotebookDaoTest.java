@@ -14,7 +14,6 @@ import org.junit.Test;
 import org.junit.runners.MethodSorters;
 
 import java.lang.reflect.Method;
-import java.lang.reflect.ParameterizedType;
 import java.util.List;
 import java.util.Map;
 
@@ -98,8 +97,8 @@ public class P5NotebookDaoTest extends BaseTest {
                 new MethodModifier[]{MethodModifier.PUBLIC}, "Notebook");
         ReflectionUtil.checkMethod(daoInterface, DELETE_METHOD_NAME, "boolean",
                 new MethodModifier[]{MethodModifier.PUBLIC}, "Notebook");
-        ReflectionUtil.checkMethod(daoInterface, FIND_ALL_METHOD_NAME, List.class,
-                new MethodModifier[]{MethodModifier.PUBLIC});
+        ReflectionUtil.checkMethod(daoInterface, FIND_ALL_METHOD_NAME, "NoSuchCourseException", List.class,
+                new MethodModifier[]{MethodModifier.PUBLIC}, String.class, List.class);
     }
 
     @Test(timeout = 1000)
@@ -119,7 +118,7 @@ public class P5NotebookDaoTest extends BaseTest {
                 new MethodModifier[]{MethodModifier.PUBLIC}, "Notebook");
         ReflectionUtil.checkMethod(daoImpl, DELETE_METHOD_NAME, "boolean",
                 new MethodModifier[]{MethodModifier.PUBLIC}, "Notebook");
-        ReflectionUtil.checkMethod(daoImpl, FIND_ALL_METHOD_NAME, List.class,
-                new MethodModifier[]{MethodModifier.PUBLIC});
+        ReflectionUtil.checkMethod(daoImpl, FIND_ALL_METHOD_NAME, "NoSuchCourseException", List.class,
+                new MethodModifier[]{MethodModifier.PUBLIC}, String.class, List.class);
     }
 }

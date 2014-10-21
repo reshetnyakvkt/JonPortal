@@ -7,7 +7,6 @@ import com.jon.tron.service.junit.UnitName;
 import com.jon.tron.service.processor.CodeValidator;
 import com.jon.tron.service.reflect.MethodModifier;
 import com.jon.tron.service.reflect.ReflectionUtil;
-import hw8.sort.User;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.FixMethodOrder;
@@ -15,6 +14,7 @@ import org.junit.Test;
 import org.junit.runners.MethodSorters;
 
 import java.lang.reflect.Method;
+import java.util.List;
 import java.util.Map;
 
 import static junit.framework.TestCase.assertNotNull;
@@ -76,13 +76,13 @@ public class B7TreeRecTest extends BaseTest {
 
         ReflectionUtil.checkMethod(unitClass, CONTAINS_METHOD_NAME, boolean.class,
                 new MethodModifier[]{MethodModifier.PUBLIC}, int.class);
-        ReflectionUtil.checkMethod(unitClass, TRAVERS_METHOD_NAME, void.class,
-                new MethodModifier[]{MethodModifier.PUBLIC});
-        ReflectionUtil.checkMethod(unitClass, COUNT_METHOD_NAME, int.class,
-                new MethodModifier[]{MethodModifier.PUBLIC});
-        ReflectionUtil.checkMethod(unitClass, HEIGHT_METHOD_NAME, int.class,
-                new MethodModifier[]{MethodModifier.PUBLIC});
-        ReflectionUtil.checkMethod(unitClass, MAX_METHOD_NAME, int.class,
-                new MethodModifier[]{MethodModifier.PUBLIC});
+        ReflectionUtil.checkMethod(unitClass, TRAVERS_METHOD_NAME, "NoSuchCourseException", void.class,
+                new MethodModifier[]{MethodModifier.PUBLIC}, String.class, List.class);
+        ReflectionUtil.checkMethod(unitClass, COUNT_METHOD_NAME, "NoSuchCourseException", int.class,
+                new MethodModifier[]{MethodModifier.PUBLIC}, String.class, List.class);
+        ReflectionUtil.checkMethod(unitClass, HEIGHT_METHOD_NAME, "NoSuchCourseException", int.class,
+                new MethodModifier[]{MethodModifier.PUBLIC}, String.class, List.class);
+        ReflectionUtil.checkMethod(unitClass, MAX_METHOD_NAME, "NoSuchCourseException", int.class,
+                new MethodModifier[]{MethodModifier.PUBLIC}, String.class, List.class);
     }
 }

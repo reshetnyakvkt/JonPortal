@@ -216,8 +216,8 @@ public class P0ArrayListTest extends BaseTest {
                 new MethodModifier[]{MethodModifier.PUBLIC}, int.class, int.class);
         indexOfMethod = ReflectionUtil.checkMethod(unitClass, INDEX_OF_METHOD_NAME, int.class,
                 new MethodModifier[]{MethodModifier.PUBLIC}, int.class);
-        sizeMethod = ReflectionUtil.checkMethod(unitClass, SIZE_METHOD_NAME, int.class,
-                new MethodModifier[]{MethodModifier.PUBLIC});
+        sizeMethod = ReflectionUtil.checkMethod(unitClass, SIZE_METHOD_NAME, "NoSuchCourseException", int.class,
+                new MethodModifier[]{MethodModifier.PUBLIC}, String.class, List.class);
         removeMethod = ReflectionUtil.checkMethod(unitClass, REMOVE_METHOD_NAME, int.class,
                 new MethodModifier[]{MethodModifier.PUBLIC}, int.class);
     }

@@ -14,6 +14,7 @@ import org.junit.Test;
 import org.junit.runners.MethodSorters;
 
 import java.lang.reflect.Method;
+import java.util.List;
 import java.util.Map;
 
 import static junit.framework.TestCase.assertNotNull;
@@ -89,14 +90,14 @@ public class B4ArrayTest extends BaseTest {
         ReflectionUtil.checkConstructor(unitClass);
 
         instance = instanciate(unitClasses[0]);
-        addMethod = ReflectionUtil.checkMethod(unitClass, MIN_METHOD_NAME, int.class,
-                new MethodModifier[]{MethodModifier.PUBLIC});
-        addMethod = ReflectionUtil.checkMethod(unitClass, MAX_METHOD_NAME, int.class,
-                new MethodModifier[]{MethodModifier.PUBLIC});
+        addMethod = ReflectionUtil.checkMethod(unitClass, MIN_METHOD_NAME, "NoSuchCourseException", int.class,
+                new MethodModifier[]{MethodModifier.PUBLIC}, String.class, List.class);
+        addMethod = ReflectionUtil.checkMethod(unitClass, MAX_METHOD_NAME, "NoSuchCourseException", int.class,
+                new MethodModifier[]{MethodModifier.PUBLIC}, String.class, List.class);
         addMethod = ReflectionUtil.checkMethod(unitClass, FILL_METHOD_NAME, void.class,
                 new MethodModifier[]{MethodModifier.PUBLIC}, int.class,  int.class);
-        addMethod = ReflectionUtil.checkMethod(unitClass, PRINT_METHOD_NAME, void.class,
-                new MethodModifier[]{MethodModifier.PUBLIC});
+        addMethod = ReflectionUtil.checkMethod(unitClass, PRINT_METHOD_NAME, "NoSuchCourseException", void.class,
+                new MethodModifier[]{MethodModifier.PUBLIC}, String.class, List.class);
         addMethod = ReflectionUtil.checkMethod(unitClass, SORT_METHOD_NAME, void.class,
                 new MethodModifier[]{MethodModifier.PUBLIC}, int.class);
         addMethod = ReflectionUtil.checkMethod(unitClass, RESIZE_METHOD_NAME, void.class,

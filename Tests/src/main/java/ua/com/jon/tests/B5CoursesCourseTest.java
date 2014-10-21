@@ -17,6 +17,7 @@ import java.lang.reflect.Method;
 import java.util.List;
 import java.util.Map;
 
+import static com.jon.tron.service.reflect.ReflectionUtil.checkMethod;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
@@ -139,35 +140,39 @@ public class B5CoursesCourseTest extends BaseTest {
         assertNotNull("В задании не найден класс " + COURSE_EX_NAME, unitClass);
 
         instance = instanciate(unitClasses[0]);
-        addMethod = ReflectionUtil.checkMethod(unitClass, SET_GROUP_METHOD_NAME, "NoSuchGroupException", void.class,
+        addMethod = checkMethod(unitClass, SET_GROUP_METHOD_NAME, "NoSuchGroupException", void.class,
                 new MethodModifier[]{MethodModifier.PUBLIC});
-        addMethod = ReflectionUtil.checkMethod(unitClass, ADD_STUDENT_COURSE_METHOD_NAME, "void",
+        addMethod = checkMethod(unitClass, ADD_STUDENT_COURSE_METHOD_NAME, "void",
                 new MethodModifier[]{MethodModifier.PUBLIC}, "Student");
-        addMethod = ReflectionUtil.checkMethod(unitClass, ADD_GROUP_METHOD_NAME, "GroupExistsException", String.class,
+        addMethod = checkMethod(unitClass, ADD_GROUP_METHOD_NAME, "GroupExistsException", String.class,
                 new MethodModifier[]{MethodModifier.PUBLIC});
-        addMethod = ReflectionUtil.checkMethod(unitClass, PRINT_GROUP_METHOD_NAME, void.class,
-                new MethodModifier[]{MethodModifier.PUBLIC});
-        addMethod = ReflectionUtil.checkMethod(unitClass, ADD_STUDENT_GROUP_METHOD_NAME, void.class,
+        addMethod = checkMethod(unitClass, PRINT_GROUP_METHOD_NAME, "NoSuchCourseException", void.class,
+                new MethodModifier[]{MethodModifier.PUBLIC}, String.class, List.class);
+        addMethod = checkMethod(unitClass, ADD_STUDENT_GROUP_METHOD_NAME, void.class,
                 new MethodModifier[]{MethodModifier.PUBLIC}, String.class, String.class);
-        addMethod = ReflectionUtil.checkMethod(unitClass, REMOVE_STUDENT_METHOD_NAME, "NoSuchStudentException", void.class,
+        addMethod = checkMethod(unitClass, REMOVE_STUDENT_METHOD_NAME, "NoSuchStudentException", void.class,
                 new MethodModifier[]{MethodModifier.PUBLIC}, String.class, String.class);
-        addMethod = ReflectionUtil.checkMethod(unitClass, CLONE_METHOD_NAME, "NoSuchGroupException", void.class,
+        addMethod = checkMethod(unitClass, CLONE_METHOD_NAME, "NoSuchGroupException", void.class,
                 new MethodModifier[]{MethodModifier.PUBLIC}, String.class);
-        addMethod = ReflectionUtil.checkMethod(unitClass, SERIALIZE_METHOD_NAME, void.class,
-                new MethodModifier[]{MethodModifier.PUBLIC});
-        addMethod = ReflectionUtil.checkMethod(unitClass, DESERIALIZE_METHOD_NAME, void.class,
-                new MethodModifier[]{MethodModifier.PUBLIC});
-        addMethod = ReflectionUtil.checkMethod(unitClass, ADD_COURSE_METHOD_NAME, "void",
+        addMethod = checkMethod(unitClass, SERIALIZE_METHOD_NAME, "NoSuchCourseException", void.class,
+                new MethodModifier[]{MethodModifier.PUBLIC}, String.class, List.class);
+        addMethod = checkMethod(unitClass, DESERIALIZE_METHOD_NAME, "NoSuchCourseException", void.class,
+                new MethodModifier[]{MethodModifier.PUBLIC}, String.class, List.class);
+        addMethod = checkMethod(unitClass, ADD_COURSE_METHOD_NAME, "void",
                 new MethodModifier[]{MethodModifier.PUBLIC}, "Course");
-        addMethod = ReflectionUtil.checkMethod(unitClass, ADD_GROUP_TO_COURSE_METHOD_NAME, "NoSuchCourseException", void.class,
+        addMethod = checkMethod(unitClass, ADD_GROUP_TO_COURSE_METHOD_NAME, "NoSuchCourseException", void.class,
                 new MethodModifier[]{MethodModifier.PUBLIC}, String.class, String.class);
-        addMethod = ReflectionUtil.checkMethod(unitClass, SET_THEMES_METHOD_NAME, "NoSuchCourseException", void.class,
+        addMethod = checkMethod(unitClass, SET_THEMES_METHOD_NAME, "NoSuchCourseException", void.class,
                 new MethodModifier[]{MethodModifier.PUBLIC}, String.class, List.class);
-        addMethod = ReflectionUtil.checkMethod(unitClass, REMOVE_STUDENT_METHOD_NAME, "NoSuchCourseException", void.class,
+        addMethod = checkMethod(unitClass, REMOVE_STUDENT_METHOD_NAME, "NoSuchCourseException", void.class,
                 new MethodModifier[]{MethodModifier.PUBLIC}, String.class, List.class);
-        addMethod = ReflectionUtil.checkMethod(unitClass, PRINT_COURSES_METHOD_NAME, void.class,
-                new MethodModifier[]{MethodModifier.PUBLIC});
+        addMethod = checkMethod(unitClass, PRINT_COURSES_METHOD_NAME, "NoSuchCourseException", void.class,
+                new MethodModifier[]{MethodModifier.PUBLIC}, String.class, List.class);
 
 
     }
+
+
+
+
 }

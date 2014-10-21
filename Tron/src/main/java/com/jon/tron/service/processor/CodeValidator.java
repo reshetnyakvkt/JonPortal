@@ -15,4 +15,16 @@ public class CodeValidator {
     public static boolean isCodeSafeFile(String code) {
         return true;
     }
+
+    public static void checkCode(String s) {
+
+    }
+
+    public static void checkCodeFileThread(String s) {
+
+    }
+
+    public static void checkCodePkg(String s) {
+
+    }
 }

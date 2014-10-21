@@ -40,7 +40,7 @@ public interface AdminService extends RemoteService {
 
     ArrayList<String> getAvailableTestNames();
 
-    List<TaskDTO> getTasksByGroup(String name);
+    List<TaskDTO> getTasksByGroup(Long name, Long sprintId);
 
     ArrayList<GroupAndUsersDTO> getGroupsAndUsers();
 

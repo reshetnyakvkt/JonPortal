@@ -13,8 +13,8 @@ import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runners.MethodSorters;
 
-import java.io.Reader;
 import java.lang.reflect.Method;
+import java.util.List;
 import java.util.Map;
 
 import static junit.framework.TestCase.assertNotNull;
@@ -84,7 +84,7 @@ public class P1User extends BaseTest {
         instance = instanciate(unitClass);
         addMethod = ReflectionUtil.checkMethod(unitClass, EQUALS_METHOD_NAME, boolean.class,
                 new MethodModifier[]{MethodModifier.PUBLIC}, Object.class);
-        addMethod = ReflectionUtil.checkMethod(unitClass, HASHCODE_METHOD_NAME, int.class,
-                new MethodModifier[]{MethodModifier.PUBLIC});
+        addMethod = ReflectionUtil.checkMethod(unitClass, HASHCODE_METHOD_NAME, "NoSuchCourseException", int.class,
+                new MethodModifier[]{MethodModifier.PUBLIC}, String.class, List.class);
     }
 }

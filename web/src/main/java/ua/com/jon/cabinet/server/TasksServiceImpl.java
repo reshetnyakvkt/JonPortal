@@ -131,8 +131,9 @@ public class TasksServiceImpl implements TasksService, ServletContextAware {
         }
         Iterable<Sprint> sprintIterable = sprintRepository.findByUserAndGroup(userName, selectedGroup.getId());
         ArrayList<SprintDTO> sprints = new ArrayList<SprintDTO>();
+        User user = userRepository.findByUserName(userName);
         for (Sprint sprint : sprintIterable) {
-            List<Task> tasks = taskRepository.findByUserAndSprintAndGroup(userName, sprint.getId(), selectedGroup.getId());
+            List<Task> tasks = taskRepository.findByUserAndSprintAndGroup(user.getId(), sprint.getId(), selectedGroup.getId());
             sprints.add(SprintDtoMapper.domainToDto(tasks, sprint, 0.0));
         }
         log.info("--- Sent sprint to client " + sprints.size() + " ---");
@@ -232,7 +233,7 @@ public class TasksServiceImpl implements TasksService, ServletContextAware {
         for (Task task : tasks) {
             Map<Sprint, Integer> userSprints = groupInfo.get(task.getUser());
             if (userSprints == null) {
-                userSprints = new HashMap<Sprint, Integer>();
+                userSprints = new TreeMap<Sprint, Integer>();
                 groupInfo.put(task.getUser(), userSprints);
             }
             Integer rate = userSprints.get(task.getSprint());
@@ -287,7 +288,7 @@ public class TasksServiceImpl implements TasksService, ServletContextAware {
     private void calculateRates(Long selectedGroupId, Map<User, Map<Sprint, Integer>> groupInfo) {
         for (Map.Entry<User, Map<Sprint, Integer>> users : groupInfo.entrySet()) {
             for (Map.Entry<Sprint, Integer> sprint : users.getValue().entrySet()) {
-                List<Task> userTasks = taskRepository.findByUserAndSprintAndGroup(users.getKey().getLogin(),
+                List<Task> userTasks = taskRepository.findByUserAndSprintAndGroup(users.getKey().getId(),
                         sprint.getKey().getId(), selectedGroupId);//sprint.getKey().getTasks().size();
                 if (userTasks.size() != 0) {
                     sprint.setValue(sprint.getValue() / userTasks.size());
@@ -308,7 +309,8 @@ public class TasksServiceImpl implements TasksService, ServletContextAware {
     public double getSprintRate(Long groupId, Long sprintId, String userName) {
         log.info("-== getSprintRate: groupId = " + groupId + ", sprintId = " + sprintId + ", userName = " + userName);
         try {
-            List<Task> tasks = taskRepository.findByUserAndSprintAndGroup(userName, sprintId, groupId);
+            User user = userRepository.findByUserName(userName);
+            List<Task> tasks = taskRepository.findByUserAndSprintAndGroup(user.getId(), sprintId, groupId);
             return calcTasksRate(tasks);
         } catch (Exception e) {
             e.printStackTrace();
@@ -353,8 +355,9 @@ public class TasksServiceImpl implements TasksService, ServletContextAware {
     public double getCourseRate(Long selectedGroupId, String userName) {
         Iterable<Sprint> sprintIterable = sprintRepository.findByUserAndGroup(userName, selectedGroupId);
         ArrayList<Task> allSprintsTasks = new ArrayList<Task>();
+        User user = userRepository.findByUserName(userName);
         for (Sprint sprint : sprintIterable) {
-            List<Task> tasks = taskRepository.findByUserAndSprintAndGroup(userName, sprint.getId(), selectedGroupId);
+            List<Task> tasks = taskRepository.findByUserAndSprintAndGroup(user.getId(), sprint.getId(), selectedGroupId);
             allSprintsTasks.addAll(tasks);
         }
         return calcTasksRate(allSprintsTasks);

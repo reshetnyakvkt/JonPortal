@@ -1,14 +1,6 @@
 package ua.com.jon.admin.client.components;
 
-import com.github.gwtbootstrap.client.ui.Button;
-import com.github.gwtbootstrap.client.ui.ButtonCell;
-import com.github.gwtbootstrap.client.ui.CellTable;
-import com.github.gwtbootstrap.client.ui.Label;
-import com.github.gwtbootstrap.client.ui.NavHeader;
-import com.github.gwtbootstrap.client.ui.NavLink;
-import com.github.gwtbootstrap.client.ui.NavList;
-import com.github.gwtbootstrap.client.ui.ValueListBox;
-import com.github.gwtbootstrap.client.ui.WellNavList;
+import com.github.gwtbootstrap.client.ui.*;
 import com.github.gwtbootstrap.client.ui.constants.ButtonType;
 import com.github.gwtbootstrap.client.ui.constants.IconType;
 import com.google.gwt.cell.client.FieldUpdater;
@@ -54,10 +46,14 @@ public class TasksTabPanel extends Composite {
 //    @UiField
 //    com.google.gwt.user.client.ui.HTMLPanel tasksHolderPanel;
 
+    private ArrayList<Long> taskNames = new ArrayList<Long>();
     private ListDataProvider<TaskDTO> dataProvider = new ListDataProvider<TaskDTO>();
 
     @UiField
     WellNavList availableTasks = new WellNavList();
+
+    @UiField
+    WellNavList tasksToSend = new WellNavList();
 
     @UiField
     WellNavList groupTasks = new WellNavList();
@@ -67,6 +63,21 @@ public class TasksTabPanel extends Composite {
 
     @UiField
     Button remove = new Button();
+
+    @UiField
+    Button sendTasks = new Button();
+
+    @UiField
+    Button close = new Button();
+
+    @UiField
+    Modal sendConfirm = new Modal();
+
+    @UiField
+    TextBox sprint;
+
+    @UiField
+    TextBox group;
 
     @UiField
     CellTable<TaskDTO> cellTable = new CellTable<TaskDTO>(5, GWT.<CellTable.SelectableResources>create(CellTable.SelectableResources.class));
@@ -135,7 +146,7 @@ public class TasksTabPanel extends Composite {
                 if (taskDTO.getName() == null) {
                     return "null";
                 }
-                return String.valueOf(taskDTO.getName());
+                return String.valueOf(taskDTO.getTaskTemplateId() + "-" + taskDTO.getName());
             }
         }, "Название");
 
@@ -203,6 +214,8 @@ public class TasksTabPanel extends Composite {
     public void onChangeSprintPosition(ValueChangeEvent<SprintDTO> sprint) {
         clearSprintTasksList();
         addTasksToSprintNavList(sprint.getValue().getTasks());
+        //fillCellTable(groupsListBox.getValue().getId(), sprint.getValue().getId());
+
     }
 
     private void clearSprintTasksList() {
@@ -213,8 +226,8 @@ public class TasksTabPanel extends Composite {
     @UiHandler("groupsListBox")
     public void onChangeGroupPosition(ValueChangeEvent<GroupDTO> group) {
         clearGroupTasksList();
-        addTaskToGroupNavList(group.getValue().getTasks());
-        fillCellTable(group.getValue().getName());
+        //addTaskToGroupNavList(group.getValue().getTasks());
+        fillCellTable(group.getValue().getId(), sprintsListBox.getValue().getId());
     }
 
     private void clearGroupTasksList() {
@@ -230,14 +243,20 @@ public class TasksTabPanel extends Composite {
         }
     }
 
-    private void addTasksToSprintNavList(List<TaskTemplateDTO> tasks) {
+    private boolean addTasksToSprintNavList(List<TaskTemplateDTO> tasks) {
+        boolean hasUnchecked = false;
         if (tasks != null) {
             for (TaskTemplateDTO taskTemplateDTO : tasks) {
-                NavLink taskNL = new NavLink(taskTemplateDTO.getId()+"-"+taskTemplateDTO.getName());
+                NavLink taskNL = new NavLink(taskTemplateDTO.getId() + "-" + taskTemplateDTO.getName());
+                if (taskTemplateDTO.getTestName().equals("AnyTest") || taskTemplateDTO.getTestName() == null) {
+                    taskNL.setStyleName("alert-info");
+                    hasUnchecked = true;
+                }
                 taskNL.addClickHandler(handler);
                 availableTasks.add(taskNL);
             }
         }
+        return hasUnchecked;
     }
 
     private void clearSprints() {
@@ -258,6 +277,10 @@ public class TasksTabPanel extends Composite {
                     navLink.setActive(false);
                     String taskText = navLink.getText();
                     NavLink newNavLink = new NavLink(taskText);
+                    if (navLink.getStyleName().equals("alert-info")) {
+                        Window.alert("Вы выбрали непроверяемое задание");
+                        newNavLink.setStyleName("alert-info");
+                    }
                     addWidgetToList(groupTasks, newNavLink);
                     groupsListBox.getValue().getTasks().add(new TaskTemplateDTO(taskText));
                 }
@@ -291,6 +314,11 @@ public class TasksTabPanel extends Composite {
     }
 
 
+    @UiHandler("close")
+    void close(ClickEvent e) {
+        sendConfirm.hide();
+    }
+
     @UiHandler("refreshAllBtn")
     void refresh(ClickEvent e) {
         clearSprints();
@@ -300,20 +328,99 @@ public class TasksTabPanel extends Composite {
 
     @UiHandler("sendTasksBtn")
     void saveChanges(ClickEvent e) {
+        Widget widget = groupTasks.getWidget(0);
+        List<Widget> children = getChildren(widget);
+
+        if (children.size() <= 1) {
+            Window.alert("Нет выдаваемых заданий");
+            return;
+        }
         ArrayList<NavLink> links = getActiveElementsFromNavList(groupTasks, false);
-        ArrayList<Long> taskNames = new ArrayList<Long>();
+        taskNames.clear();
         for (NavLink link : links) {
             String name = link.getText();
             Long val;
             try {
-                String[]array = name.split("-");
+                String[] array = name.split("-");
                 val = Long.valueOf(array[0].trim());
-            }
-            catch (Exception ex){
+            } catch (Exception ex) {
                 continue;
             }
             taskNames.add(val);
         }
+
+        boolean hasDublicates = false;
+        tasksToSend.clear();
+        tasksToSend.add(new NavHeader("ВЫДАВАЕМЫЕ ЗАДАНИЯ"));
+        for (Widget child : children) {
+            if (child instanceof NavLink) {
+                NavLink navLink = (NavLink) child;
+//                if (navLink.isActive()) {
+//                    navLink.setActive(false);
+                String taskText = navLink.getText();
+                NavLink newNavLink = new NavLink(taskText);
+                Long id = Long.parseLong(taskText.substring(0, taskText.indexOf("-")).trim());
+                if (isPosted(id)) {
+                    newNavLink.setStyleName("alert-error");
+                    hasDublicates = true;
+                }
+//                    NavLink navLink = ((NavLink) widget);
+//                    navLink.addClickHandler(handler);
+//                    list.add(navLink);
+
+//                    addWidgetToList(groupTasks, newNavLink);
+                tasksToSend.add(newNavLink);
+//                }
+            }
+        }
+        if (hasDublicates) {
+            Window.alert("Вы пытаетесь выдать уже выданное задание");
+            sendTasks.setEnabled(false);
+        } else {
+            sendTasks.setEnabled(true);
+        }
+        sprint.setText(sprintsListBox.getValue().getName());
+        group.setText(groupsListBox.getValue().getName());
+        sendConfirm.show();
+
+    }
+
+    private boolean isPosted(Long id) {
+        ArrayList<Long> elements = new ArrayList<>();
+        List<TaskDTO> tasks = dataProvider.getList();
+//        Window.alert("" + tasks.size());
+        for (TaskDTO taskDTO : tasks) {
+//            Window.alert(taskDTO.getTaskTemplateId() + ", " + id);
+            elements.add(taskDTO.getTaskTemplateId());
+            if (taskDTO.getTaskTemplateId().equals(id)) {
+                return true;
+            }
+        }
+//        Window.alert(elements.toString());
+/*
+        if (tasks instanceof NavList) {
+            NavList list = (NavList) tasks;
+            Iterator<Widget> itr = list.iterator();
+            if (itr.hasNext()) {
+                Widget el = itr.next();
+                if (el instanceof NavLink) {
+                    NavLink navLink = (NavLink) el;
+                    String taskText = navLink.getText();
+                    Long navId = Long.parseLong(taskText.substring(0, taskText.indexOf("-")).trim());
+                    Window.alert(taskText + ", " + id);
+                    if (navId.equals(id)) {
+                        return true;
+                    }
+                }
+            }
+        }
+*/
+        return false;
+    }
+
+    @UiHandler("sendTasks")
+    void sendTask(ClickEvent e) {
+        sendConfirm.hide();
         final AsyncCallback<Void> callback = new AsyncCallback<Void>() {
 
             @Override
@@ -325,12 +432,15 @@ public class TasksTabPanel extends Composite {
             public void onSuccess(Void aVoid) {
                 //loadGroupsAndTasks();
                 Window.alert("CabinetMain tasks posted successfully");
+                clearGroupTasksList();
+                loadGroupsAndTasks();
             }
         };
         GroupDTO groupDTO = groupsListBox.getValue();
         SprintDTO sprintDTO = sprintsListBox.getValue();
         // TODO: replace taskNames by tasks
         adminService.postTasksByNames(groupDTO, taskNames, sprintDTO, callback);
+
     }
 
     @UiHandler("saveGroupsBtn")
@@ -412,7 +522,7 @@ public class TasksTabPanel extends Composite {
                     GroupDTO group = groupDTOs.get(0);
                     //addTaskToGroupNavList(groupTextBox.getTasks());
                     groupsListBox.setValue(group);
-                    fillCellTable(group.getName());
+                    fillCellTable(group.getId(), sprintsListBox.getValue().getId());
                 }
             }
         };
@@ -441,13 +551,13 @@ public class TasksTabPanel extends Composite {
         adminService.getTaskTemplates(callback);
     }
 
-    public void fillCellTable(String name) {
+    public void fillCellTable(Long groupId, Long sprintId) {
 
         final AsyncCallback<List<TaskDTO>> callback = new AsyncCallback<List<TaskDTO>>() {
 
             @Override
             public void onFailure(Throwable throwable) {
-                Window.alert("!!! Error async save tasks" + throwable);
+                Window.alert("!! Error async save tasks" + throwable);
             }
 
             @Override
@@ -461,6 +571,6 @@ public class TasksTabPanel extends Composite {
             }
         };
 
-        adminService.getTasksByGroup(name, callback);
+        adminService.getTasksByGroup(groupId, sprintId, callback);
     }
 }

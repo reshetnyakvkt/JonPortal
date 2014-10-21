@@ -14,8 +14,8 @@ import org.junit.Test;
 import org.junit.runners.MethodSorters;
 
 import java.lang.reflect.Method;
+import java.util.List;
 import java.util.Map;
-import hw2.Number;
 
 import static junit.framework.TestCase.assertNotNull;
 import static org.junit.Assert.assertFalse;
@@ -105,8 +105,8 @@ public class B2NumberTest extends BaseTest {
         assertNotNull("В задании не найден класс " + UNIT_NAME, unitClass);
 
         instance = instanciate(unitClasses[0]);
-        addMethod = ReflectionUtil.checkMethod(unitClass, GET_METHOD_NAME, int.class,
-                new MethodModifier[]{MethodModifier.PUBLIC});
+        addMethod = ReflectionUtil.checkMethod(unitClass, GET_METHOD_NAME, "NoSuchCourseException", int.class,
+                new MethodModifier[]{MethodModifier.PUBLIC}, String.class, List.class);
         addMethod = ReflectionUtil.checkMethod(unitClass, ADD_METHOD_NAME, "Number",
                 new MethodModifier[]{MethodModifier.PUBLIC}, "Number");
         addMethod = ReflectionUtil.checkMethod(unitClass, SUB_METHOD_NAME, "Number",

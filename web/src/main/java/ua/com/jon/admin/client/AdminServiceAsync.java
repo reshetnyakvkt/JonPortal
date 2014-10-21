@@ -1,11 +1,7 @@
 package ua.com.jon.admin.client;
 
 import com.google.gwt.user.client.rpc.AsyncCallback;
-import ua.com.jon.admin.shared.GroupAndUsersDTO;
-import ua.com.jon.admin.shared.GroupDTO;
-import ua.com.jon.admin.shared.SpaceDTO;
-import ua.com.jon.admin.shared.SprintDTO;
-import ua.com.jon.admin.shared.TaskTemplateDTO;
+import ua.com.jon.admin.shared.*;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -41,7 +37,7 @@ public interface AdminServiceAsync {
 
     void getAvailableTestNames(AsyncCallback<ArrayList<String>> async);
 
-    void getTasksByGroup(String name, AsyncCallback<List<ua.com.jon.admin.shared.TaskDTO>> async);
+    void getTasksByGroup(Long name, Long sprintId, AsyncCallback<List<TaskDTO>> async);
 
     void getGroupsAndUsers(AsyncCallback<ArrayList<GroupAndUsersDTO>> async);
 

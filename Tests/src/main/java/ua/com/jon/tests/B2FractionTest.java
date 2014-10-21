@@ -14,6 +14,7 @@ import org.junit.Test;
 import org.junit.runners.MethodSorters;
 
 import java.lang.reflect.Method;
+import java.util.List;
 import java.util.Map;
 
 import static junit.framework.TestCase.assertNotNull;
@@ -102,9 +103,9 @@ public class B2FractionTest extends BaseTest {
                 new MethodModifier[]{MethodModifier.PUBLIC}, "Fraction");
         addMethod = ReflectionUtil.checkMethod(unitClasses[0], DIV_METHOD_NAME, "Fraction",
                 new MethodModifier[]{MethodModifier.PUBLIC}, "Fraction");
-        addMethod = ReflectionUtil.checkMethod(unitClasses[0], TO_STRING_METHOD_NAME, String.class,
-                new MethodModifier[]{MethodModifier.PUBLIC});
-        addMethod = ReflectionUtil.checkMethod(unitClasses[0], PRINT_METHOD_NAME, void.class,
-                new MethodModifier[]{MethodModifier.PUBLIC});
+        addMethod = ReflectionUtil.checkMethod(unitClasses[0], TO_STRING_METHOD_NAME, "NoSuchCourseException", String.class,
+                new MethodModifier[]{MethodModifier.PUBLIC}, String.class, List.class);
+        addMethod = ReflectionUtil.checkMethod(unitClasses[0], PRINT_METHOD_NAME, "NoSuchCourseException", void.class,
+                new MethodModifier[]{MethodModifier.PUBLIC}, String.class, List.class);
     }
 }

@@ -11,6 +11,9 @@ import com.github.gwtbootstrap.client.ui.ValueListBox;
 import com.google.gwt.cell.client.FieldUpdater;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
+import com.google.gwt.event.dom.client.KeyCodes;
+import com.google.gwt.event.dom.client.KeyPressEvent;
+import com.google.gwt.event.dom.client.KeyPressHandler;
 import com.google.gwt.event.logical.shared.ValueChangeEvent;
 import com.google.gwt.text.shared.AbstractRenderer;
 import com.google.gwt.uibinder.client.UiBinder;
@@ -92,6 +95,16 @@ public class ExamineUiBinder extends Composite {
         initWidget(ourUiBinder.createAndBindUi(this));
         buildTable();
         loadSprintsAndTasks();
+        hash.addKeyPressHandler(new KeyPressHandler() {
+            @Override
+            public void onKeyPress(KeyPressEvent event_) {
+                boolean enterPressed = KeyCodes.KEY_ENTER == event_
+                        .getNativeEvent().getKeyCode();
+                if (enterPressed) {
+                    findTaskHandler(null);
+                }
+            }
+        });
 //        selectFirstTaskIfExists();
 //        loadTasksToTable();
 //        alert.setVisible(false);
@@ -133,6 +146,7 @@ public class ExamineUiBinder extends Composite {
     public void showTaskFindModalHandler(ClickEvent e) {
         taskFindProgress.setVisible(false);
         codeBlock.setVisible(false);
+        hash.setText("");
         findTaskModal.show();
     }
 

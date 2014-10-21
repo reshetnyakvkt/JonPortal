@@ -1,5 +1,6 @@
 package ua.com.jon.common.repository;
 
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
@@ -36,4 +37,6 @@ public interface UserRepository extends CrudRepository<User, Long> {
     //@Query("select u from User u where u.login = :name")
     User findByLoginAndPassword(@Param("login") String login, @Param("password") String password);
 
+    @Query("select u from User u JOIN u.groups gs where gs.id = :groupId AND u.ignore = false")
+    List<User> findByGroupIdIgnore(@Param("groupId") Long groupId, Pageable pageable);
 }

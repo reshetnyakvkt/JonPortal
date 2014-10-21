@@ -136,7 +136,6 @@ public class GroupInfoTabPanel extends Composite {
                 });*/
 
         dataProvider.addDataDisplay(studentsGrid);
-        //Window.alert("buildTable finished");
     }
 
     private void load() throws Exception {

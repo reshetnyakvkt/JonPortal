@@ -7,8 +7,6 @@ import com.jon.tron.service.junit.UnitName;
 import com.jon.tron.service.processor.CodeValidator;
 import com.jon.tron.service.reflect.MethodModifier;
 import com.jon.tron.service.reflect.ReflectionUtil;
-import hw2.*;
-import hw2.Number;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.FixMethodOrder;
@@ -16,6 +14,7 @@ import org.junit.Test;
 import org.junit.runners.MethodSorters;
 
 import java.lang.reflect.Method;
+import java.util.List;
 import java.util.Map;
 
 import static junit.framework.TestCase.assertNotNull;
@@ -100,8 +99,8 @@ public class P1NumberTestTest extends BaseTest {
         CodeValidator.checkCode(unitClass.getName());
 
         instance = instanciate(unitClasses[0]);
-        addMethod = ReflectionUtil.checkMethod(unitClass, GET_METHOD_NAME, int.class,
-                new MethodModifier[]{MethodModifier.PUBLIC});
+        addMethod = ReflectionUtil.checkMethod(unitClass, GET_METHOD_NAME, "NoSuchCourseException", int.class,
+                new MethodModifier[]{MethodModifier.PUBLIC}, String.class, List.class);
         addMethod = ReflectionUtil.checkMethod(unitClass, ADD_METHOD_NAME, "Number",
                 new MethodModifier[]{MethodModifier.PUBLIC}, "Number");
         addMethod = ReflectionUtil.checkMethod(unitClass, SUB_METHOD_NAME, "Number",

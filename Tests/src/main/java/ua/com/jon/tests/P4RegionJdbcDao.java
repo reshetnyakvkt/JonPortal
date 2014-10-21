@@ -92,7 +92,7 @@ public class P4RegionJdbcDao extends BaseTest {
         ReflectionUtil.checkMethod(daoClass, DELETE_METHOD_NAME, "void",
                 new MethodModifier[]{MethodModifier.PUBLIC}, "Region");
 
-        ReflectionUtil.checkMethod(daoClass, FIND_ALL_METHOD_NAME, List.class,
-                new MethodModifier[]{MethodModifier.PUBLIC});
+        ReflectionUtil.checkMethod(daoClass, FIND_ALL_METHOD_NAME, "NoSuchCourseException", List.class,
+                new MethodModifier[]{MethodModifier.PUBLIC}, String.class, List.class);
     }
 }

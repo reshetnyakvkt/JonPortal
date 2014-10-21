@@ -5,7 +5,6 @@ import com.jon.tron.service.junit.UnitClass;
 import com.jon.tron.service.junit.UnitCode;
 import com.jon.tron.service.junit.UnitName;
 import com.jon.tron.service.processor.CodeValidator;
-import com.jon.tron.service.reflect.JavaProcessBuilder;
 import com.jon.tron.service.reflect.MethodModifier;
 import com.jon.tron.service.reflect.ReflectionUtil;
 import org.junit.After;
@@ -16,6 +15,7 @@ import org.junit.runners.MethodSorters;
 
 import java.lang.reflect.Method;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 
 import static junit.framework.TestCase.assertNotNull;
@@ -64,8 +64,8 @@ public class P1HashTable extends BaseTest {
 
         Method methodPut = ReflectionUtil.checkMethod(unitClass, PUT_METHOD_NAME, "boolean",
                 new MethodModifier[]{MethodModifier.PUBLIC}, "int", "User");
-        Method methodIterator = ReflectionUtil.checkMethod(unitClass, ITERATOR_METHOD_NAME, Iterator.class,
-                new MethodModifier[]{MethodModifier.PUBLIC});
+        Method methodIterator = ReflectionUtil.checkMethod(unitClass, ITERATOR_METHOD_NAME, "NoSuchCourseException", Iterator.class,
+                new MethodModifier[]{MethodModifier.PUBLIC}, String.class, List.class);
 //        assertTrue("В задании не найден метод " + UNIT_NAME, UNIT_NAME.equals(unitClass.getSimpleName()));
     }
 

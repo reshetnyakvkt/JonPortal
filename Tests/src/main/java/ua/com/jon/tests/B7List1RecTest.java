@@ -14,6 +14,7 @@ import org.junit.Test;
 import org.junit.runners.MethodSorters;
 
 import java.lang.reflect.Method;
+import java.util.List;
 import java.util.Map;
 
 import static junit.framework.TestCase.assertNotNull;
@@ -77,7 +78,7 @@ public class B7List1RecTest extends BaseTest {
                 new MethodModifier[]{MethodModifier.PUBLIC}, int.class);
         ReflectionUtil.checkMethod(unitClass, INDEXOF_METHOD_NAME, void.class,
                 new MethodModifier[]{MethodModifier.PUBLIC}, Object.class);
-        ReflectionUtil.checkMethod(unitClass, SWAP_METHOD_NAME, void.class,
-                new MethodModifier[]{MethodModifier.PUBLIC});
+        ReflectionUtil.checkMethod(unitClass, SWAP_METHOD_NAME, "NoSuchCourseException", void.class,
+                new MethodModifier[]{MethodModifier.PUBLIC}, String.class, List.class);
     }
 }

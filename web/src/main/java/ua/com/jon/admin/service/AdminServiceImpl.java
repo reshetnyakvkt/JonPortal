@@ -5,6 +5,8 @@ import com.jon.tron.service.reflect.ReflectionUtil;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ua.com.jon.admin.client.AdminService;
@@ -108,7 +110,7 @@ public class AdminServiceImpl implements AdminService {
             groupDTOs.add(groupDTO);
 
         }
-        log.info("= " + groupDTOs + " =");
+        log.info("= " + groupDTOs.size() + " =");
         return groupDTOs;
 
     }
@@ -270,10 +272,12 @@ public class AdminServiceImpl implements AdminService {
     }
 
     @Override
-    public List<TaskDTO> getTasksByGroup(String name) {
-        log.info("-- getTasksByGroup: " + name);
-        Group group = groupRepository.findByName(name);
-        List<Task> tasks = taskRepository.findByGroupId(group.getId());
+    public List<TaskDTO> getTasksByGroup(Long groupId, Long sprintId) {
+        log.info("-- getTasksByGroup: " + groupId);
+        Pageable topOne = new PageRequest(0, 1);
+        List<User> users = userRepository.findByGroupIdIgnore(groupId, topOne);
+        Group group = groupRepository.findOne(groupId);
+        List<Task> tasks = taskRepository.findByUserAndGroup(users.get(0).getId(), group.getId());
         return TaskDtoMapper.domainsToAdminDtos(tasks);
     }
 

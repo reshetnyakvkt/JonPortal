@@ -13,7 +13,7 @@ import java.util.Set;
  */
 @Entity
 @Table(name = "SPRINTS")
-public class Sprint {
+public class Sprint implements Comparable<Sprint> {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
@@ -131,5 +131,13 @@ public class Sprint {
                 ", tasks=" + tasks +
                 ", endDate=" + endDate +
                 '}';
+    }
+
+    @Override
+    public int compareTo(Sprint o) {
+        if (o == null) {
+            return -1;
+        }
+        return name.compareTo(o.getName());
     }
 }

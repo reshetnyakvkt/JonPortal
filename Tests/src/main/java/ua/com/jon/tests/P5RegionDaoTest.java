@@ -5,7 +5,6 @@ import com.jon.tron.service.junit.UnitClass;
 import com.jon.tron.service.junit.UnitCode;
 import com.jon.tron.service.junit.UnitName;
 import com.jon.tron.service.processor.CodeValidator;
-import com.jon.tron.service.reflect.JavaProcessBuilder;
 import com.jon.tron.service.reflect.MethodModifier;
 import com.jon.tron.service.reflect.ReflectionUtil;
 import org.junit.After;
@@ -95,8 +94,8 @@ public class P5RegionDaoTest extends BaseTest {
                 new MethodModifier[]{MethodModifier.PUBLIC}, "Region");
         ReflectionUtil.checkMethod(daoInterface, DELETE_METHOD_NAME, "boolean",
                 new MethodModifier[]{MethodModifier.PUBLIC}, "Region");
-        ReflectionUtil.checkMethod(daoInterface, FIND_ALL_METHOD_NAME, List.class,
-                new MethodModifier[]{MethodModifier.PUBLIC});
+        ReflectionUtil.checkMethod(daoInterface, FIND_ALL_METHOD_NAME, "NoSuchCourseException", List.class,
+                new MethodModifier[]{MethodModifier.PUBLIC}, String.class, List.class);
     }
 
     @Test(timeout = 1000)
@@ -116,7 +115,7 @@ public class P5RegionDaoTest extends BaseTest {
                 new MethodModifier[]{MethodModifier.PUBLIC}, "Region");
         ReflectionUtil.checkMethod(daoImpl, DELETE_METHOD_NAME, "boolean",
                 new MethodModifier[]{MethodModifier.PUBLIC}, "Region");
-        ReflectionUtil.checkMethod(daoImpl, FIND_ALL_METHOD_NAME, List.class,
-                new MethodModifier[]{MethodModifier.PUBLIC});
+        ReflectionUtil.checkMethod(daoImpl, FIND_ALL_METHOD_NAME, "NoSuchCourseException", List.class,
+                new MethodModifier[]{MethodModifier.PUBLIC}, String.class, List.class);
     }
 }

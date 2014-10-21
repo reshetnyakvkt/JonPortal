@@ -3,6 +3,7 @@ package com.jon.tron.service.reflect;
 import java.io.IOException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created with IntelliJ IDEA.
@@ -47,7 +48,7 @@ public class ReflectionUtil {
 
 
 
-    public static Method checkMethod(Class unitClass, String equalsMethodName, Class<?> booleanClass, MethodModifier[] methodModifiers) {
+    public static Method checkMethod(Class unitClass, String equalsMethodName, String noSuchCourseException, Class<?> booleanClass, MethodModifier[] methodModifiers, Class<String> stringClass, Class<List> listClass) {
         return null;
     }
 
@@ -64,5 +65,29 @@ public class ReflectionUtil {
     }
 
     public static void invokeMethodWithExceptions(Object instance, Method unitMethod, Object ... expectedVector) {
+    }
+
+    public static void checkHasParent(Class unitClass, String iterable) {
+
+    }
+
+    public static void checkHasGeneric(Class unitClass, String e) {
+
+    }
+
+    public static void checkConstructor(Class entityClass) {
+
+    }
+
+    public static void checkMethod(Class daoClass, String updateMethodName, String aVoid, MethodModifier[] methodModifiers, String region) {
+
+    }
+
+    public static void checkMethod(Class service, String createOrderMethodName, String aBoolean, MethodModifier[] methodModifiers, String string, String string1) {
+
+    }
+
+    public static void checkMethod(Class service, String showOrdersPortionMethodName, String list, MethodModifier[] methodModifiers) {
+
     }
 }
