@@ -19,28 +19,28 @@ import java.util.Map;
 import static org.junit.Assert.*;
 
 /**
- Пользователь вводит число. Считать в виде строки. Определить сумму цифр числа.
+ Пользователь вводит число. Считать ввиде числа. Определить сумму цифр числа.
  Считывание строки выполнить в методе main.
  Написать метод определения суммы и результат вывести на экран.
- public boolean calcDigitsCount(String number)
+ public boolean calcDigitsCount(int number)
  Пример:
- calcDigitsCount("131")
- 5
+ calcDigitsCount(133)
+ 7
  */
-@Unit(testName = "B2StrDigitsCountTest", value = "weekend1.task1")
+@Unit(testName = "B2IntDigitsCountTest", value = "weekend1.task1")
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
-public class B2StrDigitsCountTest extends BaseTest {
+public class B2IntDigitsCountTest extends BaseTest {
     public static void main(String[] args) {
         java.util.Scanner scan = new java.util.Scanner(System.in);
         int first = scan.nextInt();
         int second = scan.nextInt();
         System.out.println(first + second);
     }
-    public static int calcDigitsCount(String number) {
-
+    public static int calcDigitsCount(int number) {
+        String strNumber = String.valueOf(number);
         int sum = 0;
-        for (int i = 0; i < number.length(); i++) {
-            int anInt = Integer.parseInt(String.valueOf(number.charAt(i)));
+        for (int i = 0; i < strNumber.length(); i++) {
+            int anInt = Integer.parseInt(String.valueOf(strNumber.charAt(i)));
             sum += anInt;
         }
         return sum;
@@ -76,7 +76,7 @@ public class B2StrDigitsCountTest extends BaseTest {
         CodeValidator.checkCode(codes.entrySet().iterator().next().getValue());
         instance = instanciate(unitClasses[0]);
         unitMethod = ReflectionUtil.checkMethod(unitClasses[0], UNIT_METHOD_NAME, int.class,
-                new MethodModifier[]{MethodModifier.PUBLIC}, String.class);
+                new MethodModifier[]{MethodModifier.PUBLIC}, int.class);
     }
 
     @Test(timeout = 1100)
@@ -92,7 +92,7 @@ public class B2StrDigitsCountTest extends BaseTest {
             sum += anInt;
         }
 
-        int actualSum = (int)ReflectionUtil.invokeMethod(instance, unitMethod, String.valueOf(number));
+        int actualSum = (int)ReflectionUtil.invokeMethod(instance, unitMethod, strNumber);
 
         assertEquals("Ожидаемый результат " + sum + " при введенных параметрах (" + number + "), но выведено " + actualSum,
                 sum, actualSum);

@@ -7,35 +7,54 @@ import com.jon.tron.service.junit.UnitName;
 import com.jon.tron.service.processor.CodeValidator;
 import com.jon.tron.service.reflect.MethodModifier;
 import com.jon.tron.service.reflect.ReflectionUtil;
+import javassist.util.proxy.MethodFilter;
+import javassist.util.proxy.MethodHandler;
+import javassist.util.proxy.ProxyFactory;
+import net.sf.cglib.proxy.Enhancer;
+import net.sf.cglib.proxy.FixedValue;
+import net.sf.cglib.proxy.InvocationHandler;
+import net.sf.cglib.proxy.MethodProxy;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runners.MethodSorters;
 
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.lang.reflect.Modifier;
+import java.lang.reflect.Proxy;
 import java.util.*;
 
-import static junit.framework.TestCase.assertNotNull;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
+import static org.junit.Assert.*;
 
 /**
- Пользователь вводит количество сортируемых чисел, затем вводит числа.
- Отсортировать введенные числа методом Шелла.
- Метод void sortShell(int[] vector) выводит на экран пары индексов обмениваемых элементов
-
- Класс задания: ShellSorter
+ Написать метод, сортирующий массив сортировкой вставками.
+ Вывести на экран пары индексов обмениваемых элементов
+ public void sortInsertion(int[] vector)
+ Пример:
+ sortInsertion([3,1,2,3])
+ 0 1
+ 1 2
  */
-@Unit(testName = "B4ShellSortTest", value = "weekend1.task1")
+@Unit(testName = "B3InsertSortTest", value = "weekend1.task1")
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
-public class B4ShellSortTest extends BaseTest {
-    public class ShellSorter {
-        public void sortShell(int[] vector) {}
+public class B3InsertSortTest extends BaseTest {
+    public static void sortInsertion(int array[]){
+        for (int i = 1; i < array.length; i++){
+            int j = i;
+            while ((j > 0) && (array[j-1] > array[j])){
+
+                int tmp = array[j-1];
+                array[j-1] = array[j];
+                array[j] = tmp;
+                System.out.println((j-1) + " " + j);
+                j--;
+            }
+        }
     }
 
-    private static final String UNIT_NAME = "ShellSorter";
-    private static final String SORT_METHOD_NAME = "sortShell";
+    private static final String SORT_METHOD_NAME = "sortInsertion";
 
     @UnitCode
     private static Map<String, String> codes;
@@ -45,7 +64,6 @@ public class B4ShellSortTest extends BaseTest {
     private static String[] unitNames;
     @Unit
     private static String unitJarClasspath;
-
     private static Object instance;
     private static Method unitMethod;
 
@@ -62,16 +80,12 @@ public class B4ShellSortTest extends BaseTest {
     @Test(timeout = 1100)
     public void test() throws Throwable {
         assertTrue("В задании должен быть только один класс", unitClasses.length == 1);
-
-        Class unitClass = getUnitClass(unitClasses, UNIT_NAME);
-        assertNotNull("В задании не найден класс " + UNIT_NAME, unitClass);
-        CodeValidator.checkCode(codes.get(unitClass.getName()));
-        ReflectionUtil.checkConstructor(unitClass);
-//        ReflectionUtil.checkConstructor(unitClass, "");
-
-        unitMethod = ReflectionUtil.checkMethod(unitClass, SORT_METHOD_NAME, void.class,
+        CodeValidator.checkCode(codes.entrySet().iterator().next().getValue());
+        instance = instanciate(unitClasses[0]);
+        unitMethod = ReflectionUtil.checkMethod(unitClasses[0], SORT_METHOD_NAME, void.class,
                 new MethodModifier[]{MethodModifier.PUBLIC}, int[].class);
     }
+
     @Test(timeout = 1100)
     public void testSuccess() throws Throwable {
         if (instance == null || unitMethod == null) {
@@ -81,7 +95,7 @@ public class B4ShellSortTest extends BaseTest {
         int to = generateInt(6, 10);
         int[] vector = generateVector(from, to);
         int[] expectedVector = vector.clone();
-        List<SimEntry> listExpected = shellSort(expectedVector);
+        List<SimEntry> listExpected = insertionSort(expectedVector);
 
         int[] clone = vector.clone();
         ReflectionUtil.invokeMethod(instance, unitMethod, clone);
@@ -112,7 +126,7 @@ public class B4ShellSortTest extends BaseTest {
         return list;
     }
 
-    public List<SimEntry> shellSort(int array[]){
+    public List<SimEntry> insertionSort(int array[]){
         List<SimEntry> list = new ArrayList<>();
         for (int i = 1; i < array.length; i++){
             int j = i;
