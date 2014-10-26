@@ -7,23 +7,13 @@ import com.jon.tron.service.junit.UnitName;
 import com.jon.tron.service.processor.CodeValidator;
 import com.jon.tron.service.reflect.MethodModifier;
 import com.jon.tron.service.reflect.ReflectionUtil;
-import javassist.util.proxy.MethodFilter;
-import javassist.util.proxy.MethodHandler;
-import javassist.util.proxy.ProxyFactory;
-import net.sf.cglib.proxy.Enhancer;
-import net.sf.cglib.proxy.FixedValue;
-import net.sf.cglib.proxy.InvocationHandler;
-import net.sf.cglib.proxy.MethodProxy;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runners.MethodSorters;
 
-import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import java.lang.reflect.Modifier;
-import java.lang.reflect.Proxy;
 import java.util.*;
 
 import static org.junit.Assert.*;
@@ -126,14 +116,14 @@ public class B3InsertSortTest extends BaseTest {
         return list;
     }
 
-    public List<SimEntry> insertionSort(int array[]){
+    public List<SimEntry> insertionSort(int vector[]){
         List<SimEntry> list = new ArrayList<>();
-        for (int i = 1; i < array.length; i++){
+        for (int i = 1; i < vector.length; i++){
             int j = i;
-            while ((j > 0) && (array[j-1] > array[j])){
-                int tmp = array[j-1];
-                array[j-1] = array[j];
-                array[j] = tmp;
+            while ((j > 0) && (vector[j-1] > vector[j])){
+                int tmp = vector[j-1];
+                vector[j-1] = vector[j];
+                vector[j] = tmp;
                 list.add(new SimEntry(j, j-1));
                 j--;
             }

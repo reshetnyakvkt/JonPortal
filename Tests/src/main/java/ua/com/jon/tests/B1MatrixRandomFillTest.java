@@ -18,7 +18,6 @@ import static org.junit.Assert.*;
 
 /**
 Пользователь вводит высоту и ширину матрицы. Заполнить матрицу случайными числами [0..9] и вывести на экран.
-При вводе неверных размера массива, выдавать сообщение "Не верный размер массива"
 Пример;
 3
 4
@@ -174,7 +173,7 @@ public class B1MatrixRandomFillTest extends BaseTest {
         ReflectionUtil.invokeMain(instance);
         String actualMatrixStr = getIn().toString().trim();
 
-        assertTrue("При неправильном размере массива (высота -1), необходимо выводить сообщение " + ILLEGAL_SIZE, ILLEGAL_SIZE.equals(actualMatrixStr));
+        assertTrue("При неправильном размере массива (высота -1), необходимо выводить сообщение " + ILLEGAL_SIZE + "а не " + actualMatrixStr, ILLEGAL_SIZE.equals(actualMatrixStr));
 
         height = rnd.nextInt(MAX_SIZE + MIN_SIZE);
         width = -1;
@@ -185,7 +184,7 @@ public class B1MatrixRandomFillTest extends BaseTest {
         ReflectionUtil.invokeMain(instance);
         actualMatrixStr = getIn().toString().trim();
 
-        assertTrue("При неправильном размере массива (ширина -1), необходимо выводить сообщение " + ILLEGAL_SIZE, ILLEGAL_SIZE.equals(actualMatrixStr));
+        assertTrue("При неправильном размере массива (ширина -1), необходимо выводить сообщение " + ILLEGAL_SIZE + "а не " + actualMatrixStr, ILLEGAL_SIZE.equals(actualMatrixStr));
     }
 
     private boolean checkSize(String actualMatrixStr, int height, int width) {
