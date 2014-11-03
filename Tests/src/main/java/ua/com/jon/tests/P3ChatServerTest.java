@@ -67,8 +67,8 @@ public class P3ChatServerTest extends BaseTest {
         ReflectionUtil.checkConstructor(unitClass);
 
         instance = instanciate(unitClass);
-        method = ReflectionUtil.checkMethod(unitClass, LISTEN_METHOD_NAME, "NoSuchCourseException", void.class,
-                new MethodModifier[]{MethodModifier.PUBLIC}, String.class, List.class);
+        method = ReflectionUtil.checkMethod(unitClass, LISTEN_METHOD_NAME, void.class,
+                new MethodModifier[]{MethodModifier.PUBLIC});
     }
 
 }

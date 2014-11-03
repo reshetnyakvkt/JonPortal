@@ -15,6 +15,7 @@
             <b:Column size="12">
               <b:ValueListBox ui:field="sprintsListBox" visible="false"/>
               <b:ProgressBar ui:field="sprintsProgress" type="ANIMATED" percent="100"/>
+              <b:SimplePager display="{cellTable}" location="RIGHT" fastForwardRows="15" />
               <b:CellTable ui:field='cellTable' title=''
                            bordered="true" condensed="true" striped="true">
               </b:CellTable>

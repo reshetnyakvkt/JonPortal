@@ -87,10 +87,10 @@ public class B3PlaneTest extends BaseTest {
 
         plane = instanciate(planeClass);
 //        wing = instanciate(wingClass);
-        addMethod = ReflectionUtil.checkMethod(planeClass, TAKEOF_METHOD_NAME, "NoSuchCourseException", void.class,
-                new MethodModifier[]{MethodModifier.PUBLIC}, String.class, List.class);
-        addMethod = ReflectionUtil.checkMethod(planeClass, PRINT_METHOD_NAME, "NoSuchCourseException", void.class,
-                new MethodModifier[]{MethodModifier.PUBLIC}, String.class, List.class);
+        addMethod = ReflectionUtil.checkMethod(planeClass, TAKEOF_METHOD_NAME, void.class,
+                new MethodModifier[]{MethodModifier.PUBLIC});
+        addMethod = ReflectionUtil.checkMethod(planeClass, PRINT_METHOD_NAME, void.class,
+                new MethodModifier[]{MethodModifier.PUBLIC});
         addMethod = ReflectionUtil.checkMethod(planeClass, SELECT_ROUTE_METHOD_NAME, void.class,
                 new MethodModifier[]{MethodModifier.PUBLIC}, int[][].class);
     }

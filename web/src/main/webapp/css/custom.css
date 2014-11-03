@@ -1,0 +1,18 @@
+.errorblock {
+    text-align: center;
+    color: #ff0000;
+    background-color: #ffEEEE;
+    border: 2px solid #ff0000;
+    padding: 1px;
+    margin: 1px;
+}
+.logo {
+    display: inline-block;
+    position: absolute;
+    left: 100px;
+    width: 382px;
+    height: 193px;
+    background: url(../img/craiser.png) no-repeat;
+    opacity: 0.8;
+    /*margin-right: -60px;*/
+}

@@ -167,7 +167,7 @@ public class P6NotebookStructureTest extends BaseTest {
 
     @Test(timeout = 1000)
     public void testCheckMainUnitPresent() throws Throwable {
-        assertTrue("В задании должено быть не более 6и классов", unitClasses.length <= 6);
+//        assertTrue("В задании должено быть не более 6и классов", unitClasses.length <= 6);
         Class unitClass = getUnitClass(unitClasses, NOTEBOOK_DOMAIN_NAME);
         assertNotNull("В задании не найден класс " + NOTEBOOK_DOMAIN_NAME, unitClass);
         CodeValidator.checkCodePkg(codes.get(unitClass.getName()));
@@ -213,8 +213,8 @@ public class P6NotebookStructureTest extends BaseTest {
                 new MethodModifier[]{MethodModifier.PUBLIC}, "Notebook");
         ReflectionUtil.checkMethod(daoInterface, DELETE_METHOD_NAME, "boolean",
                 new MethodModifier[]{MethodModifier.PUBLIC}, "Notebook");
-        ReflectionUtil.checkMethod(daoInterface, FIND_ALL_METHOD_NAME, "NoSuchCourseException", List.class,
-                new MethodModifier[]{MethodModifier.PUBLIC}, String.class, List.class);
+        ReflectionUtil.checkMethod(daoInterface, FIND_ALL_METHOD_NAME, List.class,
+                new MethodModifier[]{MethodModifier.PUBLIC});
 
         Class daoImpl = getUnitClass(unitClasses, NOTE_DAO_IMPL_NAME);
         assertNotNull("В задании не найден класс " + NOTE_DAO_IMPL_NAME, daoImpl);
@@ -222,7 +222,7 @@ public class P6NotebookStructureTest extends BaseTest {
         ReflectionUtil.checkConstructor(daoImpl);
         ReflectionUtil.checkHasParent(daoImpl, NOTE_DAO_NAME);
 
-        instance = instanciate(daoImpl);
+//        instance = instanciate(daoImpl);
     }
 
     @Test(timeout = 1000)
@@ -239,8 +239,8 @@ public class P6NotebookStructureTest extends BaseTest {
                 new MethodModifier[]{MethodModifier.PUBLIC}, "Vendor");
         ReflectionUtil.checkMethod(daoInterface, DELETE_METHOD_NAME, "boolean",
                 new MethodModifier[]{MethodModifier.PUBLIC}, "Vendor");
-        ReflectionUtil.checkMethod(daoInterface, FIND_ALL_METHOD_NAME, "NoSuchCourseException", List.class,
-                new MethodModifier[]{MethodModifier.PUBLIC}, String.class, List.class);
+        ReflectionUtil.checkMethod(daoInterface, FIND_ALL_METHOD_NAME, List.class,
+                new MethodModifier[]{MethodModifier.PUBLIC});
 
         Class daoImpl = getUnitClass(unitClasses, VENDOR_DAO_IMPL_NAME);
         assertNotNull("В задании не найден класс " + VENDOR_DAO_IMPL_NAME, daoImpl);
@@ -248,7 +248,7 @@ public class P6NotebookStructureTest extends BaseTest {
         ReflectionUtil.checkConstructor(daoImpl);
         ReflectionUtil.checkHasParent(daoImpl, VENDOR_DAO_NAME);
 
-        instance = instanciate(daoImpl);
+//        instance = instanciate(daoImpl);
     }
 
     @Test(timeout = 1000)
@@ -258,15 +258,15 @@ public class P6NotebookStructureTest extends BaseTest {
         CodeValidator.checkCodePkg(codes.get(daoInterface.getName()));
 
         ReflectionUtil.checkMethod(daoInterface, CREATE_METHOD_NAME, "Long",
-                new MethodModifier[]{MethodModifier.PUBLIC}, "Vendor");
-        ReflectionUtil.checkMethod(daoInterface, READ_METHOD_NAME, "Vendor",
+                new MethodModifier[]{MethodModifier.PUBLIC}, "CPU");
+        ReflectionUtil.checkMethod(daoInterface, READ_METHOD_NAME, "CPU",
                 new MethodModifier[]{MethodModifier.PUBLIC}, "Long");
         ReflectionUtil.checkMethod(daoInterface, UPDATE_METHOD_NAME, "boolean",
-                new MethodModifier[]{MethodModifier.PUBLIC}, "Vendor");
+                new MethodModifier[]{MethodModifier.PUBLIC}, "CPU");
         ReflectionUtil.checkMethod(daoInterface, DELETE_METHOD_NAME, "boolean",
-                new MethodModifier[]{MethodModifier.PUBLIC}, "Vendor");
-        ReflectionUtil.checkMethod(daoInterface, FIND_ALL_METHOD_NAME, "NoSuchCourseException", List.class,
-                new MethodModifier[]{MethodModifier.PUBLIC}, String.class, List.class);
+                new MethodModifier[]{MethodModifier.PUBLIC}, "CPU");
+        ReflectionUtil.checkMethod(daoInterface, FIND_ALL_METHOD_NAME, List.class,
+                new MethodModifier[]{MethodModifier.PUBLIC});
 
         Class daoImpl = getUnitClass(unitClasses, CPU_DAO_IMPL_NAME);
         assertNotNull("В задании не найден класс " + CPU_DAO_IMPL_NAME, daoImpl);
@@ -274,7 +274,7 @@ public class P6NotebookStructureTest extends BaseTest {
         ReflectionUtil.checkConstructor(daoImpl);
         ReflectionUtil.checkHasParent(daoImpl, CPU_DAO_NAME);
 
-        instance = instanciate(daoImpl);
+//        instance = instanciate(daoImpl);
     }
 
     @Test(timeout = 1000)
@@ -284,15 +284,15 @@ public class P6NotebookStructureTest extends BaseTest {
         CodeValidator.checkCodePkg(codes.get(daoInterface.getName()));
 
         ReflectionUtil.checkMethod(daoInterface, CREATE_METHOD_NAME, "Long",
-                new MethodModifier[]{MethodModifier.PUBLIC}, "Vendor");
-        ReflectionUtil.checkMethod(daoInterface, READ_METHOD_NAME, "Vendor",
+                new MethodModifier[]{MethodModifier.PUBLIC}, "Memory");
+        ReflectionUtil.checkMethod(daoInterface, READ_METHOD_NAME, "Memory",
                 new MethodModifier[]{MethodModifier.PUBLIC}, "Long");
         ReflectionUtil.checkMethod(daoInterface, UPDATE_METHOD_NAME, "boolean",
-                new MethodModifier[]{MethodModifier.PUBLIC}, "Vendor");
+                new MethodModifier[]{MethodModifier.PUBLIC}, "Memory");
         ReflectionUtil.checkMethod(daoInterface, DELETE_METHOD_NAME, "boolean",
-                new MethodModifier[]{MethodModifier.PUBLIC}, "Vendor");
-        ReflectionUtil.checkMethod(daoInterface, FIND_ALL_METHOD_NAME, "NoSuchCourseException", List.class,
-                new MethodModifier[]{MethodModifier.PUBLIC}, String.class, List.class);
+                new MethodModifier[]{MethodModifier.PUBLIC}, "Memory");
+        ReflectionUtil.checkMethod(daoInterface, FIND_ALL_METHOD_NAME, List.class,
+                new MethodModifier[]{MethodModifier.PUBLIC});
 
         Class daoImpl = getUnitClass(unitClasses, MEMORY_DAO_IMPL_NAME);
         assertNotNull("В задании не найден класс " + MEMORY_DAO_IMPL_NAME, daoImpl);
@@ -300,7 +300,7 @@ public class P6NotebookStructureTest extends BaseTest {
         ReflectionUtil.checkConstructor(daoImpl);
         ReflectionUtil.checkHasParent(daoImpl, MEMORY_DAO_NAME);
 
-        instance = instanciate(daoImpl);
+//        instance = instanciate(daoImpl);
     }
 
     @Test(timeout = 1000)
@@ -310,15 +310,15 @@ public class P6NotebookStructureTest extends BaseTest {
         CodeValidator.checkCodePkg(codes.get(daoInterface.getName()));
 
         ReflectionUtil.checkMethod(daoInterface, CREATE_METHOD_NAME, "Long",
-                new MethodModifier[]{MethodModifier.PUBLIC}, "Vendor");
-        ReflectionUtil.checkMethod(daoInterface, READ_METHOD_NAME, "Vendor",
+                new MethodModifier[]{MethodModifier.PUBLIC}, "Store");
+        ReflectionUtil.checkMethod(daoInterface, READ_METHOD_NAME, "Store",
                 new MethodModifier[]{MethodModifier.PUBLIC}, "Long");
         ReflectionUtil.checkMethod(daoInterface, UPDATE_METHOD_NAME, "boolean",
-                new MethodModifier[]{MethodModifier.PUBLIC}, "Vendor");
+                new MethodModifier[]{MethodModifier.PUBLIC}, "Store");
         ReflectionUtil.checkMethod(daoInterface, DELETE_METHOD_NAME, "boolean",
-                new MethodModifier[]{MethodModifier.PUBLIC}, "Vendor");
-        ReflectionUtil.checkMethod(daoInterface, FIND_ALL_METHOD_NAME, "NoSuchCourseException", List.class,
-                new MethodModifier[]{MethodModifier.PUBLIC}, String.class, List.class);
+                new MethodModifier[]{MethodModifier.PUBLIC}, "Store");
+        ReflectionUtil.checkMethod(daoInterface, FIND_ALL_METHOD_NAME, List.class,
+                new MethodModifier[]{MethodModifier.PUBLIC});
 
         Class daoImpl = getUnitClass(unitClasses, STORE_DAO_IMPL_NAME);
         assertNotNull("В задании не найден класс " + STORE_DAO_IMPL_NAME, daoImpl);
@@ -326,7 +326,7 @@ public class P6NotebookStructureTest extends BaseTest {
         ReflectionUtil.checkConstructor(daoImpl);
         ReflectionUtil.checkHasParent(daoImpl, STORE_DAO_NAME);
 
-        instance = instanciate(daoImpl);
+//        instance = instanciate(daoImpl);
     }
 
     @Test(timeout = 1000)
@@ -336,15 +336,15 @@ public class P6NotebookStructureTest extends BaseTest {
         CodeValidator.checkCodePkg(codes.get(daoInterface.getName()));
 
         ReflectionUtil.checkMethod(daoInterface, CREATE_METHOD_NAME, "Long",
-                new MethodModifier[]{MethodModifier.PUBLIC}, "Vendor");
-        ReflectionUtil.checkMethod(daoInterface, READ_METHOD_NAME, "Vendor",
+                new MethodModifier[]{MethodModifier.PUBLIC}, "Sales");
+        ReflectionUtil.checkMethod(daoInterface, READ_METHOD_NAME, "Sales",
                 new MethodModifier[]{MethodModifier.PUBLIC}, "Long");
         ReflectionUtil.checkMethod(daoInterface, UPDATE_METHOD_NAME, "boolean",
-                new MethodModifier[]{MethodModifier.PUBLIC}, "Vendor");
+                new MethodModifier[]{MethodModifier.PUBLIC}, "Sales");
         ReflectionUtil.checkMethod(daoInterface, DELETE_METHOD_NAME, "boolean",
-                new MethodModifier[]{MethodModifier.PUBLIC}, "Vendor");
-        ReflectionUtil.checkMethod(daoInterface, FIND_ALL_METHOD_NAME, "NoSuchCourseException", List.class,
-                new MethodModifier[]{MethodModifier.PUBLIC}, String.class, List.class);
+                new MethodModifier[]{MethodModifier.PUBLIC}, "Sales");
+        ReflectionUtil.checkMethod(daoInterface, FIND_ALL_METHOD_NAME, List.class,
+                new MethodModifier[]{MethodModifier.PUBLIC});
 
         Class daoImpl = getUnitClass(unitClasses, SALES_DAO_IMPL_NAME);
         assertNotNull("В задании не найден класс " + SALES_DAO_IMPL_NAME, daoImpl);
@@ -352,7 +352,7 @@ public class P6NotebookStructureTest extends BaseTest {
         ReflectionUtil.checkConstructor(daoImpl);
         ReflectionUtil.checkHasParent(daoImpl, SALES_DAO_NAME);
 
-        instance = instanciate(daoImpl);
+//        instance = instanciate(daoImpl);
     }
 
     @Test(timeout = 1000)

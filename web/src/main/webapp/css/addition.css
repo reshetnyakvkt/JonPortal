@@ -3,7 +3,7 @@ body {
     /*font-family: monospace; */
     font-family: sans-serif;
     font-size: 15px;
-    text-shadow: 1px 1px 0.5px rgb(206, 191, 191);
+    /*text-shadow: 1px 1px 0.5px rgb(206, 191, 191);*/
 }
 
 .backGround {
@@ -84,8 +84,9 @@ body {
 
 a,a:active,a:visited,a:before {
     text-decoration: none;
-    color: #363636;
-    display: block;
+    /*color: #363636;*/
+    /*display: block;*/
+    text-shadow: 0 1px 20px rgba(255, 255, 255, 0.75);
 }
 
 

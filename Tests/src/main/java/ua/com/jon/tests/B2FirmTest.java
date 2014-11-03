@@ -77,12 +77,12 @@ public class B2FirmTest extends BaseTest {
         assertNotNull("В задании не найден класс " + UNIT_NAME, unitClass);
 
         instance = instanciate(unitClass);
-        addMethod = ReflectionUtil.checkMethod(unitClass, PRINT_METHOD_NAME, "NoSuchCourseException", void.class,
-                new MethodModifier[]{MethodModifier.PUBLIC}, String.class, List.class);
-        addMethod = ReflectionUtil.checkMethod(unitClass, GIVE_SALARY_METHOD_NAME, "NoSuchCourseException", void.class,
-                new MethodModifier[]{MethodModifier.PUBLIC}, String.class, List.class);
-        addMethod = ReflectionUtil.checkMethod(unitClass, CALC_VOCATIONS_METHOD_NAME, "NoSuchCourseException", void.class,
-                new MethodModifier[]{MethodModifier.PUBLIC}, String.class, List.class);
+        addMethod = ReflectionUtil.checkMethod(unitClass, PRINT_METHOD_NAME, void.class,
+                new MethodModifier[]{MethodModifier.PUBLIC});
+        addMethod = ReflectionUtil.checkMethod(unitClass, GIVE_SALARY_METHOD_NAME, void.class,
+                new MethodModifier[]{MethodModifier.PUBLIC});
+        addMethod = ReflectionUtil.checkMethod(unitClass, CALC_VOCATIONS_METHOD_NAME, void.class,
+                new MethodModifier[]{MethodModifier.PUBLIC});
     }
 }
 

@@ -394,7 +394,7 @@ public class UserTasksTabPanel extends Composite {
             @Override
             public String getValue(TaskDTO contact) {
                 if (contact.getText() != null) {
-                    return "(" + contact.getGroupId() + ")" + contact.getText().substring(0, 51);
+                    return contact.getText().substring(0, 51);
                 }
                 return "";
             }
@@ -479,7 +479,7 @@ public class UserTasksTabPanel extends Composite {
             public void update(int i, final TaskDTO taskDTO, String status) {
 //                Window.alert("dispatchTaskChecking " + taskDTO);
                 taskDTO.setStatus(status);
-                taskDTO.setText("");
+                //taskDTO.setText("");
                 taskDTO.setResult("");
                 if (taskDTO.getType().equals(TaskType.CLASS.name())) {
                     taskDTO.setCode(code.getText());

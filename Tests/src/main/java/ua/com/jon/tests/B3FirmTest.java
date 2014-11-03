@@ -139,19 +139,19 @@ public class B3FirmTest  extends BaseTest {
                 new MethodModifier[]{MethodModifier.PUBLIC}, String.class, List.class);
 
         instance = instanciate(firmClass);
-        addMethod = ReflectionUtil.checkMethod(firmClass, PRINT_METHOD_NAME, "NoSuchCourseException", void.class,
-                new MethodModifier[]{MethodModifier.PUBLIC}, String.class, List.class);
-        addMethod = ReflectionUtil.checkMethod(firmClass, PRINT_BY_SALARY_METHOD_NAME, "NoSuchCourseException", void.class,
-                new MethodModifier[]{MethodModifier.PUBLIC}, String.class, List.class);
-        addMethod = ReflectionUtil.checkMethod(firmClass, PRINT_BY_SNAME_METHOD_NAME, "NoSuchCourseException", void.class,
-                new MethodModifier[]{MethodModifier.PUBLIC}, String.class, List.class);
-        addMethod = ReflectionUtil.checkMethod(firmClass, SELL_BY_10_METHOD_NAME, "NoSuchCourseException", void.class,
-                new MethodModifier[]{MethodModifier.PUBLIC}, String.class, List.class);
-        addMethod = ReflectionUtil.checkMethod(firmClass, GIVE_SALARY_METHOD_NAME, "NoSuchCourseException", void.class,
-                new MethodModifier[]{MethodModifier.PUBLIC}, String.class, List.class);
-        addMethod = ReflectionUtil.checkMethod(firmClass, CALC_VOCATIONS_METHOD_NAME, "NoSuchCourseException", void.class,
-                new MethodModifier[]{MethodModifier.PUBLIC}, String.class, List.class);
-        addMethod = ReflectionUtil.checkMethod(firmClass, RISE_SALARY_METHOD_NAME, "NoSuchCourseException", void.class,
-                new MethodModifier[]{MethodModifier.PUBLIC}, String.class, List.class);
+        addMethod = ReflectionUtil.checkMethod(firmClass, PRINT_METHOD_NAME, void.class,
+                new MethodModifier[]{MethodModifier.PUBLIC});
+        addMethod = ReflectionUtil.checkMethod(firmClass, PRINT_BY_SALARY_METHOD_NAME, void.class,
+                new MethodModifier[]{MethodModifier.PUBLIC});
+        addMethod = ReflectionUtil.checkMethod(firmClass, PRINT_BY_SNAME_METHOD_NAME, void.class,
+                new MethodModifier[]{MethodModifier.PUBLIC});
+        addMethod = ReflectionUtil.checkMethod(firmClass, SELL_BY_10_METHOD_NAME, void.class,
+                new MethodModifier[]{MethodModifier.PUBLIC});
+        addMethod = ReflectionUtil.checkMethod(firmClass, GIVE_SALARY_METHOD_NAME, void.class,
+                new MethodModifier[]{MethodModifier.PUBLIC});
+        addMethod = ReflectionUtil.checkMethod(firmClass, CALC_VOCATIONS_METHOD_NAME, void.class,
+                new MethodModifier[]{MethodModifier.PUBLIC});
+        addMethod = ReflectionUtil.checkMethod(firmClass, RISE_SALARY_METHOD_NAME, void.class,
+                new MethodModifier[]{MethodModifier.PUBLIC});
     }
 }

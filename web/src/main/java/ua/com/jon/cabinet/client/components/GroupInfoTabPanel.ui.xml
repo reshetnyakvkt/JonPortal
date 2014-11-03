@@ -16,7 +16,8 @@
                 <b:FluidRow>
                     <b:Column size="12">
                         <b:ProgressBar ui:field="sprintsProgress" type="ANIMATED" percent="100"/>
-                        <b:CellTable ui:field='studentsGrid' title=''
+                        <b:SimplePager display="{studentsGrid}" location="RIGHT" fastForwardRows="15" />
+                        <b:CellTable ui:field="studentsGrid" title=''
                                      bordered="true" condensed="true" striped="true">
                         </b:CellTable>
 

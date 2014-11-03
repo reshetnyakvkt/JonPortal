@@ -98,19 +98,19 @@ public class B5MyScannerStrTest extends BaseTest {
         ReflectionUtil.checkConstructor(unitClass, String.class);
 
         instance = instanciate(unitClasses[0]);
-        addMethod = ReflectionUtil.checkMethod(unitClass, NEXT_METHOD_NAME, "NoSuchCourseException", String.class,
-                new MethodModifier[]{MethodModifier.PUBLIC}, String.class, List.class);
-        addMethod = ReflectionUtil.checkMethod(unitClass, NEXT_INT_METHOD_NAME, "NoSuchCourseException", int.class,
-                new MethodModifier[]{MethodModifier.PUBLIC}, String.class, List.class);
-        addMethod = ReflectionUtil.checkMethod(unitClass, NEXT_LINE_METHOD_NAME, "NoSuchCourseException", String.class,
-                new MethodModifier[]{MethodModifier.PUBLIC}, String.class, List.class);
-        addMethod = ReflectionUtil.checkMethod(unitClass, HAS_NEXT_METHOD_NAME, "NoSuchCourseException", boolean.class,
-                new MethodModifier[]{MethodModifier.PUBLIC}, String.class, List.class);
-        addMethod = ReflectionUtil.checkMethod(unitClass, HAS_NEXT_INT_METHOD_NAME, "NoSuchCourseException", boolean.class,
-                new MethodModifier[]{MethodModifier.PUBLIC}, String.class, List.class);
+        addMethod = ReflectionUtil.checkMethod(unitClass, NEXT_METHOD_NAME, String.class,
+                new MethodModifier[]{MethodModifier.PUBLIC});
+        addMethod = ReflectionUtil.checkMethod(unitClass, NEXT_INT_METHOD_NAME, int.class,
+                new MethodModifier[]{MethodModifier.PUBLIC});
+        addMethod = ReflectionUtil.checkMethod(unitClass, NEXT_LINE_METHOD_NAME, String.class,
+                new MethodModifier[]{MethodModifier.PUBLIC});
+        addMethod = ReflectionUtil.checkMethod(unitClass, HAS_NEXT_METHOD_NAME, boolean.class,
+                new MethodModifier[]{MethodModifier.PUBLIC});
+        addMethod = ReflectionUtil.checkMethod(unitClass, HAS_NEXT_INT_METHOD_NAME, boolean.class,
+                new MethodModifier[]{MethodModifier.PUBLIC});
         addMethod = ReflectionUtil.checkMethod(unitClass, USE_DELIMITER_METHOD_NAME, void.class,
                 new MethodModifier[]{MethodModifier.PUBLIC}, char.class);
-        addMethod = ReflectionUtil.checkMethod(unitClass, CLOSE_METHOD_NAME, "NoSuchCourseException", void.class,
-                new MethodModifier[]{MethodModifier.PUBLIC}, String.class, List.class);
+        addMethod = ReflectionUtil.checkMethod(unitClass, CLOSE_METHOD_NAME, void.class,
+                new MethodModifier[]{MethodModifier.PUBLIC});
     }
 }

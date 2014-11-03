@@ -76,7 +76,7 @@
 
     <footer id="footer"></footer>
 </div>
-
+<%@include file="../body.jsp" %>
 
 </body>
 </html>

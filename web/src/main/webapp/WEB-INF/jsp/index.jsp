@@ -4,19 +4,9 @@
 <html>
 <head>
     <%@include file="includes.jsp" %>
-    <style>
-        .errorblock {
-            text-align: center;
-            color: #ff0000;
-            background-color: #ffEEEE;
-            border: 2px solid #ff0000;
-            padding: 1px;
-            margin: 1px;
-        }
-    </style>
 </head>
-<body onload='document.lform.j_username.focus();'>
-
+<body>
+<%@include file="body.jsp" %>
 
 <div id="container" class="container-fluid">
 
@@ -35,7 +25,7 @@
             <form name="lform" method="POST" action="/login">
                 <input type="text" id="username" class="span12" name="j_username" placeholder="Логин"/>
                 <br/>
-                <input type="password" id="password" class="span12" name="j_password" placeholder="Имя"/>
+                <input type="password" id="password" class="span12" name="j_password" placeholder="Пароль"/>
                 <label class="checkbox">
                     Запомнить меня
 
@@ -49,10 +39,10 @@
 
         </div>
         <div class="span9 well">
-            <div class="alert alert-success lead text-info">
+            <div id="tittleText" class="alert alert-success lead text-info">
+
                 Портал для тех кто связался с Java
             </div>
-
             <div class="well">
                 <p>В разделе <span class="label">Статьи</span> находятся полезные для обучающихся статьи</p>
 
@@ -69,13 +59,15 @@
 
             <div class="well">
 
-                <p><a href="/lessons.html">Добавлены видеоуроки для курса Foundation</a></p>
+                <p>Появление JavaScript в дизайне</p>
+
+                <p>Добавлены видеоуроки для курса Foundation... <a href="/lessons.html">перейти</a></p>
 
                 <p>Добавлена мультимодульная проверка для курса Professional</p>
 
                 <p>Улучшен дизайн открытой части портала (Благодаря Stefan &#0169;)</p>
 
-                <p><a href="/trainings/nedocode.html">Добавлена статья "Вредоносный код"</a></p>
+                <p>Добавлена статья "Вредоносный код"... <a href="/trainings/nedocode.html">перейти</a></p>
 
                 <p>Закончена миграци на Git</p>
 
@@ -119,8 +111,8 @@
 --%>
 </div>
 
-<footer id="footer"></footer>
 
+<footer id="footer"></footer>
 
 </body>
 </html>

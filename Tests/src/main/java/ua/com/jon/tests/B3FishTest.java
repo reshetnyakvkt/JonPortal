@@ -96,13 +96,13 @@ public class B3FishTest extends BaseTest {
 
         fish = instanciate(fishClass);
 //        product = instanciate(productClass);
-        addMethod = ReflectionUtil.checkMethod(fishClass, PRINT_METHOD_NAME, "NoSuchCourseException", void.class,
-                new MethodModifier[]{MethodModifier.PUBLIC}, String.class, List.class);
+        addMethod = ReflectionUtil.checkMethod(fishClass, PRINT_METHOD_NAME, void.class,
+                new MethodModifier[]{MethodModifier.PUBLIC});
         addMethod = ReflectionUtil.checkMethod(fishClass, CANIBALISM_METHOD_NAME, "void",
                 new MethodModifier[]{MethodModifier.PUBLIC}, "Fish");
-        addMethod = ReflectionUtil.checkMethod(fishClass, SWIM_METHOD_NAME, "NoSuchCourseException", void.class,
-                new MethodModifier[]{MethodModifier.PUBLIC}, String.class, List.class);
-        addMethod = ReflectionUtil.checkMethod(fishClass, PRINT_BAR_METHOD_NAME, "NoSuchCourseException", void.class,
-                new MethodModifier[]{MethodModifier.PUBLIC}, String.class, List.class);
+        addMethod = ReflectionUtil.checkMethod(fishClass, SWIM_METHOD_NAME, void.class,
+                new MethodModifier[]{MethodModifier.PUBLIC});
+        addMethod = ReflectionUtil.checkMethod(fishClass, PRINT_BAR_METHOD_NAME, void.class,
+                new MethodModifier[]{MethodModifier.PUBLIC});
     }
 }
