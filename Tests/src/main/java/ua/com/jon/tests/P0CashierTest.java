@@ -100,7 +100,7 @@ public class P0CashierTest extends BaseTest {
                 new MethodModifier[]{MethodModifier.PUBLIC}, String.class, int.class);
         addMethod = ReflectionUtil.checkMethod(unitClass, REMOVE_METHOD_NAME, void.class,
                 new MethodModifier[]{MethodModifier.PUBLIC}, String.class, int.class);
-        addMethod = ReflectionUtil.checkMethod(unitClass, CANCEL_METHOD_NAME, "NoSuchCourseException", void.class,
+        addMethod = ReflectionUtil.checkMethod(unitClass, CANCEL_METHOD_NAME, void.class,
                 new MethodModifier[]{MethodModifier.PUBLIC});
         addMethod = ReflectionUtil.checkMethod(unitClass, CLOSE_METHOD_NAME, double.class,
                 new MethodModifier[]{MethodModifier.PUBLIC});

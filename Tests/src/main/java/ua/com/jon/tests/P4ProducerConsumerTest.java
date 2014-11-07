@@ -90,8 +90,8 @@ public class P4ProducerConsumerTest extends BaseTest {
         ReflectionUtil.checkConstructor(producerClass);
 
 //        instance = instanciate(unitClass);
-        ReflectionUtil.checkMethod(producerClass, PRODUCE_METHOD_NAME, "NoSuchCourseException", void.class,
-                new MethodModifier[]{MethodModifier.PUBLIC}, String.class, List.class);
+        ReflectionUtil.checkMethod(producerClass, PRODUCE_METHOD_NAME, void.class,
+                new MethodModifier[]{MethodModifier.PUBLIC});
 
         Class consumerClass = getUnitClass(unitClasses, CONSUMER_NAME);
         assertNotNull("В задании не найден класс " + CONSUMER_NAME, consumerClass);
@@ -99,8 +99,8 @@ public class P4ProducerConsumerTest extends BaseTest {
         ReflectionUtil.checkConstructor(consumerClass);
 
 //        instance = instanciate(unitClass);
-        ReflectionUtil.checkMethod(consumerClass, CONSUME_METHOD_NAME, "NoSuchCourseException", void.class,
-                new MethodModifier[]{MethodModifier.PUBLIC}, String.class, List.class);
+        ReflectionUtil.checkMethod(consumerClass, CONSUME_METHOD_NAME, void.class,
+                new MethodModifier[]{MethodModifier.PUBLIC});
 
         Class holderClass = getUnitClass(unitClasses, HOLDER_NAME);
         assertNotNull("В задании не найден класс " + HOLDER_NAME, holderClass);
@@ -110,7 +110,7 @@ public class P4ProducerConsumerTest extends BaseTest {
 //        instance = instanciate(unitClass);
         ReflectionUtil.checkMethod(holderClass, PUT_METHOD_NAME, void.class,
                 new MethodModifier[]{MethodModifier.PUBLIC}, int.class);
-        ReflectionUtil.checkMethod(holderClass, GET_METHOD_NAME, "NoSuchCourseException", int.class,
-                new MethodModifier[]{MethodModifier.PUBLIC}, String.class, List.class);
+        ReflectionUtil.checkMethod(holderClass, GET_METHOD_NAME, int.class,
+                new MethodModifier[]{MethodModifier.PUBLIC});
     }
 }

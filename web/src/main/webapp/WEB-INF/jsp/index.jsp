@@ -59,7 +59,7 @@
 
             <div class="well">
 
-                <p>Появление JavaScript в дизайне</p>
+                <p>Обновлён дизайн by Stefan ©</p>
 
                 <p>Добавлены видеоуроки для курса Foundation... <a href="/lessons.html">перейти</a></p>
 

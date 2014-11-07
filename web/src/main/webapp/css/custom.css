@@ -14,5 +14,7 @@
     height: 193px;
     background: url(../img/craiser.png) no-repeat;
     opacity: 0.8;
+    display: none;
+    z-index : -1;
     /*margin-right: -60px;*/
 }

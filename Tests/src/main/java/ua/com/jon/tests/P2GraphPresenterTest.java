@@ -75,7 +75,7 @@ public class P2GraphPresenterTest extends BaseTest {
         ReflectionUtil.checkConstructor(unitClass);
 
         instance = instanciate(unitClass);
-        addMethod = ReflectionUtil.checkMethod(unitClass, PRINT_METHOD_NAME, "NoSuchCourseException", void.class,
-                new MethodModifier[]{MethodModifier.PUBLIC}, String.class, List.class);
+        addMethod = ReflectionUtil.checkMethod(unitClass, PRINT_METHOD_NAME, void.class,
+                new MethodModifier[]{MethodModifier.PUBLIC});
     }
 }

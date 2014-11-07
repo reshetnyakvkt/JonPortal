@@ -84,7 +84,7 @@ public class P1User extends BaseTest {
         instance = instanciate(unitClass);
         addMethod = ReflectionUtil.checkMethod(unitClass, EQUALS_METHOD_NAME, boolean.class,
                 new MethodModifier[]{MethodModifier.PUBLIC}, Object.class);
-        addMethod = ReflectionUtil.checkMethod(unitClass, HASHCODE_METHOD_NAME, "NoSuchCourseException", int.class,
-                new MethodModifier[]{MethodModifier.PUBLIC}, String.class, List.class);
+        addMethod = ReflectionUtil.checkMethod(unitClass, HASHCODE_METHOD_NAME, int.class,
+                new MethodModifier[]{MethodModifier.PUBLIC});
     }
 }

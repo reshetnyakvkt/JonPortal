@@ -199,6 +199,7 @@ body {
     line-height: 20px;
     /*color: #333;*/
     color: white;
+    overflow-x : hidden;
     /*background-color: #fff;*/
     /*background: url("/img/star-wars-moon-space-death.jpg") repeat scroll -200px 0 / 120% auto rgba(0, 0, 0, 0);
     */
@@ -5411,6 +5412,6 @@ a.label:hover, a.badge:hover {
     height: 100%;
     position: fixed;
     background: url("/img/star-wars-moon-space-death.jpg") repeat scroll -200px 0 / 120% auto rgba(0, 0, 0, 0);
-    z-index: -1;
+    z-index: -2;
     top: 0px;
 }

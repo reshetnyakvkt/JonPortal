@@ -64,8 +64,8 @@ public class P1HashTable extends BaseTest {
 
         Method methodPut = ReflectionUtil.checkMethod(unitClass, PUT_METHOD_NAME, "boolean",
                 new MethodModifier[]{MethodModifier.PUBLIC}, "int", "User");
-        Method methodIterator = ReflectionUtil.checkMethod(unitClass, ITERATOR_METHOD_NAME, "NoSuchCourseException", Iterator.class,
-                new MethodModifier[]{MethodModifier.PUBLIC}, String.class, List.class);
+        Method methodIterator = ReflectionUtil.checkMethod(unitClass, ITERATOR_METHOD_NAME, Iterator.class,
+                new MethodModifier[]{MethodModifier.PUBLIC});
 //        assertTrue("В задании не найден метод " + UNIT_NAME, UNIT_NAME.equals(unitClass.getSimpleName()));
     }
 

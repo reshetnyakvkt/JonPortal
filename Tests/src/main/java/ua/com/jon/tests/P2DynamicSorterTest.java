@@ -61,8 +61,8 @@ public class P2DynamicSorterTest extends BaseTest {
             unitClass = unitClasses[0];
         }
         assertTrue("В задании не найден класс " + UNIT_NAME, UNIT_NAME.equals(unitClass.getSimpleName()));
-        Method methodSort = ReflectionUtil.checkMethod(unitClass, SORT_METHOD_NAME, "NoSuchCourseException", void.class,
-                new MethodModifier[]{MethodModifier.PUBLIC}, String.class, List.class);
+        Method methodSort = ReflectionUtil.checkMethod(unitClass, SORT_METHOD_NAME, void.class,
+                new MethodModifier[]{MethodModifier.PUBLIC});
     }
 
     @Test(timeout = 1000)
