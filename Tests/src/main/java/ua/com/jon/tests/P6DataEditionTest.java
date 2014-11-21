@@ -187,8 +187,8 @@ public class P6DataEditionTest extends BaseTest {
                 new MethodModifier[]{MethodModifier.PUBLIC}, "Notebook");
         ReflectionUtil.checkMethod(daoInterface, DELETE_METHOD_NAME, "boolean",
                 new MethodModifier[]{MethodModifier.PUBLIC}, "Notebook");
-        ReflectionUtil.checkMethod(daoInterface, FIND_ALL_METHOD_NAME, "NoSuchCourseException", List.class,
-                new MethodModifier[]{MethodModifier.PUBLIC}, String.class, List.class);
+        ReflectionUtil.checkMethod(daoInterface, FIND_ALL_METHOD_NAME, List.class,
+                new MethodModifier[]{MethodModifier.PUBLIC});
 
         Class daoImpl = getUnitClass(unitClasses, NOTE_DAO_IMPL_NAME);
         assertNotNull("В задании не найден класс " + NOTE_DAO_IMPL_NAME, daoImpl);
@@ -213,8 +213,8 @@ public class P6DataEditionTest extends BaseTest {
                 new MethodModifier[]{MethodModifier.PUBLIC}, "Vendor");
         ReflectionUtil.checkMethod(daoInterface, DELETE_METHOD_NAME, "boolean",
                 new MethodModifier[]{MethodModifier.PUBLIC}, "Vendor");
-        ReflectionUtil.checkMethod(daoInterface, FIND_ALL_METHOD_NAME, "NoSuchCourseException", List.class,
-                new MethodModifier[]{MethodModifier.PUBLIC}, String.class, List.class);
+        ReflectionUtil.checkMethod(daoInterface, FIND_ALL_METHOD_NAME, List.class,
+                new MethodModifier[]{MethodModifier.PUBLIC});
 
         Class daoImpl = getUnitClass(unitClasses, VENDOR_DAO_IMPL_NAME);
         assertNotNull("В задании не найден класс " + VENDOR_DAO_IMPL_NAME, daoImpl);
@@ -239,8 +239,8 @@ public class P6DataEditionTest extends BaseTest {
                 new MethodModifier[]{MethodModifier.PUBLIC}, "Vendor");
         ReflectionUtil.checkMethod(daoInterface, DELETE_METHOD_NAME, "boolean",
                 new MethodModifier[]{MethodModifier.PUBLIC}, "Vendor");
-        ReflectionUtil.checkMethod(daoInterface, FIND_ALL_METHOD_NAME, "NoSuchCourseException", List.class,
-                new MethodModifier[]{MethodModifier.PUBLIC}, String.class, List.class);
+        ReflectionUtil.checkMethod(daoInterface, FIND_ALL_METHOD_NAME, List.class,
+                new MethodModifier[]{MethodModifier.PUBLIC});
 
         Class daoImpl = getUnitClass(unitClasses, CPU_DAO_IMPL_NAME);
         assertNotNull("В задании не найден класс " + CPU_DAO_IMPL_NAME, daoImpl);
@@ -265,8 +265,8 @@ public class P6DataEditionTest extends BaseTest {
                 new MethodModifier[]{MethodModifier.PUBLIC}, "Vendor");
         ReflectionUtil.checkMethod(daoInterface, DELETE_METHOD_NAME, "boolean",
                 new MethodModifier[]{MethodModifier.PUBLIC}, "Vendor");
-        ReflectionUtil.checkMethod(daoInterface, FIND_ALL_METHOD_NAME, "NoSuchCourseException", List.class,
-                new MethodModifier[]{MethodModifier.PUBLIC}, String.class, List.class);
+        ReflectionUtil.checkMethod(daoInterface, FIND_ALL_METHOD_NAME, List.class,
+                new MethodModifier[]{MethodModifier.PUBLIC});
 
         Class daoImpl = getUnitClass(unitClasses, MEMORY_DAO_IMPL_NAME);
         assertNotNull("В задании не найден класс " + MEMORY_DAO_IMPL_NAME, daoImpl);
@@ -291,8 +291,8 @@ public class P6DataEditionTest extends BaseTest {
                 new MethodModifier[]{MethodModifier.PUBLIC}, "Vendor");
         ReflectionUtil.checkMethod(daoInterface, DELETE_METHOD_NAME, "boolean",
                 new MethodModifier[]{MethodModifier.PUBLIC}, "Vendor");
-        ReflectionUtil.checkMethod(daoInterface, FIND_ALL_METHOD_NAME, "NoSuchCourseException", List.class,
-                new MethodModifier[]{MethodModifier.PUBLIC}, String.class, List.class);
+        ReflectionUtil.checkMethod(daoInterface, FIND_ALL_METHOD_NAME, List.class,
+                new MethodModifier[]{MethodModifier.PUBLIC});
 
         Class daoImpl = getUnitClass(unitClasses, STORE_DAO_IMPL_NAME);
         assertNotNull("В задании не найден класс " + STORE_DAO_IMPL_NAME, daoImpl);
@@ -317,8 +317,8 @@ public class P6DataEditionTest extends BaseTest {
                 new MethodModifier[]{MethodModifier.PUBLIC}, "Vendor");
         ReflectionUtil.checkMethod(daoInterface, DELETE_METHOD_NAME, "boolean",
                 new MethodModifier[]{MethodModifier.PUBLIC}, "Vendor");
-        ReflectionUtil.checkMethod(daoInterface, FIND_ALL_METHOD_NAME, "NoSuchCourseException", List.class,
-                new MethodModifier[]{MethodModifier.PUBLIC}, String.class, List.class);
+        ReflectionUtil.checkMethod(daoInterface, FIND_ALL_METHOD_NAME, List.class,
+                new MethodModifier[]{MethodModifier.PUBLIC});
 
         Class daoImpl = getUnitClass(unitClasses, SALES_DAO_IMPL_NAME);
         assertNotNull("В задании не найден класс " + SALES_DAO_IMPL_NAME, daoImpl);

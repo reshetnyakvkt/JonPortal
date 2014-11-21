@@ -31,7 +31,7 @@ public interface SprintRepository extends CrudRepository<Sprint, Long> {
     @Query("select s from Sprint s where s.type = (:type)")
     List<Sprint> findByType(@Param("type") SprintType type);
 
-    @Query("select distinct s from Sprint s JOIN FETCH s.tasks ts JOIN FETCH ts.tasks tss where EXISTS" +
+    @Query("select distinct s from Sprint s JOIN FETCH s.tasks tmpls JOIN FETCH tmpls.tasks tss where EXISTS" +
             "(select s1 FROM Sprint s1 JOIN s1.tasks ts1 WHERE s1.id = s.id AND tss.user.login = :userName " +
                 "AND tss.group.id = :groupId)")
 //    @Query("select g from GroupDTO g JOIN FETCH g.users us WHERE EXISTS " +

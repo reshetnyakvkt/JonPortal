@@ -490,7 +490,7 @@ public class P0ArrayListGenericTest extends BaseTest {
         instance = instanciate(unitClass);
         iteratorMethod = ReflectionUtil.checkMethod(unitClass, ITERATOR_METHOD_NAME, Iterator.class,
                 new MethodModifier[]{MethodModifier.PUBLIC});
-        if (instance == null || removeMethod == null) {
+        if (instance == null || iteratorMethod == null) {
             fail();
         }
         Object iterator = ReflectionUtil.invokeMethod(instance, iteratorMethod);

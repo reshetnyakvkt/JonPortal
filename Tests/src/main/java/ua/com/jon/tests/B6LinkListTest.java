@@ -91,22 +91,22 @@ public class B6LinkListTest extends BaseTest {
                 new MethodModifier[]{MethodModifier.PUBLIC}, int.class);
         method = ReflectionUtil.checkMethod(unitClass, INDEX_OF_METHOD_NAME, int.class,
                 new MethodModifier[]{MethodModifier.PUBLIC}, int.class);
-        method = ReflectionUtil.checkMethod(unitClass, SWAP_FL_METHOD_NAME, "NoSuchCourseException", void.class,
-                new MethodModifier[]{MethodModifier.PUBLIC}, String.class, List.class);
-        method = ReflectionUtil.checkMethod(unitClass, REVERT_METHOD_NAME, "NoSuchCourseException", void.class,
-                new MethodModifier[]{MethodModifier.PUBLIC}, String.class, List.class);
+        method = ReflectionUtil.checkMethod(unitClass, SWAP_FL_METHOD_NAME, void.class,
+                new MethodModifier[]{MethodModifier.PUBLIC});
+        method = ReflectionUtil.checkMethod(unitClass, REVERT_METHOD_NAME, void.class,
+                new MethodModifier[]{MethodModifier.PUBLIC});
         method = ReflectionUtil.checkMethod(unitClass, SORT_P_METHOD_NAME, void.class,
                 new MethodModifier[]{MethodModifier.PUBLIC}, int.class);
         method = ReflectionUtil.checkMethod(unitClass, EQUALS_METHOD_NAME, "boolean",
                 new MethodModifier[]{MethodModifier.PUBLIC}, "LinkList");
         method = ReflectionUtil.checkMethod(unitClass, CONCAT_METHOD_NAME, "LinkList",
                 new MethodModifier[]{MethodModifier.PUBLIC}, "LinkList");
-        method = ReflectionUtil.checkMethod(unitClass, SWAP_MM_METHOD_NAME, "NoSuchCourseException", void.class,
-                new MethodModifier[]{MethodModifier.PUBLIC}, String.class, List.class);
-        method = ReflectionUtil.checkMethod(unitClass, SORT_METHOD_NAME, "NoSuchCourseException", void.class,
-                new MethodModifier[]{MethodModifier.PUBLIC}, String.class, List.class);
-        method = ReflectionUtil.checkMethod(unitClass, REMOVE_D_METHOD_NAME, "NoSuchCourseException", void.class,
-                new MethodModifier[]{MethodModifier.PUBLIC}, String.class, List.class);
+        method = ReflectionUtil.checkMethod(unitClass, SWAP_MM_METHOD_NAME, void.class,
+                new MethodModifier[]{MethodModifier.PUBLIC});
+        method = ReflectionUtil.checkMethod(unitClass, SORT_METHOD_NAME, void.class,
+                new MethodModifier[]{MethodModifier.PUBLIC});
+        method = ReflectionUtil.checkMethod(unitClass, REMOVE_D_METHOD_NAME, void.class,
+                new MethodModifier[]{MethodModifier.PUBLIC});
 
         Class nodeClass = getUnitClass(unitClasses, NODE_NAME);
         assertNotNull("В задании не найден класс " + NODE_NAME, nodeClass);

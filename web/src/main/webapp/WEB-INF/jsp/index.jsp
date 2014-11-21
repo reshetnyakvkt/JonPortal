@@ -59,6 +59,8 @@
 
             <div class="well">
 
+                <p>Добавлена статья "Компьютерный слэнг" ... <a href="/trainings/slang.html">перейти</a></p>
+
                 <p>Обновлён дизайн by Stefan ©</p>
 
                 <p>Добавлены видеоуроки для курса Foundation... <a href="/lessons.html">перейти</a></p>
@@ -83,34 +85,7 @@
         </div>
     </div>
 
-    <%--<div class="well">
-
-        <div class="well">
-            Добро пожаловать на портал com.jon.com.ua
-        </div>
-        <div class="bar-info">
-            Возможности, помогающие в работе:
-        </div>
-
-        <ul class="well nav nav-pills nav-stacked">
-            <li>
-                <a htef="#">Confluence</a>
-            </li>
-            <li>
-                <a htef="#">SVN</a>
-            </li>
-            <li>
-                <a htef="#">Assembla</a>
-            </li>
-            <li>
-                <a htef="#">Samba</a>
-            </li>
-        </ul>
-
-    </div>
---%>
 </div>
-
 
 <footer id="footer"></footer>
 

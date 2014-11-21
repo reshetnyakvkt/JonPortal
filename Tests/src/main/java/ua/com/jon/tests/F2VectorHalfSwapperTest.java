@@ -22,11 +22,12 @@ import static org.junit.Assert.fail;
 
 /**
 Написать метод меняющий местами половины массива, если размер нечетный - центральный элемент не учитывается
-В случае, если размер вектора некорректный, выводить сообщение "Неверный размер вектора"
+В случае, если размер вектора некорректный, выводить сообщение "Неверный размер вектора", иначе выводить массив
+в красивом формате [1, 2, 3]
 Метод: void swapHalves(int[] vector)
 Пример:
  swapHalves(int[] vector); // [1234567]
-[5674123]
+[5, 6, 7, 4, 1, 2, 3]
 
  * Created with IntelliJ IDEA.
  * User: al1
@@ -103,7 +104,7 @@ public class F2VectorHalfSwapperTest extends BaseTest {
                 + actualVector, Arrays.toString(expectedVector).equals(actualVector));
     }
 
-    @Test(timeout = 1000)
+    @Test(timeout = 1100)
     public void testLengthZero() throws Throwable {
         if (instance == null || unitMethod == null) {
             fail();
@@ -142,7 +143,7 @@ public class F2VectorHalfSwapperTest extends BaseTest {
                 + actualMessage, expectedMessage.equals(actualMessage));
     }*/
 
-    @Test(timeout = 1000)
+    @Test(timeout = 1100)
     public void testLengthOne() throws Throwable {
         if (instance == null || unitMethod == null) {
             fail();

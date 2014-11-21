@@ -70,7 +70,7 @@ public class B5CoursesTest extends BaseTest {
     private static final String ADD_STUDENT_COURSE_METHOD_NAME = "addStudent";
     private static final String ADD_GROUP_METHOD_NAME = "addGroup";
     private static final String PRINT_GROUP_METHOD_NAME = "printGroupInfo";
-    private static final String ADD_SUDENT_GROUP_METHOD_NAME = "addStudentToGroup";
+    private static final String ADD_STUDENT_GROUP_METHOD_NAME = "addStudentToGroup";
     private static final String REMOVE_STUDENT_METHOD_NAME = "removeStudentFromGroup";
     private static final String CLONE_METHOD_NAME = "cloneGroup";
     private static final String SERIALIZE_METHOD_NAME = "serialize";
@@ -101,46 +101,46 @@ public class B5CoursesTest extends BaseTest {
     @Test(timeout = 1100)
     public void test() throws Throwable {
         assertTrue("В задании должно быть не более 8и классов", unitClasses.length <= 8);
-        CodeValidator.checkCode(codes.entrySet().iterator().next().getValue());
+        CodeValidator.checkCodeFile(codes.entrySet().iterator().next().getValue());
 
-        Class unitClass = getUnitClass(unitClasses, COURSES_NAME);
-        assertNotNull("В задании не найден класс " + COURSES_NAME, unitClass);
-        ReflectionUtil.checkConstructor(unitClass);
+        Class unitClass = unitClass = getUnitClass(unitClasses, STUDENT_NAME);
+        //ReflectionUtil.checkConstructor(unitClass);
 
-        unitClass = getUnitClass(unitClasses, STUDENT_NAME);
         assertNotNull("В задании не найден класс " + STUDENT_NAME, unitClass);
-        ReflectionUtil.checkConstructor(unitClass);
+        //ReflectionUtil.checkConstructor(unitClass);
         unitClass = getUnitClass(unitClasses, GROUP_NAME);
         assertNotNull("В задании не найден класс " + GROUP_NAME, unitClass);
-        ReflectionUtil.checkConstructor(unitClass);
+        //ReflectionUtil.checkConstructor(unitClass);
         unitClass = getUnitClass(unitClasses, GROUP_EX_NAME);
         assertNotNull("В задании не найден класс " + GROUP_EX_NAME, unitClass);
-        ReflectionUtil.checkConstructor(unitClass);
+        //ReflectionUtil.checkConstructor(unitClass);
         unitClass = getUnitClass(unitClasses, GROUP_EX_EX_NAME);
         assertNotNull("В задании не найден класс " + GROUP_EX_EX_NAME, unitClass);
-        ReflectionUtil.checkConstructor(unitClass);
+        //ReflectionUtil.checkConstructor(unitClass);
         unitClass = getUnitClass(unitClasses, STUDENT_EX_NAME);
         assertNotNull("В задании не найден класс " + STUDENT_EX_NAME, unitClass);
-        ReflectionUtil.checkConstructor(unitClass);
+        //ReflectionUtil.checkConstructor(unitClass);
+        unitClass = getUnitClass(unitClasses, COURSES_NAME);
+        assertNotNull("В задании не найден класс " + COURSES_NAME, unitClass);
 
-        instance = instanciate(unitClasses[0]);
+//        instance = instanciate(unitClasses[0]);
         addMethod = ReflectionUtil.checkMethod(unitClass, SET_GROUP_METHOD_NAME, "NoSuchGroupException", void.class,
                 new MethodModifier[]{MethodModifier.PUBLIC}, String.class, String.class);
         addMethod = ReflectionUtil.checkMethod(unitClass, ADD_STUDENT_COURSE_METHOD_NAME, "void",
                 new MethodModifier[]{MethodModifier.PUBLIC}, "Student");
-        addMethod = ReflectionUtil.checkMethod(unitClass, ADD_GROUP_METHOD_NAME, "GroupExistsException", String.class,
-                new MethodModifier[]{MethodModifier.PUBLIC});
-        addMethod = ReflectionUtil.checkMethod(unitClass, PRINT_GROUP_METHOD_NAME, "NoSuchCourseException", void.class,
-                new MethodModifier[]{MethodModifier.PUBLIC}, String.class, List.class);
-        addMethod = ReflectionUtil.checkMethod(unitClass, ADD_SUDENT_GROUP_METHOD_NAME, void.class,
+        addMethod = ReflectionUtil.checkMethod(unitClass, ADD_GROUP_METHOD_NAME, "GroupExistsException", void.class,
+                new MethodModifier[]{MethodModifier.PUBLIC}, String.class);
+        addMethod = ReflectionUtil.checkMethod(unitClass, PRINT_GROUP_METHOD_NAME, "NoSuchGroupException", void.class,
+                new MethodModifier[]{MethodModifier.PUBLIC}, String.class);
+        addMethod = ReflectionUtil.checkMethod(unitClass, ADD_STUDENT_GROUP_METHOD_NAME, void.class,
                 new MethodModifier[]{MethodModifier.PUBLIC}, String.class, String.class);
         addMethod = ReflectionUtil.checkMethod(unitClass, REMOVE_STUDENT_METHOD_NAME, "NoSuchStudentException", void.class,
                 new MethodModifier[]{MethodModifier.PUBLIC}, String.class, String.class);
         addMethod = ReflectionUtil.checkMethod(unitClass, CLONE_METHOD_NAME, "NoSuchGroupException", void.class,
                 new MethodModifier[]{MethodModifier.PUBLIC}, String.class, String.class);
-        addMethod = ReflectionUtil.checkMethod(unitClass, SERIALIZE_METHOD_NAME, "NoSuchCourseException", void.class,
-                new MethodModifier[]{MethodModifier.PUBLIC}, String.class, List.class);
-        addMethod = ReflectionUtil.checkMethod(unitClass, DESERIALIZE_METHOD_NAME, "NoSuchCourseException", void.class,
-                new MethodModifier[]{MethodModifier.PUBLIC}, String.class, List.class);
+        addMethod = ReflectionUtil.checkMethod(unitClass, SERIALIZE_METHOD_NAME, void.class,
+                new MethodModifier[]{MethodModifier.PUBLIC});
+        addMethod = ReflectionUtil.checkMethod(unitClass, DESERIALIZE_METHOD_NAME, void.class,
+                new MethodModifier[]{MethodModifier.PUBLIC});
     }
 }

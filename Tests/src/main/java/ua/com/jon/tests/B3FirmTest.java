@@ -135,8 +135,8 @@ public class B3FirmTest  extends BaseTest {
         assertNotNull("В задании не найден класс " + SALES_MANAGER_NAME, salesManagerClass);
 
 //        employee = instanciate(empClass);
-        addMethod = ReflectionUtil.checkMethod(empClass, GET_SALARY_METHOD_NAME, "NoSuchCourseException", double.class,
-                new MethodModifier[]{MethodModifier.PUBLIC}, String.class, List.class);
+        addMethod = ReflectionUtil.checkMethod(empClass, GET_SALARY_METHOD_NAME, double.class,
+                new MethodModifier[]{MethodModifier.PUBLIC});
 
         instance = instanciate(firmClass);
         addMethod = ReflectionUtil.checkMethod(firmClass, PRINT_METHOD_NAME, void.class,

@@ -129,11 +129,24 @@ public class TasksServiceImpl implements TasksService, ServletContextAware {
         if (selectedGroup == null) {
             return new ArrayList<SprintDTO>();
         }
-        Iterable<Sprint> sprintIterable = sprintRepository.findByUserAndGroup(userName, selectedGroup.getId());
+//        Iterable<Sprint> sprintIterable = sprintRepository.findByUserAndGroup(userName, selectedGroup.getId());
         ArrayList<SprintDTO> sprints = new ArrayList<SprintDTO>();
         User user = userRepository.findByUserName(userName);
-        for (Sprint sprint : sprintIterable) {
-            List<Task> tasks = taskRepository.findByUserAndSprintAndGroup(user.getId(), sprint.getId(), selectedGroup.getId());
+        List<Task> userGroupTasks = taskRepository.findByUserAndGroup(user.getId(), selectedGroup.getId());
+        Set<Sprint> sprs = new HashSet<>();
+        for (Task task : userGroupTasks) {
+            sprs.add(task.getSprint());
+        }
+//        List<Sprint> ids = sprintRepository.findByIds(sprs);
+        for (Sprint sprint : sprs) {
+            List<Task> tasks = new ArrayList<>();
+            for (Task aByUserAndGroup : userGroupTasks) {
+                if (aByUserAndGroup.getSprint().getId().equals(sprint.getId())) {
+                    tasks.add(aByUserAndGroup);
+                }
+            }
+            //List<Task> tasks = taskRepository.findByUserAndSprintAndGroup(user.getId(), sprint.getId(), selectedGroup.getId());
+//            List<Task> tasks = taskRepository.findByUserAndSprintAndGroup(user.getId(), sprint.getId(), selectedGroup.getId());
             sprints.add(SprintDtoMapper.domainToDto(tasks, sprint, 0.0));
         }
         log.info("--- Sent sprint to client " + sprints.size() + " ---");

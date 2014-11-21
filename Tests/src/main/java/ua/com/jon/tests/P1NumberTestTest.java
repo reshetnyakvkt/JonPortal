@@ -99,8 +99,8 @@ public class P1NumberTestTest extends BaseTest {
         CodeValidator.checkCode(unitClass.getName());
 
         instance = instanciate(unitClasses[0]);
-        addMethod = ReflectionUtil.checkMethod(unitClass, GET_METHOD_NAME, "NoSuchCourseException", int.class,
-                new MethodModifier[]{MethodModifier.PUBLIC}, String.class, List.class);
+        addMethod = ReflectionUtil.checkMethod(unitClass, GET_METHOD_NAME, int.class,
+                new MethodModifier[]{MethodModifier.PUBLIC});
         addMethod = ReflectionUtil.checkMethod(unitClass, ADD_METHOD_NAME, "Number",
                 new MethodModifier[]{MethodModifier.PUBLIC}, "Number");
         addMethod = ReflectionUtil.checkMethod(unitClass, SUB_METHOD_NAME, "Number",

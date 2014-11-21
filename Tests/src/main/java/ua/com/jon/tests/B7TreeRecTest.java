@@ -76,13 +76,13 @@ public class B7TreeRecTest extends BaseTest {
 
         ReflectionUtil.checkMethod(unitClass, CONTAINS_METHOD_NAME, boolean.class,
                 new MethodModifier[]{MethodModifier.PUBLIC}, int.class);
-        ReflectionUtil.checkMethod(unitClass, TRAVERS_METHOD_NAME, "NoSuchCourseException", void.class,
-                new MethodModifier[]{MethodModifier.PUBLIC}, String.class, List.class);
-        ReflectionUtil.checkMethod(unitClass, COUNT_METHOD_NAME, "NoSuchCourseException", int.class,
-                new MethodModifier[]{MethodModifier.PUBLIC}, String.class, List.class);
-        ReflectionUtil.checkMethod(unitClass, HEIGHT_METHOD_NAME, "NoSuchCourseException", int.class,
-                new MethodModifier[]{MethodModifier.PUBLIC}, String.class, List.class);
-        ReflectionUtil.checkMethod(unitClass, MAX_METHOD_NAME, "NoSuchCourseException", int.class,
-                new MethodModifier[]{MethodModifier.PUBLIC}, String.class, List.class);
+        ReflectionUtil.checkMethod(unitClass, TRAVERS_METHOD_NAME, void.class,
+                new MethodModifier[]{MethodModifier.PUBLIC});
+        ReflectionUtil.checkMethod(unitClass, COUNT_METHOD_NAME, int.class,
+                new MethodModifier[]{MethodModifier.PUBLIC});
+        ReflectionUtil.checkMethod(unitClass, HEIGHT_METHOD_NAME, int.class,
+                new MethodModifier[]{MethodModifier.PUBLIC});
+        ReflectionUtil.checkMethod(unitClass, MAX_METHOD_NAME, int.class,
+                new MethodModifier[]{MethodModifier.PUBLIC});
     }
 }

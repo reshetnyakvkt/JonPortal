@@ -53,7 +53,7 @@ public class P1Auth extends BaseTest {
 
     @Test(timeout = 1000)
     public void testCheckUnitPresent() throws Throwable {
-        assertTrue("В задании должно быть не более 2х классов", unitClasses.length <= 2);
+        assertTrue("В задании должно быть не более 2х классов", unitClasses.length <= 3);
         CodeValidator.checkCodeFile(codes.entrySet().iterator().next().getValue());
 
         Class unitClass = getUnitClass(unitClasses, UNIT_NAME);

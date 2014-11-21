@@ -117,8 +117,8 @@ public class P5Notebooks2Test extends BaseTest {
                 new MethodModifier[]{MethodModifier.PUBLIC}, "Notebook");
         ReflectionUtil.checkMethod(daoInterface, DELETE_METHOD_NAME, "boolean",
                 new MethodModifier[]{MethodModifier.PUBLIC}, "Notebook");
-        ReflectionUtil.checkMethod(daoInterface, FIND_ALL_METHOD_NAME, "NoSuchCourseException", List.class,
-                new MethodModifier[]{MethodModifier.PUBLIC}, String.class, List.class);
+        ReflectionUtil.checkMethod(daoInterface, FIND_ALL_METHOD_NAME, List.class,
+                new MethodModifier[]{MethodModifier.PUBLIC});
     }
 
     @Test(timeout = 1000)
@@ -138,8 +138,8 @@ public class P5Notebooks2Test extends BaseTest {
                 new MethodModifier[]{MethodModifier.PUBLIC}, "Notebook");
         ReflectionUtil.checkMethod(daoImpl, DELETE_METHOD_NAME, "boolean",
                 new MethodModifier[]{MethodModifier.PUBLIC}, "Notebook");
-        ReflectionUtil.checkMethod(daoImpl, FIND_ALL_METHOD_NAME, "NoSuchCourseException", List.class,
-                new MethodModifier[]{MethodModifier.PUBLIC}, String.class, List.class);
+        ReflectionUtil.checkMethod(daoImpl, FIND_ALL_METHOD_NAME, List.class,
+                new MethodModifier[]{MethodModifier.PUBLIC});
     }
 
     @Test(timeout = 1000)
@@ -152,8 +152,8 @@ public class P5Notebooks2Test extends BaseTest {
 //        instance = instanciate(daoImpl);
         ReflectionUtil.checkMethod(daoImpl, CREATE_SERVICE_METHOD_NAME, "Long",
                 new MethodModifier[]{MethodModifier.PUBLIC}, "Notebook");
-        ReflectionUtil.checkMethod(daoImpl, FIND_ALL_SERVICE_METHOD_NAME, "NoSuchCourseException", List.class,
-                new MethodModifier[]{MethodModifier.PUBLIC}, String.class, List.class);
+        ReflectionUtil.checkMethod(daoImpl, FIND_ALL_SERVICE_METHOD_NAME, List.class,
+                new MethodModifier[]{MethodModifier.PUBLIC});
     }
 
     @Test(timeout = 1000)
@@ -167,7 +167,7 @@ public class P5Notebooks2Test extends BaseTest {
         instance = instanciate(daoImpl);
         ReflectionUtil.checkMethod(daoImpl, CREATE_SERVICE_METHOD_NAME, "Long",
                 new MethodModifier[]{MethodModifier.PUBLIC}, "Notebook");
-        ReflectionUtil.checkMethod(daoImpl, FIND_ALL_SERVICE_METHOD_NAME, "NoSuchCourseException", List.class,
-                new MethodModifier[]{MethodModifier.PUBLIC}, String.class, List.class);
+        ReflectionUtil.checkMethod(daoImpl, FIND_ALL_SERVICE_METHOD_NAME, List.class,
+                new MethodModifier[]{MethodModifier.PUBLIC});
     }
 }

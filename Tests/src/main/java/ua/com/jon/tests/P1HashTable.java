@@ -56,7 +56,7 @@ public class P1HashTable extends BaseTest {
 
     @Test(timeout = 1000)
     public void testCheckUnitPresent() throws Throwable {
-        assertTrue("В задании должно быть не более 4х классов", unitClasses.length <= 4);
+        assertTrue("В задании должно быть не более 4х классов", unitClasses.length <= 5);
         CodeValidator.checkCodeFile(codes.entrySet().iterator().next().getValue());
 
         Class unitClass = getUnitClass(unitClasses, UNIT_NAME);

@@ -9,9 +9,3 @@
     <script src="/js/jquery-1.8.3.min.js"></script>
     <script src="/js/bootstrap.min.js"></script>
     <script src="/js/menuAnimation.js"></script>
-    <%--<script src="/js/TweenMax.min.js"></script>--%>
-    <script src="/js/TweenLite.min.js"></script>
-    <%--<script src="http://cdnjs.cloudflare.com/ajax/libs/gsap/latest/easing/EasePack.min.js"></script>--%>
-    <script src="/js/TimelineMax.min.js"></script>
-    <%--<script src="/js/TimelineLite.min.js"></script>--%>
-    <%--<script src="http://cdnjs.cloudflare.com/ajax/libs/gsap/latest/plugins/CSSPlugin.min.js"></script>--%>

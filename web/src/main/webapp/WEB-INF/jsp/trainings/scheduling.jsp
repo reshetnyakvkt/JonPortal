@@ -25,7 +25,7 @@
 
                 <table class="table table-striped table-bordered">
                     <caption>
-                        <h4>Расписание занятий</h4>
+                        <h4>Расписание занятий на 2012 год</h4>
                     </caption>
                     <thead>
                     <tr>

@@ -418,6 +418,8 @@ public class AdminServiceImpl implements AdminService {
                     taskRepository.save(task);
                     //log.info("-- Posted task " + task);
                 }
+                //Task groupTask = new Task(null, taskTemplate, sprint, Status.NEW, "", "", group);
+                //taskRepository.save(groupTask);
             }
         } catch (Exception e) {
             log.error("Post tasks error " + e);

@@ -94,7 +94,7 @@ public class B5MyScannerTest extends BaseTest {
         Class unitClass = getUnitClass(unitClasses, UNIT_NAME);
         assertNotNull("В задании не найден класс " + UNIT_NAME, unitClass);
 
-        ReflectionUtil.checkConstructor(unitClass);
+//        ReflectionUtil.checkConstructor(unitClass);
         ReflectionUtil.checkConstructor(unitClass, Reader.class);
 
         instance = instanciate(unitClasses[0]);

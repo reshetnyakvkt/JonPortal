@@ -7,7 +7,9 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <ul class="nav nav-tabs">
-    <li id="mitem9"><a href="/trainings/nedocode.html"><button class="btn btn-link" type="button">Вредоносный код</button></a></li>
+    <li id="mitem12"><a href="/trainings/folc.html"><button class="btn btn-link" type="button">Творчество студентов</button></a></li>
+    <li id="mitem11"><a href="/trainings/slang.html"><button class="btn btn-link" type="button">Компьютерный слэнг</button></a></li>
+    <li id="mitem10"><a href="/trainings/nedocode.html"><button class="btn btn-link" type="button">Вредоносный код</button></a></li>
     <li id="mitem9"><a href="/trainings/jon.html"><button class="btn btn-link" type="button">Проверка заданий</button></a></li>
     <li id="mitem8"><a href="/trainings/practicum.html"><button class="btn btn-link" type="button">Участие в Open source проекте</button></a></li>
     <li id="mitem7"><a href="/trainings/registration.html"><button class="btn btn-link" type="button">Регистрация</button></a></li>

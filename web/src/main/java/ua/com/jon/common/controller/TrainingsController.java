@@ -70,4 +70,16 @@ public class TrainingsController {
         modelMap.put("item","mitem10");
         return "trainings/nedocode";
     }
+
+    @RequestMapping("/trainings/slang.html")
+    public String slang(ModelMap modelMap)  {
+        modelMap.put("item","mitem11");
+        return "trainings/slang";
+    }
+
+    @RequestMapping("/trainings/folc.html")
+    public String folc(ModelMap modelMap)  {
+        modelMap.put("item","mitem12");
+        return "trainings/folc";
+    }
 }

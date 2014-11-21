@@ -232,13 +232,13 @@ public class P0ArrayListTest extends BaseTest {
         int expectedElement = rnd.nextInt(MAX_VALUE) + MIN_VALUE;
 
         ReflectionUtil.invokeMethod(instance, addMethod, expectedElement);
-        int actualElement = getElementFromList(0);
+        int actualElement = getElementFromList(0, "add(int)");
         assertTrue("Метод add работает не верно, после добавления первого элемента " + expectedElement + ", список содержит " +
                 actualElement, expectedElement == actualElement);
 
         expectedElement = rnd.nextInt(MAX_VALUE) + MIN_VALUE;
         ReflectionUtil.invokeMethod(instance, addMethod, expectedElement);
-        actualElement = getElementFromList(1);
+        actualElement = getElementFromList(1, "add(int)");
         assertTrue("Метод add работает не верно, после добавления второго элемента " + expectedElement + ", список содержит " +
                 actualElement, expectedElement == actualElement);
     }
@@ -254,18 +254,18 @@ public class P0ArrayListTest extends BaseTest {
         ReflectionUtil.invokeMethod(instance, add2Method, 0, expectedElement);
         expectedElement = rnd.nextInt(MAX_VALUE) + MIN_VALUE;
         ReflectionUtil.invokeMethod(instance, add2Method, 0, expectedElement);
-        int actualElement = getElementFromList(0);
+        int actualElement = getElementFromList(0, "add(int, int) после вставки элемента "+ expectedElement +" с индексом 0 в массив, массива [1]");
         assertTrue("Метод add(int, int) работает не верно, после вставки элемента " + expectedElement + " в начало, список содержит " +
                 actualElement, expectedElement == actualElement);
 
         expectedElement = rnd.nextInt(MAX_VALUE) + MIN_VALUE;
         ReflectionUtil.invokeMethod(instance, add2Method, 1, expectedElement);
-        actualElement = getElementFromList(1);
+        actualElement = getElementFromList(1, "add(int, int) - вставка в позицию 1, массива [0,1]");
         assertTrue("Метод add(int, int) работает не верно, после вставки второго элемента " + expectedElement + ", список содержит " +
                 actualElement, expectedElement == actualElement);
     }
 
-    private Integer getElementFromList(int index) throws IllegalAccessException, InvocationTargetException, NoSuchMethodException {
+    private Integer getElementFromList(int index, String method) throws IllegalAccessException, InvocationTargetException, NoSuchMethodException {
         List<Field> array = new ArrayList<Field>();
         Field[] fields = instance.getClass().getDeclaredFields();
         for (Field field : fields) {
@@ -279,6 +279,8 @@ public class P0ArrayListTest extends BaseTest {
                 int[] elements = (int[]) array.get(0).get(instance);
                 if (elements.length > 0) {
                     return elements[index];
+                } else {
+                    fail("[Метод "+ method +"]Ошибка получения элемента по индексу "+ index +", длинна массива равна " + elements.length);
                 }
             } catch (IllegalAccessException e) {
                 fail("Ошибка тестирования!, массив с элементами недоступен");
@@ -404,7 +406,7 @@ public class P0ArrayListTest extends BaseTest {
         expectedElement = rnd.nextInt(MAX_VALUE) + MIN_VALUE;
         ReflectionUtil.invokeMethod(instance, addMethod, expectedElement);
         removedElement = (Integer) ReflectionUtil.invokeMethod(instance, removeMethod, 0);
-        int actualElement = getElementFromList(0);
+        int actualElement = getElementFromList(0, "remove");
         actualSize = (Integer) ReflectionUtil.invokeMethod(instance, sizeMethod);
         assertTrue("Метод remove работает не верно, после удалении первого элемента из двух" + expectedElement + ", размер списка равен " +
                 actualSize, 1 == actualSize);

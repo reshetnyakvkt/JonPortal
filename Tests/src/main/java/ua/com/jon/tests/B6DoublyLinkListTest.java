@@ -73,14 +73,14 @@ public class B6DoublyLinkListTest extends BaseTest {
         ReflectionUtil.checkConstructor(unitClass);
 
         instance = instanciate(unitClass);
-        method = ReflectionUtil.checkMethod(unitClass, PRINT_REVERT_METHOD_NAME, "NoSuchCourseException", void.class,
-                new MethodModifier[]{MethodModifier.PUBLIC}, String.class, List.class);
+        method = ReflectionUtil.checkMethod(unitClass, PRINT_REVERT_METHOD_NAME, void.class,
+                new MethodModifier[]{MethodModifier.PUBLIC});
         method = ReflectionUtil.checkMethod(unitClass, ADD_FIRST_METHOD_NAME, void.class,
                 new MethodModifier[]{MethodModifier.PUBLIC}, int.class);
         method = ReflectionUtil.checkMethod(unitClass, ADD_LAST_METHOD_NAME, void.class,
                 new MethodModifier[]{MethodModifier.PUBLIC}, int.class);
-        method = ReflectionUtil.checkMethod(unitClass, REVERT_METHOD_NAME, "NoSuchCourseException", void.class,
-                new MethodModifier[]{MethodModifier.PUBLIC}, String.class, List.class);
+        method = ReflectionUtil.checkMethod(unitClass, REVERT_METHOD_NAME, void.class,
+                new MethodModifier[]{MethodModifier.PUBLIC});
         method = ReflectionUtil.checkMethod(unitClass, SORT_P_METHOD_NAME, void.class,
                 new MethodModifier[]{MethodModifier.PUBLIC}, int.class);
 

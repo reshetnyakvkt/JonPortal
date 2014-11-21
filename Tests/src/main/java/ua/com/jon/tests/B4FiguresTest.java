@@ -94,10 +94,10 @@ public class B4FiguresTest extends BaseTest {
         getUnitClass(unitClasses, MAIN_NAME);
         assertNotNull("В задании не найден класс " + MAIN_NAME, unitClass);
 
-        ReflectionUtil.checkConstructor(unitClass);
+        //ReflectionUtil.checkConstructor(unitClass);
 //        ReflectionUtil.checkConstructor(unitClass, "");
 
-        instance = instanciate(unitClasses[0]);
+        //instance = instanciate(unitClasses[0]);
         addMethod = ReflectionUtil.checkMethod(unitClass, SQUARE_METHOD_NAME, double.class,
                 new MethodModifier[]{MethodModifier.PUBLIC});
         addMethod = ReflectionUtil.checkMethod(unitClass, PERIM_METHOD_NAME, double.class,

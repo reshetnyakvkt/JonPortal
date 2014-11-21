@@ -81,8 +81,8 @@ public class P4UserAuthTest extends BaseTest {
         assertTrue("В задании не найден класс " + MANAGER_UNIT_NAME, MANAGER_UNIT_NAME.equals(unitClass.getSimpleName()));
         Method methodCreate = ReflectionUtil.checkMethod(unitClass, MANAGER_CREATE_METHOD_NAME, "int",
                 new MethodModifier[]{MethodModifier.PUBLIC},"User");
-        Method methodFindAll = ReflectionUtil.checkMethod(unitClass, MANAGER_FIND_ALL_METHOD_NAME, "NoSuchCourseException", List.class,
-                new MethodModifier[]{MethodModifier.PUBLIC}, String.class, List.class);
+        Method methodFindAll = ReflectionUtil.checkMethod(unitClass, MANAGER_FIND_ALL_METHOD_NAME, List.class,
+                new MethodModifier[]{MethodModifier.PUBLIC});
         Method methodReadByName = ReflectionUtil.checkMethod(unitClass, READ_BY_NAME_METHOD_NAME, "User",
                 new MethodModifier[]{MethodModifier.PUBLIC}, "String", "String");
     }

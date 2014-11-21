@@ -4,7 +4,7 @@
 <head>
     <script type="text/javascript">
         <!--
-        location.replace("index.html"); // текущая страница будет заменена в history на новую — важно в плане юзабилити
+        location.replace("index.html");
         //-->
     </script>
     <noscript>
@@ -12,6 +12,6 @@
     </noscript>
 </head>
 <body>
-Мы перебрались на <a href="http://www.jon.com.ua/">новое местечко</a>.
+<a href="http://www.jon.com.ua/">Перейти...</a>.
 </body>
 </html>
