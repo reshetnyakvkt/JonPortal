@@ -7,7 +7,7 @@ import com.jon.tron.service.junit.UnitName;
 import com.jon.tron.service.processor.CodeValidator;
 import com.jon.tron.service.reflect.MethodModifier;
 import com.jon.tron.service.reflect.ReflectionUtil;
-import hw8.sort.User;
+import hw8.sort.Student;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.FixMethodOrder;
@@ -29,7 +29,7 @@ import static org.junit.Assert.assertTrue;
 
  Классы задания: hw8.sort.QuickSorter, hw8.sort.Student
  */
-@Unit(testName = "B7QuickSortTest", value = "hw8.sort.QuickSorter, hw8.sort.User")
+@Unit(testName = "B7QuickSortTest", value = "hw8.sort.QuickSorter, hw8.sort.Student")
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class B7QuickSortTest extends BaseTest {
     private static final String UNIT_NAME = "QuickSorter";
@@ -59,7 +59,7 @@ public class B7QuickSortTest extends BaseTest {
 
     @Test(timeout = 1100)
     public void test() throws Throwable {
-        assertTrue("В задании должно быть не более 2х классов", unitClasses.length <= 2);
+//        assertTrue("В задании должно быть не более 2х классов", unitClasses.length <= 2);
 
         Class unitClass = getUnitClass(unitClasses, UNIT_NAME);
         assertNotNull("В задании не найден класс " + UNIT_NAME, unitClass);
@@ -67,6 +67,6 @@ public class B7QuickSortTest extends BaseTest {
         ReflectionUtil.checkConstructor(unitClass);
 
         ReflectionUtil.checkMethod(unitClass, SORT_METHOD_NAME, void.class,
-                new MethodModifier[]{MethodModifier.PUBLIC}, User[].class);
+                new MethodModifier[]{MethodModifier.PUBLIC}, Student[].class);
     }
 }

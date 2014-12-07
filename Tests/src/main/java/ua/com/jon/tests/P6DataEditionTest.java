@@ -196,7 +196,7 @@ public class P6DataEditionTest extends BaseTest {
         ReflectionUtil.checkConstructor(daoImpl);
         ReflectionUtil.checkHasParent(daoImpl, NOTE_DAO_NAME);
 
-        instance = instanciate(daoImpl);
+//        instance = instanciate(daoImpl);
     }
 
     @Test(timeout = 1000)
@@ -222,7 +222,7 @@ public class P6DataEditionTest extends BaseTest {
         ReflectionUtil.checkConstructor(daoImpl);
         ReflectionUtil.checkHasParent(daoImpl, VENDOR_DAO_NAME);
 
-        instance = instanciate(daoImpl);
+//        instance = instanciate(daoImpl);
     }
 
     @Test(timeout = 1000)
@@ -248,7 +248,7 @@ public class P6DataEditionTest extends BaseTest {
         ReflectionUtil.checkConstructor(daoImpl);
         ReflectionUtil.checkHasParent(daoImpl, CPU_DAO_NAME);
 
-        instance = instanciate(daoImpl);
+//        instance = instanciate(daoImpl);
     }
 
     @Test(timeout = 1000)
@@ -274,7 +274,7 @@ public class P6DataEditionTest extends BaseTest {
         ReflectionUtil.checkConstructor(daoImpl);
         ReflectionUtil.checkHasParent(daoImpl, MEMORY_DAO_NAME);
 
-        instance = instanciate(daoImpl);
+//        instance = instanciate(daoImpl);
     }
 
     @Test(timeout = 1000)
@@ -300,7 +300,7 @@ public class P6DataEditionTest extends BaseTest {
         ReflectionUtil.checkConstructor(daoImpl);
         ReflectionUtil.checkHasParent(daoImpl, STORE_DAO_NAME);
 
-        instance = instanciate(daoImpl);
+//        instance = instanciate(daoImpl);
     }
 
     @Test(timeout = 1000)
@@ -326,7 +326,7 @@ public class P6DataEditionTest extends BaseTest {
         ReflectionUtil.checkConstructor(daoImpl);
         ReflectionUtil.checkHasParent(daoImpl, SALES_DAO_NAME);
 
-        instance = instanciate(daoImpl);
+//        instance = instanciate(daoImpl);
     }
 
     @Test(timeout = 1000)

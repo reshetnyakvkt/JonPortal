@@ -97,7 +97,7 @@ public class B3CatTest extends BaseTest {
         CodeValidator.checkCode(animalClass.getName());
 
 //        animal = instanciate(animalClass);
-        instance = instanciate(catClass);
+//        instance = instanciate(catClass);
         addMethod = ReflectionUtil.checkMethod(catClass, PRINT_METHOD_NAME, void.class,
                 new MethodModifier[]{MethodModifier.PUBLIC});
         addMethod = ReflectionUtil.checkMethod(catClass, RISE_HAIR_METHOD_NAME, void.class,

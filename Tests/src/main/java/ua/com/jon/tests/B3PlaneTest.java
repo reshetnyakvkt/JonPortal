@@ -85,7 +85,7 @@ public class B3PlaneTest extends BaseTest {
         Class wingClass = getUnitClass(unitClasses, WING_NAME);
         assertNotNull("В задании не найден класс " + WING_NAME, wingClass);
 
-        plane = instanciate(planeClass);
+//        plane = instanciate(planeClass);
 //        wing = instanciate(wingClass);
         addMethod = ReflectionUtil.checkMethod(planeClass, TAKEOF_METHOD_NAME, void.class,
                 new MethodModifier[]{MethodModifier.PUBLIC});

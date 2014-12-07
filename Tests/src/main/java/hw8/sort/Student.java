@@ -5,5 +5,5 @@ package hw8.sort;
  * User: al1
  * Date: 15.09.14
  */
-public class User {
+public class Student {
 }

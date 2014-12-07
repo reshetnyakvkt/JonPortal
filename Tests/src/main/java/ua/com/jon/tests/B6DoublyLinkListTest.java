@@ -72,7 +72,7 @@ public class B6DoublyLinkListTest extends BaseTest {
         CodeValidator.checkCode(codes.get(unitClass.getName()));
         ReflectionUtil.checkConstructor(unitClass);
 
-        instance = instanciate(unitClass);
+//        instance = instanciate(unitClass);
         method = ReflectionUtil.checkMethod(unitClass, PRINT_REVERT_METHOD_NAME, void.class,
                 new MethodModifier[]{MethodModifier.PUBLIC});
         method = ReflectionUtil.checkMethod(unitClass, ADD_FIRST_METHOD_NAME, void.class,
@@ -87,6 +87,6 @@ public class B6DoublyLinkListTest extends BaseTest {
         Class nodeClass = getUnitClass(unitClasses, NODE_NAME);
         assertNotNull("В задании не найден класс " + NODE_NAME, nodeClass);
         CodeValidator.checkCode(codes.get(nodeClass.getName()));
-        ReflectionUtil.checkConstructor(nodeClass);
+//        ReflectionUtil.checkConstructor(nodeClass);
     }
 }

@@ -66,9 +66,9 @@ public class P3ChatServerTest extends BaseTest {
         CodeValidator.checkCodeFileThread(codes.get(unitClass.getName()));
         ReflectionUtil.checkConstructor(unitClass);
 
-        instance = instanciate(unitClass);
+//        instance = instanciate(unitClass);
         method = ReflectionUtil.checkMethod(unitClass, LISTEN_METHOD_NAME, void.class,
-                new MethodModifier[]{MethodModifier.PUBLIC});
+                new MethodModifier[]{MethodModifier.PUBLIC}, int.class);
     }
 
 }

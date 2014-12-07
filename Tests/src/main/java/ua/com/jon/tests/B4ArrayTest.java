@@ -89,7 +89,7 @@ public class B4ArrayTest extends BaseTest {
 
         ReflectionUtil.checkConstructor(unitClass);
 
-        instance = instanciate(unitClasses[0]);
+//        instance = instanciate(unitClasses[0]);
         addMethod = ReflectionUtil.checkMethod(unitClass, MIN_METHOD_NAME, int.class,
                 new MethodModifier[]{MethodModifier.PUBLIC});
         addMethod = ReflectionUtil.checkMethod(unitClass, MAX_METHOD_NAME, int.class,

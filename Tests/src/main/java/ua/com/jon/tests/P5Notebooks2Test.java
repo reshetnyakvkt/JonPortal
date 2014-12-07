@@ -129,7 +129,7 @@ public class P5Notebooks2Test extends BaseTest {
         ReflectionUtil.checkConstructor(daoImpl);
         ReflectionUtil.checkHasParent(daoImpl, UNIT_DAO_NAME);
 
-        instance = instanciate(daoImpl);
+//        instance = instanciate(daoImpl);
         ReflectionUtil.checkMethod(daoImpl, CREATE_METHOD_NAME, "Long",
                 new MethodModifier[]{MethodModifier.PUBLIC}, "Notebook");
         ReflectionUtil.checkMethod(daoImpl, READ_METHOD_NAME, "Notebook",
@@ -164,7 +164,7 @@ public class P5Notebooks2Test extends BaseTest {
         ReflectionUtil.checkConstructor(daoImpl);
         ReflectionUtil.checkHasParent(daoImpl, UNIT_SERVICE_NAME);
 
-        instance = instanciate(daoImpl);
+//        instance = instanciate(daoImpl);
         ReflectionUtil.checkMethod(daoImpl, CREATE_SERVICE_METHOD_NAME, "Long",
                 new MethodModifier[]{MethodModifier.PUBLIC}, "Notebook");
         ReflectionUtil.checkMethod(daoImpl, FIND_ALL_SERVICE_METHOD_NAME, List.class,

@@ -97,7 +97,7 @@ public class B5MyScannerTest extends BaseTest {
 //        ReflectionUtil.checkConstructor(unitClass);
         ReflectionUtil.checkConstructor(unitClass, Reader.class);
 
-        instance = instanciate(unitClasses[0]);
+//        instance = instanciate(unitClasses[0]);
         addMethod = ReflectionUtil.checkMethod(unitClass, NEXT_METHOD_NAME, String.class,
                 new MethodModifier[]{MethodModifier.PUBLIC});
         addMethod = ReflectionUtil.checkMethod(unitClass, NEXT_INT_METHOD_NAME, int.class,

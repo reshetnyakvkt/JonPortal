@@ -137,7 +137,7 @@ public class TasksTabPanel extends Composite {
 
     public void buildTable() {
 
-        cellTable.setEmptyTableWidget(new Label("Please add data."));
+        cellTable.setEmptyTableWidget(new Label("Please add data"));
         dataProvider.addDataDisplay(cellTable);
 
         cellTable.addColumn(new TextColumn<TaskDTO>() {
@@ -146,7 +146,7 @@ public class TasksTabPanel extends Composite {
                 if (taskDTO.getName() == null) {
                     return "null";
                 }
-                return String.valueOf(taskDTO.getTaskTemplateId() + "-" + taskDTO.getName());
+                return String.valueOf(taskDTO.getName());
             }
         }, "Название");
 

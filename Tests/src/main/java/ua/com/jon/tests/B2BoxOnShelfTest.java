@@ -64,7 +64,7 @@ public class B2BoxOnShelfTest extends BaseTest {
     public void test() throws Throwable {
         assertTrue("В задании должен быть только один класс", unitClasses.length == 1);
         CodeValidator.checkCode(codes.entrySet().iterator().next().getValue());
-        instance = instanciate(unitClasses[0]);
+//        instance = instanciate(unitClasses[0]);
         unitMethod = ReflectionUtil.checkMethod(unitClasses[0], UNIT_METHOD_NAME, boolean.class,
                 new MethodModifier[]{MethodModifier.PUBLIC}, int.class, int.class, int.class, int.class);
     }

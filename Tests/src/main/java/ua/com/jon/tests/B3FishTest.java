@@ -94,7 +94,7 @@ public class B3FishTest extends BaseTest {
         Class productClass = getUnitClass(unitClasses, PRODUCT_NAME);
         assertNotNull("В задании не найден класс " + PRODUCT_NAME, productClass);
 
-        fish = instanciate(fishClass);
+//        fish = instanciate(fishClass);
 //        product = instanciate(productClass);
         addMethod = ReflectionUtil.checkMethod(fishClass, PRINT_METHOD_NAME, void.class,
                 new MethodModifier[]{MethodModifier.PUBLIC});

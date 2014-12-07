@@ -80,7 +80,7 @@ public class B2ConsoleCalcTest extends BaseTest {
         Class unitClass = getUnitClass(unitClasses, UNIT_NAME);
         assertNotNull("В задании не найден класс " + UNIT_NAME, unitClass);
 
-        instance = instanciate(unitClass);
+//        instance = instanciate(unitClass);
         addMethod = ReflectionUtil.checkMainMethod(unitClass);
     }
 }

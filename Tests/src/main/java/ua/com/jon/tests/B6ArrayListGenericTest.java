@@ -71,7 +71,7 @@ public class B6ArrayListGenericTest extends P0ArrayListGenericTest {
         assertNotNull("В задании не найден класс " + UNIT_NAME, unitClass);
         CodeValidator.checkCode(codes.get(unitClass.getName()));
         ReflectionUtil.checkConstructor(unitClass);
-        instance = instanciate(unitClass);
+//        instance = instanciate(unitClass);
         ReflectionUtil.checkHasGeneric(unitClass, "E");
     }
 

@@ -113,7 +113,7 @@ public class P0ScannerTest extends BaseTest {
         ReflectionUtil.checkConstructor(unitClass, Reader.class);
         ReflectionUtil.checkConstructor(unitClass, String.class);
 
-        instance = instanciate(unitClass);
+//        instance = instanciate(unitClass);
         addMethod = ReflectionUtil.checkMethod(unitClass, NEXT_METHOD_NAME, String.class,
                 new MethodModifier[]{MethodModifier.PUBLIC});
         addMethod = ReflectionUtil.checkMethod(unitClass, NEXT_INT_METHOD_NAME, int.class,

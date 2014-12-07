@@ -384,7 +384,7 @@ public class P0ArrayListTest extends BaseTest {
                 actualSize, 2 == actualSize);
     }
 
-    @Test(timeout = 110000) //TODO
+    @Test(timeout = 11000)
 
     public void testRemove() throws Throwable {
         Class unitClass = getUnitClass(unitClasses, UNIT_NAME);

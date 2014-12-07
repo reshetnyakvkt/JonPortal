@@ -139,7 +139,7 @@ public class B5CoursesCourseTest extends BaseTest {
         unitClass = getUnitClass(unitClasses, COURSE_EX_NAME);
         assertNotNull("В задании не найден класс " + COURSE_EX_NAME, unitClass);
 
-        instance = instanciate(unitClasses[0]);
+//        instance = instanciate(unitClasses[0]);
         addMethod = checkMethod(unitClass, SET_GROUP_METHOD_NAME, "NoSuchGroupException", void.class,
                 new MethodModifier[]{MethodModifier.PUBLIC});
         addMethod = checkMethod(unitClass, ADD_STUDENT_COURSE_METHOD_NAME, "void",

@@ -13,6 +13,7 @@ import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runners.MethodSorters;
 
+import java.net.URL;
 import java.util.List;
 import java.util.Map;
 
@@ -52,6 +53,8 @@ public class P4RegionJdbcDao extends BaseTest {
     protected static String[] unitNames;
     @Unit
     protected static String unitJarClasspath;
+    @UnitFiles
+    private static List<URL> files;
 
     @Before
     public void setUp() {
@@ -72,12 +75,12 @@ public class P4RegionJdbcDao extends BaseTest {
 
         Class daoClass = getUnitClass(unitClasses, DAO_NAME);
         assertNotNull("В задании не найден класс " + DAO_NAME, daoClass);
-        CodeValidator.checkCodeFileThread(codes.get(daoClass.getName()));
+//        CodeValidator.checkCodeFileThread(codes.get(daoClass.getName()));
         ReflectionUtil.checkConstructor(daoClass);
 
         Class entityClass = getUnitClass(unitClasses, ENTITY_NAME);
         assertNotNull("В задании не найден класс " + ENTITY_NAME, entityClass);
-        CodeValidator.checkCodeFileThread(codes.get(entityClass.getName()));
+//        CodeValidator.checkCodeFileThread(codes.get(entityClass.getName()));
         ReflectionUtil.checkConstructor(entityClass);
 
         ReflectionUtil.checkMethod(daoClass, CREATE_METHOD_NAME, "long",

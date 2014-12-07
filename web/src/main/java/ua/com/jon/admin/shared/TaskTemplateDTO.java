@@ -104,7 +104,7 @@ public class TaskTemplateDTO implements Serializable {
         return "TaskTemplateDTO{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", text='" + text + '\'' +
+//                ", text='" + text + '\'' +
                 ", type='" + type + '\'' +
                 ", suffix='" + suffix + '\'' +
                 ", testName='" + testName + '\'' +

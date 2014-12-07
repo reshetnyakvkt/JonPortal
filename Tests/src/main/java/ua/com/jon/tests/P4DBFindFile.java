@@ -98,7 +98,7 @@ public class P4DBFindFile extends BaseTest {
         }
         assertTrue("В задании не найден класс " + SERVICE_UNIT_NAME, SERVICE_UNIT_NAME.equals(unitClass.getSimpleName()));
         Method methodFindAll = ReflectionUtil.checkMethod(unitClass, SERVICE_FIND_METHOD_NAME, List.class,
-                new MethodModifier[]{MethodModifier.PUBLIC}, String.class, String.class);
+                new MethodModifier[]{MethodModifier.PUBLIC});
     }
 /*
 

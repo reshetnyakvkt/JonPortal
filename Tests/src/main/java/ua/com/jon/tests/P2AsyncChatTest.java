@@ -69,7 +69,7 @@ public class P2AsyncChatTest extends BaseTest {
         CodeValidator.checkCodeFileThreadNet(codes.get(unitClass.getName()));
         ReflectionUtil.checkConstructor(unitClass);
 
-        instance = instanciate(unitClass);
+//        instance = instanciate(unitClass);
         addMethod = ReflectionUtil.checkMethod(unitClass, PROCESS_METHOD_NAME, void.class,
                 new MethodModifier[]{MethodModifier.PUBLIC});
     }

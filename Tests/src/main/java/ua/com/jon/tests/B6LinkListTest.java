@@ -84,7 +84,7 @@ public class B6LinkListTest extends BaseTest {
         CodeValidator.checkCode(codes.get(unitClass.getName()));
         ReflectionUtil.checkConstructor(unitClass);
 
-        instance = instanciate(unitClass);
+//        instance = instanciate(unitClass);
         method = ReflectionUtil.checkMethod(unitClass, SET_METHOD_NAME, void.class,
                 new MethodModifier[]{MethodModifier.PUBLIC}, int.class, int.class);
         method = ReflectionUtil.checkMethod(unitClass, REMOVE_METHOD_NAME, void.class,
@@ -103,14 +103,14 @@ public class B6LinkListTest extends BaseTest {
                 new MethodModifier[]{MethodModifier.PUBLIC}, "LinkList");
         method = ReflectionUtil.checkMethod(unitClass, SWAP_MM_METHOD_NAME, void.class,
                 new MethodModifier[]{MethodModifier.PUBLIC});
-        method = ReflectionUtil.checkMethod(unitClass, SORT_METHOD_NAME, void.class,
-                new MethodModifier[]{MethodModifier.PUBLIC});
-        method = ReflectionUtil.checkMethod(unitClass, REMOVE_D_METHOD_NAME, void.class,
-                new MethodModifier[]{MethodModifier.PUBLIC});
+/*        method = ReflectionUtil.checkMethod(unitClass, SORT_METHOD_NAME, void.class,
+                new MethodModifier[]{MethodModifier.PUBLIC});*/
+/*        method = ReflectionUtil.checkMethod(unitClass, REMOVE_D_METHOD_NAME, void.class,
+                new MethodModifier[]{MethodModifier.PUBLIC});*/
 
         Class nodeClass = getUnitClass(unitClasses, NODE_NAME);
         assertNotNull("В задании не найден класс " + NODE_NAME, nodeClass);
         CodeValidator.checkCode(codes.get(nodeClass.getName()));
-        ReflectionUtil.checkConstructor(nodeClass);
+//        ReflectionUtil.checkConstructor(nodeClass);
     }
 }

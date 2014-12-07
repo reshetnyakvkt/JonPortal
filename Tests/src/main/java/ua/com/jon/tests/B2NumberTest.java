@@ -104,7 +104,7 @@ public class B2NumberTest extends BaseTest {
         Class unitClass = getUnitClass(unitClasses, UNIT_NAME);
         assertNotNull("В задании не найден класс " + UNIT_NAME, unitClass);
 
-        instance = instanciate(unitClasses[0]);
+//        instance = instanciate(unitClasses[0]);
         addMethod = ReflectionUtil.checkMethod(unitClass, GET_METHOD_NAME, int.class,
                 new MethodModifier[]{MethodModifier.PUBLIC});
         addMethod = ReflectionUtil.checkMethod(unitClass, ADD_METHOD_NAME, "Number",

@@ -89,7 +89,7 @@ public class P0CashierTest extends BaseTest {
 
         ReflectionUtil.checkConstructor(unitClass);
 
-        instance = instanciate(unitClass);
+//        instance = instanciate(unitClass);
         addMethod = ReflectionUtil.checkMethod(unitClass, IS_AUTHORIZED_METHOD_NAME, boolean.class,
                 new MethodModifier[]{MethodModifier.PUBLIC}, String.class, String.class);
         addMethod = ReflectionUtil.checkMethod(unitClass, SHOW_MENU_METHOD_NAME, void.class,

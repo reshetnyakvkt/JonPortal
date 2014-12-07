@@ -74,7 +74,7 @@ public class P2GraphPresenterTest extends BaseTest {
         CodeValidator.checkCodeFileThread(codes.get(unitClass.getName()));
         ReflectionUtil.checkConstructor(unitClass);
 
-        instance = instanciate(unitClass);
+//        instance = instanciate(unitClass);
         addMethod = ReflectionUtil.checkMethod(unitClass, PRINT_METHOD_NAME, void.class,
                 new MethodModifier[]{MethodModifier.PUBLIC});
     }

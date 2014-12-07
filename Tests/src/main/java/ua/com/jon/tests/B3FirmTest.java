@@ -138,7 +138,7 @@ public class B3FirmTest  extends BaseTest {
         addMethod = ReflectionUtil.checkMethod(empClass, GET_SALARY_METHOD_NAME, double.class,
                 new MethodModifier[]{MethodModifier.PUBLIC});
 
-        instance = instanciate(firmClass);
+//        instance = instanciate(firmClass);
         addMethod = ReflectionUtil.checkMethod(firmClass, PRINT_METHOD_NAME, void.class,
                 new MethodModifier[]{MethodModifier.PUBLIC});
         addMethod = ReflectionUtil.checkMethod(firmClass, PRINT_BY_SALARY_METHOD_NAME, void.class,

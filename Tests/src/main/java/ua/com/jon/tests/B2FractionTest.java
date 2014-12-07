@@ -94,7 +94,7 @@ public class B2FractionTest extends BaseTest {
         assertNotNull("В задании не найден класс " + UNIT_NAME, unitClass);
         CodeValidator.checkCode(unitClass.getName());
 
-        instance = instanciate(unitClasses[0]);
+//        instance = instanciate(unitClasses[0]);
         addMethod = ReflectionUtil.checkMethod(unitClasses[0], ADD_METHOD_NAME, "Fraction",
                 new MethodModifier[]{MethodModifier.PUBLIC}, "Fraction");
         addMethod = ReflectionUtil.checkMethod(unitClasses[0], SUB_METHOD_NAME, "Fraction",

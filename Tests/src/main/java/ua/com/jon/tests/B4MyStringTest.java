@@ -90,7 +90,7 @@ public class B4MyStringTest extends BaseTest {
         ReflectionUtil.checkConstructor(unitClass);
 //        ReflectionUtil.checkConstructor(unitClass, "");
 
-        instance = instanciate(unitClasses[0]);
+//        instance = instanciate(unitClasses[0]);
         addMethod = ReflectionUtil.checkMethod(unitClass, CONCAT_METHOD_NAME, "MyString",
                 new MethodModifier[]{MethodModifier.PUBLIC}, "MyString");
         addMethod = ReflectionUtil.checkMethod(unitClass, LOWER_METHOD_NAME, void.class,

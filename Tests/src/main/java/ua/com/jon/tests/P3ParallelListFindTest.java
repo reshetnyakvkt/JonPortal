@@ -80,7 +80,7 @@ public class P3ParallelListFindTest extends BaseTest {
         CodeValidator.checkCodeFileThread(codes.get(unitClass.getName()));
         ReflectionUtil.checkConstructor(unitClass);
 
-        instance = instanciate(unitClass);
+//        instance = instanciate(unitClass);
         addMethod = ReflectionUtil.checkMethod(unitClass, PARALLEL_INDEX_OF_METHOD_NAME, int.class,
                 new MethodModifier[]{MethodModifier.PUBLIC}, Object.class);
     }

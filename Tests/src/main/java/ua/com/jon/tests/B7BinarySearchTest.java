@@ -64,7 +64,7 @@ public class B7BinarySearchTest extends BaseTest {
         CodeValidator.checkCode(codes.get(unitClass.getName()));
         ReflectionUtil.checkConstructor(unitClass);
 
-        ReflectionUtil.checkMethod(unitClass, SEARCH_METHOD_NAME, void.class,
+        ReflectionUtil.checkMethod(unitClass, SEARCH_METHOD_NAME, int.class,
                 new MethodModifier[]{MethodModifier.PUBLIC}, int[].class, int.class);
     }
 }

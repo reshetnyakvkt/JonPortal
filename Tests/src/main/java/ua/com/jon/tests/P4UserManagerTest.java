@@ -13,6 +13,7 @@ import org.junit.Test;
 import org.junit.runners.MethodSorters;
 
 import java.lang.reflect.Method;
+import java.net.URL;
 import java.util.List;
 import java.util.Map;
 
@@ -43,6 +44,8 @@ public class P4UserManagerTest extends BaseTest {
     private static String[] unitNames;
     @Unit
     private static String unitJarClasspath;
+    @UnitFiles
+    private static List<URL> files;
 
     @Before
     public void setUp() {

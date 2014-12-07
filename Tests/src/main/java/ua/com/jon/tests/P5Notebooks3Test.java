@@ -133,7 +133,7 @@ public class P5Notebooks3Test extends BaseTest {
         ReflectionUtil.checkConstructor(daoImpl);
         ReflectionUtil.checkHasParent(daoImpl, UNIT_DAO_NAME);
 
-        instance = instanciate(daoImpl);
+//        instance = instanciate(daoImpl);
         ReflectionUtil.checkMethod(daoImpl, FIND_BY_MODEL_DAO_METHOD_NAME, List.class,
                 new MethodModifier[]{MethodModifier.PUBLIC}, String.class);
         ReflectionUtil.checkMethod(daoImpl, FIND_BY_VENDOR_DAO_METHOD_NAME, List.class,
@@ -171,7 +171,7 @@ public class P5Notebooks3Test extends BaseTest {
         ReflectionUtil.checkConstructor(daoImpl);
         ReflectionUtil.checkHasParent(daoImpl, UNIT_SERVICE_NAME);
 
-        instance = instanciate(daoImpl);
+//        instance = instanciate(daoImpl);
         ReflectionUtil.checkMethod(daoImpl, DELETE_BY_MODEL_SERVICE_METHOD_NAME, boolean.class,
                 new MethodModifier[]{MethodModifier.PUBLIC}, String.class);
         ReflectionUtil.checkMethod(daoImpl, FIND_BY_VENDOR_DAO_METHOD_NAME, List.class,

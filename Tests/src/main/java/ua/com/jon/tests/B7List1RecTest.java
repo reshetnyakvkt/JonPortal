@@ -74,9 +74,9 @@ public class B7List1RecTest extends BaseTest {
 
         ReflectionUtil.checkMethod(unitClass, SET_METHOD_NAME, void.class,
                 new MethodModifier[]{MethodModifier.PUBLIC}, int.class, Object.class);
-        ReflectionUtil.checkMethod(unitClass, REMOVE_METHOD_NAME, void.class,
+        ReflectionUtil.checkMethod(unitClass, REMOVE_METHOD_NAME, Object.class,
                 new MethodModifier[]{MethodModifier.PUBLIC}, int.class);
-        ReflectionUtil.checkMethod(unitClass, INDEXOF_METHOD_NAME, void.class,
+        ReflectionUtil.checkMethod(unitClass, INDEXOF_METHOD_NAME, int.class,
                 new MethodModifier[]{MethodModifier.PUBLIC}, Object.class);
         ReflectionUtil.checkMethod(unitClass, SWAP_METHOD_NAME, void.class,
                 new MethodModifier[]{MethodModifier.PUBLIC});
