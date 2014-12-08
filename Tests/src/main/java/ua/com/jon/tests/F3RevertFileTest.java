@@ -79,7 +79,7 @@ public class F3RevertFileTest extends BaseTest {
         super.tearDown();
     }
 
-    @Test(timeout = 1000)
+    @Test(timeout = 1100)
     public void test() throws Throwable {
         assertTrue("В задании должен быть один класс", unitClasses != null && classCodes != null &&
                 unitClasses.length == 1 && classCodes.length == 1);
@@ -89,7 +89,7 @@ public class F3RevertFileTest extends BaseTest {
     }
 
 
-    @Test(timeout = 1000)
+    //@Test(timeout = 1100)
     public void testSuccess() throws Throwable {
         if (unitMethod == null) {
             fail();

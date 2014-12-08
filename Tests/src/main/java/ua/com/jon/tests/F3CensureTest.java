@@ -89,7 +89,7 @@ public class F3CensureTest extends BaseTest {
     }
 
 
-    @Test(timeout = 1000)
+    //@Test(timeout = 1100)
     public void testSuccess() throws Throwable {
         if (unitMethod == null) {
             fail();

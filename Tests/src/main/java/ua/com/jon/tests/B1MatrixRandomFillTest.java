@@ -35,18 +35,18 @@ public class B1MatrixRandomFillTest extends BaseTest {
         System.out.println("Введите размер массива");
         if (!scan.hasNextInt()) {
             System.out.println(ILLEGAL_SIZE);
-            System.exit(0);
+//            System.exit(0);
         }
         int height = scan.nextInt();
         System.out.println("Введите размер массива");
         if (!scan.hasNextInt()) {
             System.out.println(ILLEGAL_SIZE);
-            System.exit(0);
+//            System.exit(0);
         }
         int width = scan.nextInt();
         if (height < 1 || width < 1) {
             System.out.println(ILLEGAL_SIZE);
-            System.exit(0);
+//            System.exit(0);
         }
         int[][] matrix = new int[height][width];
         fillMatrixByRandom(matrix);

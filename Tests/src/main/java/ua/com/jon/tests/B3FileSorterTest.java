@@ -91,8 +91,8 @@ public class B3FileSorterTest extends BaseTest {
         unitMethod = ReflectionUtil.checkMainMethod(unitClasses[0]);
     }
 
-    @Ignore
-    @Test(timeout = 1100)
+//    @Ignore
+//    @Test(timeout = 1100)
     public void testSuccess() throws Throwable {
         if (unitMethod == null) {
             fail();

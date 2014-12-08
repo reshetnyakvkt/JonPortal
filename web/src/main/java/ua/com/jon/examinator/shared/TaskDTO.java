@@ -190,7 +190,7 @@ public class TaskDTO implements Serializable {
                 ", userName='" + userName + '\'' +
                 ", className='" + className + '\'' +
                 ", taskTemplateId=" + taskTemplateId +
-                ", material='" + material + '\'' +
+//                ", material='" + material + '\'' +
                 '}';
     }
 }

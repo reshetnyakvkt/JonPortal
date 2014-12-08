@@ -96,7 +96,7 @@ public class P5Notebooks1Test extends BaseTest {
 //        assertTrue("В задании должено быть не более 3х классов", unitClasses.length <= 3);
         Class unitClass = getUnitClass(unitClasses, UNIT_DOMAIN_NAME);
         assertNotNull("В задании не найден класс " + UNIT_DOMAIN_NAME, unitClass);
-        CodeValidator.checkCodePkg(codes.get(unitClass.getName()));
+//        CodeValidator.checkCodePkg(codes.get(unitClass.getName()));
         ReflectionUtil.checkConstructor(unitClass);
     }
 
@@ -104,7 +104,7 @@ public class P5Notebooks1Test extends BaseTest {
     public void testCheckDaoPresent() throws Throwable {
         Class daoInterface = getUnitClass(unitClasses, UNIT_DAO_NAME);
         assertNotNull("В задании не найден класс " + UNIT_DAO_NAME, daoInterface);
-        CodeValidator.checkCodePkg(codes.get(daoInterface.getName()));
+//        CodeValidator.checkCodePkg(codes.get(daoInterface.getName()));
 //        ReflectionUtil.checkConstructor(daoInterface);
 
 //        instance = instanciate(daoInterface);
@@ -124,7 +124,7 @@ public class P5Notebooks1Test extends BaseTest {
     public void testCheckDaoImplPresent() throws Throwable {
         Class daoImpl = getUnitClass(unitClasses, UNIT_DAO_IMPL_NAME);
         assertNotNull("В задании не найден класс " + UNIT_DAO_IMPL_NAME, daoImpl);
-        CodeValidator.checkCodePkg(codes.get(daoImpl.getName()));
+//        CodeValidator.checkCodePkg(codes.get(daoImpl.getName()));
         ReflectionUtil.checkConstructor(daoImpl);
         ReflectionUtil.checkHasParent(daoImpl, UNIT_DAO_NAME);
 
@@ -145,7 +145,7 @@ public class P5Notebooks1Test extends BaseTest {
     public void testCheckServicePresent() throws Throwable {
         Class daoImpl = getUnitClass(unitClasses, UNIT_SERVICE_NAME);
         assertNotNull("В задании не найден класс " + UNIT_SERVICE_NAME, daoImpl);
-        CodeValidator.checkCodePkg(codes.get(daoImpl.getName()));
+//        CodeValidator.checkCodePkg(codes.get(daoImpl.getName()));
 //        ReflectionUtil.checkConstructor(daoImpl);
 
 //        instance = instanciate(daoImpl);
@@ -159,7 +159,7 @@ public class P5Notebooks1Test extends BaseTest {
     public void testCheckServiceImplPresent() throws Throwable {
         Class daoImpl = getUnitClass(unitClasses, UNIT_SERVICE_IMPL_NAME);
         assertNotNull("В задании не найден класс " + UNIT_SERVICE_IMPL_NAME, daoImpl);
-        CodeValidator.checkCodePkg(codes.get(daoImpl.getName()));
+//        CodeValidator.checkCodePkg(codes.get(daoImpl.getName()));
         ReflectionUtil.checkConstructor(daoImpl);
         ReflectionUtil.checkHasParent(daoImpl, UNIT_SERVICE_NAME);
 
