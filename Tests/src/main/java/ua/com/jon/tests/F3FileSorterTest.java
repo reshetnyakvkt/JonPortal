@@ -27,7 +27,7 @@ import static org.junit.Assert.fail;
  */
 @Unit(testName = "B3FileSorterTest", value = "weekend1.task1")
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
-public class B3FileSorterTest extends BaseTest {
+public class F3FileSorterTest extends BaseTest {
 //    import java.io.FileReader;
 //    import java.io.FileWriter;
 //    import java.util.ArrayList;
