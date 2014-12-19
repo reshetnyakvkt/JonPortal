@@ -34,6 +34,9 @@
         <property name="password" value="${jdbc.password}"/>
     </bean>
 
+    <bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
+        <constructor-arg ref="jpaDataSource"/>
+    </bean>
 <!--
     <bean id="jpaDataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource"
           destroy-methodName="close"

@@ -81,32 +81,32 @@ public class P6NotebookDomainsTest extends BaseTest {
         assertTrue("В задании должено быть не более 6и классов", unitClasses.length <= 6);
         Class unitClass = getUnitClass(unitClasses, NOTEBOOK_DOMAIN_NAME);
         assertNotNull("В задании не найден класс " + NOTEBOOK_DOMAIN_NAME, unitClass);
-        CodeValidator.checkCodePkg(codes.get(unitClass.getName()));
+//        CodeValidator.checkCodePkg(codes.get(unitClass.getName()));
         ReflectionUtil.checkConstructor(unitClass);
 
         unitClass = getUnitClass(unitClasses, VENDOR_DOMAIN_NAME);
         assertNotNull("В задании не найден класс " + VENDOR_DOMAIN_NAME, unitClass);
-        CodeValidator.checkCodePkg(codes.get(unitClass.getName()));
+//        CodeValidator.checkCodePkg(codes.get(unitClass.getName()));
         ReflectionUtil.checkConstructor(unitClass);
 
         unitClass = getUnitClass(unitClasses, CPU_DOMAIN_NAME);
         assertNotNull("В задании не найден класс " + CPU_DOMAIN_NAME, unitClass);
-        CodeValidator.checkCodePkg(codes.get(unitClass.getName()));
+//        CodeValidator.checkCodePkg(codes.get(unitClass.getName()));
         ReflectionUtil.checkConstructor(unitClass);
 
         unitClass = getUnitClass(unitClasses, MEMORY_DOMAIN_NAME);
         assertNotNull("В задании не найден класс " + MEMORY_DOMAIN_NAME, unitClass);
-        CodeValidator.checkCodePkg(codes.get(unitClass.getName()));
+//        CodeValidator.checkCodePkg(codes.get(unitClass.getName()));
         ReflectionUtil.checkConstructor(unitClass);
 
         unitClass = getUnitClass(unitClasses, STORE_DOMAIN_NAME);
         assertNotNull("В задании не найден класс " + STORE_DOMAIN_NAME, unitClass);
-        CodeValidator.checkCodePkg(codes.get(unitClass.getName()));
+//        CodeValidator.checkCodePkg(codes.get(unitClass.getName()));
         ReflectionUtil.checkConstructor(unitClass);
 
         unitClass = getUnitClass(unitClasses, SALES_DOMAIN_NAME);
         assertNotNull("В задании не найден класс " + SALES_DOMAIN_NAME, unitClass);
-        CodeValidator.checkCodePkg(codes.get(unitClass.getName()));
+//        CodeValidator.checkCodePkg(codes.get(unitClass.getName()));
         ReflectionUtil.checkConstructor(unitClass);
     }
 }

@@ -15,6 +15,7 @@ import ua.com.jon.cabinet.client.TasksService;
 import ua.com.jon.cabinet.shared.GroupDTO;
 import ua.com.jon.cabinet.shared.SprintDTO;
 import ua.com.jon.cabinet.shared.TaskDTO;
+import ua.com.jon.common.dao.GroupDAO;
 import ua.com.jon.common.domain.Group;
 import ua.com.jon.common.domain.Sprint;
 import ua.com.jon.common.domain.Status;
@@ -71,6 +72,9 @@ public class TasksServiceImpl implements TasksService, ServletContextAware {
 
     @Value("${junit.jar}")
     private String junitJarName;
+
+    @Autowired
+    private GroupDAO groupDAO;
 
     @Override
     public String greet(String name) {
@@ -199,8 +203,6 @@ public class TasksServiceImpl implements TasksService, ServletContextAware {
                 }
                 removeTasksOfCurrentUser(tasksList, user.getLogin());
 //                }
-//        list.add(new TaskDTO(1L, "task1", "task1", "", "", "", "", "", ""));
-//        list.add(new TaskDTO(1L, "task2", "task2", "", "", "", "", "", ""));
             }
             log.debug("Tasks for group " + tasksList);
             log.info("Tasks for group " + tasksList.size());
@@ -211,6 +213,18 @@ public class TasksServiceImpl implements TasksService, ServletContextAware {
         return tasksList;
     }
 
+    @Override
+    public List<List<String>> getGroupInfo(Long selectedGroupId) throws Exception {
+        log.info("--== getGroupInfo(" + selectedGroupId + ")");
+        try {
+            return groupDAO.findByGroupIdAndUserNotIgnore(selectedGroupId);
+        } catch (Exception e) {
+            log.error(e);
+            throw e;
+        }
+    }
+
+/*
     @Override
     public List<List<String>> getGroupInfo(Long selectedGroupId) throws Exception {
         try {
@@ -226,6 +240,7 @@ public class TasksServiceImpl implements TasksService, ServletContextAware {
             throw e;
         }
     }
+*/
 
     private Map<Sprint, Integer> calcMaxSprintsNumber(Map<User, Map<Sprint, Integer>> groupInfo) {
         Map<Sprint, Integer> maxSprintsEntry = new HashMap<>();

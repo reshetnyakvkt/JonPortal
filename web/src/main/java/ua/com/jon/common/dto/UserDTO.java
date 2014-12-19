@@ -8,12 +8,16 @@ import java.io.Serializable;
  * Date: 10.09.14
  */
 public class UserDTO implements Serializable {
-    private long id;
+    private Long id;
     private String userName;
-    private boolean admin;
-    private boolean ignore;
+    private Boolean admin = false;
+    private Boolean ignore = false;
 
-    public UserDTO(long id, String userName, boolean admin, boolean ignore) {
+    public UserDTO() {
+
+    }
+
+    public UserDTO(Long id, String userName, Boolean admin, Boolean ignore) {
         this.id = id;
         this.userName = userName;
         this.admin = admin;
@@ -40,7 +44,7 @@ public class UserDTO implements Serializable {
         return admin;
     }
 
-    public void setAdmin(boolean admin) {
+    public void setAdmin(Boolean admin) {
         this.admin = admin;
     }
 
@@ -48,7 +52,7 @@ public class UserDTO implements Serializable {
         return ignore;
     }
 
-    public void setIgnore(boolean ignore) {
+    public void setIgnore(Boolean ignore) {
         this.ignore = ignore;
     }
 

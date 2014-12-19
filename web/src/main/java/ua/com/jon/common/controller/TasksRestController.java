@@ -82,7 +82,8 @@ public class TasksRestController {
     @RequestMapping(value = "/groups", method = RequestMethod.GET)
     public String getActiveGroupsWithTestTasks(ModelMap model) {
         log.debug("-- get active groups ");
-        List<GroupDTO> groupDTOs = restService.getActiveGroupsDtoWithTasks();
+//        List<GroupDTO> groupDTOs = restService.getActiveGroupsDtoWithTasks();
+        List<GroupDTO> groupDTOs = restService.getActiveGroups();
         for (GroupDTO groupDTO : groupDTOs) {
             List<ua.com.jon.common.dto.TaskDTO> groupTasks = groupDTO.getTasks();
             for (int i = 0; i < groupTasks.size(); i++) {

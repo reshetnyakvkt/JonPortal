@@ -36,7 +36,7 @@ import static org.junit.Assert.assertTrue;
  Класс теста:
  hw3.parallel.FileFinderTest
  */
-@Unit(testName = "P3ParallelFileFindTest", value = {"hw3.parallel.FileFinder", "hw3.parallel.FileFinderTest"})
+@Unit(testName = "P3ParallelFileFindTest", value = {"hw4.parallel.FileFinder", "hw4.parallel.FileFinderTest"})
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class P3ParallelFileFindTest  extends BaseTest {
     private static final String UNIT_NAME = "FileFinder";

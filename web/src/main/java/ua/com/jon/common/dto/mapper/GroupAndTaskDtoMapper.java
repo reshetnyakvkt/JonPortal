@@ -30,12 +30,12 @@ public class GroupAndTaskDtoMapper {
         for (Task task : tasks) {
             taskDtos.add(new TaskDTO(
                     task.getId(),
-                    task.getTaskTemplate().getName(),
-                    task.getTaskTemplate().getTaskText(),
+                    task.getTaskTemplate() != null ? task.getTaskTemplate().getName() : "",
+                    task.getTaskTemplate() != null ? task.getTaskTemplate().getTaskText() : "",
                     task.getStatus().name(),
                     task.getUser().getLogin(),
-                    task.getTaskTemplate().getTestName(),
-                    task.getTaskTemplate().getSuffix()));
+                    task.getTaskTemplate() != null ? task.getTaskTemplate().getTestName() : "",
+                    task.getTaskTemplate() != null ? task.getTaskTemplate().getSuffix() : ""));
         }
         return taskDtos;
     }
@@ -61,11 +61,15 @@ public class GroupAndTaskDtoMapper {
     private static List<UserDTO> usersToDto(Set<User> users) {
         List<UserDTO> taskDtos = new ArrayList<UserDTO>(users.size());
         for (User task : users) {
-            taskDtos.add(new UserDTO(
-                    task.getId(),
-                    task.getLogin(),
-                    task.isAdmin(),
-                    task.getIgnore()));
+            if (task != null) {
+                taskDtos.add(new UserDTO(
+                        task.getId(),
+                        task.getLogin(),
+                        task.isAdmin(),
+                        task.getIgnore()));
+            } else {
+                taskDtos.add(new UserDTO());
+            }
         }
         return taskDtos;
     }

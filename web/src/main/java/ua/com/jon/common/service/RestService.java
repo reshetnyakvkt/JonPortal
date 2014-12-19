@@ -3,7 +3,9 @@ package ua.com.jon.common.service;
 import com.jon.tron.service.processor.ClassProcessor;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
+import ua.com.jon.common.dao.GroupDAO;
 import ua.com.jon.common.domain.Group;
 import ua.com.jon.common.dto.GroupDTO;
 import ua.com.jon.common.dto.mapper.GroupAndTaskDtoMapper;
@@ -40,12 +42,19 @@ public class RestService {
     @Resource
     private GroupRepository groupRepository;
 
+    @Autowired
+    private GroupDAO groupDAO;
+
     public GroupDTO getGroupDtoWithTasks(String groupName) {
         Group group = groupRepository.findGroupAndUsersAndTasksByName(groupName);
         if(group == null) {
             throw new RuntimeException("Group not found: " + groupName);
         }
         return GroupAndTaskDtoMapper.domainToDto(group);
+    }
+
+    public List<GroupDTO> getActiveGroups() {
+            return groupDAO.findActiveGroupAndTasksAndUsers();
     }
 
     public List<GroupDTO> getActiveGroupsDtoWithTasks() {

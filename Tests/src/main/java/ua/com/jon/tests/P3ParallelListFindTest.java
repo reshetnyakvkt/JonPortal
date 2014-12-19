@@ -38,7 +38,7 @@ import static org.junit.Assert.assertTrue;
  Класс теста:
  hw3.parallel.MyArrayListTest
  */
-@Unit(testName = "P3ParallelListFindTest", value = {"hw3.parallel.MyArrayList", "hw3.parallel.MyArrayListTest"})
+@Unit(testName = "P3ParallelListFindTest", value = {"hw4.parallel.MyArrayList", "hw4.parallel.MyArrayListTest"})
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class P3ParallelListFindTest extends BaseTest {
     private static final String UNIT_NAME = "MyArrayList";

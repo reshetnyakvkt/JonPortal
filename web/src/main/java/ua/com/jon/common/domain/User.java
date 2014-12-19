@@ -53,6 +53,11 @@ public class User {
     public User() {
     }
 
+    public User(Long id, String login, String password, Date regDate, Set<Group> groups, Set<UserRole> roles, boolean ignore) {
+        this(login, password, regDate, groups, roles, ignore);
+        this.id = id;
+    }
+
     public User(String login, String password, Date regDate, Set<Group> groups, Set<UserRole> roles, boolean ignore) {
         this.login = login;
         this.password = password;
@@ -62,7 +67,7 @@ public class User {
         this.ignore = ignore;
     }
 
-    public boolean isAdmin() {
+    public Boolean isAdmin() {
         return roles.contains(UserRole.ROLE_ADMIN);
     }
 
