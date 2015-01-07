@@ -102,6 +102,7 @@ public class GroupDAOJdbcImpl implements GroupDAO {
                 final int markSprintIndex = 2;
 
                 Map<String, LinkedList<Integer>> users = new HashMap<String, LinkedList<Integer>>();
+                int maxSprintsCount = 0;
                 while (rs.next()) {
 //                    long groupId = rs.getInt(userIdIndex);
                     String userName = rs.getString(userNameIndex);
@@ -117,6 +118,9 @@ public class GroupDAOJdbcImpl implements GroupDAO {
                     }
 
                     sprints.addLast(markSprint);
+                    if (maxSprintsCount < sprints.size()) {
+                        maxSprintsCount = sprints.size();
+                    }
                 }
                 LinkedList<List<String>> sprints = new LinkedList<List<String>>();
                 for (Map.Entry<String, LinkedList<Integer>> user : users.entrySet()) {
@@ -127,7 +131,7 @@ public class GroupDAOJdbcImpl implements GroupDAO {
                         sum += mark;
                         sprint.addLast(String.valueOf(mark));
                     }
-                    sprint.addFirst(String.valueOf(Math.round(sum / sprint.size())));
+                    sprint.addFirst(String.valueOf(Math.round(sum / (maxSprintsCount - 1))));
                     sprint.addFirst(user.getKey());
                 }
                 return sprints;

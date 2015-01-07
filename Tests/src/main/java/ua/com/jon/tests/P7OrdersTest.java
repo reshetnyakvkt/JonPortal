@@ -90,12 +90,12 @@ public class P7OrdersTest extends BaseTest {
     public void testCheckService() throws Throwable {
         Class unitClass = getUnitClass(unitClasses, DOMAIN_NAME);
         assertNotNull("В задании не найден класс " + DOMAIN_NAME, unitClass);
-        CodeValidator.checkCodePkg(codes.get(unitClass.getName()));
+//        CodeValidator.checkCodePkg(codes.get(unitClass.getName()));
         ReflectionUtil.checkConstructor(unitClass);
 
         Class service = getUnitClass(unitClasses, SERVICE_NAME);
         assertNotNull("В задании не найден класс ", service);
-        CodeValidator.checkCodePkg(codes.get(service.getName()));
+//        CodeValidator.checkCodePkg(codes.get(service.getName()));
 
         ReflectionUtil.checkMethod(service, CREATE_ORDER_METHOD_NAME, "boolean",
                 new MethodModifier[]{MethodModifier.PUBLIC}, "String", "String");
@@ -108,7 +108,7 @@ public class P7OrdersTest extends BaseTest {
 
         Class serviceImpl = getUnitClass(unitClasses, SERVICE_IMPL_NAME);
         assertNotNull("В задании не найден класс " + SERVICE_IMPL_NAME, serviceImpl);
-        CodeValidator.checkCodePkg(codes.get(serviceImpl.getName()));
+//        CodeValidator.checkCodePkg(codes.get(serviceImpl.getName()));
         ReflectionUtil.checkConstructor(serviceImpl);
         ReflectionUtil.checkHasParent(serviceImpl, SERVICE_NAME);
     }
@@ -118,7 +118,7 @@ public class P7OrdersTest extends BaseTest {
 
         Class servlet = getUnitClass(unitClasses, SERVLET_NAME);
         assertNotNull("В задании не найден класс " + SERVLET_NAME, servlet);
-        CodeValidator.checkCodePkg(codes.get(SERVLET_NAME));
+//        CodeValidator.checkCodePkg(codes.get(SERVLET_NAME));
         ReflectionUtil.checkConstructor(servlet);
         ReflectionUtil.checkHasParent(servlet, "HttpServlet");
 

@@ -13,7 +13,7 @@ import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runners.MethodSorters;
 
-import java.lang.reflect.Method;
+import java.net.URL;
 import java.util.List;
 import java.util.Map;
 
@@ -21,99 +21,134 @@ import static junit.framework.TestCase.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
 /**
- Создать приложение магазин ноутбуков со следующими функциями:
-    Создать процессор
-    Создать память
-    Создать производителя
-    Создать тип ноутбука
-    Принять на склад партию ноутбуков (тип ноутбука, количество, цена)
-    Продать указанное количество ноутбуков со склада(id склада, количество)
+ Написать приложение "Магазин ноутбуков" с использованием Spring:
+ Тип ноутбука(производитель, модель, дата производства, процессор, память)
+ Производители(имя)
+ Процессоры(производитель, частота, модель)
+ Память(производитель, размер)
+ Склад ноутбуков(тип ноутбука, количество, цена)
+ Продажи(склад ноутбуков, дата продажи, количество)
+
+ Добавить следующие функции:
+ Создать процессор
+ Создать память
+ Создать производителя
+ Создать тип ноутбука
+ Принять на склад партию ноутбуков (тип ноутбука, количество, цена)
+ Продать указанное количество ноутбуков со склада(id склада, количество)
+ Изменить процессор
+ Изменить память
+ Изменить имя производителя
+ Изменить тип ноутбука
+ Списать со склад ноутбуки (ключ, количество)
+ Показать все ноутбуки на складе (пользователь указывает размер порции)
+ Показать все ноутбуки которых больше указанного количества
+ Показать все ноутбуки по указанному имени производителя процессора
+ Показать все ноутбуки на складе
+ Показать типы ноутбуков, оставшиеся на складе по каждому производителю
+ Получить объем продаж ноутбуков по каждому дню
 
  domain
-     hw7.notes.domain.Notebook
-     hw7.notes.domain.Vendor
-     hw7.notes.domain.CPU
-     hw7.notes.domain.Memory
-     hw7.notes.domain.Store
-     hw7.notes.domain.Sales
+ hw7.springnotes.domain.Notebook
+ hw7.springnotes.domain.Vendor
+ hw7.springnotes.domain.CPU
+ hw7.springnotes.domain.Memory
+ hw7.springnotes.domain.Store
+ hw7.springnotes.domain.Sales
  dao
-    hw7.notes.dao.NotebookDao
-        Long create(Notebook notebook)
-        Notebook read(Long ig)
-        boolean update(Notebook notebook)
-        boolean delete(Notebook notebook)
-        List<Notebook> findAll()
-    hw7.notes.dao.VendorDao
-        Long create(Vendor vendor)
-        Vendor read(Long ig)
-        boolean update(Vendor vendor)
-        boolean delete(Vendor vendor)
-        List<Vendor> findAll()
-    hw7.notes.dao.CPUDao
-        Long create(CPU cpu)
-        CPU read(Long ig)
-        boolean update(CPU cpu)
-        boolean delete(CPU cpu)
-        List<CPU> findAll()
-    hw7.notes.dao.MemoryDao
-        Long create(Memory memory)
-        Memory read(Long ig)
-        boolean update(Memory memory)
-        boolean delete(Memory memory)
-        List<Memory> findAll()
-    hw7.notes.dao.StoreDao
-        Long create(Store store)
-        Store read(Long ig)
-        boolean update(Store store)
-        boolean delete(Store store)
-        List<Store> findAll()
-    hw7.notes.dao.SalesDao
-        Long create(Sales store)
-        Sales read(Long ig)
-        boolean update(Sales store)
-        boolean delete(Sales store)
-        List<Sales> findAll()
+ hw7.springnotes.dao.NotebookDao
+ Long create(Notebook notebook)
+ Notebook read(Long ig)
+ boolean update(Notebook notebook)
+ boolean delete(Notebook notebook)
+ List<Notebook> findAll()
+ hw7.springnotes.dao.VendorDao
+ Long create(Vendor vendor)
+ Vendor read(Long ig)
+ boolean update(Vendor vendor)
+ boolean delete(Vendor vendor)
+ List<Vendor> findAll()
+ hw7.springnotes.dao.CPUDao
+ Long create(CPU cpu)
+ CPU read(Long ig)
+ boolean update(CPU cpu)
+ boolean delete(CPU cpu)
+ List<CPU> findAll()
+ hw7.springnotes.dao.MemoryDao
+ Long create(Memory memory)
+ Memory read(Long ig)
+ boolean update(Memory memory)
+ boolean delete(Memory memory)
+ List<Memory> findAll()
+ hw7.springnotes.dao.StoreDao
+ Long create(Store store)
+ Store read(Long ig)
+ boolean update(Store store)
+ boolean delete(Store store)
+ List<Store> findAll()
+ hw7.springnotes.dao.SalesDao
+ Long create(Sales store)
+ Sales read(Long ig)
+ boolean update(Sales store)
+ boolean delete(Sales store)
+ List<Sales> findAll()
 
-    hw7.notes.dao.NotebookDaoImpl
-    hw7.notes.dao.VendorDaoImpl
-    hw7.notes.dao.CPUDaoImpl
-    hw7.notes.dao.MemoryDaoImpl
-    hw7.notes.dao.StoreDaoImpl
-    hw7.notes.dao.SalesDaoImpl
+ hw7.springnotes.dao.NotebookDaoImpl
+ hw7.springnotes.dao.VendorDaoImpl
+ hw7.springnotes.dao.CPUDaoImpl
+ hw7.springnotes.dao.MemoryDaoImpl
+ hw7.springnotes.dao.StoreDaoImpl
+ hw7.springnotes.dao.SalesDaoImpl
  service
-    hw7.notes.service.NotebookService
-        Long receive(Long id, int amount, double price)
-        Long sale(Long storeId, int amount)
-    hw6.notes.service.NotebookServiceImpl
+ hw7.springnotes.service.NotebookService
+ List<Notebook> getNotebooksByPortion(int size)
+ List<Notebook> getNotebooksGtAmount(int amount)
+ List<Notebook> getNotebooksByCpuVendor(Vendor cpuVendor)
+ List<Notebook> getNotebooksFromStore()
+ List<Notebook> getNotebooksStorePresent()
+ Map<Notebook, int> getSalesByDays()
+ boolean updateCPU(CPU cpu)
+ boolean updateMemory(Memory memory)
+ boolean updateVendor(Vendor vendor)
+ boolean updateNotebook(Notebook notebook)
+ boolean removeFromStore(Store store, int amount)
+ hw7.springnotes.service.NotebookServiceImpl
  view
-    hw6.notes.service.Menu
-        main()
+ hw7.springnotes.service.Menu
+ hw7.springnotes/context.xml
+ Main
  */
-@Unit(testName = "P6NotebookStructureTest", value = {
-        "hw7.notes.domain.Notebook",
-        "hw7.notes.domain.Vendor",
-        "hw7.notes.domain.CPU",
-        "hw7.notes.domain.Memory",
-        "hw7.notes.domain.Store",
-        "hw7.notes.domain.Sales",
-        "hw7.notes.dao.NotebookDao",
-        "hw7.notes.dao.VendorDao",
-        "hw7.notes.dao.CPUDao",
-        "hw7.notes.dao.MemoryDao",
-        "hw7.notes.dao.StoreDao",
-        "hw7.notes.dao.SalesDao",
-        "hw7.notes.dao.NotebookDaoImpl",
-        "hw7.notes.dao.VendorDaoImpl",
-        "hw7.notes.dao.CPUDaoImpl",
-        "hw7.notes.dao.MemoryDaoImpl",
-        "hw7.notes.dao.StoreDaoImpl",
-        "hw7.notes.dao.SalesDaoImpl",
-        "hw7.notes.service.NotebookService",
-        "hw7.notes.service.NotebookServiceImpl",
-        "hw7.notes.service.Menu"
+@Unit(testName = "P6SpringNotebookTest", value = {
+        "hw7.springnotes.domain.Notebook",
+        "hw7.springnotes.domain.Vendor",
+        "hw7.springnotes.domain.CPU",
+        "hw7.springnotes.domain.Memory",
+        "hw7.springnotes.domain.Store",
+        "hw7.springnotes.domain.Sales",
+        "hw7.springnotes.domain.Notebook",
+        "hw7.springnotes.domain.Vendor",
+        "hw7.springnotes.domain.CPU",
+        "hw7.springnotes.domain.Memory",
+        "hw7.springnotes.domain.Store",
+        "hw7.springnotes.domain.Sales",
+        "hw7.springnotes.dao.NotebookDao",
+        "hw7.springnotes.dao.VendorDao",
+        "hw7.springnotes.dao.CPUDao",
+        "hw7.springnotes.dao.MemoryDao",
+        "hw7.springnotes.dao.StoreDao",
+        "hw7.springnotes.dao.SalesDao",
+        "hw7.springnotes.dao.NotebookDaoImpl",
+        "hw7.springnotes.dao.VendorDaoImpl",
+        "hw7.springnotes.dao.CPUDaoImpl",
+        "hw7.springnotes.dao.MemoryDaoImpl",
+        "hw7.springnotes.dao.StoreDaoImpl",
+        "hw7.springnotes.dao.SalesDaoImpl",
+        "hw7.springnotes.service.NotebookService",
+        "hw7.springnotes.service.NotebookServiceImpl",
+        "hw7.springnotes.service.Menu"
         })
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
-public class P6NotebookStructureTest extends BaseTest {
+public class P6SpringNotebookTest extends BaseTest {
     private static final String NOTEBOOK_DOMAIN_NAME = "Notebook";
     private static final String VENDOR_DOMAIN_NAME = "Vendor";
     private static final String CPU_DOMAIN_NAME = "CPU";
@@ -142,9 +177,18 @@ public class P6NotebookStructureTest extends BaseTest {
     private static final String FIND_ALL_METHOD_NAME = "findAll";
     private static final String RECEIVE_SERVICE_METHOD_NAME = "receive";
     private static final String SALE_SERVICE_METHOD_NAME = "sale";
+    private static final String BY_PORTION_METHOD_NAME = "getNotebooksByPortion";
+    private static final String GT_AMOUNT_SERVICE_METHOD_NAME = "getNotebooksGtAmount";
+    private static final String CPU_VENDOR_SERVICE_METHOD_NAME = "getNotebooksByCpuVendor";
+    private static final String FROM_STORE_SERVICE_METHOD_NAME = "getNotebooksFromStore";
+    private static final String STORE_PRESENT_SERVICE_METHOD_NAME = "getNotebooksStorePresent";
+    private static final String SALES_BY_DAYS_SERVICE_METHOD_NAME = "getSalesByDays";
+    private static final String CONTEXT_NAME = "context.xml";
 
     @UnitCode
     private static Map<String, String> codes;
+    @UnitFiles
+    private static List<URL> files;
     @UnitClass
     private static Class[] unitClasses;
     @UnitName
@@ -162,38 +206,41 @@ public class P6NotebookStructureTest extends BaseTest {
         super.tearDown();
     }
 
-    private static Object instance;
-    private static Method method;
-
     @Test(timeout = 1000)
     public void testCheckMainUnitPresent() throws Throwable {
 //        assertTrue("В задании должено быть не более 6и классов", unitClasses.length <= 6);
         Class unitClass = getUnitClass(unitClasses, NOTEBOOK_DOMAIN_NAME);
+        ReflectionUtil.checkHasAnnotation(unitClass, "Entity");
         assertNotNull("В задании не найден класс " + NOTEBOOK_DOMAIN_NAME, unitClass);
 //        CodeValidator.checkCodePkg(codes.get(unitClass.getName()));
         ReflectionUtil.checkConstructor(unitClass);
 
         unitClass = getUnitClass(unitClasses, VENDOR_DOMAIN_NAME);
+        ReflectionUtil.checkHasAnnotation(unitClass, "Entity");
         assertNotNull("В задании не найден класс " + VENDOR_DOMAIN_NAME, unitClass);
 //        CodeValidator.checkCodePkg(codes.get(unitClass.getName()));
         ReflectionUtil.checkConstructor(unitClass);
 
         unitClass = getUnitClass(unitClasses, CPU_DOMAIN_NAME);
+        ReflectionUtil.checkHasAnnotation(unitClass, "Entity");
         assertNotNull("В задании не найден класс " + CPU_DOMAIN_NAME, unitClass);
 //        CodeValidator.checkCodePkg(codes.get(unitClass.getName()));
         ReflectionUtil.checkConstructor(unitClass);
 
         unitClass = getUnitClass(unitClasses, MEMORY_DOMAIN_NAME);
+        ReflectionUtil.checkHasAnnotation(unitClass, "Entity");
         assertNotNull("В задании не найден класс " + MEMORY_DOMAIN_NAME, unitClass);
 //        CodeValidator.checkCodePkg(codes.get(unitClass.getName()));
         ReflectionUtil.checkConstructor(unitClass);
 
         unitClass = getUnitClass(unitClasses, STORE_DOMAIN_NAME);
+        ReflectionUtil.checkHasAnnotation(unitClass, "Entity");
         assertNotNull("В задании не найден класс " + STORE_DOMAIN_NAME, unitClass);
 //        CodeValidator.checkCodePkg(codes.get(unitClass.getName()));
         ReflectionUtil.checkConstructor(unitClass);
 
         unitClass = getUnitClass(unitClasses, SALES_DOMAIN_NAME);
+        ReflectionUtil.checkHasAnnotation(unitClass, "Entity");
         assertNotNull("В задании не найден класс " + SALES_DOMAIN_NAME, unitClass);
 //        CodeValidator.checkCodePkg(codes.get(unitClass.getName()));
         ReflectionUtil.checkConstructor(unitClass);
@@ -217,6 +264,7 @@ public class P6NotebookStructureTest extends BaseTest {
                 new MethodModifier[]{MethodModifier.PUBLIC});
 
         Class daoImpl = getUnitClass(unitClasses, NOTE_DAO_IMPL_NAME);
+        ReflectionUtil.checkHasAnnotation(daoImpl, "Repository");
         assertNotNull("В задании не найден класс " + NOTE_DAO_IMPL_NAME, daoImpl);
 //        CodeValidator.checkCodePkg(codes.get(daoImpl.getName()));
         ReflectionUtil.checkConstructor(daoImpl);
@@ -243,6 +291,7 @@ public class P6NotebookStructureTest extends BaseTest {
                 new MethodModifier[]{MethodModifier.PUBLIC});
 
         Class daoImpl = getUnitClass(unitClasses, VENDOR_DAO_IMPL_NAME);
+        ReflectionUtil.checkHasAnnotation(daoImpl, "Repository");
         assertNotNull("В задании не найден класс " + VENDOR_DAO_IMPL_NAME, daoImpl);
 //        CodeValidator.checkCodePkg(codes.get(daoImpl.getName()));
         ReflectionUtil.checkConstructor(daoImpl);
@@ -269,6 +318,7 @@ public class P6NotebookStructureTest extends BaseTest {
                 new MethodModifier[]{MethodModifier.PUBLIC});
 
         Class daoImpl = getUnitClass(unitClasses, CPU_DAO_IMPL_NAME);
+        ReflectionUtil.checkHasAnnotation(daoImpl, "Repository");
         assertNotNull("В задании не найден класс " + CPU_DAO_IMPL_NAME, daoImpl);
 //        CodeValidator.checkCodePkg(codes.get(daoImpl.getName()));
         ReflectionUtil.checkConstructor(daoImpl);
@@ -295,6 +345,7 @@ public class P6NotebookStructureTest extends BaseTest {
                 new MethodModifier[]{MethodModifier.PUBLIC});
 
         Class daoImpl = getUnitClass(unitClasses, MEMORY_DAO_IMPL_NAME);
+        ReflectionUtil.checkHasAnnotation(daoImpl, "Repository");
         assertNotNull("В задании не найден класс " + MEMORY_DAO_IMPL_NAME, daoImpl);
 //        CodeValidator.checkCodePkg(codes.get(daoImpl.getName()));
         ReflectionUtil.checkConstructor(daoImpl);
@@ -321,6 +372,7 @@ public class P6NotebookStructureTest extends BaseTest {
                 new MethodModifier[]{MethodModifier.PUBLIC});
 
         Class daoImpl = getUnitClass(unitClasses, STORE_DAO_IMPL_NAME);
+        ReflectionUtil.checkHasAnnotation(daoImpl, "Repository");
         assertNotNull("В задании не найден класс " + STORE_DAO_IMPL_NAME, daoImpl);
 //        CodeValidator.checkCodePkg(codes.get(daoImpl.getName()));
         ReflectionUtil.checkConstructor(daoImpl);
@@ -347,6 +399,7 @@ public class P6NotebookStructureTest extends BaseTest {
                 new MethodModifier[]{MethodModifier.PUBLIC});
 
         Class daoImpl = getUnitClass(unitClasses, SALES_DAO_IMPL_NAME);
+        ReflectionUtil.checkHasAnnotation(daoImpl, "Repository");
         assertNotNull("В задании не найден класс " + SALES_DAO_IMPL_NAME, daoImpl);
 //        CodeValidator.checkCodePkg(codes.get(daoImpl.getName()));
         ReflectionUtil.checkConstructor(daoImpl);
@@ -365,11 +418,30 @@ public class P6NotebookStructureTest extends BaseTest {
                 new MethodModifier[]{MethodModifier.PUBLIC}, "Long", "int", "double");
         ReflectionUtil.checkMethod(service, SALE_SERVICE_METHOD_NAME, Long.class,
                 new MethodModifier[]{MethodModifier.PUBLIC}, Long.class, int.class);
+        ReflectionUtil.checkMethod(service, BY_PORTION_METHOD_NAME, "List",
+                new MethodModifier[]{MethodModifier.PUBLIC}, "int");
+        ReflectionUtil.checkMethod(service, GT_AMOUNT_SERVICE_METHOD_NAME, "List",
+                new MethodModifier[]{MethodModifier.PUBLIC}, "int");
+        ReflectionUtil.checkMethod(service, CPU_VENDOR_SERVICE_METHOD_NAME, "List",
+                new MethodModifier[]{MethodModifier.PUBLIC}, "Vendor");
+        ReflectionUtil.checkMethod(service, FROM_STORE_SERVICE_METHOD_NAME, "List",
+                new MethodModifier[]{MethodModifier.PUBLIC});
+        ReflectionUtil.checkMethod(service, STORE_PRESENT_SERVICE_METHOD_NAME, "List",
+                new MethodModifier[]{MethodModifier.PUBLIC});
+        ReflectionUtil.checkMethod(service, SALES_BY_DAYS_SERVICE_METHOD_NAME, "Map",
+                new MethodModifier[]{MethodModifier.PUBLIC});
 
         Class serviceImpl = getUnitClass(unitClasses, UNIT_SERVICE_IMPL_NAME);
+        ReflectionUtil.checkHasAnnotation(serviceImpl, "Service");
         assertNotNull("В задании не найден класс " + UNIT_SERVICE_IMPL_NAME, serviceImpl);
 //        CodeValidator.checkCodePkg(codes.get(serviceImpl.getName()));
         ReflectionUtil.checkConstructor(serviceImpl);
         ReflectionUtil.checkHasParent(serviceImpl, UNIT_SERVICE_NAME);
+    }
+
+    @Test(timeout = 1000)
+    public void testCheckSpringContent() throws Throwable {
+        URL context = getResource(files, CONTEXT_NAME);
+        assertNotNull("В задании не найден файл " + CONTEXT_NAME, context);
     }
 }

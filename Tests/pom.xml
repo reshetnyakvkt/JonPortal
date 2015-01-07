@@ -15,7 +15,7 @@
         <dependency>
             <artifactId>Core</artifactId>
             <groupId>Testeron</groupId>
-            <version>${testeron.version}</version>
+            <version>${testeron.core.version}</version>
         </dependency>
 
         <dependency>

@@ -195,11 +195,11 @@ public class P6ReportsTest extends BaseTest {
 
         Class daoImpl = getUnitClass(unitClasses, NOTE_DAO_IMPL_NAME);
         assertNotNull("В задании не найден класс " + NOTE_DAO_IMPL_NAME, daoImpl);
-        CodeValidator.checkCodePkg(codes.get(daoImpl.getName()));
+//        CodeValidator.checkCodePkg(codes.get(daoImpl.getName()));
         ReflectionUtil.checkConstructor(daoImpl);
         ReflectionUtil.checkHasParent(daoImpl, NOTE_DAO_NAME);
 
-        instance = instanciate(daoImpl);
+//        instance = instanciate(daoImpl);
     }
 
     @Test(timeout = 1000)
@@ -225,7 +225,7 @@ public class P6ReportsTest extends BaseTest {
         ReflectionUtil.checkConstructor(daoImpl);
         ReflectionUtil.checkHasParent(daoImpl, VENDOR_DAO_NAME);
 
-        instance = instanciate(daoImpl);
+//        instance = instanciate(daoImpl);
     }
 
     @Test(timeout = 1000)
@@ -235,13 +235,13 @@ public class P6ReportsTest extends BaseTest {
 //        CodeValidator.checkCodePkg(codes.get(daoInterface.getName()));
 
         ReflectionUtil.checkMethod(daoInterface, CREATE_METHOD_NAME, "Long",
-                new MethodModifier[]{MethodModifier.PUBLIC}, "Vendor");
-        ReflectionUtil.checkMethod(daoInterface, READ_METHOD_NAME, "Vendor",
+                new MethodModifier[]{MethodModifier.PUBLIC}, "CPU");
+        ReflectionUtil.checkMethod(daoInterface, READ_METHOD_NAME, "CPU",
                 new MethodModifier[]{MethodModifier.PUBLIC}, "Long");
         ReflectionUtil.checkMethod(daoInterface, UPDATE_METHOD_NAME, "boolean",
-                new MethodModifier[]{MethodModifier.PUBLIC}, "Vendor");
+                new MethodModifier[]{MethodModifier.PUBLIC}, "CPU");
         ReflectionUtil.checkMethod(daoInterface, DELETE_METHOD_NAME, "boolean",
-                new MethodModifier[]{MethodModifier.PUBLIC}, "Vendor");
+                new MethodModifier[]{MethodModifier.PUBLIC}, "CPU");
         ReflectionUtil.checkMethod(daoInterface, FIND_ALL_METHOD_NAME, List.class,
                 new MethodModifier[]{MethodModifier.PUBLIC});
 
@@ -261,13 +261,13 @@ public class P6ReportsTest extends BaseTest {
 //        CodeValidator.checkCodePkg(codes.get(daoInterface.getName()));
 
         ReflectionUtil.checkMethod(daoInterface, CREATE_METHOD_NAME, "Long",
-                new MethodModifier[]{MethodModifier.PUBLIC}, "Vendor");
-        ReflectionUtil.checkMethod(daoInterface, READ_METHOD_NAME, "Vendor",
+                new MethodModifier[]{MethodModifier.PUBLIC}, "Memory");
+        ReflectionUtil.checkMethod(daoInterface, READ_METHOD_NAME, "Memory",
                 new MethodModifier[]{MethodModifier.PUBLIC}, "Long");
         ReflectionUtil.checkMethod(daoInterface, UPDATE_METHOD_NAME, "boolean",
-                new MethodModifier[]{MethodModifier.PUBLIC}, "Vendor");
+                new MethodModifier[]{MethodModifier.PUBLIC}, "Memory");
         ReflectionUtil.checkMethod(daoInterface, DELETE_METHOD_NAME, "boolean",
-                new MethodModifier[]{MethodModifier.PUBLIC}, "Vendor");
+                new MethodModifier[]{MethodModifier.PUBLIC}, "Memory");
         ReflectionUtil.checkMethod(daoInterface, FIND_ALL_METHOD_NAME, List.class,
                 new MethodModifier[]{MethodModifier.PUBLIC});
 
@@ -287,13 +287,13 @@ public class P6ReportsTest extends BaseTest {
 //        CodeValidator.checkCodePkg(codes.get(daoInterface.getName()));
 
         ReflectionUtil.checkMethod(daoInterface, CREATE_METHOD_NAME, "Long",
-                new MethodModifier[]{MethodModifier.PUBLIC}, "Vendor");
-        ReflectionUtil.checkMethod(daoInterface, READ_METHOD_NAME, "Vendor",
+                new MethodModifier[]{MethodModifier.PUBLIC}, "Store");
+        ReflectionUtil.checkMethod(daoInterface, READ_METHOD_NAME, "Store",
                 new MethodModifier[]{MethodModifier.PUBLIC}, "Long");
         ReflectionUtil.checkMethod(daoInterface, UPDATE_METHOD_NAME, "boolean",
-                new MethodModifier[]{MethodModifier.PUBLIC}, "Vendor");
+                new MethodModifier[]{MethodModifier.PUBLIC}, "Store");
         ReflectionUtil.checkMethod(daoInterface, DELETE_METHOD_NAME, "boolean",
-                new MethodModifier[]{MethodModifier.PUBLIC}, "Vendor");
+                new MethodModifier[]{MethodModifier.PUBLIC}, "Store");
         ReflectionUtil.checkMethod(daoInterface, FIND_ALL_METHOD_NAME, List.class,
                 new MethodModifier[]{MethodModifier.PUBLIC});
 
@@ -310,22 +310,22 @@ public class P6ReportsTest extends BaseTest {
     public void testCheckSalesDao() throws Throwable {
         Class daoInterface = getUnitClass(unitClasses, SALES_DAO_NAME);
         assertNotNull("В задании не найден класс " + SALES_DAO_NAME, daoInterface);
-        CodeValidator.checkCodePkg(codes.get(daoInterface.getName()));
+//        CodeValidator.checkCodePkg(codes.get(daoInterface.getName()));
 
         ReflectionUtil.checkMethod(daoInterface, CREATE_METHOD_NAME, "Long",
-                new MethodModifier[]{MethodModifier.PUBLIC}, "Vendor");
-        ReflectionUtil.checkMethod(daoInterface, READ_METHOD_NAME, "Vendor",
+                new MethodModifier[]{MethodModifier.PUBLIC}, "Sales");
+        ReflectionUtil.checkMethod(daoInterface, READ_METHOD_NAME, "Sales",
                 new MethodModifier[]{MethodModifier.PUBLIC}, "Long");
         ReflectionUtil.checkMethod(daoInterface, UPDATE_METHOD_NAME, "boolean",
-                new MethodModifier[]{MethodModifier.PUBLIC}, "Vendor");
+                new MethodModifier[]{MethodModifier.PUBLIC}, "Sales");
         ReflectionUtil.checkMethod(daoInterface, DELETE_METHOD_NAME, "boolean",
-                new MethodModifier[]{MethodModifier.PUBLIC}, "Vendor");
+                new MethodModifier[]{MethodModifier.PUBLIC}, "Sales");
         ReflectionUtil.checkMethod(daoInterface, FIND_ALL_METHOD_NAME, List.class,
                 new MethodModifier[]{MethodModifier.PUBLIC});
 
         Class daoImpl = getUnitClass(unitClasses, SALES_DAO_IMPL_NAME);
         assertNotNull("В задании не найден класс " + SALES_DAO_IMPL_NAME, daoImpl);
-        CodeValidator.checkCodePkg(codes.get(daoImpl.getName()));
+//        CodeValidator.checkCodePkg(codes.get(daoImpl.getName()));
         ReflectionUtil.checkConstructor(daoImpl);
         ReflectionUtil.checkHasParent(daoImpl, SALES_DAO_NAME);
 

@@ -54,15 +54,15 @@
 
 <!--
     <bean class="org.springframework.web.servlet.view.ContentNegotiatingViewResolver">
-        <property name="ignoreAcceptHeader" value="true" />
-        <property name="favorPathExtension" value="false" />
-        <property name="order" value="1" />
-        <property name="mediaTypes">
+        <property fullyQualifiedName="ignoreAcceptHeader" value="true" />
+        <property fullyQualifiedName="favorPathExtension" value="false" />
+        <property fullyQualifiedName="order" value="1" />
+        <property fullyQualifiedName="mediaTypes">
             <map>
                 <entry key="xml" value="application/xml" />
             </map>
         </property>
-        <property name="defaultViews">
+        <property fullyQualifiedName="defaultViews">
             <list>
                 <ref bean="xmlView"/>
             </list>

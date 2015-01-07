@@ -105,12 +105,12 @@ public class P8ClientsTest extends BaseTest {
     public void testCheckService() throws Throwable {
         Class unitClass = getUnitClass(unitClasses, DOMAIN_NAME);
         assertNotNull("В задании не найден класс " + DOMAIN_NAME, unitClass);
-        CodeValidator.checkCodePkg(codes.get(unitClass.getName()));
+//        CodeValidator.checkCodePkg(codes.get(unitClass.getName()));
         ReflectionUtil.checkConstructor(unitClass);
 
         Class service = getUnitClass(unitClasses, SERVICE_NAME);
         assertNotNull("В задании не найден класс ", service);
-        CodeValidator.checkCodePkg(codes.get(service.getName()));
+//        CodeValidator.checkCodePkg(codes.get(service.getName()));
 
         ReflectionUtil.checkMethod(service, CREATE_CLIENT_METHOD_NAME, "boolean",
                 new MethodModifier[]{MethodModifier.PUBLIC}, "String", "String", "String", "String");
@@ -123,7 +123,7 @@ public class P8ClientsTest extends BaseTest {
 
         Class serviceImpl = getUnitClass(unitClasses, SERVICE_IMPL_NAME);
         assertNotNull("В задании не найден класс " + SERVICE_IMPL_NAME, serviceImpl);
-        CodeValidator.checkCodePkg(codes.get(serviceImpl.getName()));
+//        CodeValidator.checkCodePkg(codes.get(serviceImpl.getName()));
         ReflectionUtil.checkConstructor(serviceImpl);
         ReflectionUtil.checkHasParent(serviceImpl, SERVICE_NAME);
     }
@@ -133,11 +133,11 @@ public class P8ClientsTest extends BaseTest {
     public void testCheckDao() throws Throwable {
         Class service = getUnitClass(unitClasses, DAO_NAME);
         assertNotNull("В задании не найден класс " + DAO_NAME, service);
-        CodeValidator.checkCodePkg(codes.get(service.getName()));
+//        CodeValidator.checkCodePkg(codes.get(service.getName()));
 
         Class serviceImpl = getUnitClass(unitClasses, DAO_IMPL_NAME);
         assertNotNull("В задании не найден класс " + DAO_IMPL_NAME, serviceImpl);
-        CodeValidator.checkCodePkg(codes.get(serviceImpl.getName()));
+//        CodeValidator.checkCodePkg(codes.get(serviceImpl.getName()));
         ReflectionUtil.checkConstructor(serviceImpl);
         ReflectionUtil.checkHasParent(serviceImpl, DAO_NAME);
     }
@@ -147,7 +147,7 @@ public class P8ClientsTest extends BaseTest {
 
         Class servlet = getUnitClass(unitClasses, CREATE_SERVLET_NAME);
         assertNotNull("В задании не найден класс " + CREATE_SERVLET_NAME, servlet);
-        CodeValidator.checkCodePkg(codes.get(CREATE_SERVLET_NAME));
+//        CodeValidator.checkCodePkg(codes.get(CREATE_SERVLET_NAME));
         ReflectionUtil.checkConstructor(servlet);
         ReflectionUtil.checkHasParent(servlet, "HttpServlet");
 
@@ -156,7 +156,7 @@ public class P8ClientsTest extends BaseTest {
 
         servlet = getUnitClass(unitClasses, SUM_SERVLET_NAME);
         assertNotNull("В задании не найден класс " + SUM_SERVLET_NAME, servlet);
-        CodeValidator.checkCodePkg(codes.get(SUM_SERVLET_NAME));
+//        CodeValidator.checkCodePkg(codes.get(SUM_SERVLET_NAME));
         ReflectionUtil.checkConstructor(servlet);
         ReflectionUtil.checkHasParent(servlet, "HttpServlet");
 
@@ -165,7 +165,7 @@ public class P8ClientsTest extends BaseTest {
 
         servlet = getUnitClass(unitClasses, PORTION_SERVLET_NAME);
         assertNotNull("В задании не найден класс " + PORTION_SERVLET_NAME, servlet);
-        CodeValidator.checkCodePkg(codes.get(PORTION_SERVLET_NAME));
+//        CodeValidator.checkCodePkg(codes.get(PORTION_SERVLET_NAME));
         ReflectionUtil.checkConstructor(servlet);
         ReflectionUtil.checkHasParent(servlet, "HttpServlet");
 
@@ -174,7 +174,7 @@ public class P8ClientsTest extends BaseTest {
 
         servlet = getUnitClass(unitClasses, MONTH_SERVLET_NAME);
         assertNotNull("В задании не найден класс " + MONTH_SERVLET_NAME, servlet);
-        CodeValidator.checkCodePkg(codes.get(MONTH_SERVLET_NAME));
+//        CodeValidator.checkCodePkg(codes.get(MONTH_SERVLET_NAME));
         ReflectionUtil.checkConstructor(servlet);
         ReflectionUtil.checkHasParent(servlet, "HttpServlet");
 

@@ -117,6 +117,9 @@ public class GroupInfoTabPanel extends Composite {
                 @Override
                 public String getValue(List<String> userList) {
                     //Window.alert(userList.toString());
+                    if (userList.size() <= sprintIdx) {
+                        return "0";
+                    }
                     return userList.get(sprintIdx);
                 }
             }, String.valueOf(sprintIdx - 1));
@@ -151,21 +154,7 @@ public class GroupInfoTabPanel extends Composite {
             @Override
             public void onSuccess(List<List<String>> groupInfo) {
                 sprintsProgress.setVisible(false);
-                /*for (List<String> taskDTO : taskDTOs) {
-                    Window.alert(taskDTO.toString());
-                }*/
-                /*
-                List<List<String>> sprintNames = new ArrayList<List<String>>();*/
-                // TODO fill
-                /*if(taskDTOs != null && taskDTOs.size() > 0) {
-                    Set<String> sprints = taskDTOs.get(0).getMarks().keySet();
-                    for (String sprintName : sprints) {
-                        sprintNames.add(Arrays.asList(sprintName));
-                    }
-                    addSprintsToTable(sprintNames);
-                    //buildTable(sprints);
-                }
-                buildTable(sprintNames);*/
+
                 int grpRate = 0;
                 for (List<String> user : groupInfo) {
                     grpRate += Integer.parseInt(user.get(RATE_INDEX));
@@ -187,42 +176,6 @@ public class GroupInfoTabPanel extends Composite {
             }
         };
 
-/*        HashMap<String, Integer> marks = new HashMap<String, Integer>();
-        marks.put("1", 50);
-        marks.put("2", 75);
-        marks.put("3", 100);
-        HashMap<String, Boolean> presents = new HashMap<String, Boolean>();
-        presents.put("1", true);
-        presents.put("2", false);
-        presents.put("3", true);
-        UserDTO user1 = new UserDTO("user1", marks, presents);
-        List<UserDTO> taskDTOs = new ArrayList<UserDTO>();
-        taskDTOs.add(user1);
-
-        List<List<String>> users = new ArrayList<List<String>>();
-        for(UserDTO userDTO : taskDTOs) {
-            List<String> user = new ArrayList<String>();
-            user.add(userDTO.getLogin());
-            user.add("99");
-            for(String session : userDTO.getMarks().keySet()) {
-                user.add(String.valueOf(userDTO.getMarks().get(session)));
-            }
-            users.add(user);
-        }
-*/
-/*        if(userPanel.getSelectedTaskTemplateId() != null) {
-            taskService.getTasksByUserGroup(userPanel.getSelectedTaskTemplateId(), userPanel.getSelectedGroup().getId(),
-                    userPanel.getSelectedSprint().getId(), groupCallback);
-        }*/
-
-/*        if(taskDTOs != null && taskDTOs.size() > 0) {
-            Set<String> sprints = taskDTOs.get(0).getMarks().keySet();
-            Window.alert(sprints.toString());
-            for (String sprintName : sprints) {
-                sprintNames.add(Arrays.asList(sprintName));
-            }
-            Window.alert(sprintNames.toString());
-        }*/
         taskService.getGroupInfo(userPanel.getSelectedGroup().getId(), groupCallback);
 //        return null;
     }
