@@ -15,7 +15,6 @@ import org.junit.runners.MethodSorters;
 
 import java.io.Reader;
 import java.lang.reflect.Method;
-import java.util.List;
 import java.util.Map;
 
 import static junit.framework.TestCase.assertNotNull;
@@ -93,7 +92,7 @@ public class B5MyScannerStrTest extends BaseTest {
         Class unitClass = getUnitClass(unitClasses, UNIT_NAME);
         assertNotNull("В задании не найден класс " + UNIT_NAME, unitClass);
 
-        ReflectionUtil.checkConstructor(unitClass);
+        ReflectionUtil.checkDefaultConstructor(unitClass);
         ReflectionUtil.checkConstructor(unitClass, Reader.class);
         ReflectionUtil.checkConstructor(unitClass, String.class);
 

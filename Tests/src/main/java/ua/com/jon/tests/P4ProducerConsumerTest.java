@@ -13,7 +13,6 @@ import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runners.MethodSorters;
 
-import java.util.List;
 import java.util.Map;
 
 import static junit.framework.Assert.fail;
@@ -87,7 +86,7 @@ public class P4ProducerConsumerTest extends BaseTest {
         Class producerClass = getUnitClass(unitClasses, PRODUCER_NAME);
         assertNotNull("В задании не найден класс " + PRODUCER_NAME, producerClass);
         CodeValidator.checkCodeFileThread(codes.get(producerClass.getName()));
-        ReflectionUtil.checkConstructor(producerClass);
+        ReflectionUtil.checkDefaultConstructor(producerClass);
 
 //        instance = instanciate(unitClass);
         ReflectionUtil.checkMethod(producerClass, PRODUCE_METHOD_NAME, void.class,
@@ -96,7 +95,7 @@ public class P4ProducerConsumerTest extends BaseTest {
         Class consumerClass = getUnitClass(unitClasses, CONSUMER_NAME);
         assertNotNull("В задании не найден класс " + CONSUMER_NAME, consumerClass);
         CodeValidator.checkCodeFileThread(codes.get(consumerClass.getName()));
-        ReflectionUtil.checkConstructor(consumerClass);
+        ReflectionUtil.checkDefaultConstructor(consumerClass);
 
 //        instance = instanciate(unitClass);
         ReflectionUtil.checkMethod(consumerClass, CONSUME_METHOD_NAME, void.class,
@@ -105,7 +104,7 @@ public class P4ProducerConsumerTest extends BaseTest {
         Class holderClass = getUnitClass(unitClasses, HOLDER_NAME);
         assertNotNull("В задании не найден класс " + HOLDER_NAME, holderClass);
         CodeValidator.checkCodeFileThread(codes.get(holderClass.getName()));
-        ReflectionUtil.checkConstructor(holderClass);
+        ReflectionUtil.checkDefaultConstructor(holderClass);
 
 //        instance = instanciate(unitClass);
         ReflectionUtil.checkMethod(holderClass, PUT_METHOD_NAME, void.class,

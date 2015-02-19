@@ -1,7 +1,6 @@
 package ua.com.jon.tests;
 
 import com.jon.tron.service.junit.*;
-import com.jon.tron.service.processor.CodeValidator;
 import com.jon.tron.service.reflect.MethodModifier;
 import com.jon.tron.service.reflect.ReflectionUtil;
 import org.junit.After;
@@ -106,7 +105,7 @@ public class P8ClientsTest extends BaseTest {
         Class unitClass = getUnitClass(unitClasses, DOMAIN_NAME);
         assertNotNull("В задании не найден класс " + DOMAIN_NAME, unitClass);
 //        CodeValidator.checkCodePkg(codes.get(unitClass.getName()));
-        ReflectionUtil.checkConstructor(unitClass);
+        ReflectionUtil.checkDefaultConstructor(unitClass);
 
         Class service = getUnitClass(unitClasses, SERVICE_NAME);
         assertNotNull("В задании не найден класс ", service);
@@ -124,7 +123,7 @@ public class P8ClientsTest extends BaseTest {
         Class serviceImpl = getUnitClass(unitClasses, SERVICE_IMPL_NAME);
         assertNotNull("В задании не найден класс " + SERVICE_IMPL_NAME, serviceImpl);
 //        CodeValidator.checkCodePkg(codes.get(serviceImpl.getName()));
-        ReflectionUtil.checkConstructor(serviceImpl);
+        ReflectionUtil.checkDefaultConstructor(serviceImpl);
         ReflectionUtil.checkHasParent(serviceImpl, SERVICE_NAME);
     }
 
@@ -138,7 +137,7 @@ public class P8ClientsTest extends BaseTest {
         Class serviceImpl = getUnitClass(unitClasses, DAO_IMPL_NAME);
         assertNotNull("В задании не найден класс " + DAO_IMPL_NAME, serviceImpl);
 //        CodeValidator.checkCodePkg(codes.get(serviceImpl.getName()));
-        ReflectionUtil.checkConstructor(serviceImpl);
+        ReflectionUtil.checkDefaultConstructor(serviceImpl);
         ReflectionUtil.checkHasParent(serviceImpl, DAO_NAME);
     }
 
@@ -148,7 +147,7 @@ public class P8ClientsTest extends BaseTest {
         Class servlet = getUnitClass(unitClasses, CREATE_SERVLET_NAME);
         assertNotNull("В задании не найден класс " + CREATE_SERVLET_NAME, servlet);
 //        CodeValidator.checkCodePkg(codes.get(CREATE_SERVLET_NAME));
-        ReflectionUtil.checkConstructor(servlet);
+        ReflectionUtil.checkDefaultConstructor(servlet);
         ReflectionUtil.checkHasParent(servlet, "HttpServlet");
 
         ReflectionUtil.checkMethod(servlet, "doGet", "void",
@@ -157,7 +156,7 @@ public class P8ClientsTest extends BaseTest {
         servlet = getUnitClass(unitClasses, SUM_SERVLET_NAME);
         assertNotNull("В задании не найден класс " + SUM_SERVLET_NAME, servlet);
 //        CodeValidator.checkCodePkg(codes.get(SUM_SERVLET_NAME));
-        ReflectionUtil.checkConstructor(servlet);
+        ReflectionUtil.checkDefaultConstructor(servlet);
         ReflectionUtil.checkHasParent(servlet, "HttpServlet");
 
         ReflectionUtil.checkMethod(servlet, "doGet", "void",
@@ -166,7 +165,7 @@ public class P8ClientsTest extends BaseTest {
         servlet = getUnitClass(unitClasses, PORTION_SERVLET_NAME);
         assertNotNull("В задании не найден класс " + PORTION_SERVLET_NAME, servlet);
 //        CodeValidator.checkCodePkg(codes.get(PORTION_SERVLET_NAME));
-        ReflectionUtil.checkConstructor(servlet);
+        ReflectionUtil.checkDefaultConstructor(servlet);
         ReflectionUtil.checkHasParent(servlet, "HttpServlet");
 
         ReflectionUtil.checkMethod(servlet, "doGet", "void",
@@ -175,7 +174,7 @@ public class P8ClientsTest extends BaseTest {
         servlet = getUnitClass(unitClasses, MONTH_SERVLET_NAME);
         assertNotNull("В задании не найден класс " + MONTH_SERVLET_NAME, servlet);
 //        CodeValidator.checkCodePkg(codes.get(MONTH_SERVLET_NAME));
-        ReflectionUtil.checkConstructor(servlet);
+        ReflectionUtil.checkDefaultConstructor(servlet);
         ReflectionUtil.checkHasParent(servlet, "HttpServlet");
 
         ReflectionUtil.checkMethod(servlet, "doGet", "void",

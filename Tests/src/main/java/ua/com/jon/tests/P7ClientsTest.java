@@ -1,7 +1,6 @@
 package ua.com.jon.tests;
 
 import com.jon.tron.service.junit.*;
-import com.jon.tron.service.processor.CodeValidator;
 import com.jon.tron.service.reflect.MethodModifier;
 import com.jon.tron.service.reflect.ReflectionUtil;
 import org.junit.After;
@@ -10,7 +9,6 @@ import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runners.MethodSorters;
 
-import java.lang.reflect.Method;
 import java.net.URL;
 import java.util.List;
 import java.util.Map;
@@ -29,9 +27,9 @@ import static junit.framework.TestCase.assertNotNull;
  hw8.taxi.domain.Client
  hw8.taxi.service.ClientService
     boolean createClient(String name, String surname, String phone, String address) throws OrderException
-    void showClientsByPortion(int portionSize)
-    void showClientsGtSum(int sum)
-    void showClientsLastMonth()
+    List showClientsByPortion(int portionSize)
+    List showClientsGtSum(int sum)
+    List showClientsLastMonth()
  hw8.taxi.service.ClientServiceImpl
  hw8.taxi.action.ClientServlet
  hw8.taxi.exception.ClientException
@@ -91,7 +89,7 @@ public class P7ClientsTest extends BaseTest {
         Class unitClass = getUnitClass(unitClasses, DOMAIN_NAME);
         assertNotNull("В задании не найден класс " + DOMAIN_NAME, unitClass);
 //        CodeValidator.checkCodePkg(codes.get(unitClass.getName()));
-        ReflectionUtil.checkConstructor(unitClass);
+        ReflectionUtil.checkDefaultConstructor(unitClass);
 
         Class service = getUnitClass(unitClasses, SERVICE_NAME);
         assertNotNull("В задании не найден класс ", service);
@@ -99,17 +97,17 @@ public class P7ClientsTest extends BaseTest {
 
         ReflectionUtil.checkMethod(service, CREATE_CLIENT_METHOD_NAME, "boolean",
                 new MethodModifier[]{MethodModifier.PUBLIC}, "String", "String", "String", "String");
-        ReflectionUtil.checkMethod(service, SHOW_PORTION_METHOD_NAME, "void",
+        ReflectionUtil.checkMethod(service, SHOW_PORTION_METHOD_NAME, "List",
                 new MethodModifier[]{MethodModifier.PUBLIC}, "int");
-        ReflectionUtil.checkMethod(service, SHOW_SUM_METHOD_NAME, "void",
+        ReflectionUtil.checkMethod(service, SHOW_SUM_METHOD_NAME, "List",
                 new MethodModifier[]{MethodModifier.PUBLIC}, "int");
-        ReflectionUtil.checkMethod(service, SHOW_MONTH_METHOD_NAME, "void",
+        ReflectionUtil.checkMethod(service, SHOW_MONTH_METHOD_NAME, "List",
                 new MethodModifier[]{MethodModifier.PUBLIC});
 
         Class serviceImpl = getUnitClass(unitClasses, SERVICE_IMPL_NAME);
         assertNotNull("В задании не найден класс " + SERVICE_IMPL_NAME, serviceImpl);
 //        CodeValidator.checkCodePkg(codes.get(serviceImpl.getName()));
-        ReflectionUtil.checkConstructor(serviceImpl);
+        ReflectionUtil.checkDefaultConstructor(serviceImpl);
         ReflectionUtil.checkHasParent(serviceImpl, SERVICE_NAME);
     }
 
@@ -118,7 +116,7 @@ public class P7ClientsTest extends BaseTest {
         Class servlet = getUnitClass(unitClasses, SERVLET_NAME);
         assertNotNull("В задании не найден класс " + SERVLET_NAME, servlet);
 //        CodeValidator.checkCodePkg(codes.get(SERVLET_NAME));
-        ReflectionUtil.checkConstructor(servlet);
+        ReflectionUtil.checkDefaultConstructor(servlet);
         ReflectionUtil.checkHasParent(servlet, "HttpServlet");
 
         ReflectionUtil.checkMethod(servlet, "doGet", "void",

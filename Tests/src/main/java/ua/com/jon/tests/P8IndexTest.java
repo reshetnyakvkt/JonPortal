@@ -73,6 +73,13 @@ public class P8IndexTest extends BaseTest {
     }
 
     @Test(timeout = 1000)
+    public void testCheckImg() throws Throwable {
+
+        URL index = getResource(files, IMG_NAME);
+        assertNotNull("В задании не найден файл " + IMG_NAME, index);
+    }
+
+    @Test(timeout = 1000)
     public void testCheckCSS() throws Throwable {
         URL welcome = getResource(files, CSS_NAME);
         assertNotNull("В задании не найден файл " + CSS_NAME, welcome);

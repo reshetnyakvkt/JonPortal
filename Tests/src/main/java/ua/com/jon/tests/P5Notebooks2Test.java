@@ -4,7 +4,6 @@ import com.jon.tron.service.junit.Unit;
 import com.jon.tron.service.junit.UnitClass;
 import com.jon.tron.service.junit.UnitCode;
 import com.jon.tron.service.junit.UnitName;
-import com.jon.tron.service.processor.CodeValidator;
 import com.jon.tron.service.reflect.MethodModifier;
 import com.jon.tron.service.reflect.ReflectionUtil;
 import org.junit.After;
@@ -98,7 +97,7 @@ public class P5Notebooks2Test extends BaseTest {
         Class unitClass = getUnitClass(unitClasses, UNIT_DOMAIN_NAME);
         assertNotNull("В задании не найден класс " + UNIT_DOMAIN_NAME, unitClass);
 //        CodeValidator.checkCodePkg(codes.get(unitClass.getName()));
-        ReflectionUtil.checkConstructor(unitClass);
+        ReflectionUtil.checkDefaultConstructor(unitClass);
     }
 
     @Test(timeout = 1000)
@@ -106,7 +105,7 @@ public class P5Notebooks2Test extends BaseTest {
         Class daoInterface = getUnitClass(unitClasses, UNIT_DAO_NAME);
         assertNotNull("В задании не найден класс " + UNIT_DAO_NAME, daoInterface);
 //        CodeValidator.checkCodePkg(codes.get(daoInterface.getName()));
-//        ReflectionUtil.checkConstructor(daoInterface);
+//        ReflectionUtil.checkDefaultConstructor(daoInterface);
 
 //        instance = instanciate(daoInterface);
         ReflectionUtil.checkMethod(daoInterface, CREATE_METHOD_NAME, "Long",
@@ -126,7 +125,7 @@ public class P5Notebooks2Test extends BaseTest {
         Class daoImpl = getUnitClass(unitClasses, UNIT_DAO_IMPL_NAME);
         assertNotNull("В задании не найден класс " + UNIT_DAO_IMPL_NAME, daoImpl);
 //        CodeValidator.checkCodePkg(codes.get(daoImpl.getName()));
-        ReflectionUtil.checkConstructor(daoImpl);
+        ReflectionUtil.checkDefaultConstructor(daoImpl);
         ReflectionUtil.checkHasParent(daoImpl, UNIT_DAO_NAME);
 
 //        instance = instanciate(daoImpl);
@@ -147,7 +146,7 @@ public class P5Notebooks2Test extends BaseTest {
         Class daoImpl = getUnitClass(unitClasses, UNIT_SERVICE_NAME);
         assertNotNull("В задании не найден класс " + UNIT_SERVICE_NAME, daoImpl);
 //        CodeValidator.checkCodePkg(codes.get(daoImpl.getName()));
-//        ReflectionUtil.checkConstructor(daoImpl);
+//        ReflectionUtil.checkDefaultConstructor(daoImpl);
 
 //        instance = instanciate(daoImpl);
         ReflectionUtil.checkMethod(daoImpl, CREATE_SERVICE_METHOD_NAME, "Long",
@@ -161,7 +160,7 @@ public class P5Notebooks2Test extends BaseTest {
         Class daoImpl = getUnitClass(unitClasses, UNIT_SERVICE_IMPL_NAME);
         assertNotNull("В задании не найден класс " + UNIT_SERVICE_IMPL_NAME, daoImpl);
 //        CodeValidator.checkCodePkg(codes.get(daoImpl.getName()));
-        ReflectionUtil.checkConstructor(daoImpl);
+        ReflectionUtil.checkDefaultConstructor(daoImpl);
         ReflectionUtil.checkHasParent(daoImpl, UNIT_SERVICE_NAME);
 
 //        instance = instanciate(daoImpl);

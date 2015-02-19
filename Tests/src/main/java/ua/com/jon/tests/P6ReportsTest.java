@@ -4,7 +4,6 @@ import com.jon.tron.service.junit.Unit;
 import com.jon.tron.service.junit.UnitClass;
 import com.jon.tron.service.junit.UnitCode;
 import com.jon.tron.service.junit.UnitName;
-import com.jon.tron.service.processor.CodeValidator;
 import com.jon.tron.service.reflect.MethodModifier;
 import com.jon.tron.service.reflect.ReflectionUtil;
 import org.junit.After;
@@ -148,32 +147,32 @@ public class P6ReportsTest extends BaseTest {
         Class unitClass = getUnitClass(unitClasses, NOTEBOOK_DOMAIN_NAME);
         assertNotNull("В задании не найден класс " + NOTEBOOK_DOMAIN_NAME, unitClass);
 //        CodeValidator.checkCodePkg(codes.get(unitClass.getName()));
-        ReflectionUtil.checkConstructor(unitClass);
+        ReflectionUtil.checkDefaultConstructor(unitClass);
 
         unitClass = getUnitClass(unitClasses, VENDOR_DOMAIN_NAME);
         assertNotNull("В задании не найден класс " + VENDOR_DOMAIN_NAME, unitClass);
 //        CodeValidator.checkCodePkg(codes.get(unitClass.getName()));
-        ReflectionUtil.checkConstructor(unitClass);
+        ReflectionUtil.checkDefaultConstructor(unitClass);
 
         unitClass = getUnitClass(unitClasses, CPU_DOMAIN_NAME);
         assertNotNull("В задании не найден класс " + CPU_DOMAIN_NAME, unitClass);
 //        CodeValidator.checkCodePkg(codes.get(unitClass.getName()));
-        ReflectionUtil.checkConstructor(unitClass);
+        ReflectionUtil.checkDefaultConstructor(unitClass);
 
         unitClass = getUnitClass(unitClasses, MEMORY_DOMAIN_NAME);
         assertNotNull("В задании не найден класс " + MEMORY_DOMAIN_NAME, unitClass);
 //        CodeValidator.checkCodePkg(codes.get(unitClass.getName()));
-        ReflectionUtil.checkConstructor(unitClass);
+        ReflectionUtil.checkDefaultConstructor(unitClass);
 
         unitClass = getUnitClass(unitClasses, STORE_DOMAIN_NAME);
         assertNotNull("В задании не найден класс " + STORE_DOMAIN_NAME, unitClass);
 //        CodeValidator.checkCodePkg(codes.get(unitClass.getName()));
-        ReflectionUtil.checkConstructor(unitClass);
+        ReflectionUtil.checkDefaultConstructor(unitClass);
 
         unitClass = getUnitClass(unitClasses, SALES_DOMAIN_NAME);
         assertNotNull("В задании не найден класс " + SALES_DOMAIN_NAME, unitClass);
 //        CodeValidator.checkCodePkg(codes.get(unitClass.getName()));
-        ReflectionUtil.checkConstructor(unitClass);
+        ReflectionUtil.checkDefaultConstructor(unitClass);
     }
 
     @Test(timeout = 1000)
@@ -196,7 +195,7 @@ public class P6ReportsTest extends BaseTest {
         Class daoImpl = getUnitClass(unitClasses, NOTE_DAO_IMPL_NAME);
         assertNotNull("В задании не найден класс " + NOTE_DAO_IMPL_NAME, daoImpl);
 //        CodeValidator.checkCodePkg(codes.get(daoImpl.getName()));
-        ReflectionUtil.checkConstructor(daoImpl);
+        ReflectionUtil.checkDefaultConstructor(daoImpl);
         ReflectionUtil.checkHasParent(daoImpl, NOTE_DAO_NAME);
 
 //        instance = instanciate(daoImpl);
@@ -222,7 +221,7 @@ public class P6ReportsTest extends BaseTest {
         Class daoImpl = getUnitClass(unitClasses, VENDOR_DAO_IMPL_NAME);
         assertNotNull("В задании не найден класс " + VENDOR_DAO_IMPL_NAME, daoImpl);
 //        CodeValidator.checkCodePkg(codes.get(daoImpl.getName()));
-        ReflectionUtil.checkConstructor(daoImpl);
+        ReflectionUtil.checkDefaultConstructor(daoImpl);
         ReflectionUtil.checkHasParent(daoImpl, VENDOR_DAO_NAME);
 
 //        instance = instanciate(daoImpl);
@@ -248,7 +247,7 @@ public class P6ReportsTest extends BaseTest {
         Class daoImpl = getUnitClass(unitClasses, CPU_DAO_IMPL_NAME);
         assertNotNull("В задании не найден класс " + CPU_DAO_IMPL_NAME, daoImpl);
 //        CodeValidator.checkCodePkg(codes.get(daoImpl.getName()));
-        ReflectionUtil.checkConstructor(daoImpl);
+        ReflectionUtil.checkDefaultConstructor(daoImpl);
         ReflectionUtil.checkHasParent(daoImpl, CPU_DAO_NAME);
 
 //        instance = instanciate(daoImpl);
@@ -274,7 +273,7 @@ public class P6ReportsTest extends BaseTest {
         Class daoImpl = getUnitClass(unitClasses, MEMORY_DAO_IMPL_NAME);
         assertNotNull("В задании не найден класс " + MEMORY_DAO_IMPL_NAME, daoImpl);
 //        CodeValidator.checkCodePkg(codes.get(daoImpl.getName()));
-        ReflectionUtil.checkConstructor(daoImpl);
+        ReflectionUtil.checkDefaultConstructor(daoImpl);
         ReflectionUtil.checkHasParent(daoImpl, MEMORY_DAO_NAME);
 
 //        instance = instanciate(daoImpl);
@@ -300,7 +299,7 @@ public class P6ReportsTest extends BaseTest {
         Class daoImpl = getUnitClass(unitClasses, STORE_DAO_IMPL_NAME);
         assertNotNull("В задании не найден класс " + STORE_DAO_IMPL_NAME, daoImpl);
 //        CodeValidator.checkCodePkg(codes.get(daoImpl.getName()));
-        ReflectionUtil.checkConstructor(daoImpl);
+        ReflectionUtil.checkDefaultConstructor(daoImpl);
         ReflectionUtil.checkHasParent(daoImpl, STORE_DAO_NAME);
 
 //        instance = instanciate(daoImpl);
@@ -326,7 +325,7 @@ public class P6ReportsTest extends BaseTest {
         Class daoImpl = getUnitClass(unitClasses, SALES_DAO_IMPL_NAME);
         assertNotNull("В задании не найден класс " + SALES_DAO_IMPL_NAME, daoImpl);
 //        CodeValidator.checkCodePkg(codes.get(daoImpl.getName()));
-        ReflectionUtil.checkConstructor(daoImpl);
+        ReflectionUtil.checkDefaultConstructor(daoImpl);
         ReflectionUtil.checkHasParent(daoImpl, SALES_DAO_NAME);
 
 //        instance = instanciate(daoImpl);
@@ -354,7 +353,7 @@ public class P6ReportsTest extends BaseTest {
         Class serviceImpl = getUnitClass(unitClasses, UNIT_SERVICE_IMPL_NAME);
         assertNotNull("В задании не найден класс " + UNIT_SERVICE_IMPL_NAME, serviceImpl);
 //        CodeValidator.checkCodePkg(codes.get(serviceImpl.getName()));
-        ReflectionUtil.checkConstructor(serviceImpl);
+        ReflectionUtil.checkDefaultConstructor(serviceImpl);
         ReflectionUtil.checkHasParent(serviceImpl, UNIT_SERVICE_NAME);
     }
 }

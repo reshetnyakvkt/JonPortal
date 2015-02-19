@@ -80,7 +80,7 @@ public class P4ParallelListFindCoordTest extends P0ArrayListGenericTest {
         Class unitClass = getUnitClass(unitClasses, UNIT_NAME);
         assertNotNull("В задании не найден класс " + UNIT_NAME, unitClass);
         CodeValidator.checkCodeFileThread(codes.get(unitClass.getName()));
-        ReflectionUtil.checkConstructor(unitClass);
+        ReflectionUtil.checkDefaultConstructor(unitClass);
 
         instance = instanciate(unitClass);
         method = ReflectionUtil.checkMethod(unitClass, PARALLEL_INDEX_OF_METHOD_NAME, void.class,

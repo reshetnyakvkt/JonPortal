@@ -18,9 +18,6 @@
         <dependency>
             <artifactId>Core</artifactId>
             <groupId>Testeron</groupId>
-            <version>${testeron.core.version}</version>
-
-            <!--<type>jar</type>-->
         </dependency>
 
         <dependency>
@@ -28,6 +25,11 @@
             <groupId>JonGit</groupId>
             <version>${tests.version}</version>
             <!--<type>jar</type>-->
+        </dependency>
+
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
         </dependency>
 
         <dependency>

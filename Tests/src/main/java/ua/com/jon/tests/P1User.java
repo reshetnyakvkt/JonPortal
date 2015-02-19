@@ -14,7 +14,6 @@ import org.junit.Test;
 import org.junit.runners.MethodSorters;
 
 import java.lang.reflect.Method;
-import java.util.List;
 import java.util.Map;
 
 import static junit.framework.TestCase.assertNotNull;
@@ -79,7 +78,7 @@ public class P1User extends BaseTest {
         assertNotNull("В задании не найден класс " + UNIT_NAME, unitClass);
         CodeValidator.checkCode(unitClass.getName());
 
-        ReflectionUtil.checkConstructor(unitClass);
+        ReflectionUtil.checkDefaultConstructor(unitClass);
 
 //        instance = instanciate(unitClass);
         addMethod = ReflectionUtil.checkMethod(unitClass, EQUALS_METHOD_NAME, boolean.class,

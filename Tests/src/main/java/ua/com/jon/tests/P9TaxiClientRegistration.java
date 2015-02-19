@@ -1,7 +1,9 @@
 package ua.com.jon.tests;
 
-import com.jon.tron.service.junit.*;
-import com.jon.tron.service.processor.CodeValidator;
+import com.jon.tron.service.junit.Unit;
+import com.jon.tron.service.junit.UnitClass;
+import com.jon.tron.service.junit.UnitCode;
+import com.jon.tron.service.junit.UnitName;
 import com.jon.tron.service.reflect.MethodModifier;
 import com.jon.tron.service.reflect.ReflectionUtil;
 import org.junit.After;
@@ -17,69 +19,68 @@ import java.util.Map;
 import static junit.framework.TestCase.assertNotNull;
 
 /**
- Добавить функции работы с заказами такси. Заказы хранятся в базе данных.
- Функции:
- - оформить заказ (дата, клиент, сумма, адрес подачи, адрес назначения)
- - отредактировать заказ (поменять свойства заказа)
- - вывести список заказов на сумму в указанном диапазоне
- - вывести список всех заказов порциями по 5 штук
+ Учёт клиентов службы такси. Данные о клиентах хранятся в базе данных.
 
- hw8.taxi.domain.Order
- hw8.taxi.domain.Client
- hw8.taxi.service.OrderService
- boolean createOrder(Long id, Client client, String amount, String addressFrom, String addressTo) throws OrderException
- void editOrder(Long id, Client client, String amount, String addressFrom, String addressTo)
- List showOrders(Long from, Long to)
- List showOrdersByPortion()
- hw9.taxi.service.OrderServiceImpl
- hw9.taxi.dao.OrderDao
- hw9.taxi.dao.OrderDaoImpl
- hw9.taxi.controller.OrderCreateServlet
- hw9.taxi.controller.OrderEditServlet
- hw9.taxi.controller.OrderShowServlet
- hw9.taxi.controller.OrderShowPortionServlet
- hw9.taxi.exception.OrderException
+ Функции:
+ - зарегистрировать клиента (имя, фамилия, телефон, адрес, сумма, дата последнего заказа)
+ - вывести всех клиентов порциями по 10 человек
+ - вывести всех клиентов наездивших на сумму больше указанной
+ - вывести всех клиентов, делавших заказы за последний месяц
+
+ hw9.taxi.domain.Client
+ hw9.taxi.service.ClientService
+ boolean createClient(String name, String surname, String phone, String address) throws OrderException
+ void showClientsByPortion(int portionSize)
+ void showClientsGtSum(int sum)
+ void showClientsLastMonth()
+ hw9.taxi.service.ClientServiceImpl
+ hw9.taxi.dao.ClientDao
+ hw9.taxi.dao.ClientDaoImpl
+ hw9.taxi.controller.ClientCreateServlet
+ hw9.taxi.controller.ClientShowPortionServlet
+ hw9.taxi.controller.ClientShowSumServlet
+ hw9.taxi.controller.ClientShowMonthServlet
+ hw9.taxi.exception.ClientException
  webapp
  index.jsp
- dashboard.jsp - страница со списком функций
- order.jsp - форма оформления/редактирования заказа
- orders.jsp - список заказов
+ dashboard.jsp - страница со списком функций (доступна после аутентификации)
+ registerClient.jsp - форма создания клиента
+ clients.jsp - список клиентов
 
  Задание выполнить в модуле name_surname_spring
  */
-@Unit(testName = "P8OrdersTest", value = {
-        "hw9.taxi.domain.Order",
+@Unit(testName = "P9TaxiClientRegistration", value = {
         "hw9.taxi.domain.Client",
-        "hw9.taxi.service.OrderService",
-        "hw9.taxi.service.OrderServiceImpl",
-        "hw9.taxi.dao.OrderDao",
-        "hw9.taxi.dao.OrderDaoImpl",
-        "hw9.taxi.controller.OrderCreateServlet",
-        "hw9.taxi.controller.OrderEditServlet",
-        "hw9.taxi.controller.OrderShowServlet",
-        "hw9.taxi.controller.OrderShowPortionServlet",
-        "hw9.taxi.exception.OrderException"
+        "hw9.taxi.service.ClientService",
+        "hw9.taxi.service.ClientServiceImpl",
+        "hw9.taxi.dao.ClientDao",
+        "hw9.taxi.dao.ClientDaoImpl",
+        "hw9.taxi.exception.ClientException",
+        "hw9.taxi.controller.CreateClientServlet",
+        "hw9.taxi.controller.PortionClientServlet",
+        "hw9.taxi.controller.SumClientServlet",
+        "hw9.taxi.controller.MonthClientServlet"
 })
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
-public class P8OrdersTest extends BaseTest {
-    private static final String DOMAIN_NAME = "Order";
-    private static final String SERVICE_NAME = "OrderService";
-    private static final String SERVICE_IMPL_NAME = "OrderServiceImpl";
-    private static final String DAO_NAME = "OrderDao";
-    private static final String DAO_IMPL_NAME = "OrderDaoImpl";
-    private static final String CREATE_ORDER_METHOD_NAME = "createOrder";
-    private static final String EDIT_ORDER_METHOD_NAME = "editOrder";
-    private static final String SHOW_ORDERS_METHOD_NAME = "showOrders";
-    private static final String SHOW_ORDERS_PORTION_METHOD_NAME = "sowOrdersByPortion";
-    private static final String CREATE_SERVLET_NAME = "OrderCreateServlet";
-    private static final String EDIT_SERVLET_NAME = "OrderEditServlet";
-    private static final String SHOW_SERVLET_NAME = "OrderShowServlet";
-    private static final String PORTION_SERVLET_NAME = "OrderShowPortionServlet";
-    private static final String EXCEPTION_NAME = "OrderException";
+public class P9TaxiClientRegistration extends BaseTest {
+    private static final String DOMAIN_NAME = "Client";
+    private static final String SERVICE_NAME = "ClientService";
+    private static final String SERVICE_IMPL_NAME = "ClientServiceImpl";
+    private static final String DAO_NAME = "ClientDao";
+    private static final String DAO_IMPL_NAME = "ClientDaoImpl";
+    private static final String CREATE_CLIENT_METHOD_NAME = "createClient";
+    private static final String SHOW_PORTION_METHOD_NAME = "getClientsByPortion";
+    private static final String SHOW_SUM_METHOD_NAME = "getClientsGtSum";
+    private static final String SHOW_MONTH_METHOD_NAME = "getClientsLastMonth";
+    private static final String CREATE_SERVLET_NAME = "CreateClientServlet";
+    private static final String PORTION_SERVLET_NAME = "PortionClientServlet";
+    private static final String SUM_SERVLET_NAME = "SumClientServlet";
+    private static final String MONTH_SERVLET_NAME = "MonthClientServlet";
+    private static final String EXCEPTION_NAME = "ClientException";
     private static final String INDEX_NAME = "index.jsp";
-    private static final String REGISTER_NAME = "order.jsp";
+    private static final String REGISTER_NAME = "registerClient.jsp";
     private static final String WELCOME_NAME = "dashboard.jsp";
-    private static final String ORDERS_NAME = "orders.jsp";
+    private static final String CLIENTS_NAME = "clients.jsp";
 
     @UnitCode
     private static Map<String, String> codes;
@@ -113,13 +114,13 @@ public class P8OrdersTest extends BaseTest {
         assertNotNull("В задании не найден класс ", service);
 //        CodeValidator.checkCodePkg(codes.get(service.getName()));
 
-        ReflectionUtil.checkMethod(service, CREATE_ORDER_METHOD_NAME, "boolean",
-                new MethodModifier[]{MethodModifier.PUBLIC}, "Long", "String", "String", "String", "String");
-        ReflectionUtil.checkMethod(service, EDIT_ORDER_METHOD_NAME, "void",
-                new MethodModifier[]{MethodModifier.PUBLIC}, "Long", "String", "String", "String", "String");
-        ReflectionUtil.checkMethod(service, SHOW_ORDERS_METHOD_NAME, "List",
-                new MethodModifier[]{MethodModifier.PUBLIC}, "Long", "Long");
-        ReflectionUtil.checkMethod(service, SHOW_ORDERS_PORTION_METHOD_NAME, "List",
+        ReflectionUtil.checkMethod(service, CREATE_CLIENT_METHOD_NAME, "boolean",
+                new MethodModifier[]{MethodModifier.PUBLIC}, "String", "String", "String", "String");
+        ReflectionUtil.checkMethod(service, SHOW_PORTION_METHOD_NAME, "List",
+                new MethodModifier[]{MethodModifier.PUBLIC}, "int");
+        ReflectionUtil.checkMethod(service, SHOW_SUM_METHOD_NAME, "List",
+                new MethodModifier[]{MethodModifier.PUBLIC}, "int");
+        ReflectionUtil.checkMethod(service, SHOW_MONTH_METHOD_NAME, "List",
                 new MethodModifier[]{MethodModifier.PUBLIC});
 
         Class serviceImpl = getUnitClass(unitClasses, SERVICE_IMPL_NAME);
@@ -128,6 +129,7 @@ public class P8OrdersTest extends BaseTest {
         ReflectionUtil.checkDefaultConstructor(serviceImpl);
         ReflectionUtil.checkHasParent(serviceImpl, SERVICE_NAME);
     }
+
 
     @Test(timeout = 1000)
     public void testCheckDao() throws Throwable {
@@ -147,16 +149,16 @@ public class P8OrdersTest extends BaseTest {
 
         Class servlet = getUnitClass(unitClasses, CREATE_SERVLET_NAME);
         assertNotNull("В задании не найден класс " + CREATE_SERVLET_NAME, servlet);
-        CodeValidator.checkCodePkg(codes.get(CREATE_SERVLET_NAME));
+//        CodeValidator.checkCodePkg(codes.get(CREATE_SERVLET_NAME));
         ReflectionUtil.checkDefaultConstructor(servlet);
         ReflectionUtil.checkHasParent(servlet, "HttpServlet");
 
         ReflectionUtil.checkMethod(servlet, "doGet", "void",
                 new MethodModifier[]{MethodModifier.PUBLIC}, "HttpServletRequest", "HttpServletResponse");
 
-        servlet = getUnitClass(unitClasses, EDIT_SERVLET_NAME);
-        assertNotNull("В задании не найден класс " + EDIT_SERVLET_NAME, servlet);
-        CodeValidator.checkCodePkg(codes.get(EDIT_SERVLET_NAME));
+        servlet = getUnitClass(unitClasses, SUM_SERVLET_NAME);
+        assertNotNull("В задании не найден класс " + SUM_SERVLET_NAME, servlet);
+//        CodeValidator.checkCodePkg(codes.get(SUM_SERVLET_NAME));
         ReflectionUtil.checkDefaultConstructor(servlet);
         ReflectionUtil.checkHasParent(servlet, "HttpServlet");
 
@@ -165,16 +167,16 @@ public class P8OrdersTest extends BaseTest {
 
         servlet = getUnitClass(unitClasses, PORTION_SERVLET_NAME);
         assertNotNull("В задании не найден класс " + PORTION_SERVLET_NAME, servlet);
-        CodeValidator.checkCodePkg(codes.get(PORTION_SERVLET_NAME));
+//        CodeValidator.checkCodePkg(codes.get(PORTION_SERVLET_NAME));
         ReflectionUtil.checkDefaultConstructor(servlet);
         ReflectionUtil.checkHasParent(servlet, "HttpServlet");
 
         ReflectionUtil.checkMethod(servlet, "doGet", "void",
                 new MethodModifier[]{MethodModifier.PUBLIC}, "HttpServletRequest", "HttpServletResponse");
 
-        servlet = getUnitClass(unitClasses, SHOW_SERVLET_NAME);
-        assertNotNull("В задании не найден класс " + SHOW_SERVLET_NAME, servlet);
-        CodeValidator.checkCodePkg(codes.get(SHOW_SERVLET_NAME));
+        servlet = getUnitClass(unitClasses, MONTH_SERVLET_NAME);
+        assertNotNull("В задании не найден класс " + MONTH_SERVLET_NAME, servlet);
+//        CodeValidator.checkCodePkg(codes.get(MONTH_SERVLET_NAME));
         ReflectionUtil.checkDefaultConstructor(servlet);
         ReflectionUtil.checkHasParent(servlet, "HttpServlet");
 
@@ -197,7 +199,7 @@ public class P8OrdersTest extends BaseTest {
         URL register = getResource(files, REGISTER_NAME);
         assertNotNull("В задании не найден файл " + REGISTER_NAME, register);
 
-        URL orders = getResource(files, ORDERS_NAME);
-        assertNotNull("В задании не найден файл " + ORDERS_NAME, orders);
+        URL clients = getResource(files, CLIENTS_NAME);
+        assertNotNull("В задании не найден файл " + CLIENTS_NAME, clients);
     }
 }

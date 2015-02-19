@@ -1,7 +1,6 @@
 package ua.com.jon.tests;
 
 import com.jon.tron.service.junit.*;
-import com.jon.tron.service.processor.CodeValidator;
 import com.jon.tron.service.reflect.MethodModifier;
 import com.jon.tron.service.reflect.ReflectionUtil;
 import org.junit.After;
@@ -10,7 +9,6 @@ import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runners.MethodSorters;
 
-import java.io.File;
 import java.lang.reflect.Method;
 import java.net.URL;
 import java.util.List;
@@ -32,7 +30,7 @@ import static junit.framework.TestCase.assertNotNull;
     boolean register(String login, String id, String pass) throws AuthenticationException
  hw8.taxi.service.AuthorizationServiceImpl
  hw8.taxi.action.RegisterServlet
- hw8.taxi.exception.AuthenticationException
+ hw8.taxi.exception.AuthorizationException
  webapp
     index.jsp
     register.jsp - форма регистрации
@@ -43,14 +41,14 @@ import static junit.framework.TestCase.assertNotNull;
         "hw8.taxi.service.AuthorizationService",
         "hw8.taxi.service.AuthorizationServiceImpl",
         "hw8.taxi.action.RegisterServlet",
-        "hw8.taxi.exception.AuthenticationException"})
+        "hw8.taxi.exception.AuthorizationException"})
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class P7OperatorRegisterTest extends BaseTest {
     private static final String SERVICE_NAME = "AuthorizationService";
     private static final String SERVICE_IMPL_NAME = "AuthorizationServiceImpl";
     private static final String AUTHENTICATE_METHOD_NAME = "register";
     private static final String SERVLET_NAME = "RegisterServlet";
-    private static final String EXCEPTION_NAME = "AuthenticationException";
+    private static final String EXCEPTION_NAME = "AuthorizationException";
     private static final String INDEX_NAME = "index.jsp";
     private static final String REGISTER_NAME = "register.jsp";
 
@@ -90,7 +88,7 @@ public class P7OperatorRegisterTest extends BaseTest {
         Class serviceImpl = getUnitClass(unitClasses, SERVICE_IMPL_NAME);
         assertNotNull("В задании не найден класс " + SERVICE_IMPL_NAME, serviceImpl);
 //        CodeValidator.checkCodePkg(codes.get(serviceImpl.getName()));
-        ReflectionUtil.checkConstructor(serviceImpl);
+        ReflectionUtil.checkDefaultConstructor(serviceImpl);
         ReflectionUtil.checkHasParent(serviceImpl, SERVICE_NAME);
     }
 
@@ -100,7 +98,7 @@ public class P7OperatorRegisterTest extends BaseTest {
         Class servlet = getUnitClass(unitClasses, SERVLET_NAME);
         assertNotNull("В задании не найден класс " + SERVLET_NAME, servlet);
 //        CodeValidator.checkCodePkg(codes.get(SERVLET_NAME));
-        ReflectionUtil.checkConstructor(servlet);
+        ReflectionUtil.checkDefaultConstructor(servlet);
         ReflectionUtil.checkHasParent(servlet, "HttpServlet");
 
         ReflectionUtil.checkMethod(servlet, "doGet", "void",

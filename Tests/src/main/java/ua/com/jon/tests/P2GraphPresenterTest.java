@@ -14,7 +14,6 @@ import org.junit.Test;
 import org.junit.runners.MethodSorters;
 
 import java.lang.reflect.Method;
-import java.util.List;
 import java.util.Map;
 
 import static junit.framework.TestCase.assertNotNull;
@@ -72,7 +71,7 @@ public class P2GraphPresenterTest extends BaseTest {
         unitClass = getUnitClass(unitClasses, UNIT_NAME);
         assertNotNull("В задании не найден класс " + UNIT_NAME, unitClass);
         CodeValidator.checkCodeFileThread(codes.get(unitClass.getName()));
-        ReflectionUtil.checkConstructor(unitClass);
+        ReflectionUtil.checkDefaultConstructor(unitClass);
 
 //        instance = instanciate(unitClass);
         addMethod = ReflectionUtil.checkMethod(unitClass, PRINT_METHOD_NAME, void.class,

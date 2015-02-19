@@ -62,7 +62,7 @@ public class B7BinarySearchTest extends BaseTest {
         assertNotNull("В задании не найден класс " + UNIT_NAME, unitClass);
 
         CodeValidator.checkCode(codes.get(unitClass.getName()));
-        ReflectionUtil.checkConstructor(unitClass);
+        ReflectionUtil.checkDefaultConstructor(unitClass);
 
         ReflectionUtil.checkMethod(unitClass, SEARCH_METHOD_NAME, int.class,
                 new MethodModifier[]{MethodModifier.PUBLIC}, int[].class, int.class);

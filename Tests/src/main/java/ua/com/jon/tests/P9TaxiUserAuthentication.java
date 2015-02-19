@@ -1,6 +1,9 @@
 package ua.com.jon.tests;
 
-import com.jon.tron.service.junit.*;
+import com.jon.tron.service.junit.Unit;
+import com.jon.tron.service.junit.UnitClass;
+import com.jon.tron.service.junit.UnitCode;
+import com.jon.tron.service.junit.UnitName;
 import com.jon.tron.service.reflect.MethodModifier;
 import com.jon.tron.service.reflect.ReflectionUtil;
 import org.junit.After;
@@ -17,30 +20,39 @@ import java.util.Map;
 import static junit.framework.TestCase.assertNotNull;
 
 /**
- Оператор вводит логин и пароль.
- Если пароль с логином не совпадает то повторить ввод. Передача осуществляется методом POST.
+ Оператор вводит логин и пароль, они передаются методом POST на сервер.
+ Если пароль с логином не совпадает то повторить ввод. Информация об операторах хранится в базе данных.
  Колличество попыток ввода задается в properties файле. После последней неудачной попытки пользователь блокируется.
- Время действия пароля задается в сервисе
+ Время действия пароля задается в properties файле
  После истечения действия пароля, пользователь должен поменять пароль. Предыдущий вводить нельзя
 
- hw8.taxi.service.AuthenticationService
- boolean authenticate(String login, String pass) throws AuthenticationException
- hw8.taxi.service.AuthenticationServiceImpl
- hw8.taxi.action.AuthenticationServlet
- hw8.taxi.exception.AuthenticationException
+ hw9.taxi.service.AuthenticationService
+    boolean authenticate(String login, String pass) throws AuthenticationException
+ hw9.taxi.service.AuthenticationServiceImpl
+ hw9.taxi.domain.User
+ hw9.taxi.dao.UserDao
+ hw9.taxi.dao.UserDaoImp
+ hw9.taxi.controller.AuthenticationServlet
+ hw9.taxi.exception.AuthenticationException
  webapp
  index.jsp - страница с формой аутентификации
  dashboard.jsp - поздравления об удачной аутентификации
 
- Задание выполнить в модуле name_surname_web
+ Задание выполнить в модуле name_surname_spring
  */
-@Unit(testName = "P7OperatorAuthTest", value = {
-        "hw8.taxi.service.AuthenticationService",
-        "hw8.taxi.service.AuthenticationServiceImpl",
-        "hw8.taxi.action.AuthenticationServlet",
-        "hw8.taxi.exception.AuthenticationException"})
+@Unit(testName = "P8TaxiUserAuthentication", value = {
+        "hw9.taxi.service.AuthenticationService",
+        "hw9.taxi.service.AuthenticationServiceImpl",
+        "hw9.taxi.domain.User",
+        "hw9.taxi.dao.UserDao",
+        "hw9.taxi.dao.UserDaoImp",
+        "hw9.taxi.controller.AuthenticationServlet",
+        "hw9.taxi.exception.AuthenticationException"})
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
-public class P7OperatorAuthTest extends BaseTest {
+public class P9TaxiUserAuthentication extends BaseTest {
+    private static final String DOMAIN_NAME = "User";
+    private static final String DAO_NAME = "UserDao";
+    private static final String DAO_IMPL_NAME = "UserDaoImp";
     private static final String SERVICE_NAME = "AuthenticationService";
     private static final String SERVICE_IMPL_NAME = "AuthenticationServiceImpl";
     private static final String AUTHENTICATE_METHOD_NAME = "authenticate";
@@ -73,6 +85,28 @@ public class P7OperatorAuthTest extends BaseTest {
     private static Object instance;
     private static Method method;
 
+
+    @Test(timeout = 1000)
+    public void testCheckDomain() throws Throwable {
+        Class unitClass = getUnitClass(unitClasses, DOMAIN_NAME);
+        assertNotNull("В задании не найден класс " + DOMAIN_NAME, unitClass);
+//        CodeValidator.checkCodePkg(codes.get(unitClass.getName()));
+        ReflectionUtil.checkDefaultConstructor(unitClass);
+    }
+
+    @Test(timeout = 1000)
+    public void testCheckDao() throws Throwable {
+        Class service = getUnitClass(unitClasses, DAO_NAME);
+        assertNotNull("В задании не найден класс " + DAO_NAME, service);
+//        CodeValidator.checkCodePkg(codes.get(service.getName()));
+
+        Class serviceImpl = getUnitClass(unitClasses, DAO_IMPL_NAME);
+        assertNotNull("В задании не найден класс " + DAO_IMPL_NAME, serviceImpl);
+//        CodeValidator.checkCodePkg(codes.get(serviceImpl.getName()));
+        ReflectionUtil.checkDefaultConstructor(serviceImpl);
+        ReflectionUtil.checkHasParent(serviceImpl, DAO_NAME);
+    }
+
     @Test(timeout = 1000)
     public void testCheckService() throws Throwable {
         Class service = getUnitClass(unitClasses, SERVICE_NAME);
@@ -98,7 +132,7 @@ public class P7OperatorAuthTest extends BaseTest {
         ReflectionUtil.checkDefaultConstructor(servlet);
         ReflectionUtil.checkHasParent(servlet, "HttpServlet");
 
-        ReflectionUtil.checkMethod(servlet, "doPost", "void",
+        ReflectionUtil.checkMethod(servlet, "doGet", "void",
                 new MethodModifier[]{MethodModifier.PUBLIC}, "HttpServletRequest", "HttpServletResponse");
 
         Class exception = getUnitClass(unitClasses, EXCEPTION_NAME);
@@ -113,5 +147,4 @@ public class P7OperatorAuthTest extends BaseTest {
 
         URL welcome = getResource(files, WELCOME_NAME);
         assertNotNull("В задании не найден файл " + WELCOME_NAME, welcome);
-    }
-}
+    }}

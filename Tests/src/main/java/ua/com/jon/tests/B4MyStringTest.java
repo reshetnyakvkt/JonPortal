@@ -14,7 +14,6 @@ import org.junit.Test;
 import org.junit.runners.MethodSorters;
 
 import java.lang.reflect.Method;
-import java.util.List;
 import java.util.Map;
 
 import static junit.framework.TestCase.assertNotNull;
@@ -87,8 +86,8 @@ public class B4MyStringTest extends BaseTest {
         Class unitClass = getUnitClass(unitClasses, UNIT_NAME);
         assertNotNull("В задании не найден класс " + UNIT_NAME, unitClass);
 
-        ReflectionUtil.checkConstructor(unitClass);
-//        ReflectionUtil.checkConstructor(unitClass, "");
+        ReflectionUtil.checkDefaultConstructor(unitClass);
+//        ReflectionUtil.checkDefaultConstructor(unitClass, "");
 
 //        instance = instanciate(unitClasses[0]);
         addMethod = ReflectionUtil.checkMethod(unitClass, CONCAT_METHOD_NAME, "MyString",

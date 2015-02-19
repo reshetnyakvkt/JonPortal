@@ -1,7 +1,6 @@
 package ua.com.jon.tests;
 
 import com.jon.tron.service.junit.*;
-import com.jon.tron.service.processor.CodeValidator;
 import com.jon.tron.service.reflect.MethodModifier;
 import com.jon.tron.service.reflect.ReflectionUtil;
 import org.junit.After;
@@ -10,7 +9,6 @@ import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runners.MethodSorters;
 
-import java.lang.reflect.Method;
 import java.net.URL;
 import java.util.List;
 import java.util.Map;
@@ -27,11 +25,12 @@ import static junit.framework.TestCase.assertNotNull;
 
 
  hw8.taxi.domain.Order
+ hw8.taxi.domain.Client
  hw8.taxi.service.OrderService
-    boolean createOrder(String id, String pass) throws OrderException
-    void editOrder(Long id)
-    void showOrders(Long from, Long to)
-    void sowOrdersByPortion()
+    boolean createOrder(Long id, Client client, String amount, String addressFrom, String addressTo) throws OrderException
+    void editOrder(Long id, Client client, String amount, String addressFrom, String addressTo)
+    List showOrders(Long from, Long to)
+    List showOrdersByPortion()
  hw8.taxi.service.OrderServiceImpl
  hw8.taxi.action.OrderServlet
  hw8.taxi.exception.OrderException
@@ -45,6 +44,7 @@ import static junit.framework.TestCase.assertNotNull;
  */
 @Unit(testName = "P7OrdersTest", value = {
         "hw8.taxi.domain.Order",
+        "hw8.taxi.domain.Client",
         "hw8.taxi.service.OrderService",
         "hw8.taxi.service.OrderServiceImpl",
         "hw8.taxi.exception.OrderException",
@@ -57,7 +57,7 @@ public class P7OrdersTest extends BaseTest {
     private static final String CREATE_ORDER_METHOD_NAME = "createOrder";
     private static final String EDIT_ORDER_METHOD_NAME = "editOrder";
     private static final String SHOW_ORDERS_METHOD_NAME = "showOrders";
-    private static final String SHOW_ORDERS_PORTION_METHOD_NAME = "sowOrdersByPortion";
+    private static final String SHOW_ORDERS_PORTION_METHOD_NAME = "showOrdersByPortion";
     private static final String SERVLET_NAME = "OrderServlet";
     private static final String EXCEPTION_NAME = "OrderException";
     private static final String INDEX_NAME = "index.jsp";
@@ -91,25 +91,25 @@ public class P7OrdersTest extends BaseTest {
         Class unitClass = getUnitClass(unitClasses, DOMAIN_NAME);
         assertNotNull("В задании не найден класс " + DOMAIN_NAME, unitClass);
 //        CodeValidator.checkCodePkg(codes.get(unitClass.getName()));
-        ReflectionUtil.checkConstructor(unitClass);
+        ReflectionUtil.checkDefaultConstructor(unitClass);
 
         Class service = getUnitClass(unitClasses, SERVICE_NAME);
         assertNotNull("В задании не найден класс ", service);
 //        CodeValidator.checkCodePkg(codes.get(service.getName()));
 
         ReflectionUtil.checkMethod(service, CREATE_ORDER_METHOD_NAME, "boolean",
-                new MethodModifier[]{MethodModifier.PUBLIC}, "String", "String");
+                new MethodModifier[]{MethodModifier.PUBLIC}, "Long", "String", "String", "String", "String");
         ReflectionUtil.checkMethod(service, EDIT_ORDER_METHOD_NAME, "void",
-                new MethodModifier[]{MethodModifier.PUBLIC}, "Long");
-        ReflectionUtil.checkMethod(service, SHOW_ORDERS_METHOD_NAME, "void",
+                new MethodModifier[]{MethodModifier.PUBLIC}, "Long", "String", "String", "String", "String");
+        ReflectionUtil.checkMethod(service, SHOW_ORDERS_METHOD_NAME, "List",
                 new MethodModifier[]{MethodModifier.PUBLIC}, "Long", "Long");
-        ReflectionUtil.checkMethod(service, SHOW_ORDERS_PORTION_METHOD_NAME, "void",
+        ReflectionUtil.checkMethod(service, SHOW_ORDERS_PORTION_METHOD_NAME, "List",
                 new MethodModifier[]{MethodModifier.PUBLIC});
 
         Class serviceImpl = getUnitClass(unitClasses, SERVICE_IMPL_NAME);
         assertNotNull("В задании не найден класс " + SERVICE_IMPL_NAME, serviceImpl);
 //        CodeValidator.checkCodePkg(codes.get(serviceImpl.getName()));
-        ReflectionUtil.checkConstructor(serviceImpl);
+        ReflectionUtil.checkDefaultConstructor(serviceImpl);
         ReflectionUtil.checkHasParent(serviceImpl, SERVICE_NAME);
     }
 
@@ -119,7 +119,7 @@ public class P7OrdersTest extends BaseTest {
         Class servlet = getUnitClass(unitClasses, SERVLET_NAME);
         assertNotNull("В задании не найден класс " + SERVLET_NAME, servlet);
 //        CodeValidator.checkCodePkg(codes.get(SERVLET_NAME));
-        ReflectionUtil.checkConstructor(servlet);
+        ReflectionUtil.checkDefaultConstructor(servlet);
         ReflectionUtil.checkHasParent(servlet, "HttpServlet");
 
         ReflectionUtil.checkMethod(servlet, "doGet", "void",

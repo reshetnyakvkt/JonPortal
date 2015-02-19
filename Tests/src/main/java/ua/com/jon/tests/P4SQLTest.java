@@ -4,8 +4,6 @@ import com.jon.tron.service.junit.Unit;
 import com.jon.tron.service.junit.UnitClass;
 import com.jon.tron.service.junit.UnitCode;
 import com.jon.tron.service.junit.UnitName;
-import com.jon.tron.service.processor.CodeValidator;
-import com.jon.tron.service.reflect.MethodModifier;
 import com.jon.tron.service.reflect.ReflectionUtil;
 import org.junit.FixMethodOrder;
 import org.junit.Test;
@@ -42,6 +40,6 @@ public class P4SQLTest extends BaseTest {
         Class queriesClass = getUnitClass(unitClasses, QUERIES_NAME);
         assertNotNull("В задании не найден класс " + QUERIES_NAME, queriesClass);
 //        CodeValidator.checkCode(codes.get(queriesClass.getName()));
-        ReflectionUtil.checkConstructor(queriesClass);
+        ReflectionUtil.checkDefaultConstructor(queriesClass);
     }
 }

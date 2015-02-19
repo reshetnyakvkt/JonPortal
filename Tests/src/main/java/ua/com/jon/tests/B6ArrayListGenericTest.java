@@ -5,7 +5,6 @@ import com.jon.tron.service.junit.UnitClass;
 import com.jon.tron.service.junit.UnitCode;
 import com.jon.tron.service.junit.UnitName;
 import com.jon.tron.service.processor.CodeValidator;
-import com.jon.tron.service.reflect.MethodModifier;
 import com.jon.tron.service.reflect.ReflectionUtil;
 import org.junit.After;
 import org.junit.Before;
@@ -13,7 +12,6 @@ import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runners.MethodSorters;
 
-import java.lang.reflect.Method;
 import java.util.Map;
 
 import static junit.framework.TestCase.assertNotNull;
@@ -70,7 +68,7 @@ public class B6ArrayListGenericTest extends P0ArrayListGenericTest {
         Class unitClass = getUnitClass(unitClasses, UNIT_NAME);
         assertNotNull("В задании не найден класс " + UNIT_NAME, unitClass);
         CodeValidator.checkCode(codes.get(unitClass.getName()));
-        ReflectionUtil.checkConstructor(unitClass);
+        ReflectionUtil.checkDefaultConstructor(unitClass);
 //        instance = instanciate(unitClass);
         ReflectionUtil.checkHasGeneric(unitClass, "E");
     }

@@ -104,22 +104,22 @@ public class B5CoursesTest extends BaseTest {
         CodeValidator.checkCodeFile(codes.entrySet().iterator().next().getValue());
 
         Class unitClass = unitClass = getUnitClass(unitClasses, STUDENT_NAME);
-        //ReflectionUtil.checkConstructor(unitClass);
+        //ReflectionUtil.checkDefaultConstructor(unitClass);
 
         assertNotNull("В задании не найден класс " + STUDENT_NAME, unitClass);
-        //ReflectionUtil.checkConstructor(unitClass);
+        //ReflectionUtil.checkDefaultConstructor(unitClass);
         unitClass = getUnitClass(unitClasses, GROUP_NAME);
         assertNotNull("В задании не найден класс " + GROUP_NAME, unitClass);
-        //ReflectionUtil.checkConstructor(unitClass);
+        //ReflectionUtil.checkDefaultConstructor(unitClass);
         unitClass = getUnitClass(unitClasses, GROUP_EX_NAME);
         assertNotNull("В задании не найден класс " + GROUP_EX_NAME, unitClass);
-        //ReflectionUtil.checkConstructor(unitClass);
+        //ReflectionUtil.checkDefaultConstructor(unitClass);
         unitClass = getUnitClass(unitClasses, GROUP_EX_EX_NAME);
         assertNotNull("В задании не найден класс " + GROUP_EX_EX_NAME, unitClass);
-        //ReflectionUtil.checkConstructor(unitClass);
+        //ReflectionUtil.checkDefaultConstructor(unitClass);
         unitClass = getUnitClass(unitClasses, STUDENT_EX_NAME);
         assertNotNull("В задании не найден класс " + STUDENT_EX_NAME, unitClass);
-        //ReflectionUtil.checkConstructor(unitClass);
+        //ReflectionUtil.checkDefaultConstructor(unitClass);
         unitClass = getUnitClass(unitClasses, COURSES_NAME);
         assertNotNull("В задании не найден класс " + COURSES_NAME, unitClass);
 

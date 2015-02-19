@@ -4,8 +4,6 @@ import com.jon.tron.service.junit.Unit;
 import com.jon.tron.service.junit.UnitClass;
 import com.jon.tron.service.junit.UnitCode;
 import com.jon.tron.service.junit.UnitName;
-import com.jon.tron.service.processor.CodeValidator;
-import com.jon.tron.service.reflect.MethodModifier;
 import com.jon.tron.service.reflect.ReflectionUtil;
 import org.junit.After;
 import org.junit.Before;
@@ -14,7 +12,6 @@ import org.junit.Test;
 import org.junit.runners.MethodSorters;
 
 import java.lang.reflect.Method;
-import java.util.List;
 import java.util.Map;
 
 import static junit.framework.TestCase.assertNotNull;
@@ -82,31 +79,31 @@ public class P6NotebookDomainsTest extends BaseTest {
         Class unitClass = getUnitClass(unitClasses, NOTEBOOK_DOMAIN_NAME);
         assertNotNull("В задании не найден класс " + NOTEBOOK_DOMAIN_NAME, unitClass);
 //        CodeValidator.checkCodePkg(codes.get(unitClass.getName()));
-        ReflectionUtil.checkConstructor(unitClass);
+        ReflectionUtil.checkDefaultConstructor(unitClass);
 
         unitClass = getUnitClass(unitClasses, VENDOR_DOMAIN_NAME);
         assertNotNull("В задании не найден класс " + VENDOR_DOMAIN_NAME, unitClass);
 //        CodeValidator.checkCodePkg(codes.get(unitClass.getName()));
-        ReflectionUtil.checkConstructor(unitClass);
+        ReflectionUtil.checkDefaultConstructor(unitClass);
 
         unitClass = getUnitClass(unitClasses, CPU_DOMAIN_NAME);
         assertNotNull("В задании не найден класс " + CPU_DOMAIN_NAME, unitClass);
 //        CodeValidator.checkCodePkg(codes.get(unitClass.getName()));
-        ReflectionUtil.checkConstructor(unitClass);
+        ReflectionUtil.checkDefaultConstructor(unitClass);
 
         unitClass = getUnitClass(unitClasses, MEMORY_DOMAIN_NAME);
         assertNotNull("В задании не найден класс " + MEMORY_DOMAIN_NAME, unitClass);
 //        CodeValidator.checkCodePkg(codes.get(unitClass.getName()));
-        ReflectionUtil.checkConstructor(unitClass);
+        ReflectionUtil.checkDefaultConstructor(unitClass);
 
         unitClass = getUnitClass(unitClasses, STORE_DOMAIN_NAME);
         assertNotNull("В задании не найден класс " + STORE_DOMAIN_NAME, unitClass);
 //        CodeValidator.checkCodePkg(codes.get(unitClass.getName()));
-        ReflectionUtil.checkConstructor(unitClass);
+        ReflectionUtil.checkDefaultConstructor(unitClass);
 
         unitClass = getUnitClass(unitClasses, SALES_DOMAIN_NAME);
         assertNotNull("В задании не найден класс " + SALES_DOMAIN_NAME, unitClass);
 //        CodeValidator.checkCodePkg(codes.get(unitClass.getName()));
-        ReflectionUtil.checkConstructor(unitClass);
+        ReflectionUtil.checkDefaultConstructor(unitClass);
     }
 }

@@ -14,9 +14,7 @@ import org.junit.Test;
 import org.junit.runners.MethodSorters;
 
 import java.lang.reflect.Method;
-import java.lang.reflect.ParameterizedType;
 import java.util.Map;
-import java.util.Objects;
 
 import static junit.framework.TestCase.assertNotNull;
 import static org.junit.Assert.assertTrue;
@@ -78,7 +76,7 @@ public class P3ParallelListFindTest extends BaseTest {
         unitClass = getUnitClass(unitClasses, UNIT_NAME);
         assertNotNull("В задании не найден класс " + UNIT_NAME, unitClass);
         CodeValidator.checkCodeFileThread(codes.get(unitClass.getName()));
-        ReflectionUtil.checkConstructor(unitClass);
+        ReflectionUtil.checkDefaultConstructor(unitClass);
 
 //        instance = instanciate(unitClass);
         addMethod = ReflectionUtil.checkMethod(unitClass, PARALLEL_INDEX_OF_METHOD_NAME, int.class,

@@ -13,7 +13,6 @@ import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runners.MethodSorters;
 
-import java.io.File;
 import java.lang.reflect.Method;
 import java.util.Map;
 
@@ -76,7 +75,7 @@ public class P3ParallelFileFindTest  extends BaseTest {
         unitClass = getUnitClass(unitClasses, UNIT_NAME);
         assertNotNull("В задании не найден класс " + UNIT_NAME, unitClass);
         CodeValidator.checkCodeFileThread(codes.get(unitClass.getName()));
-        ReflectionUtil.checkConstructor(unitClass);
+        ReflectionUtil.checkDefaultConstructor(unitClass);
 
 //        instance = instanciate(unitClass);
         addMethod = ReflectionUtil.checkMethod(unitClass, PARALLEL_FIND_METHOD_NAME, void.class,

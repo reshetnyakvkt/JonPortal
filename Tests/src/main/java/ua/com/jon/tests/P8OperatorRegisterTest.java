@@ -1,7 +1,6 @@
 package ua.com.jon.tests;
 
 import com.jon.tron.service.junit.*;
-import com.jon.tron.service.processor.CodeValidator;
 import com.jon.tron.service.reflect.MethodModifier;
 import com.jon.tron.service.reflect.ReflectionUtil;
 import org.junit.After;
@@ -97,7 +96,7 @@ public class P8OperatorRegisterTest extends BaseTest {
         Class serviceImpl = getUnitClass(unitClasses, SERVICE_IMPL_NAME);
         assertNotNull("В задании не найден класс " + SERVICE_IMPL_NAME, serviceImpl);
 //        CodeValidator.checkCodePkg(codes.get(serviceImpl.getName()));
-        ReflectionUtil.checkConstructor(serviceImpl);
+        ReflectionUtil.checkDefaultConstructor(serviceImpl);
         ReflectionUtil.checkHasParent(serviceImpl, SERVICE_NAME);
     }
 
@@ -110,7 +109,7 @@ public class P8OperatorRegisterTest extends BaseTest {
         Class serviceImpl = getUnitClass(unitClasses, DAO_IMPL_NAME);
         assertNotNull("В задании не найден класс " + DAO_IMPL_NAME, serviceImpl);
 //        CodeValidator.checkCodePkg(codes.get(serviceImpl.getName()));
-        ReflectionUtil.checkConstructor(serviceImpl);
+        ReflectionUtil.checkDefaultConstructor(serviceImpl);
         ReflectionUtil.checkHasParent(serviceImpl, DAO_NAME);
     }
 
@@ -120,7 +119,7 @@ public class P8OperatorRegisterTest extends BaseTest {
         Class servlet = getUnitClass(unitClasses, SERVLET_NAME);
         assertNotNull("В задании не найден класс " + SERVLET_NAME, servlet);
 //        CodeValidator.checkCodePkg(codes.get(SERVLET_NAME));
-        ReflectionUtil.checkConstructor(servlet);
+        ReflectionUtil.checkDefaultConstructor(servlet);
         ReflectionUtil.checkHasParent(servlet, "HttpServlet");
 
         ReflectionUtil.checkMethod(servlet, "doPost", "void",

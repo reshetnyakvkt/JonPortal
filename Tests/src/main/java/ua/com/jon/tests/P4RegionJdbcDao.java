@@ -4,7 +4,6 @@ import com.jon.tron.service.junit.Unit;
 import com.jon.tron.service.junit.UnitClass;
 import com.jon.tron.service.junit.UnitCode;
 import com.jon.tron.service.junit.UnitName;
-import com.jon.tron.service.processor.CodeValidator;
 import com.jon.tron.service.reflect.MethodModifier;
 import com.jon.tron.service.reflect.ReflectionUtil;
 import org.junit.After;
@@ -76,12 +75,12 @@ public class P4RegionJdbcDao extends BaseTest {
         Class daoClass = getUnitClass(unitClasses, DAO_NAME);
         assertNotNull("В задании не найден класс " + DAO_NAME, daoClass);
 //        CodeValidator.checkCodeFileThread(codes.get(daoClass.getName()));
-        ReflectionUtil.checkConstructor(daoClass);
+        ReflectionUtil.checkDefaultConstructor(daoClass);
 
         Class entityClass = getUnitClass(unitClasses, ENTITY_NAME);
         assertNotNull("В задании не найден класс " + ENTITY_NAME, entityClass);
 //        CodeValidator.checkCodeFileThread(codes.get(entityClass.getName()));
-        ReflectionUtil.checkConstructor(entityClass);
+        ReflectionUtil.checkDefaultConstructor(entityClass);
 
         ReflectionUtil.checkMethod(daoClass, CREATE_METHOD_NAME, "long",
                 new MethodModifier[]{MethodModifier.PUBLIC}, "Region");
