@@ -265,6 +265,17 @@ public class GroupInfoTabPanel extends Composite {
     }
 
     private void addSprintsToTable(List<List<String>> tasks) {
+/*        int sprintCount = 0;
+        for (List<String> task : tasks) {
+            if (task.size() > sprintCount) {
+                sprintCount = task.size();
+            }
+        }
+        for (List<String> task : tasks) {
+            while (task.size() < sprintCount) {
+                task.add(1, "0");
+            }
+        }*/
         dataProvider.setList(tasks);
         //studentsGrid.setSelectionModel(selectionModel);
         //dataProvider.addDataDisplay(studentsGrid);

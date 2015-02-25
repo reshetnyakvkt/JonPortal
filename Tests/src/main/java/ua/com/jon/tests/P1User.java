@@ -35,12 +35,6 @@ import static org.junit.Assert.assertTrue;
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class P1User extends BaseTest {
 
-    public class User {
-
-    }
-    class UserTest {
-
-    }
     private static final String UNIT_NAME = "User";
     private static final String TEST_NAME = "UserTest";
     private static final String EQUALS_METHOD_NAME = "equals";

@@ -23,10 +23,10 @@ public class GroupDAOJdbcImpl implements GroupDAO {
     private static Logger log = Logger.getLogger(GroupDAOJdbcImpl.class.getName());
     private static final String GROUPS_QUERY =
             "SELECT u.id, u.login, u.ignore_statistic, " +
-            "g.id, g.name, g.active, g.REPOSITORY_URL, g.code, t.id, t.status, tt.name, tt.testName, tt.module_suffix\n" +
-            "FROM USERS u, GROUPS g, TASKS t, TASK_TEMPLATES tt\n" +
-            "WHERE t.group_id = g.id AND t.user_id = u.id AND t.template_id = tt.id\n" +
-            "AND t.status = 'TEST' AND g.active = 1 AND g.REPOSITORY_URL <> '' AND g.REPOSITORY_URL IS NOT NULL";
+                    "g.id, g.name, g.active, g.REPOSITORY_URL, g.code, t.id, t.status, tt.name, tt.testName, tt.module_suffix\n" +
+                    "FROM USERS u, GROUPS g, TASKS t, TASK_TEMPLATES tt\n" +
+                    "WHERE t.group_id = g.id AND t.user_id = u.id AND t.template_id = tt.id\n" +
+                    "AND t.status = 'TEST' AND g.active = 1 AND g.REPOSITORY_URL <> '' AND g.REPOSITORY_URL IS NOT NULL";
 
     private static final String GROUP_INFO_QUERY =
             "SELECT u.login, FLOOR(SUM(result) / count(*))\n" +
@@ -131,11 +131,30 @@ public class GroupDAOJdbcImpl implements GroupDAO {
                         sum += mark;
                         sprint.addLast(String.valueOf(mark));
                     }
-                    sprint.addFirst(String.valueOf(Math.round(sum / (maxSprintsCount - 1))));
+                    int rate = 1;
+                    if (maxSprintsCount != 0) {
+                        rate = sum / (maxSprintsCount);
+                    }
+                    sprint.addFirst(String.valueOf(Math.round(rate)));
                     sprint.addFirst(user.getKey());
                 }
+                correctionSprintsForLastAddedStudents(sprints);
                 return sprints;
             }
         }, selectedGroupId);
+    }
+
+    private void correctionSprintsForLastAddedStudents(LinkedList<List<String>> sprints) {
+        int sprintCount = 0;
+        for (List<String> sprint : sprints) {
+            if (sprint.size() > sprintCount) {
+                sprintCount = sprint.size();
+            }
+            for (List<String> task : sprints) {
+                while (task.size() < sprintCount) {
+                    task.add(1, "0");
+                }
+            }
+        }
     }
 }

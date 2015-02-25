@@ -82,4 +82,10 @@ public class TrainingsController {
         modelMap.put("item","mitem12");
         return "trainings/folc";
     }
+
+    @RequestMapping("/trainings/style.html")
+    public String style(ModelMap modelMap)  {
+        modelMap.put("item","mitem13");
+        return "trainings/style";
+    }
 }

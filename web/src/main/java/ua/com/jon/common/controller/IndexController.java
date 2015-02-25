@@ -15,8 +15,8 @@ public class IndexController {
 
     @RequestMapping("/trainings/index.html")
     public String trainingsIndex(ModelMap modelMap)  {
-        modelMap.put("item","mitem12");
-        return "trainings/folc";
+        modelMap.put("item","mitem13");
+        return "trainings/style";
     }
 
     @RequestMapping("/lessons.html")

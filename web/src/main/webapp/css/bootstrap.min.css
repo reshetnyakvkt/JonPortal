@@ -207,7 +207,7 @@ body {
 }
 
 a {
-    color: #08c;
+    color: #49afcd;
     text-decoration: none
     d
 }
@@ -3095,7 +3095,7 @@ button.btn.btn-mini, input[type="submit"].btn.btn-mini {
 }
 
 .btn-link {
-    color: #08c;
+    color: #49afcd;
     cursor: pointer;
     border-color: transparent;
     -webkit-border-radius: 0;

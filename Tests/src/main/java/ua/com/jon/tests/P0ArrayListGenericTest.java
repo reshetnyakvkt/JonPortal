@@ -7,6 +7,7 @@ import com.jon.tron.service.junit.UnitName;
 import com.jon.tron.service.processor.CodeValidator;
 import com.jon.tron.service.reflect.MethodModifier;
 import com.jon.tron.service.reflect.ReflectionUtil;
+import junit.framework.Assert;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.FixMethodOrder;
@@ -279,12 +280,14 @@ public class P0ArrayListGenericTest extends BaseTest {
 
         ReflectionUtil.invokeMethod(instance, addMethod, expectedElement);
         Integer actualElement = getElementFromList(0);
+        assertNotNull("После добавления первого элемента " + expectedElement + " в списке нет элемента с индексом 0", actualElement);
         assertTrue("Метод add работает не верно, после добавления первого элемента " + expectedElement + ", список содержит " +
                 actualElement, expectedElement.equals(actualElement));
 
         expectedElement = rnd.nextInt(MAX_VALUE) + MIN_VALUE;
         ReflectionUtil.invokeMethod(instance, addMethod, expectedElement);
         actualElement = getElementFromList(1);
+        assertNotNull("После добавления второго элемента " + expectedElement + " в списке нет элемента с индексом 1", actualElement);
         assertTrue("Метод add работает не верно, после добавления второго элемента " + expectedElement + ", список содержит " +
                 actualElement, expectedElement.equals(actualElement));
     }
@@ -302,13 +305,15 @@ public class P0ArrayListGenericTest extends BaseTest {
         ReflectionUtil.invokeMethod(instance, add2Method, 0, expectedElement);
         expectedElement = rnd.nextInt(MAX_VALUE) + MIN_VALUE;
         ReflectionUtil.invokeMethod(instance, add2Method, 0, expectedElement);
-        int actualElement = getElementFromList(0);
+        Integer actualElement = getElementFromList(0);
+        assertNotNull("После вставки второго элемента " + expectedElement + " в начало, в списке нет элемента с индексом 0", actualElement);
         assertTrue("Метод add(int, int) работает не верно, после вставки элемента " + expectedElement + " в начало, список содержит " +
                 actualElement, expectedElement == actualElement);
 
         expectedElement = rnd.nextInt(MAX_VALUE) + MIN_VALUE;
         ReflectionUtil.invokeMethod(instance, add2Method, 1, expectedElement);
         actualElement = getElementFromList(1);
+        assertNotNull("После вставки третьего элемента " + expectedElement + " в 1, в списке нет элемента с индексом 1", actualElement);
         assertTrue("Метод add(int, int) работает не верно, после вставки второго элемента " + expectedElement + ", список содержит " +
                 actualElement, expectedElement == actualElement);
     }
@@ -329,6 +334,7 @@ public class P0ArrayListGenericTest extends BaseTest {
                 if (elements.length > 0) {
                     return (Integer) elements[index];
                 }
+                return null;
             } catch (IllegalAccessException e) {
                 fail("Ошибка тестирования!, массив с элементами недоступен");
             }
@@ -476,7 +482,8 @@ public class P0ArrayListGenericTest extends BaseTest {
         expectedElement = rnd.nextInt(MAX_VALUE) + MIN_VALUE;
         ReflectionUtil.invokeMethod(instance, addMethod, expectedElement);
         removedElement = (Integer) ReflectionUtil.invokeMethod(instance, removeMethod, 0);
-        int actualElement = getElementFromList(0);
+        Integer actualElement = getElementFromList(0);
+        assertNotNull("После добавления первого элемента " + expectedElement + " в списке нет элемента с индексом 0", actualElement);
         actualSize = (Integer) ReflectionUtil.invokeMethod(instance, sizeMethod);
         assertTrue("Метод remove работает не верно, при удалении первого элемента из двух" + expectedElement + ", удаляемый элемент должен быть " +
                 removedElement, expectedElement == actualElement);

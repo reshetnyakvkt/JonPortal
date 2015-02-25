@@ -36,7 +36,6 @@ import static org.junit.Assert.assertTrue;
 @Unit(testName = "P0ArrayListTest", value = "weekend1.task1")
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class P0ArrayListTest extends BaseTest {
-                                           ArrayList l;
     private static final int MAX_VALUE = 10;
     private static final int MIN_VALUE = 1;
 

@@ -30,8 +30,8 @@ import static org.junit.Assert.assertTrue;
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class P1HashTable extends BaseTest {
 
-    private static final String UNIT_NAME = "HashMap";
-    private static final String TEST_NAME = "HashMapTest";
+    private static final String UNIT_NAME = "MyHashMap";
+    private static final String TEST_NAME = "MyHashMapTest";
     private static final String PUT_METHOD_NAME = "put";
     private static final String ITERATOR_METHOD_NAME = "iterator";
 

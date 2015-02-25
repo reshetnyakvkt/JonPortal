@@ -59,6 +59,8 @@
 
             <div class="well">
 
+                <p>Добавлена статья "Соглашение о кодировании" ... <a href="/trainings/style.html">перейти</a></p>
+
                 <p>Добавлена статья "Компьютерный слэнг" ... <a href="/trainings/slang.html">перейти</a></p>
 
                 <p>Обновлён дизайн by Stefan ©</p>
