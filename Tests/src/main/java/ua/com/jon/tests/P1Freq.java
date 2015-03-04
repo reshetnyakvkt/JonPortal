@@ -1,10 +1,8 @@
 package ua.com.jon.tests;
 
-import com.jon.tron.service.junit.Unit;
-import com.jon.tron.service.junit.UnitClass;
-import com.jon.tron.service.junit.UnitCode;
-import com.jon.tron.service.junit.UnitName;
+import com.jon.tron.service.junit.*;
 import com.jon.tron.service.processor.CodeValidator;
+import com.jon.tron.service.processor.StyleChecker;
 import com.jon.tron.service.reflect.JavaProcessBuilder;
 import com.jon.tron.service.reflect.MethodModifier;
 import com.jon.tron.service.reflect.ReflectionUtil;
@@ -15,6 +13,7 @@ import org.junit.Test;
 import org.junit.runners.MethodSorters;
 
 import java.lang.reflect.Method;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -41,6 +40,8 @@ public class P1Freq extends BaseTest {
     private static String[] unitNames;
     @Unit
     private static String unitJarClasspath;
+    @Troubles
+    private static List<String> troubles;
 
     @Before
     public void setUp() {
@@ -56,6 +57,7 @@ public class P1Freq extends BaseTest {
     public void testCheckUnitPresent() throws Throwable {
         assertTrue("В задании должно быть 2 класса", unitClasses.length == 2);
         CodeValidator.checkCodeFile(codes.entrySet().iterator().next().getValue());
+        StyleChecker.checkStyle(codes, troubles);
 
         Class unitClass = getUnitClass(unitClasses, UNIT_NAME);
         assertNotNull("В задании не найден класс " + UNIT_NAME, unitClass);

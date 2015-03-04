@@ -5,6 +5,7 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <ul class="nav nav-tabs">
+    <li id="mitem14"><a href="/trainings/styleChecker.html"><button class="btn btn-link" type="button">Проверка стиля</button></a></li>
     <li id="mitem13"><a href="/trainings/style.html"><button class="btn btn-link" type="button">Соглашение о кодировании</button></a></li>
     <li id="mitem12"><a href="/trainings/folc.html"><button class="btn btn-link" type="button">Творчество студентов</button></a></li>
     <li id="mitem11"><a href="/trainings/slang.html"><button class="btn btn-link" type="button">Компьютерный слэнг</button></a></li>

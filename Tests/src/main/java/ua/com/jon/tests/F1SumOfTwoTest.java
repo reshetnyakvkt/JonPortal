@@ -1,16 +1,15 @@
 package ua.com.jon.tests;
 
-import com.jon.tron.service.junit.Unit;
+import com.jon.tron.service.junit.*;
 
-import com.jon.tron.service.junit.UnitClass;
-import com.jon.tron.service.junit.UnitCode;
-import com.jon.tron.service.junit.UnitName;
 import com.jon.tron.service.processor.CodeValidator;
+import com.jon.tron.service.processor.StyleChecker;
 import com.jon.tron.service.reflect.ReflectionUtil;
 import org.junit.*;
 import org.junit.runners.MethodSorters;
 
 import java.lang.reflect.Method;
+import java.util.List;
 import java.util.Map;
 
 import static junit.framework.TestCase.assertNotNull;
@@ -42,6 +41,9 @@ public class F1SumOfTwoTest extends BaseTest {
     private static String[] unitNames;
     @Unit
     private static String unitJarClasspath;
+    @Troubles
+    private static List<String> troubles;
+
     private static Object instance;
     private static Method unitMethod;
 
@@ -59,6 +61,7 @@ public class F1SumOfTwoTest extends BaseTest {
     public void test() throws Throwable {
         assertTrue("В задании должен быть только один класс", unitClasses.length == 1);
         CodeValidator.checkCode(codes.entrySet().iterator().next().getValue());
+        StyleChecker.checkStyle(codes, troubles);
         instance = instanciate(unitClasses[0]);
         unitMethod = ReflectionUtil.checkMainMethod(unitClasses[0]);
     }

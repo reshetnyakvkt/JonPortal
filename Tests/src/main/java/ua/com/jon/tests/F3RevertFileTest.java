@@ -3,6 +3,7 @@ package ua.com.jon.tests;
 import com.jon.tron.service.executor.RemoteMethodInvoker;
 import com.jon.tron.service.junit.*;
 import com.jon.tron.service.processor.CodeValidator;
+import com.jon.tron.service.processor.StyleChecker;
 import com.jon.tron.service.reflect.MethodModifier;
 import com.jon.tron.service.reflect.ReflectionUtil;
 import org.junit.After;
@@ -17,6 +18,7 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.lang.reflect.Method;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
 
 import static org.junit.Assert.assertFalse;
@@ -65,6 +67,8 @@ public class F3RevertFileTest extends BaseTest {
     private static String unitJarClasspath;
     @ClassCode
     private static byte[][] classCodes;
+    @Troubles
+    private static List<String> troubles;
 
     private static Object instance;
     private static Method unitMethod;
@@ -84,6 +88,7 @@ public class F3RevertFileTest extends BaseTest {
         assertTrue("В задании должен быть один класс", unitClasses != null && classCodes != null &&
                 unitClasses.length == 1 && classCodes.length == 1);
         CodeValidator.checkCodeFile(codes.entrySet().iterator().next().getValue());
+        StyleChecker.checkStyle(codes, troubles);
 //        instance = instanciate(unitClasses[0]);
         unitMethod = ReflectionUtil.checkMainMethod(unitClasses[0]);
     }

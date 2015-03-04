@@ -62,7 +62,7 @@ public class P3ChatServerTest extends BaseTest {
 
         unitClass = getUnitClass(unitClasses, UNIT_NAME);
         assertNotNull("В задании не найден класс " + UNIT_NAME, unitClass);
-        CodeValidator.checkCodeFileThread(codes.get(unitClass.getName()));
+        CodeValidator.checkCodeFileThreadNet(codes.get(unitClass.getName()));
         ReflectionUtil.checkDefaultConstructor(unitClass);
 
 //        instance = instanciate(unitClass);

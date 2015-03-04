@@ -3,6 +3,7 @@ package ua.com.jon.tests;
 import com.jon.tron.service.executor.RemoteMethodInvoker;
 import com.jon.tron.service.junit.*;
 import com.jon.tron.service.processor.CodeValidator;
+import com.jon.tron.service.processor.StyleChecker;
 import com.jon.tron.service.reflect.ReflectionUtil;
 import org.junit.*;
 import org.junit.runners.MethodSorters;
@@ -69,6 +70,8 @@ public class F3FileSorterTest extends BaseTest {
     private static String unitJarClasspath;
     @ClassCode
     private static byte[][] classCodes;
+    @Troubles
+    private static List<String> troubles;
 
     private static Object instance;
     private static Method unitMethod;
@@ -88,6 +91,7 @@ public class F3FileSorterTest extends BaseTest {
         assertTrue("В задании должно быть не более 1го класса", unitClasses.length == 1);
 
         CodeValidator.checkCodeFile(codes.entrySet().iterator().next().getValue());
+        StyleChecker.checkStyle(codes, troubles);
         unitMethod = ReflectionUtil.checkMainMethod(unitClasses[0]);
     }
 

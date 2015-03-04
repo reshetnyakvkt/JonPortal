@@ -1,10 +1,8 @@
 package ua.com.jon.tests;
 
-import com.jon.tron.service.junit.Unit;
-import com.jon.tron.service.junit.UnitClass;
-import com.jon.tron.service.junit.UnitCode;
-import com.jon.tron.service.junit.UnitName;
+import com.jon.tron.service.junit.*;
 import com.jon.tron.service.processor.CodeValidator;
+import com.jon.tron.service.processor.StyleChecker;
 import com.jon.tron.service.reflect.MethodModifier;
 import com.jon.tron.service.reflect.ReflectionUtil;
 import org.junit.After;
@@ -74,10 +72,9 @@ public class P1NumberTestTest extends BaseTest {
     private static String[] unitNames;
     @Unit
     private static String unitJarClasspath;
+    @Troubles
+    private static List<String> troubles;
 
-    private static Object instance;
-    private static Method getMethod;
-    private static Method addMethod;
 
     @Before
     public void setUp() {
@@ -97,23 +94,24 @@ public class P1NumberTestTest extends BaseTest {
         assertNotNull("В задании не найден класс " + UNIT_NAME, unitClass);
 
         CodeValidator.checkCode(unitClass.getName());
+        StyleChecker.checkStyle(codes, troubles);
 
 //        instance = instanciate(unitClasses[0]);
-        addMethod = ReflectionUtil.checkMethod(unitClass, GET_METHOD_NAME, int.class,
+        ReflectionUtil.checkMethod(unitClass, GET_METHOD_NAME, int.class,
                 new MethodModifier[]{MethodModifier.PUBLIC});
-        addMethod = ReflectionUtil.checkMethod(unitClass, ADD_METHOD_NAME, "Number",
+        ReflectionUtil.checkMethod(unitClass, ADD_METHOD_NAME, "Number",
                 new MethodModifier[]{MethodModifier.PUBLIC}, "Number");
-        addMethod = ReflectionUtil.checkMethod(unitClass, SUB_METHOD_NAME, "Number",
+        ReflectionUtil.checkMethod(unitClass, SUB_METHOD_NAME, "Number",
                 new MethodModifier[]{MethodModifier.PUBLIC}, "Number");
-        addMethod = ReflectionUtil.checkMethod(unitClass, MUL_METHOD_NAME, "Number",
+        ReflectionUtil.checkMethod(unitClass, MUL_METHOD_NAME, "Number",
                 new MethodModifier[]{MethodModifier.PUBLIC}, "Number");
-        addMethod = ReflectionUtil.checkMethod(unitClass, DIV_METHOD_NAME, "Number",
+        ReflectionUtil.checkMethod(unitClass, DIV_METHOD_NAME, "Number",
                 new MethodModifier[]{MethodModifier.PUBLIC}, "Number");
-        addMethod = ReflectionUtil.checkMethod(unitClass, POW_METHOD_NAME, "Number",
+        ReflectionUtil.checkMethod(unitClass, POW_METHOD_NAME, "Number",
                 new MethodModifier[]{MethodModifier.PUBLIC}, "Number");
-        addMethod = ReflectionUtil.checkMethod(unitClass, FACT_METHOD_NAME, "Number",
+        ReflectionUtil.checkMethod(unitClass, FACT_METHOD_NAME, "Number",
                 new MethodModifier[]{MethodModifier.PUBLIC});
-        addMethod = ReflectionUtil.checkMethod(unitClass, MOD_METHOD_NAME, "Number",
+        ReflectionUtil.checkMethod(unitClass, MOD_METHOD_NAME, "Number",
                 new MethodModifier[]{MethodModifier.PUBLIC}, "Number");
     }
 

@@ -23,7 +23,6 @@ public class BaseTest {
     private PrintStream out;
     private ByteArrayOutputStream in;
     private EvaluationUtil evaluationUtil;
-    private List<String> troubles;
 
     public static String lineSeparator = System.getProperty("line.separator");
     public static Random rnd = new Random();
@@ -132,9 +131,5 @@ public class BaseTest {
             actualString = lines[lines.length - 1];
         }
         return actualString;
-    }
-
-    public List<String> getTroubles() {
-        return troubles;
     }
 }

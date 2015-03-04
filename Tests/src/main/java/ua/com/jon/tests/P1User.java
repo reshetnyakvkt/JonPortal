@@ -1,10 +1,8 @@
 package ua.com.jon.tests;
 
-import com.jon.tron.service.junit.Unit;
-import com.jon.tron.service.junit.UnitClass;
-import com.jon.tron.service.junit.UnitCode;
-import com.jon.tron.service.junit.UnitName;
+import com.jon.tron.service.junit.*;
 import com.jon.tron.service.processor.CodeValidator;
+import com.jon.tron.service.processor.StyleChecker;
 import com.jon.tron.service.reflect.MethodModifier;
 import com.jon.tron.service.reflect.ReflectionUtil;
 import org.junit.After;
@@ -14,6 +12,7 @@ import org.junit.Test;
 import org.junit.runners.MethodSorters;
 
 import java.lang.reflect.Method;
+import java.util.List;
 import java.util.Map;
 
 import static junit.framework.TestCase.assertNotNull;
@@ -48,9 +47,8 @@ public class P1User extends BaseTest {
     private static String[] unitNames;
     @Unit
     private static String unitJarClasspath;
-
-    private static Object instance;
-    private static Method addMethod;
+    @Troubles
+    private static List<String> troubles;
 
     @Before
     public void setUp() {
@@ -71,13 +69,13 @@ public class P1User extends BaseTest {
         unitClass = getUnitClass(unitClasses, UNIT_NAME);
         assertNotNull("В задании не найден класс " + UNIT_NAME, unitClass);
         CodeValidator.checkCode(unitClass.getName());
-
+        StyleChecker.checkStyle(codes, troubles);
         ReflectionUtil.checkDefaultConstructor(unitClass);
 
 //        instance = instanciate(unitClass);
-        addMethod = ReflectionUtil.checkMethod(unitClass, EQUALS_METHOD_NAME, boolean.class,
+        ReflectionUtil.checkMethod(unitClass, EQUALS_METHOD_NAME, boolean.class,
                 new MethodModifier[]{MethodModifier.PUBLIC}, Object.class);
-        addMethod = ReflectionUtil.checkMethod(unitClass, HASHCODE_METHOD_NAME, int.class,
+        ReflectionUtil.checkMethod(unitClass, HASHCODE_METHOD_NAME, int.class,
                 new MethodModifier[]{MethodModifier.PUBLIC});
     }
 }

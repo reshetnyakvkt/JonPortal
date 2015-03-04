@@ -1,10 +1,8 @@
 package ua.com.jon.tests;
 
-import com.jon.tron.service.junit.Unit;
-import com.jon.tron.service.junit.UnitClass;
-import com.jon.tron.service.junit.UnitCode;
-import com.jon.tron.service.junit.UnitName;
+import com.jon.tron.service.junit.*;
 import com.jon.tron.service.processor.CodeValidator;
+import com.jon.tron.service.processor.StyleChecker;
 import com.jon.tron.service.reflect.MethodModifier;
 import com.jon.tron.service.reflect.ReflectionUtil;
 import junit.framework.Assert;
@@ -214,6 +212,8 @@ public class P0ArrayListGenericTest extends BaseTest {
     protected static String[] unitNames;
     @Unit
     protected static String unitJarClasspath;
+    @Troubles
+    private static List<String> troubles;
 
     protected Object instance;
     protected Method addMethod;
@@ -245,6 +245,7 @@ public class P0ArrayListGenericTest extends BaseTest {
         Class unitClass = getUnitClass(unitClasses, UNIT_NAME);
         assertNotNull("В задании не найден класс " + UNIT_NAME, unitClass);
         CodeValidator.checkCode(codes.get(unitClass.getName()));
+        StyleChecker.checkStyle(codes, troubles);
 
         instance = instanciate(unitClass);
         ReflectionUtil.checkHasParent(unitClass, "Iterable");

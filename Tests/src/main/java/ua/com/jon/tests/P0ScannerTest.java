@@ -1,9 +1,6 @@
 package ua.com.jon.tests;
 
-import com.jon.tron.service.junit.Unit;
-import com.jon.tron.service.junit.UnitClass;
-import com.jon.tron.service.junit.UnitCode;
-import com.jon.tron.service.junit.UnitName;
+import com.jon.tron.service.junit.*;
 import com.jon.tron.service.processor.CodeValidator;
 import com.jon.tron.service.reflect.MethodModifier;
 import com.jon.tron.service.reflect.ReflectionUtil;
@@ -88,9 +85,8 @@ public class P0ScannerTest extends BaseTest {
     private static String[] unitNames;
     @Unit
     private static String unitJarClasspath;
-
-    private static Object instance;
-    private static Method addMethod;
+    @Troubles
+    private static List<String> troubles;
 
     @Before
     public void setUp() {
@@ -114,19 +110,19 @@ public class P0ScannerTest extends BaseTest {
         ReflectionUtil.checkConstructor(unitClass, String.class);
 
 //        instance = instanciate(unitClass);
-        addMethod = ReflectionUtil.checkMethod(unitClass, NEXT_METHOD_NAME, String.class,
+        ReflectionUtil.checkMethod(unitClass, NEXT_METHOD_NAME, String.class,
                 new MethodModifier[]{MethodModifier.PUBLIC});
-        addMethod = ReflectionUtil.checkMethod(unitClass, NEXT_INT_METHOD_NAME, int.class,
+        ReflectionUtil.checkMethod(unitClass, NEXT_INT_METHOD_NAME, int.class,
                 new MethodModifier[]{MethodModifier.PUBLIC});
-        addMethod = ReflectionUtil.checkMethod(unitClass, NEXT_LINE_METHOD_NAME, String.class,
+        ReflectionUtil.checkMethod(unitClass, NEXT_LINE_METHOD_NAME, String.class,
                 new MethodModifier[]{MethodModifier.PUBLIC});
-        addMethod = ReflectionUtil.checkMethod(unitClass, HAS_NEXT_METHOD_NAME, boolean.class,
+        ReflectionUtil.checkMethod(unitClass, HAS_NEXT_METHOD_NAME, boolean.class,
                 new MethodModifier[]{MethodModifier.PUBLIC});
-        addMethod = ReflectionUtil.checkMethod(unitClass, HAS_NEXT_INT_METHOD_NAME, boolean.class,
+        ReflectionUtil.checkMethod(unitClass, HAS_NEXT_INT_METHOD_NAME, boolean.class,
                 new MethodModifier[]{MethodModifier.PUBLIC});
-        addMethod = ReflectionUtil.checkMethod(unitClass, USE_DELIMITER_METHOD_NAME, void.class,
+        ReflectionUtil.checkMethod(unitClass, USE_DELIMITER_METHOD_NAME, void.class,
                 new MethodModifier[]{MethodModifier.PUBLIC}, String.class);
-        addMethod = ReflectionUtil.checkMethod(unitClass, CLOSE_METHOD_NAME, void.class,
+        ReflectionUtil.checkMethod(unitClass, CLOSE_METHOD_NAME, void.class,
                 new MethodModifier[]{MethodModifier.PUBLIC});
     }
 }

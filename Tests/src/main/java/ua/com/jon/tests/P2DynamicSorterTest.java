@@ -1,9 +1,7 @@
 package ua.com.jon.tests;
 
-import com.jon.tron.service.junit.Unit;
-import com.jon.tron.service.junit.UnitClass;
-import com.jon.tron.service.junit.UnitCode;
-import com.jon.tron.service.junit.UnitName;
+import com.jon.tron.service.junit.*;
+import com.jon.tron.service.processor.StyleChecker;
 import com.jon.tron.service.reflect.MethodModifier;
 import com.jon.tron.service.reflect.ReflectionUtil;
 import org.junit.After;
@@ -40,6 +38,8 @@ public class P2DynamicSorterTest extends BaseTest {
     private static String[] unitNames;
     @Unit
     private static String unitJarClasspath;
+    @Troubles
+    private static List<String> troubles;
 
     @Before
     public void setUp() {
@@ -61,6 +61,8 @@ public class P2DynamicSorterTest extends BaseTest {
             unitClass = unitClasses[0];
         }
         assertTrue("В задании не найден класс " + UNIT_NAME, UNIT_NAME.equals(unitClass.getSimpleName()));
+        StyleChecker.checkStyle(codes, troubles);
+
         Method methodSort = ReflectionUtil.checkMethod(unitClass, SORT_METHOD_NAME, void.class,
                 new MethodModifier[]{MethodModifier.PUBLIC});
     }

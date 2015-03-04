@@ -88,4 +88,10 @@ public class TrainingsController {
         modelMap.put("item","mitem13");
         return "trainings/style";
     }
+
+    @RequestMapping("/trainings/styleChecker.html")
+    public String styleChecker(ModelMap modelMap)  {
+        modelMap.put("item","mitem14");
+        return "trainings/styleChecker";
+    }
 }
