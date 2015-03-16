@@ -26,7 +26,7 @@ public interface TasksService extends RemoteService {
     double getSprintRate(Long groupId, Long taskTemplateId, String userName);
     double getCourseRate(Long taskTemplateId, String userName);
     String getSpringUserName();
-    ArrayList<GroupDTO> getUserGroups();
+    List<GroupDTO> getUserGroups();
     void setValidationResult(Long id, String statusStr, String result);
 
     List<TaskDTO> refreshTasks(List<Long> ids);

@@ -13,7 +13,7 @@ import java.util.List;
  */
 public class GroupDTO implements Serializable {
 
-    private static final Long SerialVersionUID = 1L;
+    private static final Long serialVersionUID = 1L;
 
     private  Long groupId;
     private String name;

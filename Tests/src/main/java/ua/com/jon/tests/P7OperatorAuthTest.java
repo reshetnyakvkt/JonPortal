@@ -44,7 +44,7 @@ public class P7OperatorAuthTest extends BaseTest {
     private static final String SERVICE_NAME = "AuthenticationService";
     private static final String SERVICE_IMPL_NAME = "AuthenticationServiceImpl";
     private static final String AUTHENTICATE_METHOD_NAME = "authenticate";
-    private static final String SERVLET_NAME = "AuthServlet";
+    private static final String SERVLET_NAME = "AuthenticationServlet";
     private static final String EXCEPTION_NAME = "AuthenticationException";
     private static final String INDEX_NAME = "index.jsp";
     private static final String WELCOME_NAME = "dashboard.jsp";

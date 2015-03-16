@@ -28,6 +28,10 @@
                     <g:FlowPanel ui:field="sprintsHolderPanel"/>
                 </b:TabPane>
 
+                <b:TabPane heading="Проверка">
+                    <g:FlowPanel ui:field="tasksOverviewHolderPanel"/>
+                </b:TabPane>
+
             </b:TabPanel>
         </b:Container>
     </g:HTMLPanel>

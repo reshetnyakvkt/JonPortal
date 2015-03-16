@@ -39,6 +39,10 @@ public class RootPanel extends Composite {
     interface GroupsManageTabPanelUiBinder extends UiBinder<Widget, GroupsManageTabPanel> {
     }
 
+    @UiTemplate("TasksOverviewTabPanel.ui.xml")
+    interface TasksOverviewTabPanelUiBinder extends UiBinder<Widget, TasksOverviewTabPanel> {
+    }
+
     @UiField
     com.google.gwt.user.client.ui.FlowPanel tasksHolderPanel;
 
@@ -54,6 +58,9 @@ public class RootPanel extends Composite {
     @UiField
     com.google.gwt.user.client.ui.FlowPanel groupsManageHolderPanel;
 
+    @UiField
+    com.google.gwt.user.client.ui.FlowPanel tasksOverviewHolderPanel;
+
     private static RootPanelUiBinder rootUIBinder = GWT.create(RootPanelUiBinder.class);
 
     private static TasksTabPanelUiBinder tasksUIBinder = GWT.create(TasksTabPanelUiBinder.class);
@@ -61,6 +68,7 @@ public class RootPanel extends Composite {
     private static TasksManageTabPanelUiBinder tasksManageUIBinder = GWT.create(TasksManageTabPanelUiBinder.class);
     private static SprintsTabPanelUiBinder sprintsUIBinder = GWT.create(SprintsTabPanelUiBinder.class);
     private static GroupsManageTabPanelUiBinder groupsManageUIBinder = GWT.create(GroupsManageTabPanelUiBinder.class);
+    private static TasksOverviewTabPanelUiBinder tasksOverviewUIBinder = GWT.create(TasksOverviewTabPanelUiBinder.class);
     private static GlobalData globalData = new GlobalData();
     public static EventBus ADMIN_EVENT_BUS = GWT.create(SimpleEventBus.class);
 
@@ -72,11 +80,13 @@ public class RootPanel extends Composite {
         TasksManageTabPanel tasksManageTabPanel = new TasksManageTabPanel(tasksManageUIBinder);
         SprintsTabPanel sprintsTabPanel = new SprintsTabPanel(sprintsUIBinder);
         GroupsManageTabPanel groupsManageTabPanel = new GroupsManageTabPanel(groupsManageUIBinder, globalData);
+        TasksOverviewTabPanel tasksOverviewTabPanel = new TasksOverviewTabPanel(tasksOverviewUIBinder);
 
         tasksHolderPanel.add(tasksTabPanel);
         usersHolderPanel.add(groupCreationTabPanel);
         tasksManageHolderPanel.add(tasksManageTabPanel);
         sprintsHolderPanel.add(sprintsTabPanel);
         groupsManageHolderPanel.add(groupsManageTabPanel);
+        tasksOverviewHolderPanel.add(tasksOverviewTabPanel);
     }
 }

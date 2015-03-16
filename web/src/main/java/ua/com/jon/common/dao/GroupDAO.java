@@ -1,5 +1,6 @@
 package ua.com.jon.common.dao;
 
+import ua.com.jon.admin.shared.GroupAndSprintsDTO;
 import ua.com.jon.common.domain.Group;
 import ua.com.jon.common.dto.GroupDTO;
 
@@ -14,4 +15,6 @@ public interface GroupDAO {
     List<GroupDTO> findActiveGroupAndTasksAndUsers();
 
     List<List<String>> findByGroupIdAndUserNotIgnore(Long selectedGroupId) throws Exception;
+
+    List<GroupAndSprintsDTO> findActiveGroupsAndSprints();
 }

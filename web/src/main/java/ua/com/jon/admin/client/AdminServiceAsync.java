@@ -50,5 +50,11 @@ public interface AdminServiceAsync {
     void addStudentToGroup(String groupName, String userName, AsyncCallback<Void> async);
 
     void getGitHubRepos(AsyncCallback<ArrayList<SpaceDTO>> groupCallback);
+
+    void getTasksBySprintAndTemplate(Long id, Long id1, AsyncCallback<List<TaskDTO>> async);
+
+    void getTemplatesAndTasks(Long groupId, Long sprintId, AsyncCallback<ArrayList<TaskTemplateDTO>> callback);
+
+    void getGroupsAndSprints(AsyncCallback<List<GroupAndSprintsDTO>> groupCallback);
 }
 

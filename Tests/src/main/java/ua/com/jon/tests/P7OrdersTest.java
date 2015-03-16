@@ -98,9 +98,9 @@ public class P7OrdersTest extends BaseTest {
 //        CodeValidator.checkCodePkg(codes.get(service.getName()));
 
         ReflectionUtil.checkMethod(service, CREATE_ORDER_METHOD_NAME, "boolean",
-                new MethodModifier[]{MethodModifier.PUBLIC}, "Long", "String", "String", "String", "String");
+                new MethodModifier[]{MethodModifier.PUBLIC}, "Long", "Client", "String", "String", "String");
         ReflectionUtil.checkMethod(service, EDIT_ORDER_METHOD_NAME, "void",
-                new MethodModifier[]{MethodModifier.PUBLIC}, "Long", "String", "String", "String", "String");
+                new MethodModifier[]{MethodModifier.PUBLIC}, "Long", "Client", "String", "String", "String");
         ReflectionUtil.checkMethod(service, SHOW_ORDERS_METHOD_NAME, "List",
                 new MethodModifier[]{MethodModifier.PUBLIC}, "Long", "Long");
         ReflectionUtil.checkMethod(service, SHOW_ORDERS_PORTION_METHOD_NAME, "List",

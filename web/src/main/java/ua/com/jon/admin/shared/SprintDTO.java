@@ -3,6 +3,7 @@ package ua.com.jon.admin.shared;
 import ua.com.jon.admin.client.components.list.Nameble;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -13,16 +14,20 @@ import java.util.List;
  */
 public class SprintDTO implements Serializable, Nameble {
 
-    private static final Long SerialVersionUID = 1L;
+    private static final Long serialVersionUID = 1L;
 
     private Long id;
     private String name;
     private String type;
     private boolean active;
     private Date endDate;
-    private List<TaskTemplateDTO> tasks;
+    private List<TaskTemplateDTO> tasks = new ArrayList<>();
 
     public SprintDTO() {
+    }
+
+    public SprintDTO(Long id) {
+        this.id = id;
     }
 
     public SprintDTO(String name) {
@@ -93,14 +98,14 @@ public class SprintDTO implements Serializable, Nameble {
 
         SprintDTO sprintDTO = (SprintDTO) o;
 
-        if (!name.equals(sprintDTO.name)) return false;
+        if (!id.equals(sprintDTO.id)) return false;
 
         return true;
     }
 
     @Override
     public int hashCode() {
-        return name.hashCode();
+        return id.hashCode();
     }
 
     @Override

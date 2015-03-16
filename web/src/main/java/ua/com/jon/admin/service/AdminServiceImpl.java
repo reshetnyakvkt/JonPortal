@@ -10,17 +10,12 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ua.com.jon.admin.client.AdminService;
-import ua.com.jon.admin.shared.GroupAndUsersDTO;
-import ua.com.jon.admin.shared.GroupDTO;
-import ua.com.jon.admin.shared.SpaceDTO;
-import ua.com.jon.admin.shared.SprintDTO;
-import ua.com.jon.admin.shared.TaskDTO;
-import ua.com.jon.admin.shared.TaskTemplateDTO;
-import ua.com.jon.admin.shared.UserDTO;
+import ua.com.jon.admin.shared.*;
 import ua.com.jon.auth.domain.AssemblaSpace;
 import ua.com.jon.auth.domain.AssemblaUser;
 import ua.com.jon.auth.domain.UserRole;
 import ua.com.jon.auth.service.AuthService;
+import ua.com.jon.common.dao.GroupDAO;
 import ua.com.jon.common.domain.Group;
 import ua.com.jon.common.domain.Sprint;
 import ua.com.jon.common.domain.SprintType;
@@ -77,6 +72,9 @@ public class AdminServiceImpl implements AdminService {
 
     @Autowired
     private AuthService AuthService;
+
+    @Autowired
+    private GroupDAO groupDAO;
 
     @Value( "${tests.package}" )
     private String testsPackage;
@@ -361,6 +359,50 @@ public class AdminServiceImpl implements AdminService {
         }
 */
         return repos;
+    }
+
+    @Override
+    public List<TaskDTO> getTasksBySprintAndTemplate(Long sprintId, Long templateId) {
+        ArrayList<TaskDTO> tasks = new ArrayList<>();
+        TaskDTO taskDTO = new TaskDTO();
+        taskDTO.setName("t1");
+        taskDTO.setUserName("u1");
+        taskDTO.setResult("20");
+        taskDTO.setCode("    @Override\n" +
+                "    public ArrayList<TaskTemplateDTO> getTemplatesAndTasks(Long groupId, Long sprintId) {\n" +
+                "        ArrayList<TaskTemplateDTO> templates = new ArrayList<>();\n" +
+                "        templates.add(new TaskTemplateDTO(\"tt1\"));\n" +
+                "        return templates;\n" +
+                "    }");
+        tasks.add(taskDTO);
+        TaskDTO taskDTO1 = new TaskDTO();
+        taskDTO1.setName("t2");
+        taskDTO1.setUserName("u2");
+        taskDTO1.setResult("100");
+        tasks.add(taskDTO1);
+
+        return tasks;
+    }
+
+    @Override
+    public ArrayList<TaskTemplateDTO> getTemplatesAndTasks(Long groupId, Long sprintId) {
+        ArrayList<TaskTemplateDTO> templates = new ArrayList<>();
+        templates.add(new TaskTemplateDTO("tt1"));
+        return templates;
+    }
+
+    @Override
+    public List<GroupAndSprintsDTO> getGroupsAndSprints() {
+        return groupDAO.findActiveGroupsAndSprints();
+/*
+        ArrayList<GroupAndSprintsDTO> groups = new ArrayList<>();
+        GroupAndSprintsDTO group = new GroupAndSprintsDTO(1L, "g1", new ArrayList<>());
+        SprintDTO sprintDTO = new SprintDTO("s1");
+        sprintDTO.getTasks().add(new TaskTemplateDTO("tt1"));
+        group.getSprints().add(sprintDTO);
+        groups.add(group);
+        return groups;
+*/
     }
 
     @Override

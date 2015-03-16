@@ -5,6 +5,10 @@ import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.ResultSetExtractor;
 import org.springframework.stereotype.Repository;
+import ua.com.jon.admin.shared.GroupAndSprintsDTO;
+import ua.com.jon.admin.shared.SprintDTO;
+import ua.com.jon.admin.shared.TaskTemplateDTO;
+import ua.com.jon.common.domain.TaskTemplate;
 import ua.com.jon.common.dto.GroupDTO;
 import ua.com.jon.common.dto.TaskDTO;
 import ua.com.jon.common.dto.UserDTO;
@@ -27,6 +31,11 @@ public class GroupDAOJdbcImpl implements GroupDAO {
                     "FROM USERS u, GROUPS g, TASKS t, TASK_TEMPLATES tt\n" +
                     "WHERE t.group_id = g.id AND t.user_id = u.id AND t.template_id = tt.id\n" +
                     "AND t.status = 'TEST' AND g.active = 1 AND g.REPOSITORY_URL <> '' AND g.REPOSITORY_URL IS NOT NULL";
+    private static final String GROUPS_TASKS_QUERY =
+            "SELECT u.id uid, u.login, g.id gid, g.name, s.id sid, s.name, t.id, t.code, t.result, tt.id ttid, tt.name, tt.taskText\n" +
+                    "FROM USERS u, GROUPS g, TASKS t, TASK_TEMPLATES tt, SPRINTS s\n" +
+                    "WHERE t.group_id = g.id AND t.user_id = u.id AND t.template_id = tt.id AND t.sprint_id = s.id\n" +
+                    "AND g.active = 1 AND u.IGNORE_STATISTIC = 0";
 
     private static final String GROUP_INFO_QUERY =
             "SELECT u.login, FLOOR(SUM(result) / count(*))\n" +
@@ -142,6 +151,95 @@ public class GroupDAOJdbcImpl implements GroupDAO {
                 return sprints;
             }
         }, selectedGroupId);
+    }
+
+    @Override
+    public List<GroupAndSprintsDTO> findActiveGroupsAndSprints() {
+        return jdbcTemplate.query(GROUPS_TASKS_QUERY, new ResultSetExtractor<List<GroupAndSprintsDTO>>() {
+            @Override
+            public List<GroupAndSprintsDTO> extractData(ResultSet rs) throws SQLException, DataAccessException {
+                Map<Long, GroupAndSprintsDTO> groups = new HashMap<Long, GroupAndSprintsDTO>();
+                Map<Long, SprintDTO> sprints = new HashMap<Long, SprintDTO>();
+//                Map<Long, TaskTemplateDTO> taskTemplates = new HashMap<Long, TaskTemplateDTO>();
+                Map<Long, UserDTO> users = new HashMap<Long, UserDTO>();
+                int userIdIndex = 1;
+                int loginIndex = 2;
+                int groupIdIndex = 3;
+                int gNameIndex = 4;
+                int sprintIdIndex = 5;
+                int sprintNameIndex = 6;
+                int taskIdIndex = 7;
+                int taskCodeIndex = 8;
+                int taskResultIndex = 9;
+                int taskTemplateIdIndex = 10;
+                int taskTemplateNameIndex = 11;
+                int taskTemplateTextIndex = 12;
+//                int suffixIndex = 14;
+                while (rs.next()) {
+                    long groupId = rs.getLong(groupIdIndex);
+                    GroupAndSprintsDTO group;
+
+                    String userName = rs.getString(loginIndex);
+/*
+                    UserDTO user;
+
+                    if (!users.containsKey(userId)) {
+                        user = new UserDTO(userId, userName, false, true);
+                        users.put(userId, user);
+                    } else {
+                        user = users.get(userId);
+                    }
+*/
+
+                    if (!groups.containsKey(groupId)) {
+                        group = new GroupAndSprintsDTO(groupId, rs.getString(gNameIndex),new ArrayList<SprintDTO>());
+                        groups.put(groupId, group);
+                    } else {
+                        group = groups.get(groupId);
+                    }
+
+                    long sprintId = rs.getLong(sprintIdIndex);
+                    SprintDTO sprint = new SprintDTO(sprintId);
+                    String sprintName = rs.getString(sprintNameIndex);
+                    if (!group.getSprints().contains(sprint)) {
+                        sprint = new SprintDTO(sprintId, sprintName, true, null, new ArrayList<>(), null);
+                        group.getSprints().add(sprint);
+                    } else {
+                        sprint = group.getSprints().get(group.getSprints().indexOf(sprint));
+                    }
+
+                    long taskTemplateId = rs.getLong(taskTemplateIdIndex);
+                    TaskTemplateDTO taskTemplateDTO = new TaskTemplateDTO(taskTemplateId);
+                    String taskTemplateName = rs.getString(taskTemplateNameIndex);
+                    String taskTemplateText = rs.getString(taskTemplateTextIndex);
+                    if (!sprint.getTasks().contains(taskTemplateDTO)) {
+                        taskTemplateDTO = new TaskTemplateDTO(taskTemplateId, taskTemplateName, null,
+                                null, null, null, null);
+                        sprint.getTasks().add(taskTemplateDTO);
+                    } else {
+                        taskTemplateDTO = sprint.getTasks().get(sprint.getTasks().indexOf(taskTemplateDTO));
+                    }
+
+                    String taskResult = rs.getString(taskResultIndex);
+                    String taskCode = rs.getString(taskCodeIndex);
+                    ua.com.jon.admin.shared.TaskDTO task = new ua.com.jon.admin.shared.TaskDTO(rs.getLong(taskIdIndex),
+                            taskTemplateText, taskTemplateName, null, taskResult, taskCode, null, userName, null, taskTemplateId, null);
+                    taskTemplateDTO.getTasks().add(task);
+//                    sprint.getTasks().add(taskTemplateDTO);
+/*
+                    if (!sprint.getTasks().contains(taskTemplateDTO)) {
+                        sprint.getTasks().add(taskTemplateDTO);
+                    }
+*/
+/*
+                    if (!group.getSprints().contains(sprint)) {
+                        group.getSprints().add(sprint);
+                    }
+*/
+                }
+                return new ArrayList<>(groups.values());
+            }
+        });
     }
 
     private void correctionSprintsForLastAddedStudents(LinkedList<List<String>> sprints) {

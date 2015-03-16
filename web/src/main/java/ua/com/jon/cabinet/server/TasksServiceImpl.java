@@ -401,7 +401,7 @@ public class TasksServiceImpl implements TasksService, ServletContextAware {
     }
 
     @Override
-    public ArrayList<GroupDTO> getUserGroups() {
+    public List<GroupDTO> getUserGroups() {
         String userName = getSpringUserName();
         List<Group> groups = groupRepository.findByUsersIn(userName);
         return GroupDtoMapper.domainToAdminDtos(groups);

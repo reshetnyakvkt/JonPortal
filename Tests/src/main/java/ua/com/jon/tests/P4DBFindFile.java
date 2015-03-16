@@ -35,7 +35,7 @@ public class P4DBFindFile extends BaseTest {
     //    private static final String TEST_NAME = "SequenceSummatorTest";
     private static final String MANAGER_CREATE_METHOD_NAME = "create";
     private static final String MANAGER_FIND_ALL_METHOD_NAME = "findAll";
-    private static final String SERVICE_FIND_METHOD_NAME = "find";
+    private static final String SERVICE_FIND_METHOD_NAME = "findAll";
 
 
     @UnitCode

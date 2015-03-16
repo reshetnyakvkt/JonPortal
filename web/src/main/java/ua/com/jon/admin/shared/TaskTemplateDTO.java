@@ -1,6 +1,8 @@
 package ua.com.jon.admin.shared;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created with IntelliJ IDEA.
@@ -10,7 +12,7 @@ import java.io.Serializable;
  */
 public class TaskTemplateDTO implements Serializable {
 
-    private static final Long SerialVersionUID = 1L;
+    private static final Long serialVersionUID = 1L;
 
     private Long id;
     private String name;
@@ -19,12 +21,17 @@ public class TaskTemplateDTO implements Serializable {
     private String suffix;
     private String testName;
     private String materials;
+    private List<TaskDTO> tasks = new ArrayList<>();
 
     public TaskTemplateDTO() {
     }
 
     public TaskTemplateDTO(String name) {
         this.name = name;
+    }
+
+    public TaskTemplateDTO(Long id) {
+        this.id = id;
     }
 
     public TaskTemplateDTO(String name, String text, String type) {
@@ -97,6 +104,31 @@ public class TaskTemplateDTO implements Serializable {
 
     public void setMaterials(String materials) {
         this.materials = materials;
+    }
+
+    public List<TaskDTO> getTasks() {
+        return tasks;
+    }
+
+    public void setTasks(List<TaskDTO> tasks) {
+        this.tasks = tasks;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        TaskTemplateDTO that = (TaskTemplateDTO) o;
+
+        if (!id.equals(that.id)) return false;
+
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        return id.hashCode();
     }
 
     @Override

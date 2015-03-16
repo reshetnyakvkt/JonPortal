@@ -172,7 +172,7 @@ public class UserTasksTabPanel extends Composite {
     }
 
     private void loadGroups() {
-        final AsyncCallback<ArrayList<GroupDTO>> callback = new AsyncCallback<ArrayList<GroupDTO>>() {
+        final AsyncCallback<List<GroupDTO>> callback = new AsyncCallback<List<GroupDTO>>() {
 
             @Override
             public void onFailure(Throwable caught) {
@@ -188,7 +188,7 @@ public class UserTasksTabPanel extends Composite {
             }
 
             @Override
-            public void onSuccess(ArrayList<GroupDTO> groups) {
+            public void onSuccess(List<GroupDTO> groups) {
                 GroupDTO currentGroup = null;
                 groupsListBox.setAcceptableValues(groups);
 

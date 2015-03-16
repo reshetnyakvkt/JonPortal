@@ -35,9 +35,9 @@
                             <b:Container>
                                 <b:ProgressBar ui:field="sprintsProgress" type="ANIMATED" percent="100"/>
                                 <b:Nav alignment="LEFT">
-                                    <list:SelectableNavList ui:field="sprintNavList" header="Этапы">
+                                    <column2:SelectableNavList ui:field="sprintNavList" header="Этапы">
                                         &lt;!&ndash;<b:NavHeader>Этапы</b:NavHeader>&ndash;&gt;
-                                    </list:SelectableNavList>
+                                    </column2:SelectableNavList>
 
                                     &lt;!&ndash;
                                                                         <b:WellNavList ui:field="sprintNavList">

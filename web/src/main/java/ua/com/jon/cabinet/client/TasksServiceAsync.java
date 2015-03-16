@@ -24,7 +24,7 @@ public interface TasksServiceAsync {
 
     void getSpringUserName(AsyncCallback<String> userCallback);
 
-    void getUserGroups(AsyncCallback<ArrayList<GroupDTO>> callback);
+    void getUserGroups(AsyncCallback<List<GroupDTO>> callback);
 
     void getSprintRate(Long groupId, Long taskTemplateId, String userName, AsyncCallback<Double> async);
 
