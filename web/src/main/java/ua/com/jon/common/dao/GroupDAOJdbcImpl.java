@@ -35,7 +35,8 @@ public class GroupDAOJdbcImpl implements GroupDAO {
             "SELECT u.id uid, u.login, g.id gid, g.name, s.id sid, s.name, t.id, t.code, t.result, tt.id ttid, tt.name, tt.taskText\n" +
                     "FROM USERS u, GROUPS g, TASKS t, TASK_TEMPLATES tt, SPRINTS s\n" +
                     "WHERE t.group_id = g.id AND t.user_id = u.id AND t.template_id = tt.id AND t.sprint_id = s.id\n" +
-                    "AND g.active = 1 AND u.IGNORE_STATISTIC = 0";
+                    "AND g.active = 1 AND u.IGNORE_STATISTIC = 0\n" +
+                    "ORDER BY g.startDate DESC";
 
     private static final String GROUP_INFO_QUERY =
             "SELECT u.login, FLOOR(SUM(result) / count(*))\n" +

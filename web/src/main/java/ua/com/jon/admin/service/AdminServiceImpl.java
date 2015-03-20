@@ -393,7 +393,14 @@ public class AdminServiceImpl implements AdminService {
 
     @Override
     public List<GroupAndSprintsDTO> getGroupsAndSprints() {
-        return groupDAO.findActiveGroupsAndSprints();
+        List<GroupAndSprintsDTO> activeGroupsAndSprints = null;
+        try {
+            activeGroupsAndSprints = groupDAO.findActiveGroupsAndSprints();
+        } catch (Exception e) {
+            log.error(e);
+            throw e;
+        }
+        return activeGroupsAndSprints;
 /*
         ArrayList<GroupAndSprintsDTO> groups = new ArrayList<>();
         GroupAndSprintsDTO group = new GroupAndSprintsDTO(1L, "g1", new ArrayList<>());

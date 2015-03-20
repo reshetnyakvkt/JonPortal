@@ -10,6 +10,7 @@ import com.google.gwt.text.shared.AbstractRenderer;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.uibinder.client.UiHandler;
+import com.google.gwt.user.cellview.client.HasKeyboardSelectionPolicy;
 import com.google.gwt.user.cellview.client.TextColumn;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
@@ -88,11 +89,18 @@ public class TasksOverviewTabPanel extends Composite {
 */
     @UiField
     CodeBlock code;
+
+    @UiField
+    TextArea text;
+
     @UiField
     TextArea result;
 
     @UiField
-    CellTable<TaskDTO> cellTable = new CellTable<TaskDTO>(5, GWT.<CellTable.SelectableResources>create(CellTable.SelectableResources.class));
+    SimplePager pager;
+
+    @UiField(provided = true)
+    CellTable<TaskDTO> cellTable = new CellTable<TaskDTO>(25, GWT.<CellTable.SelectableResources>create(CellTable.SelectableResources.class));
 
     final SingleSelectionModel<TaskDTO> selectionModel = new SingleSelectionModel<TaskDTO>();
 //    @UiField
@@ -163,19 +171,7 @@ public class TasksOverviewTabPanel extends Composite {
                 new SelectionChangeEvent.Handler() {
                     public void onSelectionChange(SelectionChangeEvent event) {
                         TaskDTO selected = selectionModel.getSelectedObject();
-                        if (selected != null) {
-                            //restructureTable(selected.getName());
-                            result.setText(selected.getText());
-                            code.setText(selected.getCode());
-                            //Window.alert("Select: " + selected);
-                            if (selected.getResult() != null && !selected.getResult().isEmpty()) {
-                                code.setText(selected.getCode());
-                            } else {
-                                code.setText(selected.getMaterial());
-                            }
-//                            selectedTaskTemplateId = selected.getTaskTemplateId();
-//                            RootPanel.CABINET_EVENT_BUS.fireEvent(new NotificationEvent());
-                        }
+                        setTaskInfo(selected);
                     }
                 }
         );
@@ -191,10 +187,25 @@ public class TasksOverviewTabPanel extends Composite {
 //        column3.setSize(8);
     }
 
+    private void setTaskInfo(TaskDTO selected) {
+        if (selected != null) {
+            text.setText(selected.getText());
+            code.setText(selected.getCode());
+            if (selected.getResult() != null) {
+                code.setText(selected.getCode());
+                result.setText(selected.getResult());
+            } else {
+                code.setText(selected.getMaterial());
+            }
+        }
+    }
+
     public void buildTable() {
 
         cellTable.setEmptyTableWidget(new Label("Please add data"));
         dataProvider.addDataDisplay(cellTable);
+        cellTable.setKeyboardSelectionPolicy(HasKeyboardSelectionPolicy.KeyboardSelectionPolicy.BOUND_TO_SELECTION);
+        pager.setDisplay(cellTable);
 
 /*        cellTable.addColumn(new TextColumn<TaskDTO>() {
             @Override
@@ -293,7 +304,14 @@ public class TasksOverviewTabPanel extends Composite {
             TaskTemplateDTO templateDTO = sprintDTO.getTasks().get(0);
             tasksListBox.setValue(templateDTO);
 //            loadUsersAndTasks(templateDTO.getId(), sprintDTO.getId());
-            fillCellTable(sprintDTO, templateDTO);
+            fillCellTable(templateDTO);
+            TaskDTO task = null;
+            for (TaskDTO taskDTO : templateDTO.getTasks()) {
+                if (taskDTO.getResult() != null && !taskDTO.getResult().isEmpty()) {
+                    task = taskDTO;
+                }
+            }
+            setTaskInfo(task);
         }
     }
 
@@ -308,11 +326,11 @@ public class TasksOverviewTabPanel extends Composite {
     @UiHandler("tasksListBox")
     public void onChangeTasksPosition(ValueChangeEvent<TaskTemplateDTO> taskTemplate) {
 //        clearSprintTasksList();
-        fillCellTable(sprintsListBox.getValue(), taskTemplate.getValue());
+        fillCellTable(taskTemplate.getValue());
 //        addTemplatesToListBox(sprint.getValue());
     }
 
-    private void fillCellTable(SprintDTO sprint, TaskTemplateDTO taskTemplate) {
+    private void fillCellTable(TaskTemplateDTO taskTemplate) {
         dataProvider.getList().clear();
         for (TaskDTO taskDto : taskTemplate.getTasks()) {
             dataProvider.getList().add(taskDto);
