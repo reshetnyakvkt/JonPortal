@@ -190,6 +190,7 @@ public class TasksOverviewTabPanel extends Composite {
     private void setTaskInfo(TaskDTO selected) {
         if (selected != null) {
             text.setText(selected.getText());
+	        code.setLinenums(true);
             code.setText(selected.getCode());
             if (selected.getResult() != null) {
                 code.setText(selected.getCode());
