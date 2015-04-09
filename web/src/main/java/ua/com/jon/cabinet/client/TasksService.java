@@ -5,6 +5,8 @@ import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
 import ua.com.jon.cabinet.shared.GroupDTO;
 import ua.com.jon.cabinet.shared.SprintDTO;
 import ua.com.jon.cabinet.shared.TaskDTO;
+import ua.com.jon.common.domain.Task;
+import ua.com.jon.common.domain.User;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,11 +18,10 @@ import java.util.List;
  */
 @RemoteServiceRelativePath("/service/tasksService")
 public interface TasksService extends RemoteService {
-    String greet(String name);
     ArrayList<TaskDTO> getUserTasks();
     String dispatchTaskChecking(TaskDTO dto);
     String taskStatusChanged(TaskDTO dto);
-    ArrayList<SprintDTO> getSprints(GroupDTO selectedGroup);
+    ArrayList<SprintDTO> getSprints(Long selectedGroup);
     String postForTest(TaskDTO taskDTO);
     ArrayList<TaskDTO> getTasksByUserGroup(Long taskTemplateId, Long selectedGroupId, Long selectedSprintId);
     double getSprintRate(Long groupId, Long taskTemplateId, String userName);

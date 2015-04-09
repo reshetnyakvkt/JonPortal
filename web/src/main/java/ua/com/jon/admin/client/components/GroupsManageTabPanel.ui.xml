@@ -24,6 +24,7 @@
         <b:FluidRow>
           <b:Column size="12">
             <b:ValueListBox ui:field="groupsListBox" visible="false"/>
+              <b:Label>Group code: </b:Label> <b:TextBox ui:field="groupCode"/>
             <b:ProgressBar ui:field="sprintsProgress" type="ANIMATED" percent="100"/>
             <b:CellTable ui:field='cellTable' title=''
                          bordered="true" condensed="true" striped="true">

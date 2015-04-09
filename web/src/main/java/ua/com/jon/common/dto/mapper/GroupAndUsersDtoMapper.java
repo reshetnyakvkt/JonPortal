@@ -22,6 +22,6 @@ public class GroupAndUsersDtoMapper {
     }
 
     public static GroupAndUsersDTO domainToDto(Group group) {
-        return new GroupAndUsersDTO(group.getId(), group.getName(), UserDtoMapper.domainsToAdminDtos(group.getUsers()));
+        return new GroupAndUsersDTO(group.getId(), group.getName(), UserDtoMapper.domainsToAdminDtos(group.getUsers()), group.getCode());
     }
 }

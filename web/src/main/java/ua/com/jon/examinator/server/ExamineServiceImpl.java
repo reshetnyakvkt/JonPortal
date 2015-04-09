@@ -33,10 +33,7 @@ import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -115,6 +112,10 @@ public class ExamineServiceImpl /*extends RemoteServiceServlet*/ implements Exam
         ArrayList<SprintDTO> sprints = new ArrayList<SprintDTO>();
         for (Sprint sprint : sprintIterable) {
             List<Task> tasks = taskRepository.findBySprintName(sprint.getName());
+            Set<Task> unique = new HashSet<>(tasks);
+            tasks.clear();
+            tasks = new ArrayList<>(unique);
+            unique.clear();
             SprintDTO sprintDTO = SprintDtoMapper.cabinetDtoToExamine(tasks, sprint, true);
             log.info("-== " + sprintDTO.getName() + " ==-");
             sprints.add(sprintDTO);

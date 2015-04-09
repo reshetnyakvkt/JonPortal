@@ -34,9 +34,7 @@ import ua.com.jon.common.repository.UserRepository;
 
 import javax.annotation.Resource;
 import javax.servlet.ServletContext;
-import java.net.URL;
 import java.util.*;
-import java.util.function.Predicate;
 
 /**
  * Created with IntelliJ IDEA.
@@ -76,11 +74,6 @@ public class TasksServiceImpl implements TasksService, ServletContextAware {
     @Autowired
     private GroupDAO groupDAO;
 
-    @Override
-    public String greet(String name) {
-        log.info(name);
-        return "great";
-    }
 
     @Override
     public ArrayList<TaskDTO> getUserTasks() {
@@ -119,7 +112,12 @@ public class TasksServiceImpl implements TasksService, ServletContextAware {
         Status newStatus = Status.valueOf(dto.getStatus());
         task.setStatus(newStatus);
         task.setResult("");
-        taskRepository.save(task);
+        try {
+            taskRepository.save(task);
+            log.info("taskStatusChanged " + task.getStatus().name());
+        } catch (Exception e) {
+            log.error("", e);
+        }
 
         log.info("taskStatusChanged " + task.getStatus().name());
 
@@ -127,16 +125,18 @@ public class TasksServiceImpl implements TasksService, ServletContextAware {
     }
 
     @Override
-    public ArrayList<SprintDTO> getSprints(GroupDTO selectedGroup) {
+    public ArrayList<SprintDTO> getSprints(Long groupId) {
         log.info("--- getSprints() ---");
         String userName = getSpringUserName();
-        if (selectedGroup == null) {
+        if (groupId == null) {
             return new ArrayList<SprintDTO>();
         }
 //        Iterable<Sprint> sprintIterable = sprintRepository.findByUserAndGroup(userName, selectedGroup.getId());
         ArrayList<SprintDTO> sprints = new ArrayList<SprintDTO>();
         User user = userRepository.findByUserName(userName);
-        List<Task> userGroupTasks = taskRepository.findByUserAndGroup(user.getId(), selectedGroup.getId());
+
+        List<Task> userGroupTasks = taskRepository.findByUserAndGroup(user.getId(), groupId);
+
         Set<Sprint> sprs = new HashSet<>();
         for (Task task : userGroupTasks) {
             sprs.add(task.getSprint());
@@ -403,7 +403,7 @@ public class TasksServiceImpl implements TasksService, ServletContextAware {
     @Override
     public List<GroupDTO> getUserGroups() {
         String userName = getSpringUserName();
-        List<Group> groups = groupRepository.findByUsersIn(userName);
+        List<Group> groups = groupRepository.findByUsersInOrderByStartDateDesc(userName);
         return GroupDtoMapper.domainToAdminDtos(groups);
     }
 

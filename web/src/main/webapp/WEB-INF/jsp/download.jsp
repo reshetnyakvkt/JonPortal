@@ -26,7 +26,7 @@
                 <ul class="nav nav-pills nav-stacked">
                     <li>
                         <a href="#">
-                            <iframe class="well" id="ftpIframe" width="90%" height="500px" src="${ftpAddress}"></iframe>
+                            <iframe class="well" id="ftpIframe" width="90%" height="500px" src="ftp://193.169.189.240"></iframe>
                         </a>
                     </li>
                 </ul>

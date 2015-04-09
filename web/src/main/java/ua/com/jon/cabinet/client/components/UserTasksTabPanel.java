@@ -363,7 +363,7 @@ public class UserTasksTabPanel extends Composite {
             }
         };
 
-        tasksService.getSprints(selectedGroup, callback);
+        tasksService.getSprints(selectedGroup.getId(), callback);
     }
 
     private void addTasksToTable(List<TaskDTO> tasks, boolean isSelectLast) {

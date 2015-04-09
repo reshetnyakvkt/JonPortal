@@ -15,10 +15,9 @@ import java.util.List;
  */
 
 public interface TasksServiceAsync {
-    void greet(String name, AsyncCallback<String> callback);
     void getUserTasks(AsyncCallback<ArrayList<TaskDTO>> async);
     void taskStatusChanged(TaskDTO dto, AsyncCallback<String> async);
-    void getSprints(GroupDTO selectedGroup, AsyncCallback<ArrayList<SprintDTO>> callback);
+    void getSprints(Long selectedGroup, AsyncCallback<ArrayList<SprintDTO>> callback);
     void postForTest(TaskDTO taskDTO, AsyncCallback<String> callback);
     void getCourseRate(Long taskTemplateId, String userName, AsyncCallback<Double> async);
 

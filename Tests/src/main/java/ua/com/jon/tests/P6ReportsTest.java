@@ -345,7 +345,7 @@ public class P6ReportsTest extends BaseTest {
                 new MethodModifier[]{MethodModifier.PUBLIC}, "Vendor");
         ReflectionUtil.checkMethod(service, FROM_STORE_SERVICE_METHOD_NAME, "List",
                 new MethodModifier[]{MethodModifier.PUBLIC});
-        ReflectionUtil.checkMethod(service, STORE_PRESENT_SERVICE_METHOD_NAME, "List",
+        ReflectionUtil.checkMethod(service, STORE_PRESENT_SERVICE_METHOD_NAME, "Map",
                 new MethodModifier[]{MethodModifier.PUBLIC});
         ReflectionUtil.checkMethod(service, SALES_BY_DAYS_SERVICE_METHOD_NAME, "Map",
                 new MethodModifier[]{MethodModifier.PUBLIC});

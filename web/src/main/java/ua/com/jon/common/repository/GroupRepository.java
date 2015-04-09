@@ -40,5 +40,9 @@ public interface GroupRepository extends CrudRepository<Group, Long> {
             "(select g1 FROM Group g1 JOIN g1.users us1 WHERE g1.id = g.id AND us.login = ?1)")
     List<Group> findByUsersIn(String login);
 
+    @Query("select g from Group g JOIN FETCH g.users us WHERE EXISTS " +
+            "(select g1 FROM Group g1 JOIN g1.users us1 WHERE g1.id = g.id AND us.login = ?1) order by g.startDate desc")
+    List<Group> findByUsersInOrderByStartDateDesc(String login);
+
     List<Group> findByActiveTrueOrderByStartDateDesc();
 }

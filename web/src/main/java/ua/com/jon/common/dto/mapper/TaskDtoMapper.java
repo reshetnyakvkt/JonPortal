@@ -28,7 +28,7 @@ public class TaskDtoMapper {
             taskText = taskTemplate.getTaskText();
             taskName = taskTemplate.getName();
             taskType = taskTemplate.getType();
-            className = taskTemplate.getSuffix();
+            className = taskTemplate.getClassName();
             templateId = taskTemplate.getId();
             materials = taskTemplate.getMaterials();
             groupId = task.getGroup().getId();

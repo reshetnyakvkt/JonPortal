@@ -1,13 +1,6 @@
 package ua.com.jon.admin.client.components;
 
-import com.github.gwtbootstrap.client.ui.Button;
-import com.github.gwtbootstrap.client.ui.ButtonCell;
-import com.github.gwtbootstrap.client.ui.CellTable;
-import com.github.gwtbootstrap.client.ui.Label;
-import com.github.gwtbootstrap.client.ui.Modal;
-import com.github.gwtbootstrap.client.ui.ProgressBar;
-import com.github.gwtbootstrap.client.ui.TextArea;
-import com.github.gwtbootstrap.client.ui.ValueListBox;
+import com.github.gwtbootstrap.client.ui.*;
 import com.github.gwtbootstrap.client.ui.constants.ButtonType;
 import com.github.gwtbootstrap.client.ui.constants.IconType;
 import com.google.gwt.cell.client.FieldUpdater;
@@ -82,6 +75,9 @@ public class GroupsManageTabPanel extends Composite {
 
     @UiField
     Modal addUserModal = new Modal();
+
+    @UiField
+    TextBox groupCode;
 
     private GroupAndUsersDTO currentGroup;
     private ArrayList<GroupAndUsersDTO> loadedGroups = new ArrayList<GroupAndUsersDTO>();
@@ -418,6 +414,7 @@ public class GroupsManageTabPanel extends Composite {
 //                Window.alert("CabinetMain from table: " + Arrays.toString(currentTasks.toArray()));
             }
             currentGroup = group;
+            groupCode.setText(group.getCode());
             buildTable();
             loadGroups();
             addSprintsToTable(group.getUsers());

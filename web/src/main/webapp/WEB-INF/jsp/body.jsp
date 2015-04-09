@@ -10,10 +10,13 @@
 
     window.onload = function () {
         function wait(millis) {
-            window.setTimeout(empty, millis)
+            window.setTimeout(run, millis)
         }
 
-        function empty() {
+        function run() {
+            var logo1 = document.getElementById("1");
+            logo1.style.display = 'block';
+            move(-800, 0, 0.2, 0.1, logo1);
         }
 
         function move(left, top, leftInc, topInc, logo) {
@@ -23,7 +26,6 @@
             var iniLeftInc = leftInc;
 
             function frame() {
-
                 left += leftInc;
                 top = top + topInc;
                 logo.style.left = Math.round(left) + 'px';
@@ -34,7 +36,7 @@
                     top = iniTop;
                     leftInc = iniLeftInc;
                     topInc = iniTopInc;
-//                    clearInterval(timer); // завершить анимацию
+                    clearInterval(timer); // завершить анимацию
                 }
             }
 
@@ -42,8 +44,6 @@
 
         }
 
-        var logo1 = document.getElementById("1");
-        logo1.style.display = 'block';
-        move(-800, 0, 0.2, 0.1, logo1);
+        wait(Math.random() * 500000 + 20000);
    }
 </script>

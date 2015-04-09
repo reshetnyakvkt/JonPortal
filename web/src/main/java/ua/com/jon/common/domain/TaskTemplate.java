@@ -44,7 +44,11 @@ public class TaskTemplate {
     @Enumerated(EnumType.STRING)
     private TaskType type;
 
+    @Column(length = 50)
     private String testName;
+
+    @Column(length = 50, columnDefinition = "default ''")
+    private String className;
 
     public TaskTemplate() {
     }
@@ -54,7 +58,8 @@ public class TaskTemplate {
         this.taskText = taskText;
     }
 
-    public TaskTemplate(Long id, String taskText, String name, TaskType type, String moduleSuffix, String materials, String testName) {
+    public TaskTemplate(Long id, String taskText, String name, TaskType type, String moduleSuffix, String materials,
+                        String testName, String className) {
         this.id = id;
         this.taskText = taskText;
         this.name = name;
@@ -62,6 +67,7 @@ public class TaskTemplate {
         this.suffix = moduleSuffix;
         this.materials = materials;
         this.testName = testName;
+        this.className = className;
     }
 
     public String getName() {
@@ -120,6 +126,14 @@ public class TaskTemplate {
         this.testName = testName;
     }
 
+    public String getClassName() {
+        return className;
+    }
+
+    public void setClassName(String className) {
+        this.className = className;
+    }
+
     @Override
     public String toString() {
         return "TaskTemplate{" +
@@ -131,6 +145,7 @@ public class TaskTemplate {
                 ", tasks=" + tasks +
                 ", type=" + (type==null?"":type.name()) +
                 ", testName='" + testName + '\'' +
+                ", className='" + className + '\'' +
                 '}';
     }
 }

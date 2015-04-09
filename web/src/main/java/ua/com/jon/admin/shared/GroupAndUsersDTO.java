@@ -15,16 +15,18 @@ public class GroupAndUsersDTO implements Serializable {
     private Long id;
     private String name;
     private HashSet<UserDTO> users;
+    private String code;
 
     public GroupAndUsersDTO() {
         this.name = "";
         users = new HashSet<UserDTO>();
     }
 
-    public GroupAndUsersDTO(Long id, String name, HashSet<UserDTO> users) {
+    public GroupAndUsersDTO(Long id, String name, HashSet<UserDTO> users, String code) {
         this.id = id;
         this.name = name;
         this.users = users;
+        this.code = code;
     }
 
     public String getName() {
@@ -51,12 +53,21 @@ public class GroupAndUsersDTO implements Serializable {
         this.id = id;
     }
 
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
+    }
+
     @Override
     public String toString() {
         return "GroupAndUsersDTO{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", users=" + users +
+                ", code=" + code +
                 '}';
     }
 }

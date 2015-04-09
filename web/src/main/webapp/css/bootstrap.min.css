@@ -37,6 +37,14 @@ a:hover, a:active {
     outline: 0
 }
 
+a.icon {
+    color: #49afcd
+}
+
+a:-webkit-any-link {
+    color: #49afcd
+}
+
 sub, sup {
     position: relative;
     font-size: 75%;
