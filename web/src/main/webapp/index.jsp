@@ -8,7 +8,7 @@
         //-->
     </script>
     <noscript>
-        <meta http-equiv="refresh" content="0; url=index.html"> <!-- для тех нескольких процентов «сёрферов», которые отключили JavaScript -->
+        <meta http-equiv="refresh" content="0; url=index.html">
     </noscript>
 </head>
 <body>

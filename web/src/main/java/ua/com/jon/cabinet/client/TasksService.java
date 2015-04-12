@@ -23,6 +23,7 @@ public interface TasksService extends RemoteService {
     String taskStatusChanged(TaskDTO dto);
     ArrayList<SprintDTO> getSprints(Long selectedGroup);
     String postForTest(TaskDTO taskDTO);
+    String postForTest(TaskDTO taskDTO, boolean isSaveNeed);
     ArrayList<TaskDTO> getTasksByUserGroup(Long taskTemplateId, Long selectedGroupId, Long selectedSprintId);
     double getSprintRate(Long groupId, Long taskTemplateId, String userName);
     double getCourseRate(Long taskTemplateId, String userName);

@@ -159,6 +159,11 @@ public class TasksServiceImpl implements TasksService, ServletContextAware {
 
     @Override
     public String postForTest(TaskDTO taskDTO) {
+        return postForTest(taskDTO, true);
+    }
+
+    @Override
+    public String postForTest(TaskDTO taskDTO, boolean isSaveNeed) {
         log.info("-- Post for test [" + taskDTO.getName() + "] for user - " + getSpringUserName());
         Map.Entry<String, String> resultEntry;
         try {
@@ -175,13 +180,16 @@ public class TasksServiceImpl implements TasksService, ServletContextAware {
         }
         String testResult = resultEntry.getKey() + '\n' + resultEntry.getValue();
         log.info("Cabinet test result is " + testResult);
-        Task task = taskRepository.findOne(taskDTO.getId());
-        task.setCode(taskDTO.getCode());
+        if (isSaveNeed) {
+            Task task = taskRepository.findOne(taskDTO.getId());
+            task.setCode(taskDTO.getCode());
 /*        if(testResult.length() > 750) {
             testResult = testResult.substring(0, 740);
         }*/
-        task.setResult(testResult);
-        taskRepository.save(task);
+            task.setResult(testResult);
+
+            taskRepository.save(task);
+        }
         return testResult;
     }
 
@@ -292,7 +300,7 @@ public class TasksServiceImpl implements TasksService, ServletContextAware {
                 sum += sprint.getValue();
             }*/
             double globalRate = getCourseRate(selectedGroupId, userName);//String.valueOf(sum / sprints.getValue().size());
-            userSprints.add(String.valueOf((int)globalRate));
+            userSprints.add(String.valueOf((int) globalRate));
 
             sprintsCountCorrection(templateSprints, sprints, userSprints);
             resultInfo.add(userSprints);

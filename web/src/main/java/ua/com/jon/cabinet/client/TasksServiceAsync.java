@@ -36,5 +36,7 @@ public interface TasksServiceAsync {
     void refreshTasks(List<Long> ids, AsyncCallback<List<TaskDTO>> async);
 
     void getGroupInfo(Long selectedGroupId, AsyncCallback<List<List<String>>> async) throws Exception;
+
+    void postForTest(TaskDTO taskDTO, boolean isSaveNeed, AsyncCallback<String> async);
 }
 
