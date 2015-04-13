@@ -60,7 +60,7 @@ public class IDERestController {
         ua.com.jon.cabinet.shared.TaskDTO taskDTO = new ua.com.jon.cabinet.shared.TaskDTO(Long.parseLong(id), "", "",
                 "", "", taskCode, "", "", "", Long.parseLong(templateId), "", 0L, 0d);
         String result;
-        if (!userName.isEmpty() && userName.equals("unonym")) {
+        if (!userName.isEmpty() && userName.equals("anonym")) {
             result = taskService.postForTest(taskDTO, false);
         } else {
             result = taskService.postForTest(taskDTO);
