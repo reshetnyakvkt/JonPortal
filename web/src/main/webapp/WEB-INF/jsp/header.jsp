@@ -13,16 +13,4 @@
         </ul>
     </div>
 
-    <script type="text/javascript">
-        $(document).ready(function() {
-
-            <%-- управление анимацией меню --%>
-            <%--'это не ошибка. Просто смешение jQuery и JSTL синтаксиса--%>
-            $('#<c:out value="${item}"/>').addClass("active").css('position','relative').css('top',-100).animate({top: 0},300);
-
-            <%-- управление анимацией основного контента --%>
-            $('#header').siblings('div').css('opacity',0).animate({opacity:1},600);
-        })
-    </script>
-
 </header>

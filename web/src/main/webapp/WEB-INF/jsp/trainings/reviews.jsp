@@ -15,7 +15,6 @@
 <div id="container" class="container-fluid">
     <%@include file="../header.jsp" %>
 
-
     <div class="well">
 
         <!-- tabs -->

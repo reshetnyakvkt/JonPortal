@@ -3,10 +3,18 @@
 <%--<div id="2" class="logo"></div>--%>
 
 <div class="back">
-    <div id="1" class="logo"></div>
+    <div id="battlestar" class="logo"></div>
 </div>
 
 <script>
+    $(document).ready(function() {
+
+        <%-- управление анимацией меню --%>
+        <%--'это не ошибка. Просто смешение jQuery и JSTL синтаксиса--%>
+        $('#<c:out value="${item}"/>').addClass("active").css('position','relative').css('top',-100).animate({top: 0},300);
+
+        $('#header').siblings('div').css('opacity',0).animate({opacity:1},600);
+    });
 
     window.onload = function () {
         function wait(millis) {
@@ -14,9 +22,9 @@
         }
 
         function run() {
-            var logo1 = document.getElementById("1");
-            logo1.style.display = 'block';
-            move(-800, 0, 0.2, 0.1, logo1);
+            var battlestar = document.getElementById("battlestar");
+            battlestar.style.display = 'block';
+            move(-800, 0, 0.2, 0.1, battlestar);
         }
 
         function move(left, top, leftInc, topInc, logo) {
@@ -36,12 +44,11 @@
                     top = iniTop;
                     leftInc = iniLeftInc;
                     topInc = iniTopInc;
-                    clearInterval(timer); // завершить анимацию
+                    clearInterval(timer);
                 }
             }
 
             var timer = setInterval(frame, 20);
-
         }
 
         wait(Math.random() * 500000 + 20000);

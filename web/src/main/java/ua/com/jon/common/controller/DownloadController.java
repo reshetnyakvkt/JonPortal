@@ -3,17 +3,21 @@ package ua.com.jon.common.controller;
 import org.apache.commons.io.IOUtils;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.client.RestTemplate;
+import ua.com.jon.common.service.FtpService;
 import ua.com.jon.utils.NetUtil;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.*;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Created with IntelliJ IDEA.
@@ -28,6 +32,8 @@ public class DownloadController {
     private String filesBaseUrl;
 
     private Map<String, String> files;
+
+    private FtpService ftpService = new FtpService();
 
     public DownloadController() {
         files = new HashMap<String, String>();
@@ -51,7 +57,24 @@ public class DownloadController {
     public String mainPage(ModelMap modelMap) {
         log.info("download page");
         modelMap.put("item", "item5");
-        modelMap.put("ftpAddress", "ftp://" + NetUtil.distinguishLocationAndGetIP());
+        String ip = NetUtil.distinguishLocationAndGetIP();
+        modelMap.put("ftpAddress", "ftp://" + ip);
+
+        Map<String, String> urls;
+        try {
+            urls = ftpService.getContent(ip);
+        } catch (IOException e) {
+            log.error(e);
+            urls = new HashMap<>();
+        }
+        List<Map.Entry<String, String>> entries = new ArrayList<>(urls.entrySet());
+        Collections.sort(entries, new Comparator<Map.Entry<String, String>>() {
+            @Override
+            public int compare(Map.Entry<String, String> o1, Map.Entry<String, String> o2) {
+                return o1.getKey().compareTo(o2.getKey());
+            }
+        });
+        modelMap.addAttribute("urls", entries);
         return "download";
     }
 

@@ -1,10 +1,8 @@
 package ua.com.jon.tests;
 
-import com.jon.tron.service.junit.Unit;
-import com.jon.tron.service.junit.UnitClass;
-import com.jon.tron.service.junit.UnitCode;
-import com.jon.tron.service.junit.UnitName;
+import com.jon.tron.service.junit.*;
 import com.jon.tron.service.processor.CodeValidator;
+import com.jon.tron.service.processor.StyleChecker;
 import com.jon.tron.service.reflect.MethodModifier;
 import com.jon.tron.service.reflect.ReflectionUtil;
 import org.junit.After;
@@ -56,6 +54,8 @@ public class B3InsertSortTest extends BaseTest {
     private static String unitJarClasspath;
     private static Object instance;
     private static Method unitMethod;
+    @Troubles
+    private static List<String> troubles;
 
     @Before
     public void setUp() {
@@ -71,6 +71,7 @@ public class B3InsertSortTest extends BaseTest {
     public void test() throws Throwable {
         assertTrue("В задании должен быть только один класс", unitClasses.length == 1);
         CodeValidator.checkCode(codes.entrySet().iterator().next().getValue());
+        StyleChecker.checkStyle(codes, troubles);
         instance = instanciate(unitClasses[0]);
         unitMethod = ReflectionUtil.checkMethod(unitClasses[0], SORT_METHOD_NAME, void.class,
                 new MethodModifier[]{MethodModifier.PUBLIC}, int[].class);

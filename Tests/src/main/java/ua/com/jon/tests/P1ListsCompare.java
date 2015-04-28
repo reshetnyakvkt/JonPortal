@@ -54,7 +54,7 @@ public class P1ListsCompare extends BaseTest {
 
     @Test(timeout = 1000)
     public void testCheckUnitPresent() throws Throwable {
-        assertTrue("В задании должно быть не более 3х классов", unitClasses.length <= 3);
+        assertTrue("В задании должно быть не более 3х классов, а не " + unitClasses.length, unitClasses.length <= 3);
 
         Class unitClass = getUnitClass(unitClasses, UNIT_NAME);
         assertNotNull("В задании не найден класс " + UNIT_NAME, unitClass);

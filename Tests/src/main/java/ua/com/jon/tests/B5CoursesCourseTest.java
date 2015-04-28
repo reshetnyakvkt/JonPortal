@@ -114,7 +114,7 @@ public class B5CoursesCourseTest extends BaseTest {
 
     @Test(timeout = 1100)
     public void test() throws Throwable {
-        assertTrue("В задании должно быть не более 8и классов", unitClasses.length <= 8);
+        assertTrue("В задании должно быть не более 8и классов, а не " + unitClasses.length, unitClasses.length <= 8);
         CodeValidator.checkCode(codes.entrySet().iterator().next().getValue());
 
         Class unitClass = getUnitClass(unitClasses, COURSES_NAME);

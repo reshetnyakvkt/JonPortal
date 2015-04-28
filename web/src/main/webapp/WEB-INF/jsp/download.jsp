@@ -18,25 +18,27 @@
 
 
     <div class="well">
-
-
-        <ul class="well nav nav-pills nav-stacked">
-            <li class="slideable">
-                <a href="#"><button class="btn btn-link" type="button">Скачать с ftp сервера</button></a>
-                <ul class="nav nav-pills nav-stacked">
-                    <li>
-                        <a href="#">
-                            <iframe class="well" id="ftpIframe" width="90%" height="500px" src="ftp://193.169.189.240"></iframe>
-                        </a>
-                    </li>
-                </ul>
-            </li>
-        </ul>
-
-
         <div class="bar-info">
             Перечень вариантов скачивания:
         </div>
+        <%--<a class="icon file" draggable="true" href="ftp://193.169.189.240/Git-1.9.4-preview20140815.exe">Git-1.9.4-preview20140815.exe</a>--%>
+<%--        <ul class="well nav nav-pills nav-stacked">
+            <li class="slideable">--%>
+
+                <ul class="well nav nav-pills nav-stacked">
+                    <c:forEach var="url" items="${urls}">
+                        <li>
+                            <a href="${url.value}">${url.key}</a>
+                        </li>
+                    </c:forEach>
+                </ul>
+<%--            </li>
+        </ul>--%>
+
+
+<%--        <div class="bar-info">
+            Перечень вариантов скачивания:
+        </div>--%>
 
         <ul class="well nav nav-pills nav-stacked">
 <%--

@@ -1,10 +1,8 @@
 package ua.com.jon.tests;
 
-import com.jon.tron.service.junit.Unit;
-import com.jon.tron.service.junit.UnitClass;
-import com.jon.tron.service.junit.UnitCode;
-import com.jon.tron.service.junit.UnitName;
+import com.jon.tron.service.junit.*;
 import com.jon.tron.service.processor.CodeValidator;
+import com.jon.tron.service.processor.StyleChecker;
 import com.jon.tron.service.reflect.MethodModifier;
 import com.jon.tron.service.reflect.ReflectionUtil;
 import org.junit.After;
@@ -64,6 +62,8 @@ public class B3PlaneTest extends BaseTest {
     private static Object plane;
     private static Object wing;
     private static Method addMethod;
+    @Troubles
+    private static List<String> troubles;
 
     @Before
     public void setUp() {
@@ -77,11 +77,12 @@ public class B3PlaneTest extends BaseTest {
 
     @Test(timeout = 1100)
     public void test() throws Throwable {
-        assertTrue("В задании должно быть не более 2х классов", unitClasses.length <= 2);
+        assertTrue("В задании должно быть не более 2х классов, а не " + unitClasses.length, unitClasses.length <= 2);
 
         Class planeClass = getUnitClass(unitClasses, PLANE_NAME);
         assertNotNull("В задании не найден класс " + PLANE_NAME, planeClass);
         CodeValidator.checkCode(codes.get(planeClass.getName()));
+        StyleChecker.checkStyle(codes, troubles);
         Class wingClass = getUnitClass(unitClasses, WING_NAME);
         assertNotNull("В задании не найден класс " + WING_NAME, wingClass);
 

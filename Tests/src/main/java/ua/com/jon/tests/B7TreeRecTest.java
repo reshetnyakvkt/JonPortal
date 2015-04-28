@@ -66,7 +66,7 @@ public class B7TreeRecTest extends BaseTest {
 
     @Test(timeout = 1100)
     public void test() throws Throwable {
-        assertTrue("В задании должно быть более 2х классов", unitClasses.length <= 2);
+        assertTrue("В задании должно быть более 2х классов, а не " + unitClasses.length, unitClasses.length <= 2);
 
         Class unitClass = getUnitClass(unitClasses, UNIT_NAME);
         assertNotNull("В задании не найден класс " + UNIT_NAME, unitClass);

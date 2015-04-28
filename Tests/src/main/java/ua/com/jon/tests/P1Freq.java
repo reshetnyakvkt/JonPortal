@@ -55,7 +55,7 @@ public class P1Freq extends BaseTest {
 
     @Test(timeout = 1000)
     public void testCheckUnitPresent() throws Throwable {
-        assertTrue("В задании должно быть 2 класса", unitClasses.length == 2);
+        assertTrue("В задании должно быть 2 класса, а не " + unitClasses.length, unitClasses.length == 2);
         CodeValidator.checkCodeFile(codes.entrySet().iterator().next().getValue());
         StyleChecker.checkStyle(codes, troubles);
 

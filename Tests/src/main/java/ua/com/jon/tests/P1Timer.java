@@ -54,7 +54,7 @@ public class P1Timer extends BaseTest {
 
     @Test(timeout = 1000)
     public void testCheckUnitPresent() throws Throwable {
-        assertTrue("В задании должно быть не более 2х классов", unitClasses.length <= 2);
+        assertTrue("В задании должно быть не более 2х классов, а не " + unitClasses.length, unitClasses.length <= 2);
         CodeValidator.checkCode(codes.entrySet().iterator().next().getValue());
         StyleChecker.checkStyle(codes, troubles);
 

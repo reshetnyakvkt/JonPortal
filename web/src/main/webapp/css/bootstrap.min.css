@@ -2684,7 +2684,11 @@ table td[class*="span"], table th[class*="span"], .row-fluid table td[class*="sp
     -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.05);
     -moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.05);
     box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.05);
-    opacity: 0.8 !important;
+    opacity: 0.9 !important;
+}
+
+iframe a {
+    color: #49afcd !important;
 }
 
 .well blockquote {

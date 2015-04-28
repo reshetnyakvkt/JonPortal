@@ -74,7 +74,7 @@ public class P1Parking extends BaseTest {
 
     @Test(timeout = 1000)
     public void testCheckUnitPresent() throws Throwable {
-        assertTrue("В задании должно быть не более 4х классов", unitClasses.length <= 4);
+        assertTrue("В задании должно быть не более 4х классов, а не " + unitClasses.length, unitClasses.length <= 4);
 
         Class unitClass = getUnitClass(unitClasses, UNIT_NAME);
         assertNotNull("В задании не найден класс " + UNIT_NAME, unitClass);
