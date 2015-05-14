@@ -82,12 +82,12 @@ body {
     box-shadow: 1px 1px 1px #6f6f6f;
 }
 
-a,a:active,a:visited,a:before, a:-webkit-any-link {
+/*a,a:active,a:visited,a:before, a:-webkit-any-link {
     text-decoration: none;
     color: #49afcd;
-    /*display: block;*/
+    /!*display: block;*!/
     text-shadow: 0 1px 20px rgba(255, 255, 255, 0.75);
-}
+}*/
 
 .barTabs {
     font-family: monospace;

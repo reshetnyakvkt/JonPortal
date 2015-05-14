@@ -45,13 +45,7 @@
                             <option value="${group.id}">${group.name}</option>
                         </div>
                     </c:forEach>
-<%--
-                    <option value="one">One</option>
-                    <option value="two">Two</option>
-                    <option value="three">Three</option>
-                    <option value="four">Four</option>
-                    <option value="five">Five</option>
---%>
+
                 </select>
                 <input type="text" id="code" class="span12" name="code" placeholder="Код группы"/>
                 <button type="submit" name="submit" class="btn btn-info btn-block">
