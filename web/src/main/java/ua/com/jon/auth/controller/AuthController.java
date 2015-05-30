@@ -116,6 +116,9 @@ public class AuthController {
         if (!login.matches("^[a-zA-Z]{1,30}_[a-zA-Z]{1,30}$")) {
             return gotoRegisterWithError(model, "Логин должен быть в формате \"имя_фамилия\", латинскими буквами");
         }
+        if (!password.matches("^[a-zA-Z0-9]$")) {
+            return gotoRegisterWithError(model, "Пароль может содержать только буквы и цифры");
+        }
         Long groupId;
         try {
             groupId = Long.parseLong(groupIdStr);

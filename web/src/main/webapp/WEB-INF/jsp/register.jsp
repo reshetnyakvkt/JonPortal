@@ -36,7 +36,9 @@
                 Формат логина: imya_familiya
                 <input type="text" id="username" class="span12" name="j_username" placeholder="Логин"/>
                 <br/>
+                Пароль: буквы и цифры
                 <input type="password" id="password" class="span12" name="j_password" placeholder="Пароль"/>
+
                 <select name="group" class="form-control span12">
 
                     <c:forEach var="group" items="${groups}">

@@ -66,7 +66,7 @@ public class P1ListsCompare extends BaseTest {
 //                new MethodModifier[]{MethodModifier.PUBLIC}, hw2.hash.User.class);
     }
 
-    @Test(timeout = 1000)
+    //@Test(timeout = 1000)
     public void testCheckTestPresent() throws Throwable {
         Class unitClass;
         if(unitClasses.length != 1) {

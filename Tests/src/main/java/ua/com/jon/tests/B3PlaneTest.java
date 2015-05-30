@@ -83,6 +83,7 @@ public class B3PlaneTest extends BaseTest {
         assertNotNull("В задании не найден класс " + PLANE_NAME, planeClass);
         CodeValidator.checkCode(codes.get(planeClass.getName()));
         StyleChecker.checkStyle(codes, troubles);
+
         Class wingClass = getUnitClass(unitClasses, WING_NAME);
         assertNotNull("В задании не найден класс " + WING_NAME, wingClass);
 

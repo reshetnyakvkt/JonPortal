@@ -26,75 +26,36 @@
 <div id="container" class="container-fluid">
   <%@include file="header.jsp" %>
 
-  <div class="row">
-    <div class="col-md-9 col-md-push-3">.col-md-9 .col-md-push-3</div>
-    <div class="col-md-3 col-md-pull-9">.col-md-3 .col-md-pull-9</div>
-  </div>
   <div class="well">
-    <div class="bar-info">
-      Возможности удаленной работы:
-    </div>
-    <%--<div class="col-md-4 col-md-offset-4">.col-md-4 .col-md-offset-4</div>--%>
-    <div class="row">
-      <div class="col-md-4">.col-md-4</div>
-      <button class="col-md-4 col-md-offset-4 btn btn-danger">A button element</button>
+    <div id="tittleText" class="alert alert-info lead text-info text-center">
+
+      Тренажёр разработчика
     </div>
     <ul class="well nav nav-pills nav-stacked">
       <li>
-        <a href="#">Задания</a>
+        <a class="text-center" href="#">
+
+          Простачок</a>
       </li>
     </ul>
-    <div class="bar-info">
-      Задания для домашней работы:
+
+    <%--<div class="col-md-4 col-md-offset-4">.col-md-4 .col-md-offset-4</div>--%>
+    <div class="row">
+      <%--<div class="">.col-md-6 .col-md-offset-3</div>--%>
+      <button class="col-md-4 col-md-offset-4 btn btn-danger">A button element</button>
+      <%--<div class="col-md-4"></div>--%>
+    </div>
+    <div class="row">
+        <button class="col-md-2 col-md-offset-1 btn btn-info">button</button>
+        <button class="col-md-2 btn btn-info">button</button>
+
+        <div class="clearfix visible-xs-block"></div>
+
+        <button class="col-md-2 btn btn-info">button</button>
+        <button class="col-md-2 btn btn-info">button</button>
+        <button class="col-md-2 btn btn-info">button</button>
     </div>
 
-    <ul class="well nav nav-pills nav-stacked">
-      <li class="slideable">
-        <a htef="#">TaskGroup1</a>
-        <ul class="well nav nav-pills nav-stacked">
-          <li>
-            <a href="/codeValidator/index">Java Code Validator</a>
-          </li>
-          <li>
-            <a href="ftp://com.jon.com.ua">Скачать</a>
-          </li>
-        </ul>
-      </li>
-      <li class="slideable">
-        <a htef="#">TaskGroup2</a>
-        <ul class="well nav nav-pills nav-stacked">
-          <li>
-            <a href="#">SubStub 1</a>
-          </li>
-          <li>
-            <a href="#">SubStub 2</a>
-          </li>
-          <li>
-            <a href="#">SubStub 3</a>
-          </li>
-          <li>
-            <a href="#">SubStub 4</a>
-          </li>
-        </ul>
-      </li>
-      <li class="slideable">
-        <a htef="#">TaskGroup3</a>
-        <ul class="well nav nav-pills nav-stacked">
-          <li>
-            <a href="#">SubStub 1</a>
-          </li>
-          <li>
-            <a href="#">SubStub 2</a>
-          </li>
-          <li>
-            <a href="#">SubStub 3</a>
-          </li>
-          <li>
-            <a href="#">SubStub 4</a>
-          </li>
-        </ul>
-      </li>
-    </ul>
 
   </div>
 

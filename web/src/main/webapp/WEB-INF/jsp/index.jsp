@@ -26,8 +26,7 @@
                 <input type="text" id="username" class="span12" name="j_username" placeholder="Логин"/>
                 <br/>
                 <input type="password" id="password" class="span12" name="j_password" placeholder="Пароль"/>
-                <label class="checkbox">
-                    Запомнить меня
+                <label class="checkbox">Запомнить меня
 
                 <input type="checkbox" name="_spring_security_remember_me" /></label>
 
