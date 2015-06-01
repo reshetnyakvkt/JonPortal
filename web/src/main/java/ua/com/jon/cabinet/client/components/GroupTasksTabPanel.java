@@ -36,7 +36,7 @@ public class GroupTasksTabPanel extends Composite {
     @UiField
     ProgressBar sprintsProgress;
 
-    @UiField
+    @UiField(provided = true)
     CellTable<TaskDTO> cellTable = new CellTable<TaskDTO>(5, GWT.<CellTable.SelectableResources>create(CellTable.SelectableResources.class));
 
     //@UiField

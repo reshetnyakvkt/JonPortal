@@ -1,10 +1,8 @@
 package ua.com.jon.tests;
 
-import com.jon.tron.service.junit.Unit;
-import com.jon.tron.service.junit.UnitClass;
-import com.jon.tron.service.junit.UnitCode;
-import com.jon.tron.service.junit.UnitName;
+import com.jon.tron.service.junit.*;
 import com.jon.tron.service.processor.CodeValidator;
+import com.jon.tron.service.processor.StyleChecker;
 import com.jon.tron.service.reflect.MethodModifier;
 import com.jon.tron.service.reflect.ReflectionUtil;
 import hw8.sort.Student;
@@ -15,6 +13,7 @@ import org.junit.Test;
 import org.junit.runners.MethodSorters;
 
 import java.lang.reflect.Method;
+import java.util.List;
 import java.util.Map;
 
 import static junit.framework.TestCase.assertNotNull;
@@ -46,6 +45,8 @@ public class B7QuickSortTest extends BaseTest {
 
     private static Object instance;
     private static Method method;
+    @Troubles
+    private static List<String> troubles;
 
     @Before
     public void setUp() {
@@ -64,6 +65,7 @@ public class B7QuickSortTest extends BaseTest {
         Class unitClass = getUnitClass(unitClasses, UNIT_NAME);
         assertNotNull("В задании не найден класс " + UNIT_NAME, unitClass);
         CodeValidator.checkCode(codes.get(unitClass.getName()));
+        StyleChecker.checkStyle(codes, troubles);
         ReflectionUtil.checkDefaultConstructor(unitClass);
 
         ReflectionUtil.checkMethod(unitClass, SORT_METHOD_NAME, void.class,

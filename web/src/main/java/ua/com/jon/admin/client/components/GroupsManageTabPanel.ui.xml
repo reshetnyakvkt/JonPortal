@@ -26,6 +26,7 @@
             <b:ValueListBox ui:field="groupsListBox" visible="false"/>
               <b:Label>Group code: </b:Label> <b:TextBox ui:field="groupCode"/>
             <b:ProgressBar ui:field="sprintsProgress" type="ANIMATED" percent="100"/>
+              <b:SimplePager ui:field="pager" display="{cellTable}" location="RIGHT" fastForwardRows="15" />
             <b:CellTable ui:field='cellTable' title=''
                          bordered="true" condensed="true" striped="true">
             </b:CellTable>

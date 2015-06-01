@@ -2,6 +2,7 @@ package ua.com.jon.auth.service;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -86,7 +87,7 @@ public class AuthServiceImpl implements UserDetailsService, AuthService, UserDet
             springUser = new SpringUser(userName, userName);
         } catch (Exception e) {
             log.error("Error user authentication " + userName, e);
-            throw new UsernameNotFoundException("User/Password incorrect");
+            throw new BadCredentialsException("Логин или пароль не верные");
         }
         log.info("Authenticated user info: " + springUser);
 

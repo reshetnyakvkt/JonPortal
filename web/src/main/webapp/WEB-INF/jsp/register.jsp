@@ -33,24 +33,31 @@
             </c:if>
 
             <form name="lform" method="POST" action="/register">
-                Формат логина: imya_familiya
-                <input type="text" id="username" class="span12" name="j_username" placeholder="Логин"/>
-                <br/>
-                Пароль: буквы и цифры
-                <input type="password" id="password" class="span12" name="j_password" placeholder="Пароль"/>
+                <div class="form-group">
+                    <label>Логин: imya_familiya</label>
+                    <input type="text" id="username" class="form-control" name="j_username" placeholder="Логин"/>
+                </div>
+                <div class="form-group">
+                    <label>Пароль: буквы и цифры</label>
+                    <input type="password" id="password" class="form-control" name="j_password" placeholder="Пароль"/>
+                </div>
+                <div class="form-group">
+                    <label>Группа</label>
+                    <select name="group" class="form-control">
 
-                <select name="group" class="form-control span12">
+                        <c:forEach var="group" items="${groups}">
+                            <c:out value="${group}"/>
+                            <div class="alert alert-error">
+                                <option value="${group.id}">${group.name}</option>
+                            </div>
+                        </c:forEach>
 
-                    <c:forEach var="group" items="${groups}">
-                        <c:out value="${group}"/>
-                        <div class="alert alert-error">
-                            <option value="${group.id}">${group.name}</option>
-                        </div>
-                    </c:forEach>
-
-                </select>
-                <input type="text" id="code" class="span12" name="code" placeholder="Код группы"/>
-                <button type="submit" name="submit" class="btn btn-info btn-block">
+                    </select>
+                </div>
+                <div class="form-group">
+                    <input type="text" id="code" class="form-control" name="code" placeholder="Код группы"/>
+                </div>
+                <button type="submit" name="submit" class="btn btn-default btn-block">
                     Зарегистрироваться
                 </button>
             </form>

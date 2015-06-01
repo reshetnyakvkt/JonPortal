@@ -1,10 +1,8 @@
 package ua.com.jon.tests;
 
-import com.jon.tron.service.junit.Unit;
-import com.jon.tron.service.junit.UnitClass;
-import com.jon.tron.service.junit.UnitCode;
-import com.jon.tron.service.junit.UnitName;
+import com.jon.tron.service.junit.*;
 import com.jon.tron.service.processor.CodeValidator;
+import com.jon.tron.service.processor.StyleChecker;
 import com.jon.tron.service.reflect.MethodModifier;
 import com.jon.tron.service.reflect.ReflectionUtil;
 import org.junit.After;
@@ -86,7 +84,9 @@ public class B5CoursesTest extends BaseTest {
     private static String unitJarClasspath;
 
     private static Object instance;
-    private static Method addMethod;
+    private static Method method;
+    @Troubles
+    private static List<String> troubles;
 
     @Before
     public void setUp() {
@@ -102,7 +102,7 @@ public class B5CoursesTest extends BaseTest {
     public void test() throws Throwable {
         assertTrue("В задании должно быть не более 8и классов, а не " + unitClasses.length, unitClasses.length <= 8);
         CodeValidator.checkCodeFile(codes.entrySet().iterator().next().getValue());
-
+        StyleChecker.checkStyle(codes, troubles);
         Class unitClass = unitClass = getUnitClass(unitClasses, STUDENT_NAME);
         //ReflectionUtil.checkDefaultConstructor(unitClass);
 
@@ -124,23 +124,23 @@ public class B5CoursesTest extends BaseTest {
         assertNotNull("В задании не найден класс " + COURSES_NAME, unitClass);
 
 //        instance = instanciate(unitClasses[0]);
-        addMethod = ReflectionUtil.checkMethod(unitClass, SET_GROUP_METHOD_NAME, "NoSuchGroupException", void.class,
+        method = ReflectionUtil.checkMethod(unitClass, SET_GROUP_METHOD_NAME, "NoSuchGroupException", void.class,
                 new MethodModifier[]{MethodModifier.PUBLIC}, String.class, String.class);
-        addMethod = ReflectionUtil.checkMethod(unitClass, ADD_STUDENT_COURSE_METHOD_NAME, "void",
+        method = ReflectionUtil.checkMethod(unitClass, ADD_STUDENT_COURSE_METHOD_NAME, "void",
                 new MethodModifier[]{MethodModifier.PUBLIC}, "Student");
-        addMethod = ReflectionUtil.checkMethod(unitClass, ADD_GROUP_METHOD_NAME, "GroupExistsException", void.class,
+        method = ReflectionUtil.checkMethod(unitClass, ADD_GROUP_METHOD_NAME, "GroupExistsException", void.class,
                 new MethodModifier[]{MethodModifier.PUBLIC}, String.class);
-        addMethod = ReflectionUtil.checkMethod(unitClass, PRINT_GROUP_METHOD_NAME, "NoSuchGroupException", void.class,
+        method = ReflectionUtil.checkMethod(unitClass, PRINT_GROUP_METHOD_NAME, "NoSuchGroupException", void.class,
                 new MethodModifier[]{MethodModifier.PUBLIC}, String.class);
-        addMethod = ReflectionUtil.checkMethod(unitClass, ADD_STUDENT_GROUP_METHOD_NAME, void.class,
+        method = ReflectionUtil.checkMethod(unitClass, ADD_STUDENT_GROUP_METHOD_NAME, void.class,
                 new MethodModifier[]{MethodModifier.PUBLIC}, String.class, String.class);
-        addMethod = ReflectionUtil.checkMethod(unitClass, REMOVE_STUDENT_METHOD_NAME, "NoSuchStudentException", void.class,
+        method = ReflectionUtil.checkMethod(unitClass, REMOVE_STUDENT_METHOD_NAME, "NoSuchStudentException", void.class,
                 new MethodModifier[]{MethodModifier.PUBLIC}, String.class, String.class);
-        addMethod = ReflectionUtil.checkMethod(unitClass, CLONE_METHOD_NAME, "NoSuchGroupException", void.class,
+        method = ReflectionUtil.checkMethod(unitClass, CLONE_METHOD_NAME, "NoSuchGroupException", void.class,
                 new MethodModifier[]{MethodModifier.PUBLIC}, String.class, String.class);
-        addMethod = ReflectionUtil.checkMethod(unitClass, SERIALIZE_METHOD_NAME, void.class,
+        method = ReflectionUtil.checkMethod(unitClass, SERIALIZE_METHOD_NAME, void.class,
                 new MethodModifier[]{MethodModifier.PUBLIC});
-        addMethod = ReflectionUtil.checkMethod(unitClass, DESERIALIZE_METHOD_NAME, void.class,
+        method = ReflectionUtil.checkMethod(unitClass, DESERIALIZE_METHOD_NAME, void.class,
                 new MethodModifier[]{MethodModifier.PUBLIC});
     }
 }

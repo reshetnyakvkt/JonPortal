@@ -183,13 +183,15 @@
             <artifactId>commons-net</artifactId>
         </dependency>
 
+        <dependency>
+            <groupId>javax.mail</groupId>
+            <artifactId>mail</artifactId>
+        </dependency>
 
-        <!--
-                <dependency>
-                    <artifactId>commons-logging</artifactId>
-                    <groupId>commons-logging</groupId>
-                </dependency>
-        -->
+        <dependency>
+            <groupId>javax.activation</groupId>
+            <artifactId>activation</artifactId>
+        </dependency>
     </dependencies>
 
     <build>

@@ -50,8 +50,8 @@ public class TasksManageTabPanel extends Composite {
     @UiField
     ProgressBar sprintsProgress;
 
-    @UiField
-    CellTable<TaskTemplateDTO> cellTable = new CellTable<TaskTemplateDTO>(5, GWT.<CellTable.SelectableResources>create(CellTable.SelectableResources.class));
+    @UiField(provided = true)
+    CellTable<TaskTemplateDTO> cellTable = new CellTable<TaskTemplateDTO>(25, GWT.<CellTable.SelectableResources>create(CellTable.SelectableResources.class));
 
     @UiField
     TextArea textArea = new TextArea();

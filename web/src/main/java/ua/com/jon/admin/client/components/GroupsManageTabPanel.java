@@ -67,8 +67,8 @@ public class GroupsManageTabPanel extends Composite {
     @UiField
     ProgressBar groupsProgress;
 
-    @UiField
-    CellTable<UserDTO> cellTable = new CellTable<UserDTO>(5, GWT.<CellTable.SelectableResources>create(CellTable.SelectableResources.class));
+    @UiField(provided = true)
+    CellTable<UserDTO> cellTable = new CellTable<UserDTO>(25, GWT.<CellTable.SelectableResources>create(CellTable.SelectableResources.class));
 
     @UiField
     TextArea textArea = new TextArea();

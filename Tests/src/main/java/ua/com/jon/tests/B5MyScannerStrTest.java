@@ -1,10 +1,8 @@
 package ua.com.jon.tests;
 
-import com.jon.tron.service.junit.Unit;
-import com.jon.tron.service.junit.UnitClass;
-import com.jon.tron.service.junit.UnitCode;
-import com.jon.tron.service.junit.UnitName;
+import com.jon.tron.service.junit.*;
 import com.jon.tron.service.processor.CodeValidator;
+import com.jon.tron.service.processor.StyleChecker;
 import com.jon.tron.service.reflect.MethodModifier;
 import com.jon.tron.service.reflect.ReflectionUtil;
 import org.junit.After;
@@ -15,6 +13,7 @@ import org.junit.runners.MethodSorters;
 
 import java.io.Reader;
 import java.lang.reflect.Method;
+import java.util.List;
 import java.util.Map;
 
 import static junit.framework.TestCase.assertNotNull;
@@ -71,8 +70,9 @@ public class B5MyScannerStrTest extends BaseTest {
     private static String unitJarClasspath;
 
     private static Object instance;
-    private static Method getMethod;
-    private static Method addMethod;
+    private static Method method;
+    @Troubles
+    private static List<String> troubles;
 
     @Before
     public void setUp() {
@@ -88,7 +88,7 @@ public class B5MyScannerStrTest extends BaseTest {
     public void test() throws Throwable {
         assertTrue("В задании должно быть не более 2х классов, а не " + unitClasses.length, unitClasses.length <= 2);
         CodeValidator.checkCodeFile(codes.entrySet().iterator().next().getValue());
-
+        StyleChecker.checkStyle(codes, troubles);
         Class unitClass = getUnitClass(unitClasses, UNIT_NAME);
         assertNotNull("В задании не найден класс " + UNIT_NAME, unitClass);
 
@@ -97,19 +97,19 @@ public class B5MyScannerStrTest extends BaseTest {
         ReflectionUtil.checkConstructor(unitClass, String.class);
 
 //        instance = instanciate(unitClasses[0]);
-        addMethod = ReflectionUtil.checkMethod(unitClass, NEXT_METHOD_NAME, String.class,
+        method = ReflectionUtil.checkMethod(unitClass, NEXT_METHOD_NAME, String.class,
                 new MethodModifier[]{MethodModifier.PUBLIC});
-        addMethod = ReflectionUtil.checkMethod(unitClass, NEXT_INT_METHOD_NAME, int.class,
+        method = ReflectionUtil.checkMethod(unitClass, NEXT_INT_METHOD_NAME, int.class,
                 new MethodModifier[]{MethodModifier.PUBLIC});
-        addMethod = ReflectionUtil.checkMethod(unitClass, NEXT_LINE_METHOD_NAME, String.class,
+        method = ReflectionUtil.checkMethod(unitClass, NEXT_LINE_METHOD_NAME, String.class,
                 new MethodModifier[]{MethodModifier.PUBLIC});
-        addMethod = ReflectionUtil.checkMethod(unitClass, HAS_NEXT_METHOD_NAME, boolean.class,
+        method = ReflectionUtil.checkMethod(unitClass, HAS_NEXT_METHOD_NAME, boolean.class,
                 new MethodModifier[]{MethodModifier.PUBLIC});
-        addMethod = ReflectionUtil.checkMethod(unitClass, HAS_NEXT_INT_METHOD_NAME, boolean.class,
+        method = ReflectionUtil.checkMethod(unitClass, HAS_NEXT_INT_METHOD_NAME, boolean.class,
                 new MethodModifier[]{MethodModifier.PUBLIC});
-        addMethod = ReflectionUtil.checkMethod(unitClass, USE_DELIMITER_METHOD_NAME, void.class,
+        method = ReflectionUtil.checkMethod(unitClass, USE_DELIMITER_METHOD_NAME, void.class,
                 new MethodModifier[]{MethodModifier.PUBLIC}, char.class);
-        addMethod = ReflectionUtil.checkMethod(unitClass, CLOSE_METHOD_NAME, void.class,
+        method = ReflectionUtil.checkMethod(unitClass, CLOSE_METHOD_NAME, void.class,
                 new MethodModifier[]{MethodModifier.PUBLIC});
     }
 }

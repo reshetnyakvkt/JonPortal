@@ -16,22 +16,28 @@
             <h4 class="error">Вход</h4>
 
             <c:if test="${not empty error}">
-                <div class="alert alert-error">
+                <div class="form-group has-error has-feedback">
                         <%--Your login attempt was not successful, try again.<br /> Caused : --%>
-                        ${sessionScope["SPRING_SECURITY_LAST_EXCEPTION"].message}
+                            <label class="control-label">
+                                ${sessionScope["SPRING_SECURITY_LAST_EXCEPTION"].message}
+                            </label>
                 </div>
             </c:if>
 
             <form name="lform" method="POST" action="/login">
-                <input type="text" id="username" class="span12" name="j_username" placeholder="Логин"/>
-                <br/>
-                <input type="password" id="password" class="span12" name="j_password" placeholder="Пароль"/>
-                <label class="checkbox">Запомнить меня
-
-                <input type="checkbox" name="_spring_security_remember_me" /></label>
-
+                <div class="form-group">
+                    <input type="text" id="username" class="form-control" name="j_username" placeholder="Логин"/>
+                </div>
+                <div class="form-group">
+                    <input type="password" id="password" class="form-control" name="j_password" placeholder="Пароль"/>
+                </div>
+                <div class="checkbox">
+                    <label>
+                        <input type="checkbox" name="_spring_security_remember_me">Запомнить меня
+                    </label>
+                </div>
                 <a href="/register.html">Зарегистрироваться</a>
-                <button type="submit" name="submit" class="btn btn-info btn-block">
+                <button type="submit" name="submit" class="btn btn-default btn-block">
                     Войти
                 </button>
             </form>

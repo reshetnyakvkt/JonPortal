@@ -56,8 +56,8 @@ public class SprintsTabPanel extends Composite {
 
     final SingleSelectionModel<SprintDTO> selectionModel = new SingleSelectionModel<SprintDTO>();
 
-    @UiField
-    CellTable<SprintDTO> cellTable = new CellTable<SprintDTO>(5, GWT.<CellTable.SelectableResources>create(CellTable.SelectableResources.class));
+    @UiField(provided = true)
+    CellTable<SprintDTO> cellTable = new CellTable<SprintDTO>(25, GWT.<CellTable.SelectableResources>create(CellTable.SelectableResources.class));
 
     private ListDataProvider<SprintDTO> dataProvider = new ListDataProvider<SprintDTO>();
 

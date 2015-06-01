@@ -205,7 +205,7 @@ public class TasksOverviewTabPanel extends Composite {
 
         cellTable.setEmptyTableWidget(new Label("Please add data"));
         dataProvider.addDataDisplay(cellTable);
-        cellTable.setKeyboardSelectionPolicy(HasKeyboardSelectionPolicy.KeyboardSelectionPolicy.BOUND_TO_SELECTION);
+//        cellTable.setKeyboardSelectionPolicy(HasKeyboardSelectionPolicy.KeyboardSelectionPolicy.BOUND_TO_SELECTION);
         pager.setDisplay(cellTable);
 
 /*        cellTable.addColumn(new TextColumn<TaskDTO>() {

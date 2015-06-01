@@ -1,10 +1,8 @@
 package ua.com.jon.tests;
 
-import com.jon.tron.service.junit.Unit;
-import com.jon.tron.service.junit.UnitClass;
-import com.jon.tron.service.junit.UnitCode;
-import com.jon.tron.service.junit.UnitName;
+import com.jon.tron.service.junit.*;
 import com.jon.tron.service.processor.CodeValidator;
+import com.jon.tron.service.processor.StyleChecker;
 import com.jon.tron.service.reflect.MethodModifier;
 import com.jon.tron.service.reflect.ReflectionUtil;
 import org.junit.After;
@@ -65,6 +63,8 @@ public class B4FiguresTest extends BaseTest {
     private static Object instance;
     private static Method getMethod;
     private static Method addMethod;
+    @Troubles
+    private static List<String> troubles;
 
     @Before
     public void setUp() {
@@ -80,7 +80,7 @@ public class B4FiguresTest extends BaseTest {
     public void test() throws Throwable {
         assertTrue("В задании должно быть не более 7 классов, а не " + unitClasses.length, unitClasses.length <= 7);
         CodeValidator.checkCode(codes.entrySet().iterator().next().getValue());
-
+        StyleChecker.checkStyle(codes, troubles);
         Class unitClass = getUnitClass(unitClasses, FIGURE_NAME);
         assertNotNull("В задании не найден класс " + FIGURE_NAME, unitClass);
         getUnitClass(unitClasses, SQUARE_NAME);

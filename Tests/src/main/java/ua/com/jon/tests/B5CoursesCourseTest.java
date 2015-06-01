@@ -1,10 +1,8 @@
 package ua.com.jon.tests;
 
-import com.jon.tron.service.junit.Unit;
-import com.jon.tron.service.junit.UnitClass;
-import com.jon.tron.service.junit.UnitCode;
-import com.jon.tron.service.junit.UnitName;
+import com.jon.tron.service.junit.*;
 import com.jon.tron.service.processor.CodeValidator;
+import com.jon.tron.service.processor.StyleChecker;
 import com.jon.tron.service.reflect.MethodModifier;
 import com.jon.tron.service.reflect.ReflectionUtil;
 import org.junit.After;
@@ -101,6 +99,8 @@ public class B5CoursesCourseTest extends BaseTest {
 
     private static Object instance;
     private static Method addMethod;
+    @Troubles
+    private static List<String> troubles;
 
     @Before
     public void setUp() {
@@ -116,7 +116,7 @@ public class B5CoursesCourseTest extends BaseTest {
     public void test() throws Throwable {
         assertTrue("В задании должно быть не более 8и классов, а не " + unitClasses.length, unitClasses.length <= 8);
         CodeValidator.checkCode(codes.entrySet().iterator().next().getValue());
-
+        StyleChecker.checkStyle(codes, troubles);
         Class unitClass = getUnitClass(unitClasses, COURSES_NAME);
         assertNotNull("В задании не найден класс " + COURSES_NAME, unitClass);
         ReflectionUtil.checkDefaultConstructor(unitClass);

@@ -1,10 +1,8 @@
 package ua.com.jon.tests;
 
-import com.jon.tron.service.junit.Unit;
-import com.jon.tron.service.junit.UnitClass;
-import com.jon.tron.service.junit.UnitCode;
-import com.jon.tron.service.junit.UnitName;
+import com.jon.tron.service.junit.*;
 import com.jon.tron.service.processor.CodeValidator;
+import com.jon.tron.service.processor.StyleChecker;
 import com.jon.tron.service.reflect.MethodModifier;
 import com.jon.tron.service.reflect.ReflectionUtil;
 import org.junit.After;
@@ -14,6 +12,7 @@ import org.junit.Test;
 import org.junit.runners.MethodSorters;
 
 import java.lang.reflect.Method;
+import java.util.List;
 import java.util.Map;
 
 import static junit.framework.TestCase.assertNotNull;
@@ -60,6 +59,8 @@ public class B6LinkListTest extends BaseTest {
     protected static String[] unitNames;
     @Unit
     protected static String unitJarClasspath;
+    @Troubles
+    private static List<String> troubles;
 
     @Before
     public void setUp() {
@@ -82,7 +83,7 @@ public class B6LinkListTest extends BaseTest {
         assertNotNull("В задании не найден класс " + LIST_NAME, unitClass);
         CodeValidator.checkCode(codes.get(unitClass.getName()));
         ReflectionUtil.checkDefaultConstructor(unitClass);
-
+        StyleChecker.checkStyle(codes, troubles);
 //        instance = instanciate(unitClass);
         method = ReflectionUtil.checkMethod(unitClass, SET_METHOD_NAME, void.class,
                 new MethodModifier[]{MethodModifier.PUBLIC}, int.class, int.class);

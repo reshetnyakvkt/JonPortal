@@ -1,10 +1,8 @@
 package ua.com.jon.tests;
 
-import com.jon.tron.service.junit.Unit;
-import com.jon.tron.service.junit.UnitClass;
-import com.jon.tron.service.junit.UnitCode;
-import com.jon.tron.service.junit.UnitName;
+import com.jon.tron.service.junit.*;
 import com.jon.tron.service.processor.CodeValidator;
+import com.jon.tron.service.processor.StyleChecker;
 import com.jon.tron.service.reflect.MethodModifier;
 import com.jon.tron.service.reflect.ReflectionUtil;
 import org.junit.After;
@@ -14,10 +12,14 @@ import org.junit.Test;
 import org.junit.runners.MethodSorters;
 
 import java.lang.reflect.Method;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
 
 import static junit.framework.TestCase.assertNotNull;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 /**
  Написать метод, выполняющий двоичный поиск (не рекурсивный) элемента в массиве.
@@ -43,6 +45,8 @@ public class B7BinarySearchTest extends BaseTest {
 
     private static Object instance;
     private static Method method;
+    @Troubles
+    private static List<String> troubles;
 
     @Before
     public void setUp() {
@@ -62,9 +66,65 @@ public class B7BinarySearchTest extends BaseTest {
         assertNotNull("В задании не найден класс " + UNIT_NAME, unitClass);
 
         CodeValidator.checkCode(codes.get(unitClass.getName()));
+        StyleChecker.checkStyle(codes, troubles);
         ReflectionUtil.checkDefaultConstructor(unitClass);
 
-        ReflectionUtil.checkMethod(unitClass, SEARCH_METHOD_NAME, int.class,
+        method = ReflectionUtil.checkMethod(unitClass, SEARCH_METHOD_NAME, int.class,
                 new MethodModifier[]{MethodModifier.PUBLIC}, int[].class, int.class);
+        instance = instanciate(unitClasses[0]);
+    }
+
+    @Test(timeout = 1000)
+    public void testElemPresent() throws Throwable {
+        if (instance == null || method == null) {
+            fail();
+        }
+        int elem = (int)(Math.random() * 10 + 10);
+        int[] actualVector = generateNonPairPalindrom(3, 10, elem);
+        int actualResult = (int)ReflectionUtil.invokeMethod(instance, method, actualVector, elem);
+
+        assertTrue("В массиве " + Arrays.toString(actualVector) + " находится искомый элемент " + elem + ", но метод " + method.getName() +
+                " вернул " + actualResult, actualResult > 0);
+    }
+
+    @Test(timeout = 1000)
+    public void testElemAbsent() throws Throwable {
+        if (instance == null || method == null) {
+            fail();
+        }
+        int elem = (int)(Math.random() * 10 + 20);
+        int[] actualVector = generateNonPairPalindrom(3, 10, 0);
+        int actualResult = (int)ReflectionUtil.invokeMethod(instance, method, actualVector, elem);
+
+        assertTrue("В массиве " + Arrays.toString(actualVector) + " отсутствует искомый элемент " + elem + ", но метод " + method.getName() +
+                " вернул " + actualResult, actualResult < 0);
+    }
+
+    @Test(timeout = 1000)
+    public void testElemPresentSingle() throws Throwable {
+        if (instance == null || method == null) {
+            fail();
+        }
+        int elem = (int)(Math.random() * 10 + 20);
+        int[] actualVector = {elem};
+        int actualResult = (int)ReflectionUtil.invokeMethod(instance, method, actualVector, elem);
+
+        assertTrue("В массиве " + Arrays.toString(actualVector) + " находится искомый элемент " + elem + ", но метод " + method.getName() +
+                " вернул " + actualResult, actualResult == 0);
+    }
+
+    private int[] generateNonPairPalindrom(int from, int to, int elem) {
+        int length = (int)(Math.random() * 10 + 10) / 2 + 1;
+        int[] vector = new int[length];
+        int range = to - from;
+
+        for (int i = 0, j = vector.length - 1; i < vector.length / 2; i++, j--) {
+            int rnd = (int) (Math.random() * range + from);
+            vector[i] = rnd;
+            vector[j] = rnd;
+        }
+        int elemIdx =  (int) (Math.random() * length - 1);
+        vector[elemIdx] = elem;
+        return vector;
     }
 }

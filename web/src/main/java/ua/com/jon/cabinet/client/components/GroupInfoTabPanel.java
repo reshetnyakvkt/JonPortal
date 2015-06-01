@@ -2,18 +2,22 @@ package ua.com.jon.cabinet.client.components;
 
 import com.github.gwtbootstrap.client.ui.*;
 import com.google.gwt.core.client.GWT;
+import com.google.gwt.dom.client.Element;
+import com.google.gwt.dom.client.NodeList;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.logical.shared.ValueChangeEvent;
 import com.google.gwt.text.shared.AbstractRenderer;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.uibinder.client.UiHandler;
+import com.google.gwt.user.cellview.client.HasKeyboardSelectionPolicy;
 import com.google.gwt.user.cellview.client.TextColumn;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.gwt.view.client.ListDataProvider;
+import com.google.gwt.view.client.SelectionChangeEvent;
 import com.google.gwt.view.client.SingleSelectionModel;
 import ua.com.jon.cabinet.client.TasksService;
 import ua.com.jon.cabinet.client.TasksServiceAsync;
@@ -42,8 +46,8 @@ public class GroupInfoTabPanel extends Composite {
 
     final SingleSelectionModel<List<String>> selectionModel = new SingleSelectionModel<List<String>>();
 
-    @UiField
-    CellTable<List<String>> studentsGrid = new CellTable<List<String>>(5, GWT.<CellTable.SelectableResources>create(CellTable.SelectableResources.class));
+    @UiField(provided = true)
+    CellTable<List<String>> studentsGrid = new CellTable<List<String>>(25, GWT.<CellTable.SelectableResources>create(CellTable.SelectableResources.class));
 
     /*@UiField
     DataGrid<List<String>> studentsGrid = new DataGrid<List<String>>(20, GWT.<DataGrid.SelectableResources>create(DataGrid.SelectableResources.class));
@@ -67,10 +71,13 @@ public class GroupInfoTabPanel extends Composite {
 
     private UserTasksTabPanel userPanel;
 
+    private final int weeksCount = 14;
+
     public GroupInfoTabPanel(final UiBinder<Widget, GroupInfoTabPanel> binder, UserTasksTabPanel userPanel) {
         this.userPanel = userPanel;
         initWidget(binder.createAndBindUi(this));
         studentsGrid.setEmptyTableWidget(new Label("Please add data."));
+
         try {
             loadGroups();
             loadGroupInfo();
@@ -117,7 +124,6 @@ public class GroupInfoTabPanel extends Composite {
         final int userNameIdx = 0;
         final int globalRateIdx = 1;
         studentsGrid.setEmptyTableWidget(new Label("Please add data."));
-        /*dataProvider.addDataDisplay(studentsGrid);*/
 
         studentsGrid.addColumn(new TextColumn<List<String>>() {
             @Override
@@ -135,7 +141,8 @@ public class GroupInfoTabPanel extends Composite {
         }, "Общий рейтинг");
 
         //int i = 0;
-        for (int i=2; i<sprints.get(0).size(); i++) {
+
+        for (int i=2; i < weeksCount; i++) {
             //final String session = sprints.get(i).get(888);
             final int sprintIdx = i;
             studentsGrid.addColumn(new TextColumn<List<String>>() {
@@ -151,20 +158,29 @@ public class GroupInfoTabPanel extends Composite {
             }, String.valueOf(sprintIdx - 1));
         }
 
-        //final SingleSelectionModel<List<String>> selectionModel = new SingleSelectionModel<List<String>>();
-        //studentsGrid.setSelectionModel(selectionModel);
-        /*selectionModel.addSelectionChangeHandler(
-                new SelectionChangeEvent.Handler() {
-                    public void onSelectionChange(SelectionChangeEvent event) {
-                        List<String> selected = selectionModel.getSelectedObject();
-                        if (selected != null) {
-                            String login = selected.get(userNameIdx);
-                            Window.alert("Selected " + login);
-                        }
-                    }
-                });*/
-
         dataProvider.addDataDisplay(studentsGrid);
+    }
+
+    private void clearTable(CellTable<List<String>> table) {
+        table.setRowCount(0);
+        Window.alert("columns: " + table.getColumnCount());
+        NodeList<Element> colGroups = table.getElement().getElementsByTagName("colgroup");
+
+        for (int i = 0; i < colGroups.getLength(); i++) {
+            table.removeColumn(0);
+        }
+        for (int i = 0; i < colGroups.getLength(); i++) {
+            Element colGroupEle = colGroups.getItem(i);
+            NodeList<Element> colList = colGroupEle.getElementsByTagName("col");
+
+            for (int j = colList.getLength()-1; j >= table.getColumnCount(); j--) {
+                colGroupEle.removeChild(colList.getItem(j));
+            }
+        }
+        Window.alert("columns: " + table.getColumnCount());
+        dataProvider.flush();
+        dataProvider.refresh();
+        studentsGrid.redraw();
     }
 
     private void loadGroupInfo() throws Exception {

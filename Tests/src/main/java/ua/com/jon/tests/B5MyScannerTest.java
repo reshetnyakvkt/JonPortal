@@ -1,10 +1,8 @@
 package ua.com.jon.tests;
 
-import com.jon.tron.service.junit.Unit;
-import com.jon.tron.service.junit.UnitClass;
-import com.jon.tron.service.junit.UnitCode;
-import com.jon.tron.service.junit.UnitName;
+import com.jon.tron.service.junit.*;
 import com.jon.tron.service.processor.CodeValidator;
+import com.jon.tron.service.processor.StyleChecker;
 import com.jon.tron.service.reflect.MethodModifier;
 import com.jon.tron.service.reflect.ReflectionUtil;
 import org.junit.After;
@@ -75,6 +73,8 @@ public class B5MyScannerTest extends BaseTest {
     private static Object instance;
     private static Method getMethod;
     private static Method addMethod;
+    @Troubles
+    private static List<String> troubles;
 
     @Before
     public void setUp() {
@@ -90,7 +90,7 @@ public class B5MyScannerTest extends BaseTest {
     public void test() throws Throwable {
         assertTrue("В задании должен быть только один класс", unitClasses.length == 1);
         CodeValidator.checkCodeFile(codes.entrySet().iterator().next().getValue());
-
+        StyleChecker.checkStyle(codes, troubles);
         Class unitClass = getUnitClass(unitClasses, UNIT_NAME);
         assertNotNull("В задании не найден класс " + UNIT_NAME, unitClass);
 
