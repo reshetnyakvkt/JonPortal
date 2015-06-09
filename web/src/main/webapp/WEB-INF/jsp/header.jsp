@@ -1,7 +1,8 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-<header id="header" role="banner" class="navbar">
+<%--<header id="header" role="banner" class="navbar">--%>
+<div class="row-fluid">
     <div class="navbar-inner">
         <ul class="nav nav-pills">
             <li id="item1"><a href="/index.html">Главная</a></li>
@@ -12,5 +13,5 @@
             <li id="item5"><a href="/download.html">Скачать</a></li>
         </ul>
     </div>
-
-</header>
+</div>
+<%--</header>--%>

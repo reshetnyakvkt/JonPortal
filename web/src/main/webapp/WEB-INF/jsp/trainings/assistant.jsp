@@ -2,8 +2,6 @@
   Created by IntelliJ IDEA.
   User: Admin
   Date: 03.09.13
-  Time: 11:53
-  To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -17,15 +15,18 @@
 <div id="container" class="container-fluid">
     <%@include file="../header.jsp" %>
 
+        <div class="row">
 
-    <div class="well">
+            <!-- tabs -->
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <%@include file="menu.jsp" %>
+                    <div class="col-md-8">
+                            <h2>Инструкция для помощников</h2>
+                        <hr/>
 
-        <!-- tabs -->
-        <div class="tabbable tabs-left">
-            <%@include file="menu.jsp" %>
-            <div class="tab-content">
+                        <div class="row">
 
-                <h3>Инструкция для помощников</h3>
 
                     <h4>Цели:</h4>
                     <ul>
@@ -69,7 +70,6 @@
 
     <footer id="footer"></footer>
 </div>
-<%@include file="../body.jsp" %>
 
 </body>
 </html>

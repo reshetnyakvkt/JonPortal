@@ -68,7 +68,6 @@
 </div>
 
 <footer id="footer"></footer>
-<%@include file="body.jsp" %>
 
 </body>
 </html>

@@ -41,7 +41,7 @@ import java.util.List;
 
 public class UserTasksTabPanel extends Composite {
     @UiField(provided = true)
-    CellTable<TaskDTO> cellTable = new CellTable<TaskDTO>(5, GWT.<CellTable.SelectableResources>create(CellTable.SelectableResources.class));//new CellTable<TaskDTO>();
+    CellTable<TaskDTO> cellTable = new CellTable<TaskDTO>(25, GWT.<CellTable.SelectableResources>create(CellTable.SelectableResources.class));//new CellTable<TaskDTO>();
 
     final SingleSelectionModel<TaskDTO> selectionModel = new SingleSelectionModel<TaskDTO>();
 

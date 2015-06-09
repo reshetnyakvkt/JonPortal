@@ -6,18 +6,16 @@
     <%@include file="includes.jsp" %>
 </head>
 <body>
-<%@include file="body.jsp" %>
 
 <div id="container" class="container-fluid">
 
     <%@include file="header.jsp" %>
     <div class="row-fluid">
-        <div class="span3 well">
+        <div class="col-xs-3 well">
             <h4 class="error">Вход</h4>
 
             <c:if test="${not empty error}">
                 <div class="form-group has-error has-feedback">
-                        <%--Your login attempt was not successful, try again.<br /> Caused : --%>
                             <label class="control-label">
                                 ${sessionScope["SPRING_SECURITY_LAST_EXCEPTION"].message}
                             </label>
@@ -43,11 +41,11 @@
             </form>
 
         </div>
-        <div class="span9 well">
-            <div id="tittleText" class="alert alert-success lead text-info">
+        <div class="col-xs-8 well">
+            <nav class="navbar navbar-default">
+                <span class="navbar-brand"><b>Портал для тех кто связался с Java</b></span>
+            </nav>
 
-                Портал для тех кто связался с Java
-            </div>
             <div class="well">
                 <p>В разделе <span class="label">Статьи</span> находятся полезные для обучающихся статьи</p>
 
@@ -58,9 +56,9 @@
                 <p>В разделе <span class="label">Cкачать</span> находятся нужные для занятий файлы</p>
             </div>
 
-            <div class="alert alert-success lead text-info">
-                Новости
-            </div>
+            <nav class="navbar navbar-default">
+                <span class="navbar-brand"><b>Новости</b></span>
+            </nav>
 
             <div class="well">
 
@@ -96,7 +94,13 @@
 
 </div>
 
+<div class="back">
+
+</div>
+
 <footer id="footer"></footer>
+
+<script data-main="/js/cabinet/main" src="/js/require.js"></script>
 
 </body>
 </html>

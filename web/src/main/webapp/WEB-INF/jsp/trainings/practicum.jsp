@@ -16,13 +16,16 @@
 <div id="container" class="container-fluid">
     <%@include file="../header.jsp" %>
 
+        <div class="row">
 
-    <div class="well">
+            <!-- tabs -->
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <%@include file="menu.jsp" %>
+                    <div class="col-md-8">
+                        <div class="row">
 
-        <!-- tabs -->
-        <div class="tabbable tabs-left">
-            <%@include file="menu.jsp" %>
-            <div class="tab-content">
+                            <div class="span8">
 
                 <h3>Практикум для желающих</h3>
 
@@ -47,7 +50,6 @@
 
     <footer id="footer"></footer>
 </div>
-<%@include file="../body.jsp" %>
 
 </body>
 </html>

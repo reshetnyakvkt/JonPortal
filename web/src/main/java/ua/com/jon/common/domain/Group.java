@@ -34,7 +34,7 @@ public class Group {
     private Set<User> users = new HashSet<User>();
 
     @OneToMany(cascade = {CascadeType.ALL}, mappedBy = "group")
-    private Set<Task> tasks = new HashSet<Task>();
+    private Set<Task> data = new HashSet<Task>();
 
     @Column(name = "REPOSITORY_URL")
     private String repositoryUrl;
@@ -107,12 +107,12 @@ public class Group {
         this.users = users;
     }
 
-    public Set<Task> getTasks() {
-        return tasks;
+    public Set<Task> getData() {
+        return data;
     }
 
-    public void setTasks(Set<Task> tasks) {
-        this.tasks = tasks;
+    public void setData(Set<Task> tasks) {
+        this.data = tasks;
     }
 
     public String getRepositoryUrl() {
@@ -139,7 +139,7 @@ public class Group {
                 ", startDate=" + startDate +
                 ", active=" + active +
                 ", users=" + users +
-                ", tasks=" + tasks +
+                ", tasks=" + data +
                 ", repositoryUrl='" + repositoryUrl + '\'' +
                 ", code='" + code + '\'' +
                 '}';

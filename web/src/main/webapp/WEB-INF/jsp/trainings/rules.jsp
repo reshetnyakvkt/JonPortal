@@ -16,12 +16,16 @@
     <%@include file="../header.jsp" %>
 
 
-    <div class="well">
+        <div class="row">
 
-        <!-- tabs -->
-        <div class="tabbable tabs-left">
-            <%@include file="menu.jsp" %>
-            <div class="tab-content">
+            <!-- tabs -->
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <%@include file="menu.jsp" %>
+                    <div class="col-md-8">
+                        <div class="row">
+
+                            <div class="span8">
                 <h3>Основные правила проведения онлайн тренингов</h3>
                 <ul>
                     <li>Тренинг проходит с 17.00 по 20.00 по Киевскому времени</li>
@@ -47,7 +51,6 @@
 
     <footer id="footer"></footer>
 </div>
-<%@include file="../body.jsp" %>
 
 </body>
 </html>

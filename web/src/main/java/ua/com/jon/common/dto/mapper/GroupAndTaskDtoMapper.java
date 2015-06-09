@@ -21,7 +21,7 @@ public class GroupAndTaskDtoMapper {
 /*        if(group == null) {
             return new GroupDTO();
         }*/
-        return new GroupDTO(group.getId(), tasksToDto(group.getTasks()), usersToDto(group.getUsers()), group.getName(), group.isActive(),
+        return new GroupDTO(group.getId(), tasksToDto(group.getData()), usersToDto(group.getUsers()), group.getName(), group.isActive(),
                 group.getRepositoryUrl(), group.getCode());
     }
 
@@ -46,7 +46,7 @@ public class GroupAndTaskDtoMapper {
             groupDtos.add(
                     new GroupDTO(
                             group.getId(),
-                            tasksToDto(group.getTasks()),
+                            tasksToDto(group.getData()),
                             usersToDto(group.getUsers()),
                             group.getName(),
                             group.isActive(),

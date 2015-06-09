@@ -79,7 +79,7 @@ public class P4QudraticSolverTest extends BaseTest {
         }
         assertTrue("В задании не найден класс " + MANAGER_UNIT_NAME, MANAGER_UNIT_NAME.equals(unitClass.getSimpleName()));
         Method methodCreate = ReflectionUtil.checkMethod(unitClass, MANAGER_CREATE_METHOD_NAME, "int",
-                new MethodModifier[]{MethodModifier.PUBLIC}, "Path");
+                new MethodModifier[]{MethodModifier.PUBLIC}, "Solution");
         Method methodFindAll = ReflectionUtil.checkMethod(unitClass, MANAGER_FIND_ALL_METHOD_NAME, List.class,
                 new MethodModifier[]{MethodModifier.PUBLIC});
     }

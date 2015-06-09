@@ -1,22 +1,9 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+/**
+ * Created by al1 on 06.06.15.
+ */
+define(['star_destroyer'], function() {
 
-<%--<div id="2" class="logo"></div>--%>
-
-<div class="back">
-    <div id="battlestar" class="logo"></div>
-</div>
-
-<script>
-    $(document).ready(function() {
-
-        <%-- управление анимацией меню --%>
-        <%--'это не ошибка. Просто смешение jQuery и JSTL синтаксиса--%>
-        $('#<c:out value="${item}"/>').addClass("active").css('position','relative').css('top',-100).animate({top: 0},300);
-
-        $('#header').siblings('div').css('opacity',0).animate({opacity:1},600);
-    });
-
-    window.onload = function () {
+    $(document).ready(function () {
         function wait(millis) {
             window.setTimeout(run, millis)
         }
@@ -52,5 +39,6 @@
         }
 
         wait(Math.random() * 500000 + 20000);
-   }
-</script>
+
+    });
+});

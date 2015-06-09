@@ -19,7 +19,7 @@ public interface GroupRepository extends CrudRepository<Group, Long> {
     @Query("select distinct g from Group g JOIN FETCH g.users")
     List<Group> findAllGroupsAndUsers ();
 
-    @Query("select g from Group g JOIN FETCH g.users JOIN FETCH g.tasks where g.name = ?1")
+    @Query("select g from Group g JOIN FETCH g.users JOIN FETCH g.data where g.name = ?1")
     Group findGroupAndUsersAndTasksByName(String groupName);
 
     @Query("select g from Group g JOIN FETCH g.users where g.name = ?1")
@@ -28,10 +28,10 @@ public interface GroupRepository extends CrudRepository<Group, Long> {
     @Query("select g from Group g JOIN FETCH g.users where g.id = ?1")
     Group findGroupAndUsers(Long id);
 
-    @Query("select distinct g from Group g JOIN FETCH g.tasks where g.active = true")
+    @Query("select distinct g from Group g JOIN FETCH g.data where g.active = true")
     List<Group> findActiveGroupAndTestTasks();
 
-    @Query("select distinct g from Group g JOIN FETCH g.tasks JOIN FETCH g.users where g.active = true")
+    @Query("select distinct g from Group g JOIN FETCH g.data JOIN FETCH g.users where g.active = true")
     List<Group> findActiveGroupAndTasksAndUsers();
 
 //    @Query("SELECT fav FROM Favourite fav join fetch fav.colors as cl WHERE EXISTS " +
