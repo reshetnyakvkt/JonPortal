@@ -37,7 +37,7 @@ import static org.junit.Assert.assertTrue;
  hw6.courses.NoSuchStudentException
  hw6.courses.GroupExistsException
  */
-@Unit(testName = "B5MyScannerTest", value = "weekend1.task1")
+@Unit(testName = "B5CoursesCourseTest", value = "weekend1.task1")
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class B5CoursesCourseTest extends BaseTest {
     public class Courses {

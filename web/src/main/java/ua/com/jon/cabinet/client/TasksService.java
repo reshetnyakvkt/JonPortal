@@ -26,6 +26,9 @@ public interface TasksService extends RemoteService {
     String postForTest(TaskDTO taskDTO, boolean isSaveNeed);
     ArrayList<TaskDTO> getTasksByUserGroup(Long taskTemplateId, Long selectedGroupId, Long selectedSprintId);
     double getSprintRate(Long groupId, Long taskTemplateId, String userName);
+
+    double getCourseRate(Long selectedGroupId);
+
     double getCourseRate(Long taskTemplateId, String userName);
     String getSpringUserName();
     List<GroupDTO> getUserGroups();
@@ -33,4 +36,6 @@ public interface TasksService extends RemoteService {
 
     List<TaskDTO> refreshTasks(List<Long> ids);
     List<List<String>> getGroupInfo(Long selectedGroupId) throws Exception;
+
+    double getSprintRate(Long groupId, Long templateId);
 }

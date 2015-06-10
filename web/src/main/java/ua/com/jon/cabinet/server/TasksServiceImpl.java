@@ -340,6 +340,11 @@ public class TasksServiceImpl implements TasksService, ServletContextAware {
     }
 
     @Override
+    public double getSprintRate(Long groupId, Long sprintId) {
+        return getSprintRate(groupId, sprintId, getSpringUserName());
+    }
+
+    @Override
     public double getSprintRate(Long groupId, Long sprintId, String userName) {
         log.info("-== getSprintRate: groupId = " + groupId + ", sprintId = " + sprintId + ", userName = " + userName);
         try {
@@ -383,6 +388,11 @@ public class TasksServiceImpl implements TasksService, ServletContextAware {
 //            return 100 / tasks.size() * doneCount;
             return sumResult / tasks.size();
         }
+    }
+
+    @Override
+    public double getCourseRate(Long selectedGroupId) {
+        return getCourseRate(selectedGroupId, getSpringUserName());
     }
 
     @Override

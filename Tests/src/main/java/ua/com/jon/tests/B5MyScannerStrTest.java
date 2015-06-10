@@ -36,7 +36,7 @@ import static org.junit.Assert.assertTrue;
 
  Класс задания hw6.scanner.MyScannerStr
  */
-@Unit(testName = "B5MyScannerTest", value = "weekend1.task1")
+@Unit(testName = "B5MyScannerStrTest", value = "weekend1.task1")
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class B5MyScannerStrTest extends BaseTest {
     public class MyScannerStr {

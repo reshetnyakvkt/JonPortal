@@ -38,5 +38,9 @@ public interface TasksServiceAsync {
     void getGroupInfo(Long selectedGroupId, AsyncCallback<List<List<String>>> async) throws Exception;
 
     void postForTest(TaskDTO taskDTO, boolean isSaveNeed, AsyncCallback<String> async);
+
+    void getCourseRate(Long selectedGroupId, AsyncCallback<Double> async);
+
+    void getSprintRate(Long groupId, Long templateId, AsyncCallback<Double> async);
 }
 

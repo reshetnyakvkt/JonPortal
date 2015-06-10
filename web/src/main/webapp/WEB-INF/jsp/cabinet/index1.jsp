@@ -49,8 +49,8 @@
                 <!-- Collect the nav links, forms, and other content for toggling -->
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                     <ul class="nav navbar-nav">
-                        <li><p class="navbar-text">80</p></li>
-                        <li><p class="navbar-text">90</p></li>
+                        <li><p id="courseRate" class="navbar-text">80</p></li>
+                        <li><p id="sprintRate" class="navbar-text">90</p></li>
                         <li class="dropdown">
                             <a id="group" href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Группа <span class="caret"></span></a>
                             <ul class="dropdown-menu" role="menu" id="groups">
@@ -63,6 +63,7 @@
 
                             </ul>
                         </li>
+<%--
                         <li class="dropdown-menu">
                             <div>
                             <select class="form-control" id="select">
@@ -76,8 +77,10 @@
                         </li>
                         <li class="active"><a href="#">Link <span class="sr-only">(current)</span></a></li>
                         <li><a href="#">Link</a></li>
+--%>
 
                     </ul>
+<%--
                     <form class="navbar-form navbar-left" role="search">
                         <div class="form-group">
                             <input type="text" class="form-control" placeholder="Search">
@@ -97,27 +100,58 @@
                             </ul>
                         </li>
                     </ul>
+--%>
                 </div><!-- /.navbar-collapse -->
             </div><!-- /.container-fluid -->
         </nav>
         </div>
 
         <div class="col-md-4">
-
-            <table id="table_id" class="panel table table-striped table-bordered">
-                <thead>
-                <tr>
-                    <th>Название задания</th>
-                    <th>Оценка</th>
-                    <th></th>
-                </tr>
-                </thead>
-            </table>
+            <div class="panel-group" id="accordion">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4 class="panel-title">
+                            <a data-toggle="collapse" data-parent="#accordion" href="#collapseTable">Список заданий</a>
+                        </h4>
+                    </div>
+                    <div id="collapseTable" class="panel-collapse collapse in">
+                        <%--<div>--%>
+                            <div id="tasks">
+                                <table id="table_id" class="table table-striped table-bordered">
+                                    <thead>
+                                    <tr>
+                                        <th>Название задания</th>
+                                        <th>Оценка</th>
+                                        <th></th>
+                                    </tr>
+                                    </thead>
+                                </table>
+                            </div>
+                        <%--</div>--%>
+                    </div>
+                </div>
+            </div>
             <div class="list-group">
+                <div class="panel-group">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h4 class="panel-title">
+                                <a data-toggle="collapse" data-parent="#accordion" href="#collapseRes">Результат проверки</a>
+                            </h4>
+                        </div>
+                        <div id="collapseRes" class="panel-collapse collapse in">
+                            <div class="panel-body">
+                                <div id="result"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+<%--
                 <a href="#" class="list-group-item">
                     <h4 class="list-group-item-heading">Результат проверки</h4>
                     <div id="result" class="list-group-item-text"></div>
                 </a>
+--%>
 
             </div>
 
@@ -126,14 +160,14 @@
                     <div class="modal-content">
                         <div class="modal-header">
                             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                            <h4 class="modal-title">Modal title</h4>
+                            <h4 class="modal-title">Результат проверки</h4>
                         </div>
-                        <div class="modal-body">
-                            <p>One fine body…</p>
+                        <div id="modalRes" class="modal-body">
+                            One fine body…
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                            <button type="button" class="btn btn-primary">Save changes</button>
+                            <%--<button type="button" class="btn btn-primary">Save changes</button>--%>
                         </div>
                     </div>
                 </div>
