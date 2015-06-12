@@ -1,7 +1,7 @@
 /**
  * Created by al1 on 06.06.15.
  */
-define(['jquery', "datatables", "DT-bootstrap", "bootstrap", "codemirror/lib/codemirror", "controller/Communication"], function(JQuery, Table, tableboot, bootstrap, CodeMirror, Communication) {
+define(['jquery', "datatables", "DT-bootstrap", "bootstrap", "codemirror/lib/codemirror", "controller/Communication"], function (JQuery, Table, tableboot, bootstrap, CodeMirror, Communication) {
     var selectedGroup;
     var selectedSprint;
     var selectedTask;
@@ -9,7 +9,7 @@ define(['jquery', "datatables", "DT-bootstrap", "bootstrap", "codemirror/lib/cod
     var table;
     var groups;
 
-     var constructor = function () {
+    var constructor = function () {
         var textArea = document.getElementById("code");
         codeEditor = CodeMirror.fromTextArea(textArea, {
             lineNumbers: true,
@@ -36,7 +36,7 @@ define(['jquery', "datatables", "DT-bootstrap", "bootstrap", "codemirror/lib/cod
     }
 
     function renderGroups(groups, group) {
-        Communication.getCourseRate(selectedGroup.id, function(data) {
+        Communication.getCourseRate(selectedGroup.id, function (data) {
             $('#courseRate').html(data);
         });
         $('#group').html(group.name + '<span class="caret">');
@@ -57,7 +57,7 @@ define(['jquery', "datatables", "DT-bootstrap", "bootstrap", "codemirror/lib/cod
         if (group == undefined) {
             return;
         }
-        Communication.getSprintRate(group.id, selectSprint.id, function(data) {
+        Communication.getSprintRate(group.id, selectSprint.id, function (data) {
             $('#sprintRate').html(data);
         });
 
@@ -79,7 +79,7 @@ define(['jquery', "datatables", "DT-bootstrap", "bootstrap", "codemirror/lib/cod
             var sprint = getSprintById(selectedGroup, this.name);
             if (sprint != undefined) {
                 selectedSprint = sprint;
-                Communication.getSprintRate(selectedGroup.id, sprint.id, function(data) {
+                Communication.getSprintRate(selectedGroup.id, sprint.id, function (data) {
                     $('#sprintRate').html(data);
                 });
 
@@ -106,7 +106,7 @@ define(['jquery', "datatables", "DT-bootstrap", "bootstrap", "codemirror/lib/cod
         renderCode(task);
     }
 
-    function render(parameters){
+    function render(parameters) {
         groups = JSON.parse(parameters);
         selectedGroup = groups[0];
 
@@ -115,16 +115,16 @@ define(['jquery', "datatables", "DT-bootstrap", "bootstrap", "codemirror/lib/cod
 
         table = buildTable(selectedSprint.tasks);
         renderSprints(selectedGroup, selectedSprint);
-/*
-        selectedTask = selectedSprint.tasks[0];
-        renderTask(selectedTask);
-*/
+        /*
+         selectedTask = selectedSprint.tasks[0];
+         renderTask(selectedTask);
+         */
 
         addHandlers(table);
     }
 
     return {
-        render:render
+        render: render
     };
 
     function buildTable(tasks) {
@@ -138,10 +138,10 @@ define(['jquery', "datatables", "DT-bootstrap", "bootstrap", "codemirror/lib/cod
             "searching": false,
             //"ajax": "tasks",
             /*            "ajax": function (data, callback, settings) {
-                          callback(
-                          parameters
-                          );
-                          },*/
+             callback(
+             parameters
+             );
+             },*/
 
             "columns": [
                 {"data": "name"},
@@ -149,17 +149,17 @@ define(['jquery', "datatables", "DT-bootstrap", "bootstrap", "codemirror/lib/cod
                 {"data": "action"}
             ],
             /*
-                          "aoColumns": [
-                          { "sWidth": "70%" },
-                          { "sWidth": "25%" },
-                          { "sWidth": "5%", "sClass": "center", "bSortable": false }
-                          ],
-                          */
+             "aoColumns": [
+             { "sWidth": "70%" },
+             { "sWidth": "25%" },
+             { "sWidth": "5%", "sClass": "center", "bSortable": false }
+             ],
+             */
 
             "columnDefs": [{
                 "targets": -1,
                 "data": null,
-                "defaultContent": "<button class='btn btn-default glyphicon glyphicon-play'></button>"
+                "defaultContent": "<button class='btn btn-default play'><span class='glyphicon glyphicon-play'></span></button>"
             },
                 {
                     width: '80%',
@@ -168,8 +168,8 @@ define(['jquery', "datatables", "DT-bootstrap", "bootstrap", "codemirror/lib/cod
                 {
                     width: '10%',
                     targets: 1,
-                    render: function( data, type, full, meta) {
-                        return  data.substring(0, data.indexOf('\n'));
+                    render: function (data, type, full, meta) {
+                        return data.substring(0, data.indexOf('\n'));
                     }
                 }
             ],
@@ -221,10 +221,10 @@ define(['jquery', "datatables", "DT-bootstrap", "bootstrap", "codemirror/lib/cod
             renderTask(table.fnGetData(this));
         });
 
-/*        $('#table_id tbody').on('click', 'button', function () {
-            var data = table.row($(this).parents('tr')).data();
-            alert(data[0] + "'s salary is: " + data[5]);
-        });*/
+        /*        $('#table_id tbody').on('click', 'button', function () {
+         var data = table.row($(this).parents('tr')).data();
+         alert(data[0] + "'s salary is: " + data[5]);
+         });*/
 
         $('#groups li a').on('click', function () {
             $('#group').html(this.innerHTML + '<span class="caret">');
@@ -235,8 +235,35 @@ define(['jquery', "datatables", "DT-bootstrap", "bootstrap", "codemirror/lib/cod
             }
         });
 
+        $('.play').on('click', function () {
+            var tr = this.parentNode.parentNode;
+            var task = table.fnGetData(tr);
+            var button = $(this);
+            //button.disabled = true;
+            button.attr("disabled", "disabled");
 
-        $('#result').on('click', function() {
+            var playIcon = $(button.children(0));
+            playIcon.toggleClass("glyphicon-play");
+            playIcon.toggleClass("glyphicon-refresh glyphicon-refresh-animate");
+            task.code = codeEditor.getValue();
+            Communication.checkTask(task.id, task.type, codeEditor.getValue(), function (data) {
+                if (data) {
+                    task.result = data;
+                    table.fnUpdate(data, tr, 1);
+                    table.fnDraw();
+                    $('#result').html(data.replace(/\n/g, '<br/>'));
+                    task.result = data;
+                }
+
+                button.removeAttr("disabled");
+                playIcon.toggleClass("glyphicon-refresh glyphicon-refresh-animate");
+                playIcon.toggleClass("glyphicon-play");
+
+            });
+        });
+
+
+        $('#result').on('click', function () {
             $('#modalRes').html($(this).html());
             $('#modal').modal('toggle');
         });

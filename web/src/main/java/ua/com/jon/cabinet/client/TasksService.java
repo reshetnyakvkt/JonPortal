@@ -2,11 +2,10 @@ package ua.com.jon.cabinet.client;
 
 import com.google.gwt.user.client.rpc.RemoteService;
 import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
+import org.springframework.web.context.request.async.DeferredResult;
 import ua.com.jon.cabinet.shared.GroupDTO;
 import ua.com.jon.cabinet.shared.SprintDTO;
 import ua.com.jon.cabinet.shared.TaskDTO;
-import ua.com.jon.common.domain.Task;
-import ua.com.jon.common.domain.User;
 
 import java.util.ArrayList;
 import java.util.List;

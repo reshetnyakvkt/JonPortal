@@ -43,24 +43,26 @@
         </div>
         <div class="col-xs-8 well">
             <nav class="navbar navbar-default">
-                <span class="navbar-brand"><b>Портал для тех кто связался с Java</b></span>
+                <span class="navbar-brand"><b class="text-warning">Портал для тех кто связался с Java</b></span>
             </nav>
 
             <div class="well">
-                <p>В разделе <span class="label">Статьи</span> находятся полезные для обучающихся статьи</p>
+                <p>В разделе <span class="label label-primary">Статьи</span> находятся полезные для обучающихся статьи</p>
 
-                <p>В разделе <span class="label">Занятия</span> находится список литературы и видеоуроки</p>
+                <p>В разделе <span class="label label-primary">Занятия</span> находится список литературы и видеоуроки</p>
 
-                <p>В разделе <span class="label">Задачи</span> находится система проверки заданий для курса Foundation</p>
+                <p>В разделе <span class="label label-primary">Задачи</span> находится система проверки заданий для курса Foundation</p>
 
-                <p>В разделе <span class="label">Cкачать</span> находятся нужные для занятий файлы</p>
+                <p>В разделе <span class="label label-primary">Cкачать</span> находятся нужные для занятий файлы</p>
             </div>
 
             <nav class="navbar navbar-default">
-                <span class="navbar-brand"><b>Новости</b></span>
+                <span class="navbar-brand"><b class="text-warning">Новости</b></span>
             </nav>
 
             <div class="well">
+
+                <p>Переписан кабинет</p>
 
                 <p>Начата проверка стиля заданий ... <a href="/trainings/styleChecker.html">перейти</a></p>
 

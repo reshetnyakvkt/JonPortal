@@ -106,7 +106,7 @@ public class UserTasksTabPanel extends Composite {
     interface ExampleUiBinderUiBinder extends UiBinder<HTMLPanel, UserTasksTabPanel> {
     }
 
-    private static ExampleUiBinderUiBinder ourUiBinder = GWT.create(ExampleUiBinderUiBinder.class);
+//    private static ExampleUiBinderUiBinder ourUiBinder = GWT.create(ExampleUiBinderUiBinder.class);
     private TasksServiceAsync tasksService = GWT.create(TasksService.class);
 
     public UserTasksTabPanel(final UiBinder<Widget, UserTasksTabPanel> binder) {
@@ -485,25 +485,7 @@ public class UserTasksTabPanel extends Composite {
                     taskDTO.setCode(code.getText());
                 }
 //                Window.alert("dispatchTaskChecking " + taskDTO);
-                tasksService.dispatchTaskChecking(taskDTO, new AsyncCallback<String>() {
-
-                    @Override
-                    public void onFailure(Throwable caught) {
-                        Window.alert(caught.getMessage());
-                    }
-
-                    @Override
-                    public void onSuccess(String testResult) {
-//                        Window.alert(taskDTO.toString());
-                        taskDTO.setStatus("NEW");
-                        taskDTO.setResult(testResult);
-                        result.setText(testResult);
-                        dataProvider.flush();
-//                        dataProvider.refresh();
-                        cellTable.redraw();
-                        //restructureTable(null);
-                    }
-                });
+                tasksService.dispatchTaskChecking(taskDTO, null);
             }
         });
         cellTable.addColumn(statusCol, "Статус");

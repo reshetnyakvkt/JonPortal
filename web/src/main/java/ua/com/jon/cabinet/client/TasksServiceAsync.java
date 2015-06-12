@@ -1,6 +1,7 @@
 package ua.com.jon.cabinet.client;
 
 import com.google.gwt.user.client.rpc.AsyncCallback;
+import org.springframework.web.context.request.async.DeferredResult;
 import ua.com.jon.cabinet.shared.GroupDTO;
 import ua.com.jon.cabinet.shared.SprintDTO;
 import ua.com.jon.cabinet.shared.TaskDTO;

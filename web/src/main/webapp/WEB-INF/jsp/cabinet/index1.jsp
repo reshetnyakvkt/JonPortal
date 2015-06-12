@@ -63,8 +63,7 @@
 
                             </ul>
                         </li>
-<%--
-                        <li class="dropdown-menu">
+<%--                        <li class="dropdown-menu">
                             <div>
                             <select class="form-control" id="select">
                                 <option>1</option>
@@ -76,42 +75,29 @@
                                 </div>
                         </li>
                         <li class="active"><a href="#">Link <span class="sr-only">(current)</span></a></li>
-                        <li><a href="#">Link</a></li>
---%>
+                        <li><a href="#">Link</a></li>--%>
 
                     </ul>
-<%--
-                    <form class="navbar-form navbar-left" role="search">
+ <%--                   <form class="navbar-form navbar-left" role="search">
                         <div class="form-group">
                             <input type="text" class="form-control" placeholder="Search">
                         </div>
                         <button type="submit" class="btn btn-default">Submit</button>
-                    </form>
+                    </form>--%>
                     <ul class="nav navbar-nav navbar-right">
-                        <li><a href="#">Link</a></li>
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Dropdown <span class="caret"></span></a>
-                            <ul class="dropdown-menu" role="menu">
-                                <li><a href="#">Action</a></li>
-                                <li><a href="#">Another action</a></li>
-                                <li><a href="#">Something else here</a></li>
-                                <li class="divider"></li>
-                                <li><a href="#">Separated link</a></li>
-                            </ul>
-                        </li>
+                        <li><a href="/cabinet/index1.html">Старая версия</a></li>
                     </ul>
---%>
                 </div><!-- /.navbar-collapse -->
             </div><!-- /.container-fluid -->
         </nav>
         </div>
 
         <div class="col-md-4">
-            <div class="panel-group" id="accordion">
+            <div class="panel-group" id="tableAccordion">
                 <div class="panel panel-default">
                     <div class="panel-heading">
                         <h4 class="panel-title">
-                            <a data-toggle="collapse" data-parent="#accordion" href="#collapseTable">Список заданий</a>
+                            <a data-toggle="collapse" data-parent="#tableAccordion" href="#collapseTable">Список заданий</a>
                         </h4>
                     </div>
                     <div id="collapseTable" class="panel-collapse collapse in">
@@ -132,11 +118,11 @@
                 </div>
             </div>
             <div class="list-group">
-                <div class="panel-group">
+                <div class="panel-group" id="resAccordion">
                     <div class="panel panel-default">
                         <div class="panel-heading">
                             <h4 class="panel-title">
-                                <a data-toggle="collapse" data-parent="#accordion" href="#collapseRes">Результат проверки</a>
+                                <a data-toggle="collapse" data-parent="#resAccordion" href="#collapseRes">Результат проверки</a>
                             </h4>
                         </div>
                         <div id="collapseRes" class="panel-collapse collapse in">
@@ -185,11 +171,11 @@
 
         </div>
         <div class="col-md-8">
-            <div class="panel-group" id="accordion">
+            <div class="panel-group" id="textAccordion">
                 <div class="panel panel-default">
                     <div class="panel-heading">
                         <h4 class="panel-title">
-                            <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">Текст задания</a>
+                            <a data-toggle="collapse" data-parent="#textAccordion" href="#collapseOne">Текст задания</a>
                         </h4>
                     </div>
                     <div id="collapseOne" class="panel-collapse collapse in">
@@ -209,11 +195,11 @@
                 </div>
             </div>
 --%>
-            <div class="panel-group" id="accordion">
+            <div class="panel-group" id="codeAccordion">
                 <div class="panel panel-default">
                     <div class="panel-heading">
                         <h4 class="panel-title">
-                            <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">Код решения</a>
+                            <a data-toggle="collapse" data-parent="#codeAccordion" href="#collapseTwo">Код решения</a>
                         </h4>
                     </div>
                     <div id="collapseTwo" class="panel-collapse collapse in">
