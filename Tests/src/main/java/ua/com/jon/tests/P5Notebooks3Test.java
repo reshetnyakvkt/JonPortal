@@ -60,7 +60,7 @@ import static junit.framework.TestCase.assertNotNull;
         "hw6.notes.util.HibernateUtil",
         "hw6.notes.service.NotebookService",
         "hw6.notes.service.NotebookServiceImpl",
-        "hw6.notes.service.Menu"
+        "hw6.notes.view.Menu"
         })
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class P5Notebooks3Test extends BaseTest {

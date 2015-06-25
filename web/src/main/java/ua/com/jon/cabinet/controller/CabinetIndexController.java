@@ -9,13 +9,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.context.request.async.DeferredResult;
 import ua.com.jon.cabinet.client.TasksService;
-import ua.com.jon.cabinet.server.DeferredResultService;
 import ua.com.jon.cabinet.server.ExtTasksService;
 import ua.com.jon.cabinet.shared.GroupAndSprintsDTO;
 import ua.com.jon.cabinet.shared.GroupDTO;
 import ua.com.jon.cabinet.shared.TaskDTO;
 
-import javax.mail.Message;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,9 +25,6 @@ import java.util.List;
 
 @Controller
 public class CabinetIndexController {
-
-    @Autowired
-    DeferredResultService deferredResultService;
 
     @Autowired
     private ExtTasksService tasksService;
@@ -49,6 +44,11 @@ public class CabinetIndexController {
     @RequestMapping(value = "/cabinet/index1.html", method = RequestMethod.GET)
     public String index1(Model model) {
         return "cabinet/index";
+    }
+
+    @RequestMapping(value = "/cabinet/userName", method = RequestMethod.GET)
+    public @ResponseBody String userName() {
+        return tasksService.getSpringUserName();
     }
 
     @RequestMapping(value = "/cabinet/tasks", method = RequestMethod.GET)
@@ -96,13 +96,5 @@ public class CabinetIndexController {
     public @ResponseBody long getCourseRate(@RequestParam("groupId") String groupIdParam) {
         Long groupId = Long.parseLong(groupIdParam);
         return (long)tasksService.getCourseRate(groupId);
-    }
-
-    @RequestMapping("/cabinet/getUpdate")
-    @ResponseBody public DeferredResult<String> getUpdate() {
-
-        final DeferredResult<String> result = new DeferredResult<>();
-        deferredResultService.getUpdate(result);
-        return result;
     }
 }

@@ -138,7 +138,7 @@ import static org.junit.Assert.assertTrue;
         "hw7.springnotes.dao.SalesDaoImpl",
         "hw7.springnotes.service.NotebookService",
         "hw7.springnotes.service.NotebookServiceImpl",
-        "hw7.springnotes.service.Menu"
+        "hw7.springnotes.view.Menu"
         })
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class P6SpringNotebookTest extends BaseTest {
@@ -408,7 +408,7 @@ public class P6SpringNotebookTest extends BaseTest {
 //        CodeValidator.checkCodePkg(codes.get(service.getName()));
 
         ReflectionUtil.checkMethod(service, RECEIVE_SERVICE_METHOD_NAME, "Long",
-                new MethodModifier[]{MethodModifier.PUBLIC}, "Long", "int", "double");
+                new MethodModifier[]{MethodModifier.PUBLIC}, "Notebook", "int", "double");
         ReflectionUtil.checkMethod(service, SALE_SERVICE_METHOD_NAME, Long.class,
                 new MethodModifier[]{MethodModifier.PUBLIC}, Long.class, int.class);
         ReflectionUtil.checkMethod(service, BY_PORTION_METHOD_NAME, "List",

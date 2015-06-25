@@ -21,6 +21,8 @@ public interface ExtTasksService {
 
     double getCourseRate(Long groupId);
 
+    String getSpringUserName();
+
     List<GroupDTO> getUserGroups();
 
     ArrayList<SprintDTO> getSprints(Long id);

@@ -27,4 +27,11 @@ public class CodeValidator {
     public static void checkCodePkg(String s) {
 
     }
+
+    public static void checkCodeFile(String value) {
+    }
+
+    public static void checkCodeFileThreadNet(String s) {
+
+    }
 }

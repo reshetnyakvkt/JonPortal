@@ -89,7 +89,7 @@ public class B2BoxOnShelfTest extends BaseTest {
     }
 
     private boolean isContains(int bWidth, int bHeight, int sWidth, int sHeight) {
-        return (sWidth >= bWidth || sWidth >= bHeight) && (sHeight >= bWidth || sHeight >= bHeight);
+        return (sWidth >= bWidth && sWidth >= bHeight) || (sHeight >= bWidth && sHeight >= bHeight);
     }
 
 }

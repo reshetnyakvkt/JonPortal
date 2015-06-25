@@ -26,7 +26,7 @@ requirejs.config({
     }
 });
 
-require(['model/Task', 'controller/TasksController', 'codemirror/lib/codemirror', 'codemirror/mode/clike/clike' /*, '/js/star_destroyer'*/], function (Task, TasksController, CodeMirror) {
+require(['model/Task', 'controller/TasksController', 'codemirror/lib/codemirror', 'codemirror/lib/formatting', 'codemirror/mode/clike/clike' /*, '/js/star_destroyer'*/], function (Task, TasksController, CodeMirror) {
 
 
     var tasks = [new Task('Barney', 1),
@@ -48,8 +48,8 @@ require(['model/Task', 'controller/TasksController', 'codemirror/lib/codemirror'
 
 });
 
-require(["codemirror/lib/codemirror", "codemirror/mode/clike/clike"], function(CodeMirror) {
-/*
+/*require(["codemirror/lib/codemirror", "codemirror/mode/clike/clike"], function(CodeMirror) {
+
     var editor = CodeMirror.fromTextArea(document.getElementById("code"), {
         lineNumbers: true,
         //styleActiveLine: true,
@@ -59,5 +59,5 @@ require(["codemirror/lib/codemirror", "codemirror/mode/clike/clike"], function(C
         matchBrackets: true
 
     });
-*/
-});
+
+});*/

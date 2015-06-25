@@ -29,6 +29,7 @@ define(['jquery', "datatables", "DT-bootstrap", "bootstrap", "codemirror/lib/cod
 
         $('#table_id tbody tr:first-child').addClass('selected');
         renderTask(tasks[0]);
+        addPlayHandlers(table);
     }
 
     function renderTasksFromSprint(sprint) {
@@ -61,6 +62,10 @@ define(['jquery', "datatables", "DT-bootstrap", "bootstrap", "codemirror/lib/cod
             $('#sprintRate').html(data);
         });
 
+        Communication.getUserName(function (data) {
+            $('#student').html(data);
+        });
+
         var sprints = group.sprints;
         if (sprints.length > 0) {
             $('#sprints').empty();
@@ -91,10 +96,17 @@ define(['jquery', "datatables", "DT-bootstrap", "bootstrap", "codemirror/lib/cod
         renderTasksFromSprint(selectSprint)
     }
 
+    function format() {
+        var totalLines = codeEditor.lineCount();
+        var totalChars = codeEditor.getTextArea().value.length;
+        codeEditor.autoFormatRange({line: 0, ch: 0}, {line: totalLines, ch: totalChars});
+    }
+
     function renderCode(task) {
         //$('.CodeMirror').remove();
         //textArea.textContent = task.code;
         codeEditor.setValue(task.code);
+        format();
     }
 
     function renderTask(task) {
@@ -210,6 +222,39 @@ define(['jquery', "datatables", "DT-bootstrap", "bootstrap", "codemirror/lib/cod
         }
     }
 
+    function addPlayHandlers(table) {
+        $('.play').on('click', function (event) {
+            var tr = this.parentNode.parentNode;
+            var task = table.fnGetData(tr);
+            var button = $(this);
+            //button.disabled = true;
+            button.attr("disabled", "disabled");
+
+            var playIcon = $(button.children(0));
+            playIcon.removeClass("glyphicon-play");
+            playIcon.addClass("glyphicon-refresh glyphicon-refresh-animate");
+            task.code = codeEditor.getValue();
+
+            if (event.stopPropagation) {
+                event.stopPropagation();
+            }
+            Communication.checkTask(task.id, task.type, codeEditor.getValue(), function (data) {
+                if (data) {
+                    task.result = data;
+                    table.fnUpdate(data, tr, 1);
+                    table.fnDraw();
+                    $('#result').html(data.replace(/\n/g, '<br/>'));
+                    task.result = data;
+                }
+
+                button.removeAttr("disabled");
+                playIcon.removeClass("glyphicon-refresh glyphicon-refresh-animate");
+                playIcon.addClass("glyphicon-play");
+
+            });
+        });
+    }
+
     function addHandlers(table) {
         $('#table_id tbody').on('click', 'tr', function () {
             if ($(this).hasClass('selected')) {
@@ -232,40 +277,19 @@ define(['jquery', "datatables", "DT-bootstrap", "bootstrap", "codemirror/lib/cod
             if (group != undefined) {
                 selectedGroup = group;
                 renderSprints(group, group.sprints[0]);
+                addPlayHandlers(table);
             }
         });
 
-        $('.play').on('click', function () {
-            var tr = this.parentNode.parentNode;
-            var task = table.fnGetData(tr);
-            var button = $(this);
-            //button.disabled = true;
-            button.attr("disabled", "disabled");
-
-            var playIcon = $(button.children(0));
-            playIcon.toggleClass("glyphicon-play");
-            playIcon.toggleClass("glyphicon-refresh glyphicon-refresh-animate");
-            task.code = codeEditor.getValue();
-            Communication.checkTask(task.id, task.type, codeEditor.getValue(), function (data) {
-                if (data) {
-                    task.result = data;
-                    table.fnUpdate(data, tr, 1);
-                    table.fnDraw();
-                    $('#result').html(data.replace(/\n/g, '<br/>'));
-                    task.result = data;
-                }
-
-                button.removeAttr("disabled");
-                playIcon.toggleClass("glyphicon-refresh glyphicon-refresh-animate");
-                playIcon.toggleClass("glyphicon-play");
-
-            });
-        });
-
+        addPlayHandlers(table);
 
         $('#result').on('click', function () {
             $('#modalRes').html($(this).html());
             $('#modal').modal('toggle');
+        });
+
+        $('#format').on('click', function () {
+            format();
         });
 
     }

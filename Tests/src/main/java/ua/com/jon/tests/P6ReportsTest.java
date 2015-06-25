@@ -82,7 +82,7 @@ import static org.junit.Assert.assertTrue;
         "hw7.notes.dao.SalesDaoImpl",
         "hw7.notes.service.NotebookService",
         "hw7.notes.service.NotebookServiceImpl",
-        "hw7.notes.service.Menu"
+        "hw7.notes.view.Menu"
 })
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class P6ReportsTest extends BaseTest {
@@ -345,7 +345,7 @@ public class P6ReportsTest extends BaseTest {
                 new MethodModifier[]{MethodModifier.PUBLIC}, "Vendor");
         ReflectionUtil.checkMethod(service, FROM_STORE_SERVICE_METHOD_NAME, "List",
                 new MethodModifier[]{MethodModifier.PUBLIC});
-        ReflectionUtil.checkMethod(service, STORE_PRESENT_SERVICE_METHOD_NAME, "Map",
+        ReflectionUtil.checkMethod(service, STORE_PRESENT_SERVICE_METHOD_NAME, "List",
                 new MethodModifier[]{MethodModifier.PUBLIC});
         ReflectionUtil.checkMethod(service, SALES_BY_DAYS_SERVICE_METHOD_NAME, "Map",
                 new MethodModifier[]{MethodModifier.PUBLIC});

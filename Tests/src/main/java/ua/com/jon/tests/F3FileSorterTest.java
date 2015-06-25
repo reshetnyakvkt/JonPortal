@@ -108,12 +108,14 @@ public class F3FileSorterTest extends BaseTest {
         textWriter.write(textString);
         textWriter.close();
 
+/*
         RemoteMethodInvoker.getInvoker()
                 .setFilePolicy()
                 .setClassPath(unitJarClasspath)
                 .setClasses(String[].class)
                 .setObjects((Object)new String[0])
                 .invokeMethod(classCodes[0], UNIT_METHOD_NAME);
+*/
 
         BufferedReader reader = new BufferedReader(new FileReader(TEST_FILE_NAME));
         String actualString = reader.readLine();

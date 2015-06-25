@@ -109,7 +109,7 @@ import static org.junit.Assert.assertTrue;
         "hw7.notes.dao.SalesDaoImpl",
         "hw7.notes.service.NotebookService",
         "hw7.notes.service.NotebookServiceImpl",
-        "hw7.notes.service.Menu"
+        "hw7.notes.view.Menu"
         })
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class P6NotebookStructureTest extends BaseTest {
@@ -361,7 +361,7 @@ public class P6NotebookStructureTest extends BaseTest {
 //        CodeValidator.checkCodePkg(codes.get(service.getName()));
 
         ReflectionUtil.checkMethod(service, RECEIVE_SERVICE_METHOD_NAME, "Long",
-                new MethodModifier[]{MethodModifier.PUBLIC}, "Long", "int", "double");
+                new MethodModifier[]{MethodModifier.PUBLIC}, "Notebook", "int", "double");
         ReflectionUtil.checkMethod(service, SALE_SERVICE_METHOD_NAME, Long.class,
                 new MethodModifier[]{MethodModifier.PUBLIC}, Long.class, int.class);
 

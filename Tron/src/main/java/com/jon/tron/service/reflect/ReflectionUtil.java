@@ -1,6 +1,7 @@
 package com.jon.tron.service.reflect;
 
 import java.io.IOException;
+import java.io.Reader;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
@@ -48,15 +49,12 @@ public class ReflectionUtil {
 
 
 
-    public static Method checkMethod(Class unitClass, String equalsMethodName, String noSuchCourseException, Class<?> booleanClass, MethodModifier[] methodModifiers, Class<String> stringClass, Class<List> listClass) {
-        return null;
-    }
 
     public static Method checkMethod(Class unitClass, String markMethodName, Class<?> voidClass, MethodModifier[] methodModifiers, Object ... os) {
         return null;  //To change body of created methods use File | Settings | File Templates.
     }
 
-    public static int[] invokeMethodAsProcess(Object instance, String bubbleSort, Class<int[]> aClass, Class<int[]> aClass1, String s, int[] clone) {
+    public static int[] invokeMethodAsProcess(Object instance, String bubbleSort, Class<?> aClass, Class<int[]> aClass1, String s, int[] clone) {
         return new int[0];  //To change body of created methods use File | Settings | File Templates.
     }
 
@@ -79,15 +77,51 @@ public class ReflectionUtil {
 
     }
 
-    public static void checkMethod(Class daoClass, String updateMethodName, String aVoid, MethodModifier[] methodModifiers, String region) {
+    public static Method checkMethod(Class daoClass, String updateMethodName, String aVoid, MethodModifier[] methodModifiers, Class ... region) {
+        return null;
+    }
+
+    public static Method checkMethod(Class service, String createOrderMethodName, String aBoolean, MethodModifier[] methodModifiers, String ... string) {
+        return null;
+    }
+    public static Method checkMethod(Class service, String createOrderMethodName, String aBoolean, MethodModifier[] methodModifiers) {
+        return null;
+    }
+
+    public static void checkDefaultConstructor(Class unitClass) {
 
     }
 
-    public static void checkMethod(Class service, String createOrderMethodName, String aBoolean, MethodModifier[] methodModifiers, String string, String string1) {
+    public static void checkConstructor(Class unitClass, Class<?> readerClass) {
 
     }
 
-    public static void checkMethod(Class service, String showOrdersPortionMethodName, String list, MethodModifier[] methodModifiers) {
+    public static Object instanciate(Class unitClass) {
+        return null;
+    }
+
+    public static void close() {
+    }
+
+/*    public static void checkMethod(Class service, String receiveServiceMethodName, String aLong, MethodModifier[] methodModifiers, String aLong1, String anInt, String aDouble) {
+
+
+    }*/
+
+    public static void checkHasAnnotation(Class unitClass, String entity) {
 
     }
+
+    public static Method checkMethod(Class unitClass, String setGroupMethodName, String noSuchGroupException, Class<?> voidClass, MethodModifier[] methodModifiers, Class<?> ... stringClass) {
+        return null;
+    }
+
+/*    private Method checkMethod(Class unitClass, String addGroupMethodName, String groupExistsException, Class<String> stringClass, MethodModifier[] methodModifiers) {
+        return null;
+    }
+
+    private Method checkMethod(Class unitClass, String printGroupMethodName, String noSuchCourseException, Class<Void> voidClass, MethodModifier[] methodModifiers, Class<String> stringClass, Class<List> listClass) {
+        return null;
+    }*/
+
 }

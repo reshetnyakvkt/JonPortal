@@ -125,7 +125,7 @@ public class ExtTaskServiceImpl implements ExtTasksService {
         }
 
         log.info("taskStatusChanged " + task.getStatus().name());
-        tasksQueue.put(new AbstractMap.SimpleEntry<>(dto, res), 60);
+        tasksQueue.put(new AbstractMap.SimpleEntry<>(dto, res), 300);
         return "";
     }
 

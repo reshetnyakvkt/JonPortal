@@ -23,13 +23,21 @@ define([], function (TasksView) {
     function checkTask(taskId, type, code, callback) {
         $.ajax({
             url: "checkTask",
-            timeout : 60000,
+            //timeout : 120000,
             //url: "getUpdate",
             //dataType: 'json',
             data: { taskId: taskId, type: type, code: code },
             error : function (a,b,c) {
-                callback("-\nВремя ожидания ответа от сервера истекло");
+                callback("-\nВремя ожидания ответа от сервера истекло, перегрузите страницу позже");
             },
+            success: callback
+        });
+    }
+
+    function getUserName(callback) {
+        $.ajax({
+            url: "userName",
+            //dataType: 'json',
             success: callback
         });
     }
@@ -37,6 +45,7 @@ define([], function (TasksView) {
     return {
         getCourseRate:getCourseRate,
         getSprintRate:getSprintRate,
-        checkTask:checkTask
+        checkTask:checkTask,
+        getUserName:getUserName
     };
 });

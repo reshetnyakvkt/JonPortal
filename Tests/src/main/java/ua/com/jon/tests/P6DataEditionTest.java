@@ -80,7 +80,7 @@ import static org.junit.Assert.assertTrue;
         "hw7.notes.dao.SalesDaoImpl",
         "hw7.notes.service.NotebookService",
         "hw7.notes.service.NotebookServiceImpl",
-        "hw7.notes.service.Menu"
+        "hw7.notes.view.Menu"
 })
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class P6DataEditionTest extends BaseTest {

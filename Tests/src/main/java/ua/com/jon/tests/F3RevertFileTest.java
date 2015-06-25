@@ -1,6 +1,6 @@
 package ua.com.jon.tests;
 
-import com.jon.tron.service.executor.RemoteMethodInvoker;
+//import com.jon.tron.service.executor.RemoteMethodInvoker;
 import com.jon.tron.service.junit.*;
 import com.jon.tron.service.processor.CodeValidator;
 import com.jon.tron.service.processor.StyleChecker;
@@ -104,12 +104,12 @@ public class F3RevertFileTest extends BaseTest {
         textWriter.write(textString);
         textWriter.close();
 
-        RemoteMethodInvoker.getInvoker()
+/*        RemoteMethodInvoker.getInvoker()
                 .setFilePolicy()
                 .setClassPath(unitJarClasspath)
                 .setClasses(String[].class)
                 .setObjects((Object)new String[0])
-                .invokeMethod(classCodes[0], UNIT_METHOD_NAME);
+                .invokeMethod(classCodes[0], UNIT_METHOD_NAME);*/
         String out = getIn().toString().trim();
 //        ReflectionUtil.invokeMethod(instance, unitMethod, actualVector);
 

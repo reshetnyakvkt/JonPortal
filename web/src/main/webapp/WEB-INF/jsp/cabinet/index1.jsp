@@ -39,7 +39,7 @@
             <div class="container-fluid">
                 <!-- Brand and toggle get grouped for better mobile display -->
                 <div class="navbar-header" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Tooltip on bottom">
-                    <span class="navbar-brand"  ><b>Студент</b></span>
+                    <span class="navbar-brand"><b id="student">Студент</b></span>
                 </div>
 
                 <div class="navbar-header">
@@ -200,7 +200,9 @@
                     <div class="panel-heading">
                         <h4 class="panel-title">
                             <a data-toggle="collapse" data-parent="#codeAccordion" href="#collapseTwo">Код решения</a>
+                            <button id="format" type="button" class="btn btn-default">Форматировать</button>
                         </h4>
+
                     </div>
                     <div id="collapseTwo" class="panel-collapse collapse in">
                         <div class="panel-body">
