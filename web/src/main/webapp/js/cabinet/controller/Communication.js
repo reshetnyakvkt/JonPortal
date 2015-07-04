@@ -24,8 +24,7 @@ define([], function (TasksView) {
         $.ajax({
             url: "checkTask",
             //timeout : 120000,
-            //url: "getUpdate",
-            //dataType: 'json',
+            type: "POST",
             data: { taskId: taskId, type: type, code: code },
             error : function (a,b,c) {
                 callback("-\nВремя ожидания ответа от сервера истекло, перегрузите страницу позже");

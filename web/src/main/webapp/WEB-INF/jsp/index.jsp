@@ -62,6 +62,8 @@
 
             <div class="well">
 
+                <p>Снижение рейтинга за недочёты на 1 балл <a href="/trainings/styleChecker.html">перейти</a></p>
+
                 <p>Переписан кабинет</p>
 
                 <p>Начата проверка стиля заданий ... <a href="/trainings/styleChecker.html">перейти</a></p>

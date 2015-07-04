@@ -16,10 +16,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
-import static junit.framework.TestCase.assertNotNull;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
+import static org.junit.Assert.*;
 
 /**
  Написать метод определяющий, является ли массив палиндромом (одинаково читается и справа и слева)
@@ -86,7 +83,7 @@ public class F2VectorPalindromTest extends BaseTest {
         int[] actualVector = generateVector(0, 10);
         boolean actualResult = (Boolean)ReflectionUtil.invokeMethod(instance, unitMethod, actualVector);
 
-        assertFalse("Переданный в метод массив не является палиндромом, но метод вернул " + actualResult, actualResult);
+        assertFalse("Переданный в метод массив не является палиндромом, но ваш метод вернул " + actualResult, actualResult);
     }
 
     @Test(timeout = 1000)
@@ -97,7 +94,7 @@ public class F2VectorPalindromTest extends BaseTest {
         int[] actualVector = generatePairPalindrom(0, 10);
         boolean actualResult = (Boolean)ReflectionUtil.invokeMethod(instance, unitMethod, actualVector);
 
-        assertTrue("Переданный в метод массив "+Arrays.toString(actualVector)+" является палиндромом, но метод вернул " +
+        assertTrue("Переданный в метод массив "+Arrays.toString(actualVector)+" является палиндромом, но ваш метод вернул " +
                 actualResult, actualResult);
     }
 
@@ -109,7 +106,7 @@ public class F2VectorPalindromTest extends BaseTest {
         int[] actualVector = generateNonPairPalindrom(0, 10);
         boolean actualResult = (Boolean)ReflectionUtil.invokeMethod(instance, unitMethod, actualVector);
 
-        assertTrue("Переданный в метод массив " + Arrays.toString(actualVector) + " является палиндромом, но метод вернул " +
+        assertTrue("Переданный в метод массив " + Arrays.toString(actualVector) + " является палиндромом, но ваш метод вернул " +
                 actualResult, actualResult);
     }
 

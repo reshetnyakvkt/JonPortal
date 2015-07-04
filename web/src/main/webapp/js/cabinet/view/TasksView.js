@@ -12,8 +12,8 @@ define(['jquery', "datatables", "DT-bootstrap", "bootstrap", "codemirror/lib/cod
     var constructor = function () {
         var textArea = document.getElementById("code");
         codeEditor = CodeMirror.fromTextArea(textArea, {
+            viewportMargin: Infinity,
             lineNumbers: true,
-            //styleActiveLine: true,
             lineWrapping: true,
             theme: "vibrant-ink",
             mode: "text/x-java",
@@ -92,7 +92,6 @@ define(['jquery', "datatables", "DT-bootstrap", "bootstrap", "codemirror/lib/cod
             }
         });
 
-        //var dataTable = $('#table_id').dataTable();
         renderTasksFromSprint(selectSprint)
     }
 
@@ -103,10 +102,7 @@ define(['jquery', "datatables", "DT-bootstrap", "bootstrap", "codemirror/lib/cod
     }
 
     function renderCode(task) {
-        //$('.CodeMirror').remove();
-        //textArea.textContent = task.code;
         codeEditor.setValue(task.code);
-        format();
     }
 
     function renderTask(task) {
@@ -127,10 +123,10 @@ define(['jquery', "datatables", "DT-bootstrap", "bootstrap", "codemirror/lib/cod
 
         table = buildTable(selectedSprint.tasks);
         renderSprints(selectedGroup, selectedSprint);
-        /*
-         selectedTask = selectedSprint.tasks[0];
-         renderTask(selectedTask);
-         */
+
+        $('[data-toggle="tooltip"]').tooltip();
+
+        //$('#codeAccordion').collapse('show').height('100%');
 
         addHandlers(table);
     }
@@ -148,30 +144,17 @@ define(['jquery', "datatables", "DT-bootstrap", "bootstrap", "codemirror/lib/cod
             "ordering": false,
             "info": false,
             "searching": false,
-            //"ajax": "tasks",
-            /*            "ajax": function (data, callback, settings) {
-             callback(
-             parameters
-             );
-             },*/
 
             "columns": [
                 {"data": "name"},
                 {"data": "result"},
                 {"data": "action"}
             ],
-            /*
-             "aoColumns": [
-             { "sWidth": "70%" },
-             { "sWidth": "25%" },
-             { "sWidth": "5%", "sClass": "center", "bSortable": false }
-             ],
-             */
 
             "columnDefs": [{
                 "targets": -1,
                 "data": null,
-                "defaultContent": "<button class='btn btn-default play'><span class='glyphicon glyphicon-play'></span></button>"
+                "defaultContent": "<button  data-toggle='tooltip' data-placement='bottom' title='Проверить задание' class='btn btn-default play'><span class='glyphicon glyphicon-play'></span></button>"
             },
                 {
                     width: '80%',
@@ -186,21 +169,6 @@ define(['jquery', "datatables", "DT-bootstrap", "bootstrap", "codemirror/lib/cod
                 }
             ],
             "aaData": tasks
-            /*            "aaData": [
-             ['Internet Explorer 4.0', 4, '[Проверить]'],
-             ['Internet Explorer 4.0', 4, '[]'],
-             ['Internet Explorer 4.0', 4, '[]'],
-             ['Internet Explorer 4.0', 4, '[]'],
-             ['Internet Explorer 4.0', 4, '[]'],
-             ['Internet Explorer 4.0', 4, '[]'],
-             ['Internet Explorer 4.0', 4, '[]'],
-             ['Internet Explorer 5.0', 5, '[]']
-             ],*/
-            /*            "aoColumns": [
-             { "sTitle": "Название задания" },
-             { "sTitle": "Оценка" },
-             { "sTitle": "" }
-             ]*/
         });
         return table;
     }
@@ -233,12 +201,12 @@ define(['jquery', "datatables", "DT-bootstrap", "bootstrap", "codemirror/lib/cod
             var playIcon = $(button.children(0));
             playIcon.removeClass("glyphicon-play");
             playIcon.addClass("glyphicon-refresh glyphicon-refresh-animate");
-            task.code = codeEditor.getValue();
+            //task.code = codeEditor.getValue();
 
             if (event.stopPropagation) {
                 event.stopPropagation();
             }
-            Communication.checkTask(task.id, task.type, codeEditor.getValue(), function (data) {
+            Communication.checkTask(task.id, task.type, task.code, function (data) {
                 if (data) {
                     task.result = data;
                     table.fnUpdate(data, tr, 1);
@@ -255,6 +223,12 @@ define(['jquery', "datatables", "DT-bootstrap", "bootstrap", "codemirror/lib/cod
         });
     }
 
+    function saveCodeToSelected(table) {
+        var tr = $('#table_id .selected');
+        var task = table.fnGetData(tr);
+        task.code = codeEditor.getValue();
+    }
+
     function addHandlers(table) {
         $('#table_id tbody').on('click', 'tr', function () {
             if ($(this).hasClass('selected')) {
@@ -266,11 +240,6 @@ define(['jquery', "datatables", "DT-bootstrap", "bootstrap", "codemirror/lib/cod
             renderTask(table.fnGetData(this));
         });
 
-        /*        $('#table_id tbody').on('click', 'button', function () {
-         var data = table.row($(this).parents('tr')).data();
-         alert(data[0] + "'s salary is: " + data[5]);
-         });*/
-
         $('#groups li a').on('click', function () {
             $('#group').html(this.innerHTML + '<span class="caret">');
             var group = getGroupById(this.name);
@@ -281,16 +250,17 @@ define(['jquery', "datatables", "DT-bootstrap", "bootstrap", "codemirror/lib/cod
             }
         });
 
-        addPlayHandlers(table);
-
         $('#result').on('click', function () {
             $('#modalRes').html($(this).html());
             $('#modal').modal('toggle');
         });
 
-        $('#format').on('click', function () {
-            format();
+        $('div.CodeMirror').on('mouseleave', function () {
+            saveCodeToSelected(table);
         });
 
+        $('#save').on('click', function () {
+            saveCodeToSelected(table);
+        });
     }
 });

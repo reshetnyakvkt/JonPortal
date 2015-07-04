@@ -7,9 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.context.ServletContextAware;
 import org.springframework.web.context.request.async.DeferredResult;
-import ua.com.jon.auth.domain.SpringUser;
 import ua.com.jon.cabinet.shared.GroupDTO;
 import ua.com.jon.cabinet.shared.SprintDTO;
 import ua.com.jon.cabinet.shared.TaskDTO;
@@ -33,7 +32,7 @@ import java.util.concurrent.TimeUnit;
  * Date: 12.06.15
  */
 @Service
-public class ExtTaskServiceImpl implements ExtTasksService {
+public class ExtTaskServiceImpl implements ExtTasksService, ServletContextAware {
     private static final Logger log = Logger.getLogger(ExtTaskServiceImpl.class);
 
     @Autowired

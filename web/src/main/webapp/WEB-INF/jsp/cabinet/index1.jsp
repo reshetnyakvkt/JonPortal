@@ -13,8 +13,8 @@
     <%--<link href="//cdn.datatables.net/1.10.7/css/jquery.dataTables.css" rel="stylesheet" media="screen">--%>
     <link href="//cdn.datatables.net/plug-ins/1.10.7/integration/bootstrap/3/dataTables.bootstrap.css" rel="stylesheet" media="screen">
     <%--<link href="//editor.datatables.net/examples/resources/bootstrap/editor.bootstrap.css" rel="stylesheet" media="screen">--%>
-    <link href="/css/custom.css" rel="stylesheet" media="screen">
     <link href="/css/codemirror/codemirror.css" rel="stylesheet" media="screen">
+    <link href="/css/custom.css" rel="stylesheet" media="screen">
     <link href="/css/codemirror/vibrant-ink.css" rel="stylesheet" media="screen">
 
     <title>jon.com.ua</title>
@@ -200,7 +200,8 @@
                     <div class="panel-heading">
                         <h4 class="panel-title">
                             <a data-toggle="collapse" data-parent="#codeAccordion" href="#collapseTwo">Код решения</a>
-                            <button id="format" type="button" class="btn btn-default">Форматировать</button>
+                            <%--<button id="format" type="button" class="btn btn-default">Форматировать</button>--%>
+                            <button id="save" data-toggle="tooltip" data-placement="bottom" title="Запомнить решение" class='btn btn-default'><span class='glyphicon glyphicon-floppy-disk'></span></button>
                         </h4>
 
                     </div>

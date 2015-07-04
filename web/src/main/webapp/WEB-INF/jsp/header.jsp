@@ -11,6 +11,7 @@
             <%--<li id="item4"><a href="/codeValidator/index">Задания</a></li>--%>
             <li id="item6"><a href="/tasksg.html">Задачи</a></li>
             <li id="item5"><a href="/download.html">Скачать</a></li>
+            <li id="item7"><a href="/cabinet/index.html">Кабинет</a></li>
         </ul>
     </div>
 </div>

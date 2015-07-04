@@ -31,10 +31,15 @@ public class IndexController {
         return "tasks";
     }
 
-
     @RequestMapping("/tasksg.html")
     public String examinator(ModelMap modelMap)  {
         modelMap.put("item","item6");
         return "tasksg";
+    }
+
+    @RequestMapping("/cabinet/index.html")
+    public String cabinet(ModelMap modelMap)  {
+        modelMap.put("item","item7");
+        return "cabinet/index1";
     }
 }

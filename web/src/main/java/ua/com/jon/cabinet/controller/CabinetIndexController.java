@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.context.request.async.DeferredResult;
-import ua.com.jon.cabinet.client.TasksService;
 import ua.com.jon.cabinet.server.ExtTasksService;
 import ua.com.jon.cabinet.shared.GroupAndSprintsDTO;
 import ua.com.jon.cabinet.shared.GroupDTO;
@@ -70,7 +69,7 @@ public class CabinetIndexController {
 */
     }
 
-    @RequestMapping(value = "/cabinet/checkTask", method = RequestMethod.GET, produces = "text/plain; charset=utf-8")
+    @RequestMapping(value = "/cabinet/checkTask", method = RequestMethod.POST, produces = "text/plain; charset=utf-8")
     public @ResponseBody DeferredResult<String> checkTask(@RequestParam("taskId") String taskIdParam, @RequestParam("type") String type,
                                           @RequestParam("code") String code) {
         Long taskId = Long.parseLong(taskIdParam);
