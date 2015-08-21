@@ -14,17 +14,12 @@
     <bean class="com.jon.tron.context.AppConfig"/>
     <!--<import resource="security.xml"/>-->
     <!--<annotation-driven />-->
-    <context:component-scan base-package="ua.com.jon.common.controller"/>
     <context:component-scan base-package="ua.com.jon.common.service"/>
     <context:component-scan base-package="ua.com.jon.common.dao"/>
-    <context:component-scan base-package="ua.com.jon.cabinet.controller"/>
     <context:component-scan base-package="ua.com.jon.examinator.server"/>
-    <context:component-scan base-package="ua.com.jon.examinator.controller"/>
-    <context:component-scan base-package="ua.com.jon.tasks.validator.controller"/>
     <context:component-scan base-package="ua.com.jon.tasks.validator.codeValidator"/>
     <context:component-scan base-package="ua.com.jon.utils"/>
     <context:component-scan base-package="ua.com.jon.cabinet.server"/>
-    <context:component-scan base-package="ua.com.jon.auth.controller"/>
     <context:component-scan base-package="ua.com.jon.auth.service"/>
     <context:component-scan base-package="ua.com.jon.admin"/>
 
@@ -51,6 +46,8 @@
     </bean>
 
     <mvc:annotation-driven/>
+
+    <mvc:resources mapping="/robots.txt" location="/robots.txt" order="0"/>
 
 <!--
     <bean class="org.springframework.web.servlet.view.ContentNegotiatingViewResolver">

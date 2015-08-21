@@ -34,7 +34,7 @@
 
             <form name="lform" method="POST" action="/register">
                 <div class="form-group">
-                    <label>Логин: imya_familiya</label>
+                    <label>Логин: imya_familiya (в нижнем регистре)</label>
                     <input type="text" id="username" class="form-control" name="j_username" placeholder="Логин"/>
                 </div>
                 <div class="form-group">

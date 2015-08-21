@@ -1,6 +1,9 @@
 package ua.com.jon.tests;
 
-import com.jon.tron.service.junit.*;
+import com.jon.tron.service.junit.Unit;
+import com.jon.tron.service.junit.UnitClass;
+import com.jon.tron.service.junit.UnitCode;
+import com.jon.tron.service.junit.UnitName;
 import com.jon.tron.service.processor.CodeValidator;
 import com.jon.tron.service.reflect.MethodModifier;
 import com.jon.tron.service.reflect.ReflectionUtil;
@@ -114,9 +117,9 @@ public class P8OrdersTest extends BaseTest {
 //        CodeValidator.checkCodePkg(codes.get(service.getName()));
 
         ReflectionUtil.checkMethod(service, CREATE_ORDER_METHOD_NAME, "boolean",
-                new MethodModifier[]{MethodModifier.PUBLIC}, "Long", "String", "String", "String", "String");
+                new MethodModifier[]{MethodModifier.PUBLIC}, "Client", "Double", "String", "String");
         ReflectionUtil.checkMethod(service, EDIT_ORDER_METHOD_NAME, "void",
-                new MethodModifier[]{MethodModifier.PUBLIC}, "Long", "String", "String", "String", "String");
+                new MethodModifier[]{MethodModifier.PUBLIC}, "Long", "Client", "String", "String", "String");
         ReflectionUtil.checkMethod(service, SHOW_ORDERS_METHOD_NAME, "List",
                 new MethodModifier[]{MethodModifier.PUBLIC}, "Long", "Long");
         ReflectionUtil.checkMethod(service, SHOW_ORDERS_PORTION_METHOD_NAME, "List",

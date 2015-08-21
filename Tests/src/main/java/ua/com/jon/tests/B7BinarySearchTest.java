@@ -17,7 +17,6 @@ import java.util.List;
 import java.util.Map;
 
 import static junit.framework.TestCase.assertNotNull;
-import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
@@ -80,7 +79,7 @@ public class B7BinarySearchTest extends BaseTest {
             fail();
         }
         int elem = (int)(Math.random() * 10 + 10);
-        int[] actualVector = generateNonPairPalindrom(3, 10, elem);
+        int[] actualVector = generateSortedArray(3, 10, elem);
         int actualResult = (int)ReflectionUtil.invokeMethod(instance, method, actualVector, elem);
 
         assertTrue("В массиве " + Arrays.toString(actualVector) + " находится искомый элемент " + elem + ", но метод " + method.getName() +
@@ -93,7 +92,7 @@ public class B7BinarySearchTest extends BaseTest {
             fail();
         }
         int elem = (int)(Math.random() * 10 + 20);
-        int[] actualVector = generateNonPairPalindrom(3, 10, 0);
+        int[] actualVector = generateSortedArray(3, 10, 0);
         int actualResult = (int)ReflectionUtil.invokeMethod(instance, method, actualVector, elem);
 
         assertTrue("В массиве " + Arrays.toString(actualVector) + " отсутствует искомый элемент " + elem + ", но метод " + method.getName() +
@@ -113,18 +112,18 @@ public class B7BinarySearchTest extends BaseTest {
                 " вернул " + actualResult, actualResult == 0);
     }
 
-    private int[] generateNonPairPalindrom(int from, int to, int elem) {
+    private int[] generateSortedArray(int from, int to, int elem) {
         int length = (int)(Math.random() * 10 + 10) / 2 + 1;
         int[] vector = new int[length];
         int range = to - from;
 
-        for (int i = 0, j = vector.length - 1; i < vector.length / 2; i++, j--) {
+        for (int i = 0; i < vector.length; i++) {
             int rnd = (int) (Math.random() * range + from);
             vector[i] = rnd;
-            vector[j] = rnd;
         }
         int elemIdx =  (int) (Math.random() * length - 1);
         vector[elemIdx] = elem;
+        Arrays.sort(vector);
         return vector;
     }
 }

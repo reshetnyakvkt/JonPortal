@@ -1,6 +1,9 @@
 package ua.com.jon.tests;
 
-import com.jon.tron.service.junit.*;
+import com.jon.tron.service.junit.Unit;
+import com.jon.tron.service.junit.UnitClass;
+import com.jon.tron.service.junit.UnitCode;
+import com.jon.tron.service.junit.UnitName;
 import com.jon.tron.service.reflect.MethodModifier;
 import com.jon.tron.service.reflect.ReflectionUtil;
 import org.junit.After;
@@ -83,7 +86,7 @@ public class P7OperatorRegisterTest extends BaseTest {
 //        CodeValidator.checkCodePkg(codes.get(service.getName()));
 
         ReflectionUtil.checkMethod(service, AUTHENTICATE_METHOD_NAME, "boolean",
-                new MethodModifier[]{MethodModifier.PUBLIC}, "String", "String", "String");
+                new MethodModifier[]{MethodModifier.PUBLIC}, "String", "String", "String", "String");
 
         Class serviceImpl = getUnitClass(unitClasses, SERVICE_IMPL_NAME);
         assertNotNull("В задании не найден класс " + SERVICE_IMPL_NAME, serviceImpl);

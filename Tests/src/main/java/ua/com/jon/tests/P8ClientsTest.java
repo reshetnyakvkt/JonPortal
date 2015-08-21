@@ -1,6 +1,9 @@
 package ua.com.jon.tests;
 
-import com.jon.tron.service.junit.*;
+import com.jon.tron.service.junit.Unit;
+import com.jon.tron.service.junit.UnitClass;
+import com.jon.tron.service.junit.UnitCode;
+import com.jon.tron.service.junit.UnitName;
 import com.jon.tron.service.reflect.MethodModifier;
 import com.jon.tron.service.reflect.ReflectionUtil;
 import org.junit.After;
@@ -150,8 +153,8 @@ public class P8ClientsTest extends BaseTest {
         ReflectionUtil.checkDefaultConstructor(servlet);
         ReflectionUtil.checkHasParent(servlet, "HttpServlet");
 
-        ReflectionUtil.checkMethod(servlet, "doGet", "void",
-                new MethodModifier[]{MethodModifier.PUBLIC}, "HttpServletRequest", "HttpServletResponse");
+//        ReflectionUtil.checkMethod(servlet, "doGet", "void",
+//                new MethodModifier[]{MethodModifier.PUBLIC}, "HttpServletRequest", "HttpServletResponse");
 
         servlet = getUnitClass(unitClasses, SUM_SERVLET_NAME);
         assertNotNull("В задании не найден класс " + SUM_SERVLET_NAME, servlet);

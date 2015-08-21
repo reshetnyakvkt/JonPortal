@@ -113,10 +113,10 @@ public class AuthController {
         if (login == null || login.equals("")) {
             return gotoRegisterWithError(model, "Логин не может быть пустым.");
         }
-        if (!login.matches("^[a-zA-Z]{1,30}_[a-zA-Z]{1,30}$")) {
-            return gotoRegisterWithError(model, "Логин должен быть в формате \"имя_фамилия\", латинскими буквами");
+        if (!login.matches("^[a-z]{1,30}_[a-z]{1,30}$")) {
+            return gotoRegisterWithError(model, "Логин должен быть в формате \"имя_фамилия\", латинскими маленькими буквами");
         }
-        if (!password.matches("^[a-zA-Z0-9]$")) {
+        if (!password.matches("^[a-zA-Z0-9]{1,30}$")) {
             return gotoRegisterWithError(model, "Пароль может содержать только буквы и цифры");
         }
         Long groupId;

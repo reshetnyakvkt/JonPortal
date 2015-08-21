@@ -10,14 +10,9 @@
     <annotation-driven />
     <context:component-scan base-package="ua.com.jon.common.controller"/>
     <context:component-scan base-package="ua.com.jon.cabinet.controller"/>
-    <context:component-scan base-package="ua.com.jon.examinator.server"/>
     <context:component-scan base-package="ua.com.jon.examinator.controller"/>
     <context:component-scan base-package="ua.com.jon.tasks.validator.controller"/>
-    <context:component-scan base-package="ua.com.jon.tasks.validator.codeValidator"/>
-    <context:component-scan base-package="ua.com.jon.utils"/>
     <context:component-scan base-package="ua.com.jon.auth.controller"/>
-    <context:component-scan base-package="ua.com.jon.cabinet"/>
-    <context:component-scan base-package="ua.com.jon.admin"/>
 
     <context:property-placeholder location="classpath:/conf.properties" />
 

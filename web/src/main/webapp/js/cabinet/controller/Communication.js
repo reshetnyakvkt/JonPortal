@@ -27,6 +27,7 @@ define([], function (TasksView) {
             type: "POST",
             data: { taskId: taskId, type: type, code: code },
             error : function (a,b,c) {
+                console.log(a+b+c);
                 callback("-\nВремя ожидания ответа от сервера истекло, перегрузите страницу позже");
             },
             success: callback

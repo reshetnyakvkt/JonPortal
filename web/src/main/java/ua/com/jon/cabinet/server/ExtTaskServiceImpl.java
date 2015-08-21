@@ -12,7 +12,6 @@ import org.springframework.web.context.request.async.DeferredResult;
 import ua.com.jon.cabinet.shared.GroupDTO;
 import ua.com.jon.cabinet.shared.SprintDTO;
 import ua.com.jon.cabinet.shared.TaskDTO;
-import ua.com.jon.common.dao.GroupDAO;
 import ua.com.jon.common.domain.*;
 import ua.com.jon.common.dto.mapper.GroupDtoMapper;
 import ua.com.jon.common.dto.mapper.SprintDtoMapper;
@@ -22,6 +21,7 @@ import ua.com.jon.common.repository.*;
 import javax.annotation.Resource;
 import javax.servlet.ServletContext;
 import java.util.*;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
@@ -61,10 +61,10 @@ public class ExtTaskServiceImpl implements ExtTasksService, ServletContextAware 
     @Value("${junit.jar}")
     private String junitJarName;
 
-    @Autowired
-    private GroupDAO groupDAO;
+//    @Autowired
+//    private GroupDAO groupDAO;
 
-    private HashMap<Map.Entry<TaskDTO, DeferredResult<String>>, Integer> tasksQueue = new HashMap<>();
+    private Map<Map.Entry<TaskDTO, DeferredResult<String>>, Integer> tasksQueue = new ConcurrentHashMap<>();
 
     private ScheduledExecutorService executor = Executors.newSingleThreadScheduledExecutor();
 
