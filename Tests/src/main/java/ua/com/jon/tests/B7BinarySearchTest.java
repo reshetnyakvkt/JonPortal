@@ -109,7 +109,7 @@ public class B7BinarySearchTest extends BaseTest {
         int actualResult = (int)ReflectionUtil.invokeMethod(instance, method, actualVector, elem);
 
         assertTrue("В массиве " + Arrays.toString(actualVector) + " находится искомый элемент " + elem + ", но метод " + method.getName() +
-                " вернул " + actualResult, actualResult == 0);
+                " вернул " + actualResult, actualResult == elem);
     }
 
     private int[] generateSortedArray(int from, int to, int elem) {

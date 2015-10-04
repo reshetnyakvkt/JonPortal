@@ -9,7 +9,6 @@ import java.util.ArrayList;
 
 public class SourceCompiler {
 
-
     public CompilationResult compileSourceCode(ArrayList<TaskClass> taskClasses) throws Exception {
 
         // результат: успех компиляции, скомпилированные объекты, ошибки

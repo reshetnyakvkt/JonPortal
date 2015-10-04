@@ -18,8 +18,7 @@ class ClassFileManager extends
 
 
     @SuppressWarnings("unchecked")
-    public ClassFileManager(StandardJavaFileManager
-                                    standardManager) {
+    public ClassFileManager(StandardJavaFileManager standardManager) {
         super(standardManager);
     }
 
@@ -57,7 +56,6 @@ class ClassFileManager extends
                                 .getBytes(), 0, b.length);
                     }
                 };
-
             }
         }
         throw new ClassNotFoundException("Can not find class with name "+name);

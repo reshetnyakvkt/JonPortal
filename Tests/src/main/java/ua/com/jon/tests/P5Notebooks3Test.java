@@ -57,7 +57,6 @@ import static junit.framework.TestCase.assertNotNull;
         "hw6.notes.domain.Notebook",
         "hw6.notes.dao.NotebookDao",
         "hw6.notes.dao.NotebookDaoImpl",
-        "hw6.notes.util.HibernateUtil",
         "hw6.notes.service.NotebookService",
         "hw6.notes.service.NotebookServiceImpl",
         "hw6.notes.view.Menu"

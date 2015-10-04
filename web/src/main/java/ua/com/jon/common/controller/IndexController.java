@@ -42,4 +42,22 @@ public class IndexController {
         modelMap.put("item","item7");
         return "cabinet/index1";
     }
+
+    @RequestMapping("/solutions.html")
+    public String solutions(ModelMap modelMap)  {
+        modelMap.put("item","item8");
+        return "solutions";
+    }
+
+    @RequestMapping("/kursy_java")
+    public String landing(ModelMap modelMap)  {
+        modelMap.put("item","item9");
+        return "landing/index";
+    }
+
+    @RequestMapping("/demo")
+    public String demo(ModelMap modelMap)  {
+        modelMap.put("item","item10");
+        return "demo/index";
+    }
 }

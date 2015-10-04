@@ -9,8 +9,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
  * Created with IntelliJ IDEA.
  * User: sergey
  * Date: 20.04.13
- * Time: 21:03
- * To change this template use File | Settings | File Templates.
  */
 
 @Controller

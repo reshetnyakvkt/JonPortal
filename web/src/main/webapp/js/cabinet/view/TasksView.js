@@ -226,7 +226,11 @@ define(['jquery', "datatables", "DT-bootstrap", "bootstrap", "codemirror/lib/cod
     function saveCodeToSelected(table) {
         var tr = $('#table_id .selected');
         var task = table.fnGetData(tr);
-        task.code = codeEditor.getValue();
+        if (task == null) {
+            alert('Решение не запомнено, выбирите задание и сохраните решение');
+        } else {
+            task.code = codeEditor.getValue();
+        }
     }
 
     function addHandlers(table) {

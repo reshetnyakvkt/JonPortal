@@ -61,6 +61,8 @@ public class ExtTaskServiceImpl implements ExtTasksService, ServletContextAware 
     @Value("${junit.jar}")
     private String junitJarName;
 
+    private static final int CHECK_DELAY = 2;
+
 //    @Autowired
 //    private GroupDAO groupDAO;
 
@@ -70,30 +72,32 @@ public class ExtTaskServiceImpl implements ExtTasksService, ServletContextAware 
 
     public ExtTaskServiceImpl () {
         executor.scheduleWithFixedDelay(() -> {
+            try {
+                Iterator<Map.Entry<Map.Entry<TaskDTO, DeferredResult<String>>, Integer>> iterator = tasksQueue.entrySet().iterator();
+                while (iterator.hasNext()) {
+                    Map.Entry<Map.Entry<TaskDTO, DeferredResult<String>>, Integer> entry = iterator.next();
+                    TaskDTO taskDTO = entry.getKey().getKey();
+                    taskDTO.setClassName(null);
+                    taskDTO.setCode(null);
+                    taskDTO.setMaterial(null);
+                    taskDTO.setText(null);
+                    taskDTO.setUserName(null);
+                    taskDTO.setName(null);
 
-            Iterator<Map.Entry<Map.Entry<TaskDTO, DeferredResult<String>>, Integer>> iterator = tasksQueue.entrySet().iterator();
-            while (iterator.hasNext()) {
-                Map.Entry<Map.Entry<TaskDTO, DeferredResult<String>>, Integer> entry = iterator.next();
-                TaskDTO taskDTO = entry.getKey().getKey();
-                taskDTO.setClassName(null);
-                taskDTO.setCode(null);
-                taskDTO.setMaterial(null);
-                taskDTO.setText(null);
-                taskDTO.setUserName(null);
-                taskDTO.setName(null);
-
-                Task task = taskRepository.findOne(taskDTO.getId());
-                entry.setValue(entry.getValue() - 1);
-                if (task.getStatus() == Status.DONE) {
-                    iterator.remove();
-                    entry.getKey().getValue().setResult(task.getResult());
-                } else if (entry.getValue() - 1 <= 0) {
-                    entry.getKey().getValue().setResult("-\nВремя ожидания ответа от модуля проверки больше минуты");
-                    iterator.remove();
+                    Task task = taskRepository.findOne(taskDTO.getId());
+                    entry.setValue(entry.getValue() - CHECK_DELAY);
+                    if (task.getStatus() == Status.DONE || task.getStatus() == Status.NEW) {
+                        iterator.remove();
+                        entry.getKey().getValue().setResult(task.getResult());
+                    } else if (entry.getValue() - CHECK_DELAY <= 0) {
+                        entry.getKey().getValue().setResult("-\nВремя ожидания ответа от модуля проверки больше минуты");
+                        iterator.remove();
+                    }
                 }
+            } catch (Exception ex) {
+                log.error("Thread pool executor: catched exception", ex);
             }
-
-        }, 0, 1, TimeUnit.SECONDS);
+        }, 0, CHECK_DELAY, TimeUnit.SECONDS);
     }
 
     @Override
@@ -124,7 +128,7 @@ public class ExtTaskServiceImpl implements ExtTasksService, ServletContextAware 
         }
 
         log.info("taskStatusChanged " + task.getStatus().name());
-        tasksQueue.put(new AbstractMap.SimpleEntry<>(dto, res), 300);
+        tasksQueue.put(new AbstractMap.SimpleEntry<>(dto, res), 150);
         return "";
     }
 

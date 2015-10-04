@@ -1,13 +1,6 @@
 package ua.com.jon.admin.client.components;
 
-import com.github.gwtbootstrap.client.ui.Button;
-import com.github.gwtbootstrap.client.ui.NavHeader;
-import com.github.gwtbootstrap.client.ui.NavLink;
-import com.github.gwtbootstrap.client.ui.NavList;
-import com.github.gwtbootstrap.client.ui.ProgressBar;
-import com.github.gwtbootstrap.client.ui.TextBox;
-import com.github.gwtbootstrap.client.ui.ValueListBox;
-import com.github.gwtbootstrap.client.ui.WellNavList;
+import com.github.gwtbootstrap.client.ui.*;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
@@ -296,6 +289,10 @@ public class GroupCreationTabPanel extends Composite {
         final SpaceDTO group = new SpaceDTO(null, groupName.getText(), getUsersFromList(), repoName.getText());
         if(groupName.getText().isEmpty()) {
              Window.alert("Group name can't be empty");
+            return;
+        }
+        if(repoName.getText().isEmpty()) {
+             Window.alert("Repo can't be empty");
             return;
         }
         final AsyncCallback<String> groupCallback = new AsyncCallback<String>() {

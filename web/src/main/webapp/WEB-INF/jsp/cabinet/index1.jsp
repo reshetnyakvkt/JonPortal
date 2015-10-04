@@ -63,8 +63,7 @@
 
                             </ul>
                         </li>
-<%--                        <li class="dropdown-menu">
-                            <div>
+<%--                        1
                             <select class="form-control" id="select">
                                 <option>1</option>
                                 <option>2</option>

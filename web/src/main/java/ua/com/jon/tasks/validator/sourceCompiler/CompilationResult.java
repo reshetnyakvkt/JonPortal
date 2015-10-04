@@ -42,6 +42,5 @@ public class CompilationResult {
     public Class getClassByName(String className) throws Exception {
         if (!isSuccess) throw new Exception("Project not compiled");
         return classFileManager.getClassByName(className).loadClass(className);
-
     }
 }
