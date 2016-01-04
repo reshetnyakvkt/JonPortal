@@ -8,10 +8,11 @@
 <html>
 <head>
   <title>Algorithms visualization</title>
+  <%@include file="../includes.jsp" %>
   <link rel="stylesheet" type="text/css" href="/demo/css/style.css">
   <script type="text/javascript" src="/js/jquery-1.8.3.min.js"></script>
   <script type="text/javascript" src="/demo/js/script.js"></script>
-  <%@include file="../includes.jsp" %>
+  <meta charset="utf-8">
 </head>
 <body>
 
@@ -33,9 +34,7 @@
         <div class="count"></div>
         <div title="resize" class="resizer"></div>
       </div>
-
       <div id="controls">
-
         <div>
           <nav class="navbar-inner" role="navigation">
             <div class="container">
@@ -48,7 +47,6 @@
         </div>
 
         <div>
-
           <button class="label label-default" value="save">Save</button>
           <button class="label label-default" value="ord">Ordered</button>
           <!--<button value="revers">Revers</button>-->
@@ -87,22 +85,12 @@
       <div id="bottom">
         <div id="saved">
           <p>Arrays</p>
-
           <div class="block">
-
           </div>
         </div>
-
-        <div id="trash">
-          <p>Trash</p>
-          <div class="trash-box">
-
-          </div>
-        </div>
-
       </div>
 
-    </div>
+
   </div>
 
   <footer id="footer"></footer>

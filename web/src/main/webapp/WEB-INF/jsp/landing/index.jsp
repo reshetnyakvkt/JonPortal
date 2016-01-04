@@ -46,16 +46,19 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <p>Эксклюзивные курсы программирования на Java</p>
+            <%--<p>Качественные курсы программирования на Java</p>--%>
         </div>
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav navbar-right">
                 <li>
+                    <p> (068)129-53-02  </p>
+                </li>
+                <li>
                     <a href="#about">Наши приемущества</a>
                 </li>
                 <li>
-                    <a href="#services">Наши курсы</a>
+                    <a href="#services">Курсы</a>
                 </li>
                 <li>
                     <a href="#contact">Отзывы</a>
@@ -79,8 +82,10 @@
         <div class="row">
             <div class="col-lg-12">
                 <div class="intro-message">
-                    <h1>Landing Page</h1>
-                    <h3>A Template by Start Bootstrap</h3>
+                    <h1>Jon</h1>
+                    <h1>Курсы программирования Java и JavaScript в Киеве</h1>
+                    <h3>Курс "Основы JavaScript" - начало 1 ноября</h3>
+                    <h3>Длительность курса 4 недели</h3>
                     <hr class="intro-divider">
                     <ul class="list-inline intro-social-buttons">
                         <li>
@@ -105,6 +110,64 @@
 
 <!-- Page Content -->
 
+<a  name="priem"></a>
+<div class="content-section-a">
+
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-5 col-sm-6">
+                <hr class="section-heading-spacer">
+                <div class="clearfix"></div>
+                <h2 class="section-heading">Получите<br/> работу программиста</h2>
+                <ul>
+                    <li>Скажите нет низкооплачиваемой работе!</li>
+                    <li>Работа в крупных команиях</li>
+                    <li>Свободный график</li>
+                    <li>Можно работать во время путешествий</li>
+                </ul>
+            </div>
+            <div class="col-lg-5 col-lg-offset-2 col-sm-6">
+                <img class="img-responsive" src="landing/img/ipad.png" alt="">
+            </div>
+        </div>
+
+    </div>
+    <!-- /.container -->
+
+</div>
+<!-- /.content-section-a -->
+
+
+
+<div class="content-section-b">
+
+    <div class="container">
+
+        <div class="row">
+            <div class="col-lg-5 col-lg-offset-1 col-sm-push-6  col-sm-6">
+                <hr class="section-heading-spacer">
+                <div class="clearfix"></div>
+                <h2 class="section-heading">Мы профессионально поможем каждому</h2>
+                <ul>
+                    <li>Скажите нет низкооплачиваемой работе!</li>
+                    <li>Работа в крупных команиях</li>
+                    <li>Свободный график</li>
+                    <li>Можно работать во время путешествий</li>
+                </ul>
+
+                <p class="lead">Turn your 2D designs into high quality, 3D product shots in seconds using free Photoshop actions by <a target="_blank" href="http://www.psdcovers.com/">PSDCovers</a>! Visit their website to download some of their awesome, free photoshop actions!</p>
+            </div>
+            <div class="col-lg-5 col-sm-pull-6  col-sm-6">
+                <img class="img-responsive" src="landing/img/dog.png" alt="">
+            </div>
+        </div>
+
+    </div>
+    <!-- /.container -->
+
+</div>
+<!-- /.content-section-b -->
+
 <a  name="services"></a>
 <div class="content-section-a">
 
@@ -126,28 +189,6 @@
 
 </div>
 <!-- /.content-section-a -->
-
-<div class="content-section-b">
-
-    <div class="container">
-
-        <div class="row">
-            <div class="col-lg-5 col-lg-offset-1 col-sm-push-6  col-sm-6">
-                <hr class="section-heading-spacer">
-                <div class="clearfix"></div>
-                <h2 class="section-heading">3D Device Mockups<br>by PSDCovers</h2>
-                <p class="lead">Turn your 2D designs into high quality, 3D product shots in seconds using free Photoshop actions by <a target="_blank" href="http://www.psdcovers.com/">PSDCovers</a>! Visit their website to download some of their awesome, free photoshop actions!</p>
-            </div>
-            <div class="col-lg-5 col-sm-pull-6  col-sm-6">
-                <img class="img-responsive" src="landing/img/dog.png" alt="">
-            </div>
-        </div>
-
-    </div>
-    <!-- /.container -->
-
-</div>
-<!-- /.content-section-b -->
 
 <div class="content-section-a">
 
@@ -208,22 +249,22 @@
             <div class="col-lg-12">
                 <ul class="list-inline">
                     <li>
-                        <a href="#">Home</a>
+                        <a href="#">Наши приемущества</a>
                     </li>
                     <li class="footer-menu-divider">&sdot;</li>
                     <li>
-                        <a href="#about">About</a>
+                        <a href="#about">Курсы</a>
                     </li>
                     <li class="footer-menu-divider">&sdot;</li>
                     <li>
-                        <a href="#services">Services</a>
+                        <a href="#services">Отзывы</a>
                     </li>
                     <li class="footer-menu-divider">&sdot;</li>
                     <li>
-                        <a href="#contact">Contact</a>
+                        <a href="#contact">Контакты</a>
                     </li>
                 </ul>
-                <p class="copyright text-muted small">Copyright &copy; Your Company 2014. All Rights Reserved</p>
+                <p class="copyright text-muted small">Copyright &copy; Your Company 2015. All Rights Reserved</p>
             </div>
         </div>
     </div>

@@ -13,7 +13,7 @@
             <li id="item6"><a href="/tasksg.html">Задачи</a></li>
             <li id="item5"><a href="/download.html">Скачать</a></li>
             <li id="item8"><a href="/solutions.html">Работы студентов</a></li>
-            <%--<li id="item10"><a href="/demo">Визуализация</a></li>--%>
+            <li id="item10"><a href="/demo">Визуализация</a></li>
         </ul>
     </div>
 </div>

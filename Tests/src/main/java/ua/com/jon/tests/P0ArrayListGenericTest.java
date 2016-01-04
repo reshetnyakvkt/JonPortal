@@ -5,7 +5,6 @@ import com.jon.tron.service.processor.CodeValidator;
 import com.jon.tron.service.processor.StyleChecker;
 import com.jon.tron.service.reflect.MethodModifier;
 import com.jon.tron.service.reflect.ReflectionUtil;
-import junit.framework.Assert;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.FixMethodOrder;
@@ -307,7 +306,7 @@ public class P0ArrayListGenericTest extends BaseTest {
         expectedElement = rnd.nextInt(MAX_VALUE) + MIN_VALUE;
         ReflectionUtil.invokeMethod(instance, add2Method, 0, expectedElement);
         Integer actualElement = getElementFromList(0);
-        assertNotNull("После вставки второго элемента " + expectedElement + " в начало, в списке нет элемента с индексом 0", actualElement);
+        assertNotNull("После вставки двух элементов " + expectedElement + " в начало, в списке нет элемента с индексом 0", actualElement);
         assertTrue("Метод add(int, int) работает не верно, после вставки элемента " + expectedElement + " в начало, список содержит " +
                 actualElement, expectedElement == actualElement);
 

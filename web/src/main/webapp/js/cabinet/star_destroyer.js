@@ -38,7 +38,7 @@ define(['star_destroyer'], function() {
             var timer = setInterval(frame, 20);
         }
 
-        wait(Math.random() * 500000 + 20000);
+        wait(Math.random() * 82800000 + 3600000); // 1-24h
 
     });
 });

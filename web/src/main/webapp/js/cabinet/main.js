@@ -26,7 +26,7 @@ requirejs.config({
     }
 });
 
-require(['model/Task', 'controller/TasksController', 'codemirror/lib/codemirror', 'codemirror/mode/clike/clike' /*, '/js/star_destroyer'*/], function (Task, TasksController, CodeMirror) {
+require(['model/Task', 'controller/TasksController', 'codemirror/lib/codemirror', 'codemirror/mode/clike/clike' , 'star_destroyer'], function (Task, TasksController, CodeMirror, like, dest) {
 
     $.ajax({
         url: "tasks",
