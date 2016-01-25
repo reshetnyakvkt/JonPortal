@@ -15,4 +15,8 @@ public class ClassProcessor {
     public Map.Entry<String, String> processClass(String s, String name, String classCode) {
         return new AbstractMap.SimpleEntry<String, String>("25", "Задание проверено виртуально");
     }
+
+    public Map.Entry<String, String> processClass(String s, String name, String classCode, String junitJar) {
+        return null;
+    }
 }
