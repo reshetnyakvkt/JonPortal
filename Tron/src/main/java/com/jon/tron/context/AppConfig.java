@@ -9,6 +9,6 @@ import org.springframework.context.annotation.Configuration;
  * Date: 14.09.13
  */
 @Configuration
-@ComponentScan({"com.jon.tron.service.processor"})
+@ComponentScan({"com.jon.tron"})
 public class AppConfig {
 }

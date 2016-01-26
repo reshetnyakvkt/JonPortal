@@ -2,6 +2,7 @@ package com.jon.tron.service.vc.git;
 
 import com.jon.tron.domain.GitUser;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Component;
 
 import java.util.Map;
 
@@ -10,6 +11,7 @@ import java.util.Map;
  * User: al1
  * Date: 25.01.16
  */
+@Component
 public class GitblitClientImpl implements GitblitClient {
     @Override
     public ResponseEntity<GitUser> setRepoPermissionForUser(String name, String pass, String userName) {
