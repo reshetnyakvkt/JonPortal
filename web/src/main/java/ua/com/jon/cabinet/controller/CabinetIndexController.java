@@ -40,6 +40,11 @@ public class CabinetIndexController {
         return "cabinet/index1";
     }
 
+    @RequestMapping(value = "/cabinet/indexAng.html", method = RequestMethod.GET)
+    public String indexAng(Model model) {
+        return "cabinet/indexAng";
+    }
+
     @RequestMapping(value = "/cabinet/index1.html", method = RequestMethod.GET)
     public String index1(Model model) {
         return "cabinet/index";

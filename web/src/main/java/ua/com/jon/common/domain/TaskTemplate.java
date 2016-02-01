@@ -34,7 +34,7 @@ public class TaskTemplate {
     @Column(length = 10000)
     private String materials;
 
-    @Column(name = "MODULE_SUFFIX", columnDefinition = "default ''")
+    @Column(name = "MODULE_SUFFIX", columnDefinition = "varchar(50) default ''")
     private String suffix;
 
     @OneToMany(mappedBy = "taskTemplate", cascade = CascadeType.ALL)
@@ -47,7 +47,7 @@ public class TaskTemplate {
     @Column(length = 50)
     private String testName;
 
-    @Column(length = 50, columnDefinition = "default ''")
+    @Column(length = 50, columnDefinition = "varchar(50) default ''")
     private String className;
 
     public TaskTemplate() {
