@@ -1,6 +1,5 @@
 package ua.com.jon.tests;
 
-import com.jon.tron.service.executor.RemoteMethodInvoker;
 import com.jon.tron.service.junit.*;
 import com.jon.tron.service.processor.CodeValidator;
 import com.jon.tron.service.processor.StyleChecker;

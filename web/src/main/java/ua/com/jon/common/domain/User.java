@@ -47,7 +47,7 @@ public class User {
     @Enumerated(EnumType.STRING)
     private Set<UserRole> roles = new HashSet<UserRole>();
 
-    @Column(name="IGNORE_STATISTIC", length=1, nullable=false, columnDefinition="bit(1) default '0'")
+    @Column(name="IGNORE_STATISTIC", length=1, nullable=false, columnDefinition="bit(1) default 0")
     private Boolean ignore = false;
 
     public User() {
