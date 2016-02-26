@@ -161,7 +161,7 @@ public class F2VectorHalfSwapperTest extends BaseTest {
                 + actualVector, Arrays.toString(expectedVector).equals(actualVector));
     }
 
-    @Test
+    //@Test
     public void testOfTest() throws Throwable {
         int from = generateInt(3, 6);
         int to = generateInt(7, 10);
