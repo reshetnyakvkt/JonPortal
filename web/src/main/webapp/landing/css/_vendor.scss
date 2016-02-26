@@ -1,0 +1,310 @@
+html, body {
+  scrollbar-arrow-color: #fff; /* Цвет стрелок */
+  scrollbar-base-color: $color-gray; /* Цвет полосы прокрутки */
+  scrollbar-shadow-color: $color_yellow; /* Цвет тени */
+  scrollbar-highlight-color: $color-gray;
+}
+.hideElement{
+  opacity: 0;
+}
+.showElement{
+  opacity: 1;
+}
+//scrollbars webkit-only
+::-webkit-scrollbar {
+  width: 8px;
+  height: 4px;
+}
+
+::-webkit-scrollbar-track {
+  //background: #000;
+  background: $color-gray;
+}
+
+::-webkit-scrollbar-thumb {
+  background: $color_yellow;
+  cursor: pointer;
+}
+
+
+.up-arrow{
+  cursor: pointer;
+  position: fixed;
+  bottom: 20%;
+  right: 0.5em;
+  margin: auto;
+  z-index: 9999;
+  opacity: 0;
+  @include transition(opacity $transition-time ease-in-out);
+  &.visible{
+    opacity: 1;
+  }
+}
+
+.table{
+  width: 100%;
+  display: table;
+  table-layout: fixed;
+  .cell{
+    //display: inline-block;
+    display: table-cell;
+    vertical-align: middle;
+    float: none;
+  }
+}
+
+.wr-table{
+  overflow-x: auto;
+  margin: 0 auto;
+}
+.slider-wrapper{
+  position: relative;
+  .slick-slide{
+    text-align: center;
+    img{
+      margin: 0 auto;
+    }
+  }
+  .slider-trigger{
+    position: absolute;
+    top: -5px;
+    color: $color-yellow;
+    font-size: 4em;
+    &.trigger-left{
+      left: 0;
+    }
+    &.trigger-right{
+      right: 0;
+    }
+  }
+}
+
+.enroll-button{
+  clear: both;
+  display: inline-block;
+  text-transform: uppercase;
+  cursor: pointer;
+  font-size: 1.4em;
+  padding: 0.2em 2em;
+  position: relative;
+  z-index: 1;
+  overflow: hidden;
+  color: $color-yellow;
+  font-family: 'Roboto', sans-serif;
+  //нудно так что бы не было транзишн на border для перезаливки фона кнопки
+  @include transition(color ease ($transition_time/2), background ease ($transition_time/2), top ease ($transition_time/2));
+  border: 4px solid $color-yellow;
+  &:after{
+    z-index: -1;
+    display: block;
+    content: '';
+    position: absolute;
+    background: $color-yellow;
+    top: -100%;
+    left: 0;
+    width: 200%;
+    height: 100%;
+    @include transition(color ease ($transition_time/2), background ease ($transition_time/2), top ease ($transition_time/2));
+  }
+  &:hover{
+    color: #010101;
+    &:after{
+      top: 0;
+      @include transition(color ease ($transition_time/2), background ease ($transition_time/2), top ease ($transition_time/2));
+    }
+  }
+}
+
+.section{
+  padding:3.222em 0;
+  .section-title{
+    text-align: center;
+    text-transform: uppercase;
+    color: #fff;
+    font-size: 2em; //36px
+    padding-bottom: 1.2em;
+    letter-spacing: 0.2em;
+  }
+}
+
+.centered{
+  text-align: center;
+}
+
+.form-wrapper{
+  text-align: center;
+  input,textarea{
+    color: #fff;
+    width: 100%;
+    display: block;
+    border: none;
+    @include box-shadow(none);
+    border-bottom: 1px solid #65612b;
+    padding: 0.2em 1em;
+    font-size: 1.111em;
+    font-style: italic;
+    margin-bottom: 1em;
+    max-width: 100%;
+    background: $color-gray;
+    @include transition(all $transition-time ease);
+    &.error{
+      border-bottom: 1px solid red !important;
+    }
+  }
+  textarea{
+    border: 1px solid #65612b;
+  }
+  .submit{
+    margin: 1em auto;
+  }
+  ::-webkit-input-placeholder {color:#fff;}
+  ::-moz-placeholder          {color:#fff;}
+  :-moz-placeholder           {color:#fff;}
+  :-ms-input-placeholder      {color:#fff;}
+}
+
+
+
+.select2-container--default .select2-selection--single{
+  font-size: 1.222em;
+  padding:0.3em 1em !important;
+  height:auto !important;
+  width: auto !important;
+  box-shadow: none !important;
+  background: transparent !important;
+  border: 1px solid  #65612b !important;
+  color: $color-yellow !important;
+  border-radius: 0 !important;
+  .select2-selection__rendered{
+    color: $color-yellow !important;
+  }
+}
+.select2-search.select2-search--dropdown{
+  display: none !important;
+}
+.select2-results{
+  li{
+    font-size: 1.222em;
+    background: $color-gray !important;
+    color: #fff !important;
+    &.select2-results__option[aria-selected=true]{
+      background: $color-yellow !important;
+      color: $color-gray !important;
+    }
+    &.select2-results__option--highlighted[aria-selected]{
+      background: rgba(34, 34, 34, 0.84) !important;
+    }
+  }
+}
+.select2-dropdown{
+  border:1px solid #65612b !important;
+}
+.select2-selection__arrow{
+  height:100% !important;
+}
+.select2-container--default .select2-selection--single .select2-selection__arrow b{
+  border-color: $color-yellow transparent transparent transparent !important;
+}
+.select2-container--default.select2-container--open .select2-selection--single .select2-selection__arrow b{
+  border-color:  transparent transparent $color-yellow transparent !important;
+}
+
+
+
+
+
+
+
+.hamburger-icon{
+  position: absolute;
+  width: 50%;
+  height: 2px;
+  background: $color-yellow;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
+  &:before, &:after{
+    position: absolute;
+    display: block;
+    content: "";
+    width: 100%;
+    height: 2px;
+    background: $color-yellow;
+    @include transition(top $transition_time $transition_time/2 ease-in-out, transform  $transition_time ease-in-out);
+  }
+  &:before{
+    top:-6px;
+  }
+  &:after{
+    top:6px;
+  }
+  &.transform-to-close{
+    background: transparent;
+    &:before, &:after{
+      @include transition(top $transition_time/2 ease-in-out, transform $transition_time $transition_time/2 ease-in-out);
+      top: 0;
+    }
+    &:before{
+      @include transform(rotate(-45deg))
+    }
+    &:after{
+      @include transform(rotate(45deg))
+    }
+  }
+
+}
+
+
+.close-icon{
+  position: relative;
+  display: inline-block;
+  width: 1em;
+  height: 1em;
+  &:before,&:after{
+    position: absolute;
+    top: 0;
+    right: 50%;
+    background-color: #000000;
+    content: '';
+    display: inline-block;
+    width: 2px;
+    height: 1.5em;
+    @include transition(all $transition_time/2 ease-in-out);
+  }
+  &:before{
+    @include transform(rotate(-45deg));
+  }
+  &:after{
+    @include transform(rotate(45deg));
+  }
+  &:hover{
+
+    //@include transform(rotate(180deg));
+    //@include transition(all $transition_time/2 ease-in-out);
+    &:before{
+      @include transform(rotate(135deg));
+    }
+    &:after{
+      @include transform(rotate(225deg));
+    }
+  }
+}
+.show-adaptive-menu{
+  display: none;
+  position: fixed;
+  z-index: 10000;
+  top: 0;
+  right: 0;
+  width: 3em;
+  height: 3em;
+  background: $color-gray;
+  border-bottom-left-radius: 5px;
+}
+
+.wr-table{
+  width: 100%;
+  overflow-x: auto;
+  margin: 3em auto;
+}

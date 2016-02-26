@@ -1,0 +1,532 @@
+/*==========  Non-Mobile First Method  ==========*/
+/* Large Devices, Wide Screens */
+@media only screen and (max-width : 1200px) {
+  .menu ul li{
+    font-size: 0.9em;
+    padding-right: 0.6em;
+  }
+  .why-we .item{
+    font-size: 0.9em;
+    .title{
+      font-size: 1.4em;
+      min-height: 4.5em;
+    }
+  }
+  .check-knowledge p{
+    font-size: 1.1em;
+  }
+  .discount .section-title{
+    .message, .counter{
+      width: 100%;
+      clear-side: both;
+    }
+    .counter{
+      padding-top: 1.5em;
+    }
+  }
+  .schedule .equipment .cell:first-child{
+    font-size: 1.5em;
+  }
+  .asteroids-set .parallax-item.a9{
+    right: 5%;
+  }
+  .support{
+    background-position: 80% 50%;
+    .skype{
+      padding: 1em 0;
+    }
+    .info p{
+      font-size: 1.2em;
+    }
+  }
+}
+
+/* Medium Devices, Desktops */
+@media only screen and (max-width : 992px) {
+  .header{
+    .wr-video .content .title{
+    font-size: 2em;
+   }
+    h1{
+      font-size: 1.1em !important;
+    }
+    .buttons-wrap{
+      text-align: center;
+      > div{
+        width: 100%;
+        float: none;
+        display: block;
+        clear: both;
+        text-align: center !important;
+        &:first-child{
+          margin-bottom: 1.5em;
+        }
+      }
+    }
+  }
+  .menu{
+    background: $color-gray;
+    @include transform(translateY(-100%));
+    padding: 0;
+    padding-top: 3em;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    .container{
+      width: 100% !important;
+      padding: 0 !important;
+      margin: 0 !important;
+      div{
+        padding: 0 !important;
+      }
+    }
+    ul{
+      li{
+        width: 100%;
+        display: block;
+        clear: both;
+        text-align: left;
+        padding: 0.5em 1em;
+        border-bottom: 1px solid #65612b;
+        a{
+          display: block;
+          width: 100%;
+          height: 100%;
+        }
+        &:before, &:after{
+          display: none !important;
+        }
+        &.active{
+          background: $color-yellow!important;
+          a{
+            color: $color-gray !important;
+          }
+        }
+        &:last-child{
+          border-bottom: none;
+        }
+      }
+    }
+  }
+  .why-we .item{
+    width: 100%;
+    .title{
+        min-height: 0;
+      padding-bottom: 0em;
+    }
+    .overlay{
+      display: none;
+      position: relative;
+      margin: 0 auto;
+      max-width: 25%;
+    }
+  }
+  .check-knowledge{
+    p{
+      br{
+        display: none;
+      }
+    }
+    .overlay.fighter2{
+      left:5%;
+    }
+  }
+  .section .section-title{
+    font-size: 1.6em;
+  }
+  .about-courses{
+    .enroll-button{
+      padding: 0.2em 0.5em;
+    }
+    .item{
+      font-size: 0.9em;
+      .head{
+        .cell{
+          text-align: center !important;
+          display: block;
+          width: 100%;
+          img{
+            margin: 0 auto;
+          }
+        }
+      }
+    }
+  }
+  .about-courses .item:nth-child(1) .wrapper .head .title .cell:nth-child(2) img{
+    bottom:-1px;
+    margin-top:3px;
+  }
+  .about-courses .item:nth-child(2) .head .title img{
+    bottom:-1px !important;
+  }
+  .about-courses .item:nth-child(3) .head .title img{
+    margin-top: 5px;
+    bottom:-2px !important;
+    right: 0 !important;
+    left: 0 !important;
+  }
+  .discount .discount-info{
+    .cell:nth-child(6){
+      display: none;
+    }
+    .cell{
+      width: 12%;
+    }
+    .cell.plus{
+      width: 5%;
+    }
+  }
+  .schedule table{
+    margin: 0 auto;
+    font-size: 0.8em;
+  }
+  .schedule .equipment .cell:first-child{
+    font-size: 1.1em;
+    .overlay{
+      top: 9%;
+    }
+  }
+  .graduates .slider-wrapper{
+    padding:0 2em 2em 2em;
+  }
+  .slider-wrapper .slider-trigger.trigger-left{
+    left: 0;
+  }
+  .slider-wrapper .slider-trigger.trigger-right{
+    right: 0;
+  }
+  .certificate {
+    .overlay{
+      bottom: 1em;
+      right: 1em;
+    }
+    .info p{
+      font-size: 0.9em;
+    }
+  }
+  .opensource{
+    .parallax-js:after {
+      content: '';
+      display: inline-block;
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(1, 1, 1, 0.6);
+    }
+    .section-title{
+      z-index: 10;
+      position: relative;
+    }
+    .info{
+      width: 100%;
+    }
+  }
+  .process{
+    .overlay{
+      bottom: 1em;
+    }
+    .popup-gallery{
+      padding-top: 3em;
+    }
+    .container > div{
+      width: 100%;
+      .img-wrapper{
+        text-align: center;
+        margin-bottom: 1.5em;
+        .overlay{
+          display: none;
+        }
+      }
+    }
+  }
+  .comments .footer{
+    padding:4em 0 2em 0;
+  }
+  .comments-slider-wrapper{
+    .item{
+      .author{
+        margin-bottom: 1.5em;
+      }
+      .author, .comment-wrapper {
+        width: 100%;
+        display: block;
+      }
+    }
+  }
+  .support .info{
+    width: 100%;
+  }
+  .contacts{
+    .overlay{
+      display: none;
+    }
+    .enroll-form, .info{
+      width: 100%;
+    }
+    .enroll-form .form-wrapper{
+      position: static !important;
+    }
+    .info{
+      padding-top: 2em;
+      text-align: center;
+    }
+  }
+  .show-adaptive-menu{
+    display: block;
+  }
+}
+
+/* Small Devices, Tablets */
+@media only screen and (max-width : 768px) {
+  html,body {
+    font-size: 15px;
+  }
+  .header{
+    background: url("../video/hello_world/Hello-World.jpg");
+    background-size: cover;
+  }
+  .discount .discount-info .cell{
+    display: block;
+    width:100%;
+    &.plus{
+      display: block;
+      width: 100%;
+      margin: 0.5em 0;
+    }
+  }
+  .schedule{
+    .equipment .cell{
+      display: block;
+      width: 100%;
+    }
+    table{
+      overflow-x: scroll;
+      td{
+        white-space: nowrap;
+      }
+    }
+  }
+  .certificate .cell{
+    display: block;
+    width: 100%;
+  }
+  .section .section-title{
+    font-size: 1.5em;
+    br{
+      display: none;
+    }
+  }
+  .comments .comments-slider-wrapper .slick-slide{
+    padding:0 2em;
+  }
+  .contacts .enroll-form .form-wrapper{
+    width: 90%;
+  }
+  .copyright .container > div{
+    text-align: center;
+  }
+  .certificate .photo{
+    text-align: center;
+  }
+  .certificate .info p{
+    text-align: center;
+    br{
+      display: none;
+    }
+  }
+}
+
+/* Extra Small Devices, Phones */
+@media only screen and (max-width : 480px) {
+  html, body {
+    font-size: 14px;
+  }
+  .header .wr-video .content h1 {
+    font-size: 0.8em;
+    br {
+      display: none;
+    }
+  }
+  .header .wr-video .content .buttons-wrap a {
+    width: 100%;
+  }
+  .section .section-title {
+    br {
+      display: none;
+    }
+    font-size: 1.2em;
+  }
+  .discount .section-title .counter {
+    display: none;
+  }
+  .slider-wrapper .slider-trigger {
+    top: 5px;
+  }
+  .comments .slider-trigger {
+    top: 3%;
+  }
+  .comments .slider-trigger.trigger-left {
+    left: 0;
+  }
+  .comments .slider-trigger.trigger-right {
+    right: 0;
+  }
+  .process .overlay {
+    left: 0;
+  }
+  .contacts .enroll-form .form-wrapper {
+    width: 100%;
+  }
+  .enroll-button {
+    padding: 0.2em 1em;
+  }
+  .header .wr-video .content .buttons-wrap {
+    font-size: 0.8em;
+  }
+  .header .wr-video .content .logo {
+    padding-bottom: 0.5em;
+  }
+  .mfp-bg {
+    z-index: 99999 !important;
+  }
+  .mfp-wrap {
+    z-index: 999999 !important;
+  }
+  .ordercall-popup, .orderplace-popup, .thanks-popup {
+    padding: 20px 0;
+    .title {
+      font-size: 1.2em !important;
+    }
+    .course-type {
+      width: 90% !important;
+    }
+    input, textarea {
+      width: 90% !important;
+    }
+  }
+  .select2-container--default .select2-selection--single {
+    padding: 0.3em 0.1em !important;
+  }
+  .select2-dropdown {
+    z-index: 1051000 !important;
+  }
+  p {
+    //text-align: justify !important;
+  }
+  br {
+    display: none !important;
+  }
+  .header .wr-video .content{
+    .title {
+    line-height: 1em;
+  }
+    h1{
+      line-height: 1.15em;
+    }
+  }
+  .check-knowledge .overlay{
+    display: none;
+  }
+  .about-courses .item{
+    margin-bottom: 1.5em;
+    @include box-shadow( 2px 2px 26px 0px rgba(0,0,0,0.75));
+  }
+  .discount{
+    .cell{
+      position: relative;
+      z-index: 50;
+    }
+    .overlay {
+      position: absolute;
+      top: 54%;
+      left: 49%;
+      z-index: 10;
+    }
+  }
+  .schedule{
+    background: none;
+  }
+  .schedule .equipment .cell:last-child{
+    padding-left: 2em;
+    ul{
+      position: relative;
+      z-index: 10;
+    }
+  }
+  .up-arrow{
+    max-width: 10%;
+  }
+  .section .section-title{
+    line-height: 1.2em;
+  }
+  .graduates{
+    p{
+      margin-top: 1em;
+      line-height: 1.2em;
+    }
+    .overlay{
+      display: none;
+    }
+  }
+  .certificate .info .overlay{
+    display: none;
+  }
+  .certificate .info p{
+  line-height: 1.3em;
+    padding-bottom: 3em;
+}
+  .opensource .info p{
+    line-height: 1.3em;
+    text-align: left;
+  }
+  .asteroids-set .parallax-item.a9{
+    display: none;
+  }
+  .comments .comments-slider-wrapper .slick-slide{
+    padding: 0 0.5em;
+  }
+  .comments .slider-trigger{
+    display: none !important;
+  }
+  .support{
+    background: url("../img/proverka-znaniy/background.png");
+    background-size: cover;
+    .overlay{
+      max-width:25%;
+    }
+    .info p{
+      line-height: 1.3em;
+    }
+    .skype img{
+      max-width:22%;
+    }
+  }
+  .contacts p{
+    line-height: 1.2em;
+  }
+  .contacts .enroll-form .form-wrapper{
+    @include box-shadow(none);
+    padding: 1em 0;
+  }
+  .check-knowledge p{
+    text-align: center !important;
+    br{
+      display: none;
+    }
+  }
+  .schedule .equipment .cell:last-child ul{
+    font-size: 0.85em;
+    line-height: 1.3em;
+    margin-top: 1em;
+  }
+  .contacts .info .email{
+    font-size: 1.1em;
+  }
+}
+/* Custom, iPhone Retina */
+@media only screen and (max-width : 320px) {
+
+}

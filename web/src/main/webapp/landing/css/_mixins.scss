@@ -1,0 +1,82 @@
+@mixin box-shadow($shadow) {
+  -webkit-box-shadow: $shadow;
+  -moz-box-shadow: $shadow;
+  box-shadow: $shadow;
+}
+@mixin transition($values...) {
+  $max: length($values);
+  $value: '';
+
+  @for $i from 1 through $max {
+    $value: #{$value + nth($values, $i)};
+
+    @if $i < $max {
+      $value: #{$value + ", "};
+    }
+  }
+  -webkit-transition: $value;
+  -moz-transition: $value;
+  transition: $value;
+}
+@mixin animation($animate...) {
+  $max: length($animate);
+  $animations: '';
+
+  @for $i from 1 through $max {
+    $animations: #{$animations + nth($animate, $i)};
+
+    @if $i < $max {
+      $animations: #{$animations + ", "};
+    }
+  }
+  -webkit-animation: $animations;
+  -moz-animation:    $animations;
+  -o-animation:      $animations;
+  animation:         $animations;
+}
+
+@mixin keyframes($animationName) {
+  @-webkit-keyframes #{$animationName} {
+    @content;
+  }
+  @-moz-keyframes #{$animationName} {
+    @content;
+  }
+  @-o-keyframes #{$animationName} {
+    @content;
+  }
+  @keyframes #{$animationName} {
+    @content;
+  }
+}
+@mixin transform($transform...) {
+  $max: length($transform);
+  $transformations: '';
+
+  @for $i from 1 through $max {
+    $transformations: #{$transformations + nth($transform, $i)};
+
+    @if $i < $max {
+      $transformations: #{$transformations + " "};
+    }
+  }
+  -webkit-transform: $transformations;
+  -moz-transform: $transformations;
+  -o-transform: $transformations;
+  transform: $transformations;
+}
+
+@mixin transform-origin ($origin) {
+  moz-transform-origin: $origin;
+  -o-transform-origin: $origin;
+  -ms-transform-origin: $origin;
+  -webkit-transform-origin: $origin;
+  transform-origin: $origin;
+}
+@mixin backface-visibility ($origin) {
+  moz-backface-visibility: $origin;
+  -o-backface-visibility: $origin;
+  -ms-backface-visibility: $origin;
+  -webkit-backface-visibility: $origin;
+  backface-visibility: $origin;
+}

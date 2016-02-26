@@ -1,0 +1,85 @@
+.mfp-close{
+  color: #fff !important;
+  @include transition(color $transition-time ease-in-out);
+  &:hover{
+    color: $color-yellow !important;
+  }
+}
+
+.thanks-popup {
+  position: fixed;
+  height: 40%;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  margin: auto;
+  padding: 20px;
+  width: auto;
+  max-width: 500px;
+}
+
+.ordercall-popup, .orderplace-popup, .thanks-popup{
+  height: auto;
+  overflow: hidden;
+  text-align: center;
+  position: relative;
+  margin: auto;
+  background: $color-gray;
+  padding: 20px;
+  width: auto;
+  max-width: 700px;
+  .single-form{
+    background: $color-gray;
+    .title{
+      padding: 0 2em 0 2em;
+      font-size: 1.667em;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: #fff;
+    }
+    input, textarea{
+      margin: 1em auto;
+      width:70%;
+
+    }
+    textarea{
+      margin-top: 2em;
+    }
+  }
+}
+
+.thanks-popup{
+  .single-form{
+    width: 100%;
+    text-align: center;
+    padding: 0;
+    .title{
+      width: 100%;
+      text-align: center;
+    }
+  }
+}
+
+
+.course-type{
+  width: 70%;
+  margin: 0 auto;
+  padding-top: 2em;
+  .cell:first-child{
+    text-align: left;
+    text-transform: none;
+    font-size: 1.222em;
+    color: #fff;
+  }
+}
+
+.mfp-bg{
+  z-index: 99999 !important;
+}
+.mfp-wrap{
+  z-index: 999999 !important;
+}
+.select2-container--open .select2-dropdown--below{
+  z-index: 9999999 !important;
+}
