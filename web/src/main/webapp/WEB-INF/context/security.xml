@@ -12,6 +12,7 @@
     <http use-expressions="true">
         <intercept-url pattern="/admin/*.*" access="hasRole('ROLE_ADMIN')" />
         <intercept-url pattern="/cabinet/*.*" access="isAuthenticated()" />
+        <intercept-url pattern="/quiz/*.*" access="isAuthenticated()" />
         <intercept-url pattern="/user/**" access="hasAnyRole('USER', 'ROLE_ADMIN')" />
         <form-login login-page="/index.html"
                     default-target-url="/cabinet/index.html"

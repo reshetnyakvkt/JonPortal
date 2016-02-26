@@ -22,6 +22,9 @@
     <context:component-scan base-package="ua.com.jon.cabinet.server"/>
     <context:component-scan base-package="ua.com.jon.auth.service"/>
     <context:component-scan base-package="ua.com.jon.admin"/>
+    <!-- Quiz beans!-->
+    <context:component-scan base-package="ua.com.jon.quiz.service"/>
+    <context:component-scan base-package="ua.com.jon.quiz.controller"/>
 
     <bean id="conf" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
         <!-- TODO move to resources -->

@@ -1,0 +1,43 @@
+<%--
+  Created by Reshetnyak Viktor on 05.02.2016
+--%>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<h2>User {{currentUser}}</h2>
+
+<table align="center">
+    <tr>
+        <td>Login</td>
+        <td>{{currentUser.login}}</td>
+    </tr>
+    <tr>
+        <td>Email</td>
+        <td>{{currentUser.email}}</td>
+    </tr>
+    <!--<tr>
+        <td><button ng-click="createUser()">Submit</button></td>
+    </tr>-->
+</table>
+
+<h3>Statistics:</h3>
+<table>
+    <thead>
+    <tr>
+        <th>Quiz name</th>
+        <th>Date</th>
+        <th>Score</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr ng-repeat="result in resultList">
+        <td>{{result.quiz.description}}</td>
+        <td>{{result.date | date : 'dd.MM.yyyy HH:mm'}}</td>
+        <td>{{result.score}}</td>
+    </tr>
+    <tr ng-show="errorMsg">
+        <td>{{errorMsg}}</td>
+    </tr>
+    <tr>
+        <td><button ng-click="toDashboard()">Back</button></td>
+    </tr>
+    </tbody>
+</table>

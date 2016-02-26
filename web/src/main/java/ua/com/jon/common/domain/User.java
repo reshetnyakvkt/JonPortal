@@ -1,6 +1,7 @@
 package ua.com.jon.common.domain;
 
 import ua.com.jon.auth.domain.UserRole;
+import ua.com.jon.quiz.domain.UserQuiz;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -49,6 +50,9 @@ public class User {
 
     @Column(name="IGNORE_STATISTIC", length=1, nullable=false, columnDefinition="bit(1) default 0")
     private Boolean ignore = false;
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    private Set<UserQuiz> userQuizzes = new HashSet<>();
 
     public User() {
     }
@@ -157,6 +161,14 @@ public class User {
 
     public void setIgnore(Boolean ignore) {
         this.ignore = ignore;
+    }
+
+    public Set<UserQuiz> getUserQuizzes() {
+        return userQuizzes;
+    }
+
+    public void setUserQuizzes(Set<UserQuiz> userQuizzes) {
+        this.userQuizzes = userQuizzes;
     }
 
     @Override

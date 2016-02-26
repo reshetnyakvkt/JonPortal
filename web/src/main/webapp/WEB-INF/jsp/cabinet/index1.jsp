@@ -84,6 +84,9 @@
                         <button type="submit" class="btn btn-default">Submit</button>
                     </form>--%>
                     <ul class="nav navbar-nav navbar-right">
+                        <li><a href="/cabinet/indexAng.html">Angular version</a></li>
+                    </ul>
+                    <ul class="nav navbar-nav navbar-right">
                         <li><a href="/cabinet/index1.html">Старая версия</a></li>
                     </ul>
                 </div><!-- /.navbar-collapse -->
@@ -216,6 +219,22 @@
                     </div>
                 </div>
             </div>
+
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4 class="panel-title">
+                            <a data-toggle="collapse" href="#collapseLALA">BLABLABLA</a>
+                        </h4>
+
+                    </div>
+                    <div id="collapseLALA" class="panel-collapse collapse in">
+                        <div class="panel-body">
+                            <p>aksdjhlaskdjhflaskjdfhlaksdjhflaskjdhflaksjdhlakjhlsdkjahlskdjfh<br>
+                                l;aksdjhlaskdjhlaksdjhflaksjdhlfaksjdhfla</p>
+
+                        </div>
+                    </div>
+                </div>
 
         </div>
     </div>

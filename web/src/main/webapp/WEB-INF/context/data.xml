@@ -24,6 +24,7 @@
     <context:property-placeholder location="classpath:/conf.properties" />
 
     <jpa:repositories base-package="ua.com.jon.common.repository"/>
+    <jpa:repositories base-package="ua.com.jon.quiz.repository"/>
 
     <tx:annotation-driven transaction-manager="transactionManager"/>
 
@@ -65,7 +66,12 @@
         <!--TODO: remove repsistance.xml-->
         <!--<property fileName="persistenceXmlLocation" value="/WEB-INF/data/persistence.xml"/>-->
         <!--<property fileName="persistenceUnitName" value="courcesPU"/>-->
-        <property name="packagesToScan" value="ua.com.jon.common.domain"/>
+        <property name="packagesToScan">
+            <list>
+                <value>ua.com.jon.common.domain</value>
+                <value>ua.com.jon.quiz.domain</value>
+            </list>
+        </property>
         <property name="jpaVendorAdapter">
             <bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
                 <!--<property fileName="generateDdl" value="true" />-->
