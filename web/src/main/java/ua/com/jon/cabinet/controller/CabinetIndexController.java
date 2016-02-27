@@ -53,10 +53,6 @@ public class CabinetIndexController {
 
 
 
-    @RequestMapping(value = "/cabinet/indexAng.html", method = RequestMethod.GET)
-    public String indexAng(Model model) {
-        return "cabinet/indexAng";
-    }
 
     @RequestMapping(value = "/cabinet/indexAng.html#/groupTask", method = RequestMethod.GET)
     public String indexAngFromGroupRefresh(Model model) {
