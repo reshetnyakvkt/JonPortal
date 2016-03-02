@@ -5,46 +5,45 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru-UA">
 <head>
     <meta charset="UTF-8">
-    <title>Курсы по программированию на Java в Киеве.</title>
+    <title>Курсы по программированию на Java в Киеве</title>
+    <meta name=description itemprop=description content="Курсы по программированию на Java в Киеве."/>
+    <meta name=keywords itemprop=keywords content="java Киев, курсы java, курсы программирования Киев, курсы java Киев, java программирование, курсы java, программирование на java, java курсы киев, java курсы, курсы программирования java, курсы джава Киев, курсы программирования java Киев, курсы java Киев с трудоустройством, курсы джава, курсы по java Киев"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" type="image/vnd.microsoft.icon" href="favicon.ico">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
     <link href='https://fonts.googleapis.com/css?family=Roboto:100,300,300italic,400&subset=latin,cyrillic' rel='stylesheet' type='text/css'>
-    <link rel="stylesheet" href="landing/css/index.css">
-
-    <script src="landing/js/jquery-1.11.1.min.js"></script>
+    <link rel="stylesheet" href="/landing/css/index.css">
+    <script src="/landing/js/jquery-1.11.1.min.js"></script>
     <!--Slick carousel-->
-    <link rel="stylesheet" type="text/css" href="landing/js/slick/slick.css"/>
-    <script type="text/javascript" src="landing/js/slick/slick.min.js"></script>
-
+    <link rel="stylesheet" type="text/css" href="/landing/js/slick/slick.css"/>
+    <script type="text/javascript" src="/landing/js/slick/slick.min.js"></script>
     <!-- Magnific Popup core CSS file -->
-    <link rel="stylesheet" href="landing/js/magnificpopup/magnific-popup.css">
+    <link rel="stylesheet" href="/landing/js/magnificpopup/magnific-popup.css">
     <!-- Magnific Popup core JS file -->
-    <script src="landing/js/magnificpopup/jquery.magnific-popup.min.js"></script>
+    <script src="/landing/js/magnificpopup/jquery.magnific-popup.min.js"></script>
     <!--google map-->
     <script src="https://maps.googleapis.com/maps/api/js"></script>
     <!--google map-->
     <link href="https://file.myfontastic.com/n6vo44Re5QaWo8oCKShBs7/icons.css" rel="stylesheet">
-    <script src="landing/js/isInViewport.min.js"></script>
+    <script src="/landing/js/isInViewport.min.js"></script>
     <!--selectbox-->
-    <script src="landing/js/select2-4.0.1/dist/js/select2.full.min.js"></script>
-    <link rel="stylesheet" href="landing/js/select2-4.0.1/dist/css/select2.min.css">
+    <script src="/landing/js/select2-4.0.1/dist/js/select2.full.min.js"></script>
+    <link rel="stylesheet" href="/landing/js/select2-4.0.1/dist/css/select2.min.css">
     <!--animate-->
-    <script src="landing/js/jquery-viewport.checker.js"></script>
-    <script src="landing/js/animate/animate-css.js"></script>
-    <link rel="stylesheet" href="landing/js/animate/animate.css">
+    <script src="/landing/js/jquery-viewport.checker.js"></script>
+    <script src="/landing/js/animate/animate-css.js"></script>
+    <link rel="stylesheet" href="/landing/js/animate/animate.css">
     <!--Validation-->
     <script rel="nofollow" src="https://cdn.jsdelivr.net/jquery.validation/1.13.1/jquery.validate.min.js"></script>
     <script rel="nofollow" src="https://cdn.jsdelivr.net/jquery.validation/1.13.1/additional-methods.min.js"></script>
-
-    <script src="landing/js/index.js"></script>
+    <script src="/landing/js/index.js"></script>
 </head>
 <body>
 <a rel="nofollow" href=".header">
-    <img src="landing/img/up-arrow.png" alt="" class="up-arrow">
+    <img src="/landing/img/up-arrow.png" alt="" class="up-arrow">
 </a>
 <!--Starts header-->
 <div class="header">
@@ -53,7 +52,7 @@
             <div class="wr-content vertical-center table">
                 <div class="content cell">
                     <div class="container">
-                        <img class="logo" src="landing/img/logo_javajedi.png" alt="">
+                        <img class="logo" src="/landing/img/logo_javajedi.png" alt="kursy java">
                         <div class="title col-xs-12">
                             Пробуди в себе силу!
                         </div>
@@ -76,9 +75,9 @@
                 </div>
             </div>
             <video autoplay loop ng-if="!isWidthSm">
-                <source src="http://ak3.picdn.net/shutterstock/videos/8265610/preview/stock-footage-spaceships-passing-by-a-giant-space-station-above-planet-surface-cinema-quality-d-animation.mp4" type="video/mp4"/>
+                <source src="/landing/video/8265610.mp4" type="video/mp4"/>
                 Your browser does not support the video tag. I suggest you upgrade your browser.
-                <source src="video/hello_world/Hello-World.webm" type="video/webm"/>
+                <source src="/landing/video/8265610.webm" type="video/webm"/>
                 Your browser does not support the video tag. I suggest you upgrade your browser.
             </video>
         </div>
@@ -124,7 +123,6 @@
     </div>
 </div>
 <!--Ends menu-->
-
 <!--Starts why-we-->
 <div class="why-we section">
     <div class="container">
@@ -136,7 +134,7 @@
                 <div class="title">
                     Сайт
                 </div>
-                <img src="landing/img/circles/1.png" alt="" class="overlay">
+                <img src="/landing/img/circles/1.png" alt="" class="overlay">
                 <div class="description">
                     преподавателями и студентами создан сайт для обучения
                 </div>
@@ -145,7 +143,7 @@
                 <div class="title">
                     Преподаватель
                 </div>
-                <img src="landing/img/circles/2.png" alt="" class="overlay">
+                <img src="/landing/img/circles/2.png" alt="" class="overlay">
                 <div class="description">
                     действующий разработчик в крупной IT компании на должности тимлид, авторизированный тренер в
                     тренинг центре компании LUXOFT
@@ -155,7 +153,7 @@
                 <div class="title">
                     Трудоустроенные студенты
                 </div>
-                <img src="landing/img/circles/3.png" alt="" class="overlay">
+                <img src="/landing/img/circles/3.png" alt="" class="overlay">
                 <div class="description">
                     студенты, окончившие курсы, трудоустроены в крупных IT компаниях
                 </div>
@@ -164,7 +162,7 @@
                 <div class="title">
                     онлайн проверка заданий
                 </div>
-                <img src="landing/img/circles/4.png" alt="" class="overlay">
+                <img src="/landing/img/circles/4.png" alt="" class="overlay">
                 <div class="description">
                     все задания проверяются онлайн и все студенты могут следить за состоянием проверки
                     через интернет
@@ -174,7 +172,7 @@
                 <div class="title">
                     получение сертификата
                 </div>
-                <img src="landing/img/circles/5.png" alt="" class="overlay">
+                <img src="/landing/img/circles/5.png" alt="" class="overlay">
                 <div class="description">
                     после окончания курсов Вы получаете сертификат, подтверждающий Ваш уровень владения JAVA
                 </div>
@@ -183,7 +181,7 @@
                 <div class="title">
                     Группы до 10 человек
                 </div>
-                <img src="landing/img/circles/6.png" alt="" class="overlay">
+                <img src="/landing/img/circles/6.png" alt="" class="overlay">
                 <div class="description">
                     маленькие группы - это больше внимания для каждого стуеднта и, в результате - лучшее усвоение
                     материала
@@ -193,13 +191,12 @@
     </div>
 </div>
 <!--Ends why-we-->
-
 <!--Starts check-knowledge-->
 <div class="check-knowledge section">
     <div class="container">
-        <img src="landing/img/proverka-znaniy/star-fighter.png" alt="" class="overlay fighter1">
-        <img src="landing/img/proverka-znaniy/star-fighter.png" alt="" class="overlay fighter2">
-        <img src="landing/img/proverka-znaniy/star-fighter.png" alt="" class="overlay fighter3">
+        <img src="/landing/img/proverka-znaniy/star-fighter.png" alt="" class="overlay fighter1">
+        <img src="/landing/img/proverka-znaniy/star-fighter.png" alt="" class="overlay fighter2">
+        <img src="/landing/img/proverka-znaniy/star-fighter.png" alt="" class="overlay fighter3">
         <div class="section-title col-xs-12">
             проверьте свои знания, чтобы <br>правильно подобрать курс
         </div>
@@ -213,7 +210,6 @@
     </div>
 </div>
 <!--Ends check-knowledge-->
-
 <!--Starts about-courses-->
 <div class="about-courses section">
     <div class="container">
@@ -224,7 +220,7 @@
                     <div class="head">
                         <div class="title pink table">
                             <div class="cell">JAVA падаван</div>
-                            <div class="cell"><img src="landing/img/kursu/padavan-icon.png" alt=""></div>
+                            <div class="cell"><img src="/landing/img/kursu/padavan-icon.png" alt=""></div>
                         </div>
                         <div class="description table">
                             <div class="cell col-xs-12 col-sm-6">
@@ -293,7 +289,7 @@
                     <div class="head">
                         <div class="title blue table">
                             <div class="cell">JAVA джедай</div>
-                            <div class="cell"><img src="landing/img/kursu/jedi-icon.png" alt=""></div>
+                            <div class="cell"><img src="/landing/img/kursu/jedi-icon.png" alt=""></div>
                         </div>
                         <div class="description table">
                             <div class="cell col-xs-12 col-sm-6">
@@ -362,7 +358,7 @@
                     <div class="head">
                         <div class="title green table">
                             <div class="cell">JAVA магистр</div>
-                            <div class="cell"><img src="landing/img/kursu/magistr-icon.png" alt=""></div>
+                            <div class="cell"><img src="/landing/img/kursu/magistr-icon.png" alt=""></div>
                         </div>
                         <div class="description table">
                             <div class="cell col-xs-12 col-sm-6">
@@ -430,11 +426,10 @@
     </div>
 </div>
 <!--Ends about-courses-->
-
 <!--Starts discount-->
 <div class="discount section">
     <div class="container">
-        <img src="landing/img/skidka/death-star.png" alt="" class="overlay">
+        <img src="/landing/img/skidka/death-star.png" alt="" class="overlay">
         <div class="section-title">
             <div class="message col-xs-12 col-sm-6">
                 купите три курса вместе и получите скидку - 20%
@@ -445,22 +440,22 @@
         </div>
         <div class="discount-info table">
             <div class="cell ">
-                <img src="landing/img/skidka/padavan-icon.png" alt="">
+                <img src="/landing/img/skidka/padavan-icon.png" alt="">
             </div>
             <div class="cell plus">
-                <img src="landing/img/skidka/plus.png" alt="">
+                <img src="/landing/img/skidka/plus.png" alt="">
             </div>
             <div class="cell ">
-                <img src="landing/img/skidka/jedi-icon.png" alt="">
+                <img src="/landing/img/skidka/jedi-icon.png" alt="">
             </div>
             <div class="cell plus">
-                <img src="landing/img/skidka/plus.png" alt="">
+                <img src="/landing/img/skidka/plus.png" alt="">
             </div>
             <div class="cell ">
-                <img src="landing/img/skidka/master-icon.png" alt="">
+                <img src="/landing/img/skidka/master-icon.png" alt="">
             </div>
             <div class="cell">
-                <img src="landing/img/skidka/equals.png" alt="">
+                <img src="/landing/img/skidka/equals.png" alt="">
             </div>
             <div class="price cell">
                 9 999грн
@@ -472,7 +467,6 @@
     </div>
 </div>
 <!--Ends discount-->
-
 <!--Starts schedule-->
 <div class="schedule section">
     <div class="container">
@@ -501,28 +495,31 @@
                     </tbody></table>
             </div>
         </div>
-        <div class="equipment table row">
-            <div class="cell col-xs-12 col-sm-5">
-                <img src="landing/img/circles/circle.png" alt="" class="overlay">
-                на занятии вам понадобятся
-            </div>
-            <div class="cell col-xs-12 col-sm-7">
-                <ul>
-                    <li>ноутбук</li>
-                    <li>ручка и тетрадка</li>
-                    <li>учебный материал (предоставляет преподаватель)</li>
-                    <li>внимательность и сообразительность</li>
-                </ul>
+    </div>
+    <div class="equipment-wr ">
+        <div class="container">
+            <div class="equipment table row">
+                <div class="cell col-xs-12 col-sm-5">
+                    <img src="/landing/img/circles/circle.png" alt="" class="overlay">
+                    на занятии вам понадобятся
+                </div>
+                <div class="cell col-xs-12 col-sm-7">
+                    <ul>
+                        <li>ноутбук</li>
+                        <li>ручка и тетрадка</li>
+                        <li>учебный материал (предоставляет преподаватель)</li>
+                        <li>внимательность и сообразительность</li>
+                    </ul>
+                </div>
             </div>
         </div>
     </div>
 </div>
 <!--Ends schedule-->
-
 <!--Starts graduates-->
 <div class="graduates section">
     <div class="container">
-        <img src="landing/img/resultatu-kursov/milenium-icon.png" alt="" class="overlay">
+        <img src="/landing/img/resultatu-kursov/milenium-icon.png" alt="" class="overlay">
         <div class="col-xs-12">
             <div class="section-title">
                 мы выпускаем только <br> профессионалов своего дела
@@ -533,37 +530,37 @@
             <div class="slider-wrapper">
                 <div class="companies-slides slick-slider">
                     <div>
-                        <img src="landing/img/companies/ciklum.png" alt="">
+                        <img src="/landing/img/companies/ciklum.png" alt="">
                     </div>
                     <div>
-                        <img src="landing/img/companies/epam.png" alt="">
+                        <img src="/landing/img/companies/epam.png" alt="">
                     </div>
                     <div>
-                        <img src="landing/img/companies/globallogic.png" alt="">
+                        <img src="/landing/img/companies/globallogic.png" alt="">
                     </div>
                     <div>
-                        <img src="landing/img/companies/infopulse.png" alt="">
+                        <img src="/landing/img/companies/infopulse.png" alt="">
                     </div>
                     <div>
-                        <img src="landing/img/companies/intersog.png" alt="">
+                        <img src="/landing/img/companies/intersog.png" alt="">
                     </div>
                     <div>
-                        <img src="landing/img/companies/luxoft.png" alt="">
+                        <img src="/landing/img/companies/luxoft.png" alt="">
                     </div>
                     <div>
-                        <img src="landing/img/companies/miratech.png" alt="">
+                        <img src="/landing/img/companies/miratech.png" alt="">
                     </div>
                     <div>
-                        <img src="landing/img/companies/netcracker.png" alt="">
+                        <img src="/landing/img/companies/netcracker.png" alt="">
                     </div>
                     <div>
-                        <img src="landing/img/companies/playtech.png" alt="">
+                        <img src="/landing/img/companies/playtech.png" alt="">
                     </div>
                     <div>
-                        <img src="landing/img/companies/samsung.png" alt="">
+                        <img src="/landing/img/companies/samsung.png" alt="">
                     </div>
                     <div>
-                        <img src="landing/img/companies/softserve.png" alt="">
+                        <img src="/landing/img/companies/softserve.png" alt="">
                     </div>
                 </div>
                 <span class="slider-trigger trigger-left"><i class="fa fa-angle-left"></i></span>
@@ -576,20 +573,19 @@
     </div>
 </div>
 <!--Ends graduates-->
-
 <!--Starts certificate-->
 <div class="certificate section">
     <div class="container">
-        <img src="landing/img/serteficat/bb8.png" alt="" class="overlay">
+        <img src="/landing/img/serteficat/bb8.png" alt="" class="overlay">
         <div class="section-title">
             сертификат
         </div>
         <div class="table">
             <div class="photo cell col-xs-12 col-sm-6">
-                <img src="landing/img/serteficat/certeficat.jpg" alt="">
+                <img src="/landing/img/serteficat/certeficat.jpg" alt="">
             </div>
             <div class="info cell col-xs-12 col-sm-6">
-                <img src="landing/img/circles/circle.png" alt="" class="overlay">
+                <img src="/landing/img/circles/circle.png" alt="" class="overlay">
                 <p>
                     После прохождения курсов <br>Вы получаете сертификат <br> подтверждающий Ваши <br>новый знания
                 </p>
@@ -598,7 +594,6 @@
     </div>
 </div>
 <!--Ends certificate-->
-
 <!--Starts opensource-->
 <div class="opensource section">
     <div class="container">
@@ -606,54 +601,51 @@
             <div class="asteroids-set">
                 <div class="parallax-item a1" speed="1">
                     <div class="asteroid">
-                        <img src="landing/img/opensource/parallax/github.png" alt="">
+                        <img src="/landing/img/opensource/parallax/github.png" alt="">
                     </div>
                 </div>
                 <div class="parallax-item a2" speed="1.2">
                     <div class="asteroid">
-                        <img src="landing/img/opensource/parallax/libreoffice.png" alt="">
+                        <img src="/landing/img/opensource/parallax/libreoffice.png" alt="">
                     </div>
                 </div>
                 <div class="parallax-item a3" speed="1.1">
                     <div class="asteroid">
-                        <img src="landing/img/opensource/parallax/vagrant.png" alt="">
+                        <img src="/landing/img/opensource/parallax/vagrant.png" alt="">
                     </div>
                 </div>
                 <div class="parallax-item a4" speed="4">
                     <div class="asteroid">
-                        <img src="landing/img/opensource/parallax/hadoop.png" alt="">
+                        <img src="/landing/img/opensource/parallax/hadoop.png" alt="">
                     </div>
                 </div>
                 <div class="parallax-item a5" speed="1.4">
                     <div class="asteroid">
-                        <img src="landing/img/opensource/parallax/vlc.png" alt="">
+                        <img src="/landing/img/opensource/parallax/vlc.png" alt="">
                     </div>
                 </div>
                 <div class="parallax-item a6" speed="0.8">
                     <div class="asteroid">
-                        <img src="landing/img/opensource/parallax/firefox.png" alt="">
+                        <img src="/landing/img/opensource/parallax/firefox.png" alt="">
                     </div>
                 </div>
                 <div class="parallax-item a7" speed="3">
                     <div class="asteroid">
-                        <img src="landing/img/opensource/parallax/ubuntu.png" alt="">
+                        <img src="/landing/img/opensource/parallax/ubuntu.png" alt="">
                     </div>
                 </div>
                 <div class="parallax-item a8" speed="2.8">
                     <div class="asteroid">
-                        <img src="landing/img/opensource/parallax/gimp.png" alt="">
+                        <img src="/landing/img/opensource/parallax/gimp.png" alt="">
                     </div>
                 </div>
                 <div class="parallax-item a9" speed="0.8">
                     <div class="asteroid">
-                        <img src="landing/img/opensource/parallax/planet.png" alt="">
+                        <img src="/landing/img/opensource/parallax/planet.png" alt="">
                     </div>
                 </div>
             </div>
-
         </div>
-
-
         <div class="section-title">
             open source проект
         </div>
@@ -670,11 +662,10 @@
     </div>
 </div>
 <!--Ends opensource-->
-
 <!--Starts process-->
 <div class="process section">
     <div class="container">
-        <img src="landing/img/kak-vse-proishodut/empire-robot.png" alt="" class="overlay">
+        <img src="/landing/img/kak-vse-proishodut/empire-robot.png" alt="" class="overlay">
         <div class="section-title">
             как все происходит
         </div>
@@ -687,49 +678,49 @@
         <div class="col-xs-6 col-sm-6">
             <div class="popup-gallery">
                 <div class="col-xs-6 col-sm-4">
-                    <div class="landing/img-wrapper">
-                        <a href="landing/img/gallery-test.jpg">
-                            <img src="landing/img/gallery-test.jpg">
+                    <div class="img-wrapper">
+                        <a href="/landing/img/foto/java kursy (1).jpg">
+                            <img src="/landing/img/foto/java kursy (1).jpg">
                             <span class="overlay"></span>
                         </a>
                     </div>
                 </div>
                 <div class="col-xs-6 col-sm-4">
-                    <div class="landing/img-wrapper">
-                        <a href="landing/img/gallery-test.jpg">
-                            <img src="landing/img/gallery-test.jpg">
+                    <div class="img-wrapper">
+                        <a href="/landing/img/foto/java kursy (6).jpg">
+                            <img src="/landing/img/foto/java kursy (6).jpg">
                             <span class="overlay"></span>
                         </a>
                     </div>
                 </div>
                 <div class="col-xs-6 col-sm-4">
-                    <div class="landing/img-wrapper">
-                        <a href="landing/img/gallery-test.jpg">
-                            <img src="landing/img/gallery-test.jpg">
+                    <div class="img-wrapper">
+                        <a href="/landing/img/foto/java kursy (3).jpg">
+                            <img src="/landing/img/foto/java kursy (3).jpg">
                             <span class="overlay"></span>
                         </a>
                     </div>
                 </div>
                 <div class="col-xs-6 col-sm-4">
-                    <div class="landing/img-wrapper">
-                        <a href="landing/img/gallery-test.jpg">
-                            <img src="landing/img/gallery-test.jpg">
+                    <div class="img-wrapper">
+                        <a href="/landing/img/foto/java kursy (4).jpg">
+                            <img src="/landing/img/foto/java kursy (4).jpg">
                             <span class="overlay"></span>
                         </a>
                     </div>
                 </div>
                 <div class="col-xs-6 col-sm-4">
-                    <div class="landing/img-wrapper">
-                        <a href="landing/img/gallery-test.jpg">
-                            <img src="landing/img/gallery-test.jpg">
+                    <div class="img-wrapper">
+                        <a href="/landing/img/foto/java kursy (5).jpg">
+                            <img src="/landing/img/foto/java kursy (5).jpg">
                             <span class="overlay"></span>
                         </a>
                     </div>
                 </div>
                 <div class="col-xs-6 col-sm-4">
-                    <div class="landing/img-wrapper">
-                        <a href="landing/img/gallery-test.jpg">
-                            <img src="landing/img/gallery-test.jpg">
+                    <div class="img-wrapper">
+                        <a href="/landing/img/foto/java kursy (2).jpg">
+                            <img src="/landing/img/foto/java kursy (2).jpg">
                             <span class="overlay"></span>
                         </a>
                     </div>
@@ -739,7 +730,6 @@
     </div>
 </div>
 <!--Ends process-->
-
 <!--Starts comments-->
 <div class="comments section">
     <div class="container">
@@ -756,28 +746,24 @@
                             <div class="author col-xs-12 col-sm-5">
                                 <div class="table">
                                     <div class="cell">
-                                        <div class="photo" style="background: url('landing/img/otzuvu/leya-photo.jpg');background-size: cover;background-position: center center;">
-
+                                        <div class="photo" style="background: url('/landing/img/otzuvu/leya-photo.jpg');background-size: cover;background-position: center center;">
                                         </div>
                                     </div>
                                     <div class="cell">
                                 <span class="name">
-                                    Лея Органа
+                                    Решетняк Виктор Владимирович
                                 </span>
                                <span class="about">
-                                   Принцесса Альдераана
+                                    Принцесса Альдераана
                                </span>
                                     </div>
                                 </div>
                             </div>
                             <div class="comment-wrapper col-xs-12 col-sm-7">
                                 <div class="comment">
-                                    Товарищи! новая модель организационной деятельности влечет за собой процесс
-                                    внедрения и модернизации соответствующий условий активизации. Значимость этих проблем настолько
-                                    очевидна, что укрепление и развитие структуры позволяет оценить значение направлений прогрессивного развития.
-                                    Товарищи! новая модель организационной деятельности влечет за собой процесс
-                                    внедрения и модернизации соответствующий условий активизации. Значимость этих проблем настолько
-                                    очевидна, что укрепление и развитие структуры позволяет оценить значение направлений прогрессивного развития.
+                                    Я начал изучать Java много лет назад. Читал мануалы, статьи с примерами, даже видео программистов о том как нужно "программировать".
+                                    Это стало быстро надоедать потому что скучно и не интересно.
+                                    С Александром учить Java не просто инетересно, реально практический уровень поднялся настолько, что сразу после курсов на работе сел за проект и написал приложение).
                                 </div>
                             </div>
                         </div>
@@ -789,28 +775,81 @@
                             <div class="author col-xs-12 col-sm-5">
                                 <div class="table">
                                     <div class="cell">
-                                        <div class="photo" style="background: url('landing/img/otzuvu/leya-photo.jpg');background-size: cover;background-position: center center;">
-
+                                        <div class="photo" style="background: url('/landing/img/otzuvu/leya-photo.jpg');background-size: cover;background-position: center center;">
                                         </div>
                                     </div>
                                     <div class="cell">
                                 <span class="name">
-                                    Лея Органа
+                                    Наталья Савенко-Решетняк
                                 </span>
                                <span class="about">
-                                   Принцесса Альдераана
+                                    Принцесса Альдераана
                                </span>
                                     </div>
                                 </div>
                             </div>
                             <div class="comment-wrapper col-xs-12 col-sm-7">
                                 <div class="comment">
-                                    Товарищи! новая модель организационной деятельности влечет за собой процесс
-                                    внедрения и модернизации соответствующий условий активизации. Значимость этих проблем настолько
-                                    очевидна, что укрепление и развитие структуры позволяет оценить значение направлений прогрессивного развития.
-                                    Товарищи! новая модель организационной деятельности влечет за собой процесс
-                                    внедрения и модернизации соответствующий условий активизации. Значимость этих проблем настолько
-                                    очевидна, что укрепление и развитие структуры позволяет оценить значение направлений прогрессивного развития.
+                                    Я училась у нескольких преподавателей, но Александр Ращупкин превзошел все ожидания.
+                                    Иногда для полного овладения учебным материалом требуются многие часы упорных занятий.
+                                    Но благодаря методике преподавания на этих курсах материал давался легко.
+                                    Благодаря вебинарам Александра, можно реально "творить" шедевры, а не быть ремесленником.
+                                    Браво, Александр Ращупкин! Думаю продолжить обучение в этой школе!
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <div class="row">
+                        <div class="item">
+                            <div class="author col-xs-12 col-sm-5">
+                                <div class="table">
+                                    <div class="cell">
+                                        <div class="photo" style="background: url('/landing/img/otzuvu/leya-photo.jpg');background-size: cover;background-position: center center;">
+                                        </div>
+                                    </div>
+                                    <div class="cell">
+                                <span class="name">
+                                    Наталья Савенко-Решетняк
+                                </span>
+                               <span class="about">
+                                    Принцесса Альдераана
+                               </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="comment-wrapper col-xs-12 col-sm-7">
+                                <div class="comment">
+                                    Записываясь на курс Java, изначально планировал идти именно к Александру. Причина - хорошие отзывы от знакомых, обучавшихся у него ранее. В целом впечатления от преподавателя и наполнения курса самые позитивные.
+                                    Обучение проходило на достаточно высоком уровне с использованием всех основных аспектов технологии Java. Теоретический материал в достаточном количестве + практика, практика и еще раз практика. Стоит отметить профессионализм преподавателя: грамотная методика изложения материала; диалог со студентами, способствовавший учебному процессу; коллективная работа над задачами. Практические задания - интересные, сложные, в формате: постановка задачи - решение студентами - проверка, с указанием оптимального решения. Полезен был также детальный разбор каждого домашнего задания. Рекомендую Александра для всех, желающих освоить Java.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <div class="row">
+                        <div class="item">
+                            <div class="author col-xs-12 col-sm-5">
+                                <div class="table">
+                                    <div class="cell">
+                                        <div class="photo" style="background: url('/landing/img/otzuvu/leya-photo.jpg');background-size: cover;background-position: center center;">
+                                        </div>
+                                    </div>
+                                    <div class="cell">
+                                <span class="name">
+                                    Оксана Гамза
+                                </span>
+                               <span class="about">
+                                    Принцесса Альдераана
+                               </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="comment-wrapper col-xs-12 col-sm-7">
+                                <div class="comment">
+                                    Очень понравился подход в обучении. За каждым теоретическим блоком следовала практика на уроке, что давало возможность применить теорию сразу и  задать вопрос тут же если “застрял”. Также понравилось, что к решению студентов подводили, а не давали готовое.
                                 </div>
                             </div>
                         </div>
@@ -821,38 +860,34 @@
     </div>
     <div class="footer">
         <div class="container">
-
-            <img src="landing/img/otzuvu/jedi-starflight.png" alt="">
+            <img src="/landing/img/otzuvu/jedi-starflight.png" alt="">
         </div>
     </div>
 </div>
 <!--Ends comments-->
-
 <!--Ends support-->
 <div class="support section">
     <div class="container">
-        <img src="landing/img/podderzhka/chewbacca.png" alt="" class="overlay">
+        <img src="/landing/img/podderzhka/chewbacca.png" alt="" class="overlay">
         <div class="section-title">
             удалённая поддержка
         </div>
         <div class="info col-xs-12 col-sm-6">
             <p>
                 Ежедневные занятия требуют наставлений старшего. Зная его галактический идентификатор
-                <a href="skype:jedionline.com.ua?add"><img src="landing/img/podderzhka/skype-white.png" alt=""></a>
+                <a href="skype:jedionline.com.ua?add"><img src="/landing/img/podderzhka/skype-white.png" alt=""></a>
                 юнный падаван сможет победить препятствия на пути к  познанию Кодекса Java и обрести
                 навыки разработки космических программных продуктов
             </p>
             <a href="skype:jedionline.com.ua?add"><div class="skype">
-                <img src="landing/img/podderzhka/skype-yellow.png" alt="">
+                <img src="/landing/img/podderzhka/skype-yellow.png" alt="">
                 jedionline.com.ua</div></a>
         </div>
         <div class="col-xs-12 col-sm-6">
-
         </div>
     </div>
 </div>
 <!--Ends support-->
-
 <!--Starts contacts-->
 <div class="contacts section">
     <div class="container">
@@ -874,53 +909,43 @@
             </form>
         </div>
         <div class="info col-xs-12 col-sm-6">
-            <img src="landing/img/circles/circle.png" alt="" class="overlay">
+            <img src="/landing/img/circles/circle.png" alt="" class="overlay">
             <ul class="phones">
                 <li>
-                    <a href="tel:+380440000000">
-                        <span class="yellow">044</span> 000 00 00
+                    <a href="tel:+380681295302">
+                        <span class="yellow">068</span> 129 53 02
                     </a>
                 </li>
-                <li>
-                    <a href="tel:+380630000000">
-                        <span class="yellow">063</span> 000 00 00
-                    </a>
-                </li>
-                <li>
-                    <a href="tel:+380660000000">
-                        <span class="yellow">066</span> 000 00 00
-                    </a>
-                </li>
+
             </ul>
-            <a class="email" href="mailto:aleksandr.roshchupkin@gmail.com">aleksandr.roshchupkin@gmail.com</a>
+            <a class="email" href="mailto:aleksandr.roshchupkin@gmail.com">j2ee.coach@gmail.com</a>
+            <span class="email" style="padding-top:0">г. Киев ул. Сикорского 1 </span>
             <ul class="social">
                 <li>
-                    <a rel="nofollow" href="" target="_blank"><i class="socicon socicon-googleplus"></i></a>
+                    <a rel="nofollow" href="https://plus.google.com/share?url=<?php print (empty($_SERVER['HTTPS'])?'http://':'https://') . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI']; ?>" target="_blank"><i class="socicon socicon-googleplus"></i></a>
                 </li>
                 <li>
-                    <a rel="nofollow" href="" target="_blank"><i class="socicon socicon-facebook"></i></a>
+                    <a rel="nofollow" href="https://www.facebook.com/sharer.php?u=<?php print (empty($_SERVER['HTTPS'])?'http://':'https://') . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI']; ?>" target="_blank"><i class="socicon socicon-facebook"></i></a>
                 </li>
                 <li>
-                    <a rel="nofollow" href="" target="_blank"><i class="socicon socicon-vkontakte"></i></a>
+                    <a rel="nofollow" href="http://vk.com/share.php?url=<?php print (empty($_SERVER['HTTPS'])?'http://':'https://') . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'] ?>" target="_blank"><i class="socicon socicon-vkontakte"></i></a>
                 </li>
                 <li>
-                    <a rel="nofollow" href="" target="_blank"><i class="socicon socicon-instagram"></i></a>
+                    <a rel="nofollow" href="http://digitalsite.com.ua/" target="_blank"><i class="socicon socicon-instagram"></i></a>
                 </li>
                 <li>
-                    <a rel="nofollow" href="" target="_blank"><i class="socicon socicon-youtube"></i></a>
+                    <a rel="nofollow" href="http://digitalsite.com.ua/" target="_blank"><i class="socicon socicon-youtube"></i></a>
                 </li>
             </ul>
         </div>
     </div>
 </div>
 <!--Ends contacts-->
-
 <!--Starts map-->
 <div class="google-map">
     <div id="map"></div>
 </div>
 <!--Ends map-->
-
 <!--Starts copyright-->
 <div class="copyright">
     <div class="container">
@@ -928,13 +953,11 @@
             2016 &copy; Copyrights JediOnline
         </div>
         <div class="right col-xs-12 col-sm-6">
-            <a href="http://digitalsite.com.ua" title="Cоздание landing page" target="_blank" >Cоздание landing page</a>
+            <a href="http://digitalsite.com.ua/" title="Cоздание landing page" target="_blank" >Cоздание landing page</a>
         </div>
     </div>
 </div>
 <!--Ends copyright-->
-
-
 <!--Starts popups-->
 <a href="#thanks-popup" id="callThanksPopup" class="open-popup-link mfp-hide">Показать сообщение про успешную отправку</a>
 <div id="thanks-popup" class="thanks-popup mfp-hide">
@@ -974,6 +997,7 @@
                             <option value="Падаван">Java Падаван</option>
                             <option value="Джедай">Java Джежай</option>
                             <option value="Магистр">Java Магистр</option>
+                            <option value="Три курса">Три курса</option>
                         </select>
                     </div>
                 </div>
@@ -987,6 +1011,52 @@
     </div>
 </div>
 <!--Ends popups-->
+<!-- old browser alert message -->
+<script>
+    var $buoop = {vs:{i:13,f:35,o:25,s:7},c:2,
+        text:"Извините, Ваш браузер больше не поддерживается разработчиками! </br></br> Чтобы просмотреть данный сайт, обновите свой браузер до последней версии или откройте наш сайт  (   <span style='color:red;'> http://jon.com.ua/kursy_java </span>   )  в любом другом браузере."};
+    function $buo_f(){
+        var e = document.createElement("script");
+        e.src = "//browser-update.org/update.min.js";
+        document.body.appendChild(e);
+    };
+    try {document.addEventListener("DOMContentLoaded", $buo_f,false)}
+    catch(e){window.attachEvent("onload", $buo_f)}
+</script>
+<style type="text/css">
+    .buorg {
+        position:absolute;
+        width:100%;
+        height: 50%;
+        top:0px;
+        left:0px;
+        border-bottom:1px solid #A29330;
+        background: #FDF2AB !important;
+        text-align:left;
+        cursor:pointer;
+        font-family: Arial,Helvetica,sans-serif; color:#000;
+        display: table;
+    }
+    .buorg div {
+        display: table-cell;
+        vertical-align: middle;
+        padding:5px 36px 5px 40px;
+        font-size: 1.4em;
+    }
+    .buorg a {
+        color:#E25600;
+    }
+    #buorgclose {
+        position: absolute;
+        right: 1.2em;
+        top:.2em;
+        height: 20px;
+        width: 12px;
+        font-weight: bold;
+        font-size: 3em;
+        padding:0;
+    }</style>
+<!-- old browser alert message-->
 </body>
 </html>
 

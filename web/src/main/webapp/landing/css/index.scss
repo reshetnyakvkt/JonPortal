@@ -139,9 +139,9 @@ img{
         }
       }
       &:not(.active):hover{
-          color: $color-yellow;
-          @include transform(translateY(-10px));
-          @include transition(all $transition-time ease-in-out);
+        color: $color-yellow;
+        @include transform(translateY(-10px));
+        @include transition(all $transition-time ease-in-out);
         a{
           color: $color-yellow;
         }
@@ -208,7 +208,7 @@ img{
 //Starts check-knowledge
 .check-knowledge{
   position: relative;
-  background-image: url("../img/proverka-znaniy/background.png");
+  background-image: url("../img/proverka-znaniy/background.jpg");
   background-attachment: fixed;
   background-size: cover;
   .overlay{
@@ -349,7 +349,7 @@ img{
 //Starts discount
 .discount{
   position: relative;
-  background-image: url("../img/skidka/background.png");
+  background-image: url("../img/skidka/background.jpg");
   background-attachment: fixed;
   background-size: cover;
   text-align: center;
@@ -396,8 +396,9 @@ img{
 
 //Starts schedule
 .schedule{
+  padding-bottom: 0;
   background: url("../img/raspisanie/lightsaber.png");
-  background-size: 50% 70%;
+  background-size:50% 50%;
   background-repeat: no-repeat;
   background-position: top right;
   table{
@@ -416,8 +417,12 @@ img{
       }
     }
   }
+  .equipment-wr{
+    background: #191919;
+  }
+
   .equipment{
-    padding: 5em 0  0 0;
+    padding: 5em 0  2em 0;
     .cell{
       color: #fff;
     }
@@ -455,7 +460,7 @@ img{
 .graduates{
   position: relative;
   background-attachment: fixed;
-  background-image: url("../img/resultatu-kursov/background.png");
+  background-image: url("../img/resultatu-kursov/background.jpg");
   background-size: cover;
   .overlay{
     position: absolute;
@@ -512,7 +517,7 @@ img{
 .opensource{
   overflow: hidden;
   position: relative;
-  background-image: url("../img/opensource/background.png");
+  background-image: url("../img/opensource/background.jpg");
   background-attachment: fixed;
   background-size: cover;
   .section-title{
@@ -576,7 +581,7 @@ img{
 //Starts comments
 .comments{
   padding-bottom: 0;
-  background: url(../img/otzuvu/background.png);
+  background: url(../img/otzuvu/background.jpg);
   background-size: cover;
   position: relative;
   .footer{
@@ -660,7 +665,7 @@ img{
 .support{
   padding-bottom: 5em;
   position: relative;
-  background: url('../img/podderzhka/background.png');
+  background: url('../img/podderzhka/background.jpg');
   background-size: cover;
   .overlay{
     position: absolute;
@@ -719,7 +724,7 @@ img{
       display: block;
       padding:1.458em 0;
       font-size: 1.333em;
-        color: #fff;
+      color: #fff;
     }
     .social{
       li{
