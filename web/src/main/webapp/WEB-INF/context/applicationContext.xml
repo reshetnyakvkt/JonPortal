@@ -51,7 +51,8 @@
     <mvc:annotation-driven/>
 
     <mvc:resources mapping="/robots.txt" location="/robots.txt" order="0"/>
-    <mvc:resources mapping="/kursy_java/sitemap.xml" location="/sitemap.xml" order="0"/>
+    <!--<mvc:resources mapping="/kursy_java/robots.txt" location="/robots_land.txt" order="0"/>-->
+    <!--<mvc:resources mapping="/kursy_java/sitemap.xml" location="/sitemap.xml" order="0"/>-->
 
 <!--
     <bean class="org.springframework.web.servlet.view.ContentNegotiatingViewResolver">

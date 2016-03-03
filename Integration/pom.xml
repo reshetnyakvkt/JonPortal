@@ -11,4 +11,21 @@
 
     <artifactId>Integration</artifactId>
 
+    <dependencies>
+    <dependency>
+        <artifactId>Core</artifactId>
+        <groupId>Testeron</groupId>
+        <version>${testeron.core.version}</version>
+    </dependency>
+
+    <dependency>
+        <groupId>cglib</groupId>
+        <artifactId>cglib</artifactId>
+    </dependency>
+
+    <dependency>
+        <groupId>junit</groupId>
+        <artifactId>junit</artifactId>
+    </dependency>
+    </dependencies>
 </project>

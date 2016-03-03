@@ -1,6 +1,2 @@
-User-agent: *
-Disallow:
-
-Host: jon.com.ua/kursy_java
-
-Sitemap: http://jon.com.ua/kursy_java/sitemap.xml
+User-Agent: *
+Disallow: /gitblit
