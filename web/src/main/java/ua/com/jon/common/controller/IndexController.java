@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 public class IndexController {
 
-    @RequestMapping("/index.html")
+    @RequestMapping("/login.html")
     public String mainPage(ModelMap modelMap)  {
         modelMap.put("item","item1");
         return "index";
@@ -49,7 +49,7 @@ public class IndexController {
         return "solutions";
     }
 
-    @RequestMapping("/kursy_java")
+    @RequestMapping("/")
     public String landing(ModelMap modelMap)  {
         modelMap.put("item","item9");
         return "landing/index";
