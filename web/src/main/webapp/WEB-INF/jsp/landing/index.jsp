@@ -8,7 +8,7 @@
 <html lang="ru-UA">
 <head>
     <meta charset="UTF-8">
-    <title>Курсы по программированию на Java в Киеве. | Уроки обучения java.</title>
+    <title>Курсы по программированию на Java в Киеве. | Курсы программирования Java.</title>
     <meta name=description itemprop=description content="Cертифицированные курсы программированию на Java в Киеве. Курсы по программированию на Java с трудоустройством. Уроки Java для начинающих (для чайников) и для профессиональных программистов в Киеве. Обучение программированию на джава!"/>
     <meta name=keywords itemprop=keywords content="java Киев, курсы java, курсы программирования Киев, курсы java Киев, java программирование, курсы java, программирование на java, java курсы киев, java курсы, курсы программирования java, курсы джава Киев, курсы программирования java Киев, курсы java Киев с трудоустройством, курсы джава, курсы по java Киев, уроки java, java уроки"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -27,7 +27,7 @@
     <!--google map-->
     <script src="https://maps.googleapis.com/maps/api/js"></script>
     <!--google map-->
-    <link href="https://file.myfontastic.com/n6vo44Re5QaWo8oCKShBs7/icons.css" rel="stylesheet">
+    <link href="/landing/css/icons.css" rel="stylesheet">
     <script src="/landing/js/isInViewport.min.js"></script>
     <!--selectbox-->
     <script src="/landing/js/select2-4.0.1/dist/js/select2.full.min.js"></script>
@@ -43,14 +43,14 @@
 </head>
 <body>
 <script>
-  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-  ga('create', 'UA-74659325-1', 'auto');
-  ga('send', 'pageview');
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+                (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(0),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+    ga('create', 'UA-74659325-1', 'auto');
+    ga('send', 'pageview');
 </script>
-<a rel="nofollow" href=".header">
+<a href=".header">
     <img src="/landing/img/up-arrow.png" alt="jon.com.ua" class="up-arrow">
 </a>
 <!--Starts header-->
@@ -127,7 +127,7 @@
                     <a href=".contacts">контакты</a>
                 </li>
                 <li>
-                    <a rel="nofollow" href="/login.html">Вход</a>
+                    <a rel="nofollow" href="http://jon.com.ua/login.html">Вход</a>
                 </li>
             </ul>
         </div>
@@ -691,7 +691,7 @@
                 <div class="col-xs-6 col-sm-4">
                     <div class="img-wrapper">
                         <a href="/landing/img/foto/java-kursy-1.jpg" alt="java kursy">
-                            <img src="/landing/img/foto/java-kursy-1.jpg" alt="java kursy">
+                            <img src="/landing/img/foto/java-kursy-11.jpg" alt="java kursy">
                             <span class="overlay"></span>
                         </a>
                     </div>
@@ -699,7 +699,7 @@
                 <div class="col-xs-6 col-sm-4">
                     <div class="img-wrapper">
                         <a href="/landing/img/foto/java-kursy-6.jpg" alt="java kursy">
-                            <img src="/landing/img/foto/java-kursy-6.jpg" alt="java kursy">
+                            <img src="/landing/img/foto/java-kursy-66.jpg" alt="java kursy">
                             <span class="overlay"></span>
                         </a>
                     </div>
@@ -707,7 +707,7 @@
                 <div class="col-xs-6 col-sm-4">
                     <div class="img-wrapper">
                         <a href="/landing/img/foto/java-kursy-3.jpg" alt="java kursy">
-                            <img src="/landing/img/foto/java-kursy-3.jpg" alt="java kursy">
+                            <img src="/landing/img/foto/java-kursy-33.jpg" alt="java kursy">
                             <span class="overlay"></span>
                         </a>
                     </div>
@@ -715,7 +715,7 @@
                 <div class="col-xs-6 col-sm-4">
                     <div class="img-wrapper">
                         <a href="/landing/img/foto/java-kursy-4.jpg" alt="java kursy">
-                            <img src="/landing/img/foto/java-kursy-4.jpg" alt="java kursy">
+                            <img src="/landing/img/foto/java-kursy-44.jpg" alt="java kursy">
                             <span class="overlay"></span>
                         </a>
                     </div>
@@ -723,7 +723,7 @@
                 <div class="col-xs-6 col-sm-4">
                     <div class="img-wrapper">
                         <a href="/landing/img/foto/java-kursy-5.jpg" alt="java kursy">
-                            <img src="/landing/img/foto/java-kursy-5.jpg" alt="java kursy">
+                            <img src="/landing/img/foto/java-kursy-55.jpg" alt="java kursy">
                             <span class="overlay"></span>
                         </a>
                     </div>
@@ -731,7 +731,7 @@
                 <div class="col-xs-6 col-sm-4">
                     <div class="img-wrapper">
                         <a href="/landing/img/foto/java-kursy-2.jpg" alt="java kursy">
-                            <img src="/landing/img/foto/java-kursy-2.jpg" alt="java kursy">
+                            <img src="/landing/img/foto/java-kursy-22.jpg" alt="java kursy">
                             <span class="overlay"></span>
                         </a>
                     </div>
@@ -928,23 +928,23 @@
                     </a>
                 </li>
             </ul>
-            <a class="email" href="mailto:aleksandr.roshchupkin@gmail.com">e-mail</a>
-            <span class="email" style="padding-top:0">Украина г. Киев 04116<br/>ул. Сикорского 1 </span>
+            <a class="email" href="mailto:jonkursyjava@gmail.com">jonkursyjava@gmail.com</a>
+            <span class="email" style="padding-top:0">Украина г. Киев 04112<br/>ул. Сикорского 1 </span>
             <ul class="social">
                 <li>
-                    <a rel="nofollow" href="https://plus.google.com/share?url=http://jon.com.ua/" target="_blank"><i class="socicon socicon-googleplus"></i></a>
+                    <a rel="nofollow" href="https://plus.google.com/share?url=http://jon.com.ua" target="_blank"><i class="socicon socicon-googleplus"></i></a>
                 </li>
                 <li>
-                    <a rel="nofollow" href="https://www.facebook.com/sharer.php?u=http://jon.com.ua/" target="_blank"><i class="socicon socicon-facebook"></i></a>
+                    <a rel="nofollow" href="https://www.facebook.com/sharer.php?u=http://jon.com.ua" target="_blank"><i class="socicon socicon-facebook"></i></a>
                 </li>
                 <li>
-                    <a rel="nofollow" href="http://vk.com/share.php?url=http://jon.com.ua/" target="_blank"><i class="socicon socicon-vkontakte"></i></a>
+                    <a rel="nofollow" href="http://vk.com/share.php?url=http://jon.com.ua" target="_blank"><i class="socicon socicon-vkontakte"></i></a>
                 </li>
                 <!--<li>
-                    <a rel="nofollow" href="/" target="_blank"><i class="socicon socicon-instagram"></i></a>
+                    <a rel="nofollow" href="http://digitalsiteagency.com.ua" target="_blank"><i class="socicon socicon-instagram"></i></a>
                 </li>
                 <li>
-                    <a rel="nofollow" href="/" target="_blank"><i class="socicon socicon-youtube"></i></a>
+                    <a rel="nofollow" href="http://digitalsiteagency.com.ua" target="_blank"><i class="socicon socicon-youtube"></i></a>
                 </li>-->
             </ul>
         </div>
@@ -959,11 +959,14 @@
 <!--Starts copyright-->
 <div class="copyright">
     <div class="container">
-        <div class="left col-xs-12 col-sm-6">
+        <div class="left col-xs-6 col-sm-3">
             2016 &copy; Copyrights JediOnline
         </div>
-        <div class="right col-xs-12 col-sm-6">
-            <a href="http://digitalsite.com.ua/" title="Cоздание landing page" target="_blank" >Cоздание landing page</a>
+        <div class="center col-xs-6 col-sm-6">
+            <a href="site-maps.html" title="site-maps"><i class="fa fa-sitemap"> </i></a> &nbsp <a href="politika.html" title="Политика конфиденциальности">Политика конфиденциальности</a>
+        </div>
+        <div class="right col-xs-6 col-sm-3">
+            <a target="_blank" href="http://digitalsiteagency.com.ua" title="Заказать landing page">Заказать landing page</a>
         </div>
     </div>
 </div>

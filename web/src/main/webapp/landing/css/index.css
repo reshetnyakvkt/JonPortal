@@ -490,7 +490,7 @@ img{max-width:100%;}
 .why-we .item .description{position:relative;z-index:1;color:#fff;font-size:1.222em;}
 .why-we .item .overlay{z-index:0;position:absolute;top:-1.5em;right:0;z-index:0;}
 .why-we .item:nth-child(3n+1){clear:left;}
-.check-knowledge{position:relative;background-image:url("../img/proverka-znaniy/background.jpg");background-attachment:fixed;background-size:cover;}
+.check-knowledge{position:relative;background-image:url("../img/proverka-znaniy/background.jpg");;background-size:cover;}
 .check-knowledge .overlay{position:absolute;}
 .check-knowledge .overlay.fighter1{top:2em;left:3em;}
 .check-knowledge .overlay.fighter2{bottom:3em;left:12em;}
@@ -520,7 +520,7 @@ img{max-width:100%;}
 .about-courses .item:nth-child(3) .head .title img{bottom:-5px !important;right:-9px !important;}
 .about-courses .item:hover{cursor:pointer;}
 .about-courses .item:hover .wrapper{-webkit-transition:all 0.5s ease-in-out;-moz-transition:all 0.5s ease-in-out;transition:all 0.5s ease-in-out;-webkit-box-shadow:2px 2px 26px 0px rgba(0, 0, 0, 0.75);-moz-box-shadow:2px 2px 26px 0px rgba(0, 0, 0, 0.75);box-shadow:2px 2px 26px 0px rgba(0, 0, 0, 0.75);}
-.discount{position:relative;background-image:url("../img/skidka/background.jpg");background-attachment:fixed;background-size:cover;text-align:center;}
+.discount{position:relative;background-image:url("../img/skidka/background.jpg");;background-size:cover;text-align:center;}
 .discount .overlay{position:absolute;bottom:3em;left:2em;}
 .discount .table{width:auto;margin:0 auto;table-layout:auto !important;}
 .discount .table .cell{padding:0 0.5em;text-align:center;}
@@ -541,7 +541,7 @@ img{max-width:100%;}
 .schedule .equipment .cell:first-child .overlay{z-index:-1;position:absolute;top:-1.4em;right:1em;}
 .schedule .equipment .cell:last-child{font-size:1.333em;}
 .schedule .equipment .cell:last-child ul li{padding:0.3em 0;}
-.graduates{position:relative;background-attachment:fixed;background-image:url("../img/resultatu-kursov/background.jpg");background-size:cover;}
+.graduates{position:relative;;background-image:url("../img/resultatu-kursov/background.jpg");background-size:cover;}
 .graduates .overlay{position:absolute;top:1em;right:1em;}
 .graduates p{color:#fff;text-align:center;font-size:1.333em;padding-bottom:1.5em;}
 .graduates .slider-wrapper{padding:0 3em 2em 3em;}
@@ -604,6 +604,7 @@ img{max-width:100%;}
 .copyright a:hover{border-bottom:1px solid #999;}
 .copyright .left{text-align:left;}
 .copyright .right{text-align:right;}
+.copyright .center{text-align:center;}
 .asteroids-set .parallax-item{position:absolute;z-index:0;moz-backface-visibility:hidden;-o-backface-visibility:hidden;-ms-backface-visibility:hidden;-webkit-backface-visibility:hidden;backface-visibility:hidden;-webkit-transition:top ease-out 1s;-moz-transition:top ease-out 1s;transition:top ease-out 1s;}
 .asteroids-set .parallax-item .asteroid{display:block;}
 .asteroids-set .parallax-item.a1{top:30%;left:0.5%;}

@@ -60,4 +60,14 @@ public class IndexController {
         modelMap.put("item","item10");
         return "demo/index";
     }
+
+    @RequestMapping("/site-maps.html")
+    public String siteMaps(ModelMap modelMap)  {
+        return "site-maps";
+    }
+
+    @RequestMapping("/politika.html")
+    public String politika(ModelMap modelMap)  {
+        return "politika";
+    }
 }

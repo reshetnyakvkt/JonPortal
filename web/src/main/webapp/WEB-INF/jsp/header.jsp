@@ -5,7 +5,7 @@
 <div class="row-fluid">
     <div class="navbar-inner">
         <ul class="nav nav-pills">
-            <li id="item1"><a href="/index.html">Главная</a></li>
+            <li id="item1"><a href="/">Главная</a></li>
             <li id="item7"><a href="/cabinet/index.html">Кабинет</a></li>
             <li id="item2"><a href="/trainings/index.html">Статьи</a></li>
             <li id="item3"><a href="/lessons.html">Занятия</a></li>
