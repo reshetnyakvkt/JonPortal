@@ -55,6 +55,12 @@ public class IndexController {
         return "landing/index";
     }
 
+/*    @ExceptionHandler(ResourceNotFoundException.class)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    public String handleResourceNotFoundException() {
+        return "meters/notfound";
+    }*/
+
     @RequestMapping("/demo")
     public String demo(ModelMap modelMap)  {
         modelMap.put("item","item10");

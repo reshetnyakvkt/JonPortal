@@ -83,3 +83,39 @@
 .select2-container--open .select2-dropdown--below{
   z-index: 9999999 !important;
 }
+
+
+#program-popup{
+  position: fixed;
+  height: 85%;
+  width: 90%;
+  max-width: 100% !important;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  margin: auto;
+  padding: 20px;
+  overflow-y: auto;
+  color: #fff;
+  .opac{
+    margin: 2em 0;
+  }
+  .prog_title{
+    font-size: 1.1em;
+    margin-bottom: 0.5em;
+    font-weight: 500;
+  }
+  .prog_pod_title{
+    font-style: italic;
+    margin-bottom: 1em;
+  }
+  ul{
+    margin-bottom: 1em;
+    font-size: 0.9em;
+    text-align: left;
+    li{
+      text-align: left;
+    }
+  }
+}

@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import ua.com.jon.auth.service.AuthService;
 import ua.com.jon.common.domain.User;
 import ua.com.jon.common.dto.GroupDTO;
+import ua.com.jon.common.service.MailService;
 import ua.com.jon.common.service.RegisterService;
 
 import javax.servlet.http.HttpServletRequest;
@@ -37,6 +38,9 @@ public class AuthController {
 
     @Autowired
     private GitblitClient gitblitClient;
+
+    @Autowired
+    private MailService mailService;
 
     @RequestMapping(value = "/loginfailed", method = RequestMethod.GET)
     public String showArticlesList(Model model
@@ -133,6 +137,8 @@ public class AuthController {
             return "/register";
         }
         User user = authService.getUserFromDBByName(login);
+
+        mailService.sendEmail("new user registred", "User registred: " + login);
 
         if (user != null && !authService.isUserInGroup(user, groupId)) {
             authService.addUserToGroup(user, activeGroups.get(0).getId());

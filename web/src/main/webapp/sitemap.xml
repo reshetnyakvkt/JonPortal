@@ -1,20 +1,128 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 	<url>
-		<loc>http://jon.com.ua/</loc>
-		<lastmod>2016-05-15</lastmod>
+		<loc>http://jon.com.ua</loc>
+		<lastmod>2016-06-10</lastmod>
 		<priority>1.0</priority>
 		<changefreq>Weekly</changefreq>
 	</url>
 	<url>
-		<loc>http://jon.com.ua/site-maps.html</loc>
+		<loc>http://jon.com.ua/site-maps.php</loc>
+		<lastmod>2016-06-07</lastmod>
+		<priority>0.9</priority>
+		<changefreq>Weekly</changefreq>
+	</url>
+	<url>
+		<loc>http://jon.com.ua/politika.php</loc>
 		<lastmod>2016-05-15</lastmod>
 		<priority>0.9</priority>
 		<changefreq>Weekly</changefreq>
 	</url>
-		<url>
-		<loc>http://jon.com.ua/politika.html</loc>
-		<lastmod>2016-05-15</lastmod>
+	<url>
+		<loc>http://jon.com.ua/cabinet/index.html</loc>
+		<lastmod>2016-06-07</lastmod>
+		<priority>0.9</priority>
+		<changefreq>Weekly</changefreq>
+	</url>
+	<url>
+		<loc>http://jon.com.ua/trainings/index.html</loc>
+		<lastmod>2016-06-07</lastmod>
+		<priority>0.9</priority>
+		<changefreq>Weekly</changefreq>
+	</url>
+	<url>
+		<loc>http://jon.com.ua/lessons.html</loc>
+		<lastmod>2016-06-07</lastmod>
+		<priority>0.9</priority>
+		<changefreq>Weekly</changefreq>
+	</url>
+	<url>
+		<loc>http://jon.com.ua/tasksg.html</loc>
+		<lastmod>2016-06-07</lastmod>
+		<priority>0.9</priority>
+		<changefreq>Weekly</changefreq>
+	</url>
+	<url>
+		<loc>http://jon.com.ua/download.html</loc>
+		<lastmod>2016-06-07</lastmod>
+		<priority>0.9</priority>
+		<changefreq>Weekly</changefreq>
+	</url>
+	<url>
+		<loc>http://jon.com.ua/solutions.html</loc>
+		<lastmod>2016-06-07</lastmod>
+		<priority>0.9</priority>
+		<changefreq>Weekly</changefreq>
+	</url>
+	<url>
+		<loc>http://jon.com.ua/demo</loc>
+		<lastmod>2016-06-07</lastmod>
+		<priority>0.9</priority>
+		<changefreq>Weekly</changefreq>
+	</url>
+	<url>
+		<loc>http://jon.com.ua/trainings/styleChecker.html</loc>
+		<lastmod>2016-06-07</lastmod>
+		<priority>0.9</priority>
+		<changefreq>Weekly</changefreq>
+	</url>
+	<url>
+		<loc>http://jon.com.ua/trainings/style.html</loc>
+		<lastmod>2016-06-07</lastmod>
+		<priority>0.9</priority>
+		<changefreq>Weekly</changefreq>
+	</url>
+	<url>
+		<loc>http://jon.com.ua/trainings/folc.html</loc>
+		<lastmod>2016-06-07</lastmod>
+		<priority>0.9</priority>
+		<changefreq>Weekly</changefreq>
+	</url>
+	<url>
+		<loc>http://jon.com.ua/trainings/slang.html</loc>
+		<lastmod>2016-06-07</lastmod>
+		<priority>0.9</priority>
+		<changefreq>Weekly</changefreq>
+	</url>
+	<url>
+		<loc>http://jon.com.ua/trainings/nedocode.html</loc>
+		<lastmod>2016-06-07</lastmod>
+		<priority>0.9</priority>
+		<changefreq>Weekly</changefreq>
+	</url>
+	<url>
+		<loc>http://jon.com.ua/trainings/jon.html</loc>
+		<lastmod>2016-06-07</lastmod>
+		<priority>0.9</priority>
+		<changefreq>Weekly</changefreq>
+	</url>
+	<url>
+		<loc>http://jon.com.ua/trainings/practicum.html</loc>
+		<lastmod>2016-06-07</lastmod>
+		<priority>0.9</priority>
+		<changefreq>Weekly</changefreq>
+	</url>
+	<url>
+		<loc>http://jon.com.ua/trainings/registration.html</loc>
+		<lastmod>2016-06-07</lastmod>
+		<priority>0.9</priority>
+		<changefreq>Weekly</changefreq>
+	</url>
+	<url>
+		<loc>http://jon.com.ua/trainings/newcomer.html</loc>
+		<lastmod>2016-06-07</lastmod>
+		<priority>0.9</priority>
+		<changefreq>Weekly</changefreq>
+	</url>
+	<url>
+		<loc>http://jon.com.ua/trainings/assistant.html</loc>
+		<lastmod>2016-06-07</lastmod>
+		<priority>0.9</priority>
+		<changefreq>Weekly</changefreq>
+	</url>
+	<url>
+		<loc>http://jon.com.ua/trainings/reviews.html</loc>
+		<lastmod>2016-06-07</lastmod>
 		<priority>0.9</priority>
 		<changefreq>Weekly</changefreq>
 	</url>

@@ -14,6 +14,9 @@ html,body{
 div,a,img, input, textarea, select, option{
   outline: none;
 }
+*{
+  outline: none !important;
+}
 img{
   max-width: 100%;
 }
@@ -536,7 +539,7 @@ img{
 
 //Ends process
 .process{
-  padding-bottom: 7em;
+  padding-bottom: 3em;
   position: relative;
   .overlay{
     position: absolute;
@@ -575,6 +578,50 @@ img{
   p{
     color: #fff;
   }
+
+  .items-wr{
+    color: #fff;
+    .item{
+      .img-wr{
+        min-height: 140px;
+        position: relative;
+        img{
+          position: absolute;
+          bottom: 0;
+          max-width: 100%;
+        }
+      }
+      .title{
+        font-size: 1.667em;
+        text-transform: uppercase;
+      }
+      .list{
+        font-weight: 300;
+        font-size: 1.222em;
+        line-height: 1.2em;
+        li{
+          padding: 0.7em 0;
+          img{
+            padding-right: 0.7em;
+
+          }
+        }
+        .table{
+          width: auto;
+          .cell{
+            vertical-align: top !important;
+            &:first-child{
+              width: 30px;
+              img{
+                width: 100%;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
 }
 //Ends process
 

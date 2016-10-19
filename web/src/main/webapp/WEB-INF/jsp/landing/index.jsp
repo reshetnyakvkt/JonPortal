@@ -9,10 +9,20 @@
 <head>
     <meta charset="UTF-8">
     <title>Курсы по программированию на Java в Киеве. | Курсы программирования Java.</title>
-    <meta name=description itemprop=description content="Cертифицированные курсы программированию на Java в Киеве. Курсы по программированию на Java с трудоустройством. Уроки Java для начинающих (для чайников) и для профессиональных программистов в Киеве. Обучение программированию на джава!"/>
-    <meta name=keywords itemprop=keywords content="java Киев, курсы java, курсы программирования Киев, курсы java Киев, java программирование, курсы java, программирование на java, java курсы киев, java курсы, курсы программирования java, курсы джава Киев, курсы программирования java Киев, курсы java Киев с трудоустройством, курсы джава, курсы по java Киев, уроки java, java уроки"/>
+    <meta name=description content="Cертифицированные курсы программированию на Java в Киеве. Курсы по программированию на Java с трудоустройством. Уроки Java для начинающих (для чайников) и для профессиональных программистов в Киеве. Обучение программированию на джава!" />
+    <meta name=keywords content="java Киев, курсы java, курсы программирования Киев, курсы java Киев, java программирование, курсы java, программирование на java, java курсы киев, java курсы, курсы программирования java, курсы джава Киев, курсы программирования java Киев, курсы java Киев с трудоустройством, курсы джава, курсы по java Киев, уроки java, java уроки" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" type="image/vnd.microsoft.icon" href="favicon.ico">
+    <meta name="it-rating" content="it-rat-7022f297b98d49028cb3b25fa02bda7b" />
+    <link rel="shortcut icon" href="/landing/img/icon/favicon.ico" type="image/x-icon" />
+    <link rel="apple-touch-icon" href="/landing/img/icon/apple-touch-icon.png" />
+    <link rel="apple-touch-icon" sizes="57x57" href="/landing/img/icon/landing/img/icon/apple-touch-icon-57x57.png" />
+    <link rel="apple-touch-icon" sizes="72x72" href="/landing/img/icon/apple-touch-icon-72x72.png" />
+    <link rel="apple-touch-icon" sizes="76x76" href="/landing/img/icon/apple-touch-icon-76x76.png" />
+    <link rel="apple-touch-icon" sizes="114x114" href="/landing/img/icon/apple-touch-icon-114x114.png" />
+    <link rel="apple-touch-icon" sizes="120x120" href="/landing/img/icon/apple-touch-icon-120x120.png" />
+    <link rel="apple-touch-icon" sizes="144x144" href="/landing/img/icon/apple-touch-icon-144x144.png" />
+    <link rel="apple-touch-icon" sizes="152x152" href="/landing/img/icon/apple-touch-icon-152x152.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/landing/img/icon/apple-touch-icon-180x180.png" />
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
     <link href='https://fonts.googleapis.com/css?family=Roboto:100,300,300italic,400&subset=latin,cyrillic' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" href="/landing/css/index.css">
@@ -27,7 +37,7 @@
     <!--google map-->
     <script src="https://maps.googleapis.com/maps/api/js"></script>
     <!--google map-->
-    <link href="/landing/css/icons.css" rel="stylesheet">
+    <link href="https://file.myfontastic.com/n6vo44Re5QaWo8oCKShBs7/icons.css" rel="stylesheet">
     <script src="/landing/js/isInViewport.min.js"></script>
     <!--selectbox-->
     <script src="/landing/js/select2-4.0.1/dist/js/select2.full.min.js"></script>
@@ -43,12 +53,12 @@
 </head>
 <body>
 <script>
-    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-                (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(0),
-            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-    ga('create', 'UA-74659325-1', 'auto');
-    ga('send', 'pageview');
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-74659325-1', 'auto');
+  ga('send', 'pageview');
 </script>
 <a href=".header">
     <img src="/landing/img/up-arrow.png" alt="jon.com.ua" class="up-arrow">
@@ -102,28 +112,28 @@
     <div class="container">
         <div class="col-xs-12">
             <ul>
-                <li class="active">
-                    <a href=".why-we">преимущества</a>
+                <li class="active anchor">
+                    <a  href=".why-we">преимущества</a>
                 </li>
-                <li>
-                    <a href=".about-courses">курсы</a>
+                <li class="anchor">
+                    <a  href=".about-courses">курсы</a>
                 </li>
-                <li>
+                <li class="anchor">
                     <a href=".schedule">расписание</a>
                 </li>
-                <li>
+                <li class="anchor">
                     <a href=".certificate">сертификат</a>
                 </li>
                 <!--<li>
                     <a href=".process">школа</a>
                 </li>-->
-                <li>
+                <li class="anchor">
                     <a href=".comments">отзывы</a>
                 </li>
-                <li>
+                <li class="anchor">
                     <a href=".support">поддержка</a>
                 </li>
-                <li>
+                <li class="anchor">
                     <a href=".contacts">контакты</a>
                 </li>
                 <li>
@@ -135,6 +145,7 @@
 </div>
 <!--Ends menu-->
 <!--Starts why-we-->
+<div id="why-we"></div>
 <div class="why-we section">
     <div class="container">
         <div class="section-title">
@@ -222,6 +233,7 @@
 </div>
 <!--Ends check-knowledge-->
 <!--Starts about-courses-->
+<div id="about-courses"></div>
 <div class="about-courses section">
     <div class="container">
         <div class="section-title">курсы</div>
@@ -235,7 +247,7 @@
                         </div>
                         <div class="description table">
                             <div class="cell col-xs-12 col-sm-6">
-                                9 999 грн
+                                1 200 грн.
                             </div>
                             <div class="cell col-xs-12 col-sm-6">
                                 для тех, кто начинает
@@ -244,7 +256,7 @@
                     </div>
                     <div class="centered">
                         <div class="duration">
-                            90 недель - 90 занятий
+                            3 недели - 6 занятий
                         </div>
                     </div>
                     <div class="body pink">
@@ -297,140 +309,148 @@
             </div>
             <div class="item col-xs-12 col-sm-4">
                 <div class="wrapper">
-                    <div class="head">
-                        <div class="title blue table">
-                            <div class="cell">JAVA джедай</div>
-                            <div class="cell"><img src="/landing/img/kursu/jedi-icon.png" alt="java jedi"></div>
-                        </div>
-                        <div class="description table">
-                            <div class="cell col-xs-12 col-sm-6">
-                                9 999 грн
+                    <a href="#program-popup" class="open-popup-link">
+                        <div class="head">
+                            <div class="title blue table">
+                                <div class="cell">JAVA джедай</div>
+                                <div class="cell"><img src="/landing/img/kursu/jedi-icon.png" alt="java jedi"></div>
                             </div>
-                            <div class="cell col-xs-12 col-sm-6">
-                                для тех, у кого есть база
+                            <div class="description table">
+                                <div class="cell col-xs-12 col-sm-6">
+                                    3 400 грн.
+                                </div>
+                                <div class="cell col-xs-12 col-sm-6">
+                                    для тех, у кого есть база
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="centered">
-                        <div class="duration">
-                            90 недель - 90 занятий
+                        <div class="centered">
+                            <div class="duration">
+                                8 недель -  48 занятий
+                            </div>
                         </div>
-                    </div>
-                    <div class="body blue">
-                        <ul>
-                            <li>
-                                Введение в Java, Java SE, EE, Android.
-                            </li>
-                            <li>
-                                Установка JDK. Среда разработки Eclipse/Intellij IDEA.
-                            </li>
-                            <li>
-                                Компиляция и запуск приложений.
-                            </li>
-                            <li>
-                                Введение в синтаксис языка Java.
-                            </li>
-                            <li>
-                                Примитивные и ссылочные типы данных.
-                            </li>
-                            <li>
-                                Работа с переменными и операторами.
-                            </li>
-                            <li>
-                                Приложение "Калькултяор".
-                            </li>
-                            <li>
-                                Массивы. Индексная арифметика.
-                            </li>
-                            <li>
-                                Работа со строками.
-                            </li>
-                            <li>
-                                Методы классов и параметры.
-                            </li>
-                            <li>
-                                Операторы условного перехода и цикли.
-                            </li>
-                            <li>
-                                Работа с датой и временем.
-                            </li>
-                            <li>
-                                Интсрументы для отладки программ.
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="button-wrapper centered">
-                        <a href="#orderplace-popup" class="open-popup-link enroll-button">записаться</a>
-                    </div>
+                        <div class="body blue">
+                            <ul>
+                                <li>
+                                    Введение в Java, Java SE, EE, Android.
+                                </li>
+                                <li>
+                                    Установка JDK. Среда разработки Eclipse/Intellij IDEA.
+                                </li>
+                                <li>
+                                    Компиляция и запуск приложений.
+                                </li>
+                                <li>
+                                    Введение в синтаксис языка Java.
+                                </li>
+                                <li>
+                                    Примитивные и ссылочные типы данных.
+                                </li>
+                                <li>
+                                    Работа с переменными и операторами.
+                                </li>
+                                <li>
+                                    Приложение "Калькултяор".
+                                </li>
+                                <li>
+                                    Массивы. Индексная арифметика.
+                                </li>
+                                <li>
+                                    Работа со строками.
+                                </li>
+                                <li>
+                                    Методы классов и параметры.
+                                </li>
+                                <li>
+                                    Операторы условного перехода и цикли.
+                                </li>
+                                <li>
+                                    Работа с датой и временем.
+                                </li>
+                                <li>
+                                    Интсрументы для отладки программ.
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="button-wrapper centered">
+                            <a href="#orderplace-popup" class="open-popup-link enroll-button">записаться</a>
+                        </div>
+                    </a>
+
                 </div>
             </div>
             <div class="item col-xs-12 col-sm-4">
                 <div class="wrapper">
-                    <div class="head">
-                        <div class="title green table">
-                            <div class="cell">JAVA магистр</div>
-                            <div class="cell"><img src="/landing/img/kursu/magistr-icon.png" alt="java magistr"></div>
-                        </div>
-                        <div class="description table">
-                            <div class="cell col-xs-12 col-sm-6">
-                                9 999 грн
+                    <a href="#program-popup-magistr" class="open-popup-link">
+                        <div class="head">
+                            <div class="title green table">
+                                <div class="cell">JAVA магистр</div>
+                                <div class="cell"><img src="/landing/img/kursu/magistr-icon.png" alt="java magistr"></div>
                             </div>
-                            <div class="cell col-xs-12 col-sm-6">
-                                чтобы стать мастером
+                            <div class="description table">
+                                <div class="cell col-xs-12 col-sm-6">
+                                    3 800 грн.
+                                </div>
+                                <div class="cell col-xs-12 col-sm-6">
+                                    чтобы стать мастером
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="centered">
-                        <div class="duration">
-                            90 недель - 90 занятий
+                        <div class="centered">
+                            <div class="duration">
+                                12 недель - 72 занятий
+                            </div>
                         </div>
-                    </div>
-                    <div class="body green">
-                        <ul>
-                            <li>
-                                Введение в Java, Java SE, EE, Android.
-                            </li>
-                            <li>
-                                Установка JDK. Среда разработки Eclipse/Intellij IDEA.
-                            </li>
-                            <li>
-                                Компиляция и запуск приложений.
-                            </li>
-                            <li>
-                                Введение в синтаксис языка Java.
-                            </li>
-                            <li>
-                                Примитивные и ссылочные типы данных.
-                            </li>
-                            <li>
-                                Работа с переменными и операторами.
-                            </li>
-                            <li>
-                                Приложение "Калькултяор".
-                            </li>
-                            <li>
-                                Массивы. Индексная арифметика.
-                            </li>
-                            <li>
-                                Работа со строками.
-                            </li>
-                            <li>
-                                Методы классов и параметры.
-                            </li>
-                            <li>
-                                Операторы условного перехода и цикли.
-                            </li>
-                            <li>
-                                Работа с датой и временем.
-                            </li>
-                            <li>
-                                Интсрументы для отладки программ.
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="button-wrapper centered">
-                        <a href="#orderplace-popup" class="open-popup-link enroll-button">записаться</a>
-                    </div>
+                        <div class="body green">
+                            <ul>
+                                <li>
+                                    ООП
+                                </li>
+                                <li>
+                                    Потоки выполнения
+                                </li>
+                                <li>
+                                    ORM технологии, Hibernate
+                                </li>
+                                <li>
+                                    Фреймворк Spring
+                                </li>
+                                <li>
+                                    Коллекции
+                                </li>
+                                <li>
+                                    Связь БД с приложением
+                                </li>
+                                <li>
+                                    Паттерны в ООП
+                                </li>
+                                <li>
+                                    Разработка проекта в команде
+                                </li>
+                                <li>
+                                    Разработка веб приложений
+                                </li>
+                                <li>
+                                    Подготовка к собеседованию
+                                </li>
+                                <li>
+                                    &nbsp <br />
+                                    &nbsp
+                                </li>
+                                <li>
+                                    &nbsp <br />
+                                    &nbsp
+                                </li>
+                                <li>
+                                    &nbsp
+                                </li>
+
+                            </ul>
+                        </div>
+                        <div class="button-wrapper centered">
+                            <a href="#orderplace-popup" class="open-popup-link enroll-button">записаться</a>
+                        </div>
+                    </a>
                 </div>
             </div>
         </div>
@@ -469,7 +489,7 @@
                 <img src="/landing/img/skidka/equals.png" alt="equals png">
             </div>
             <div class="price cell">
-                9 999грн
+                6 500 грн.
             </div>
         </div>
         <div class="button-wrap centered">
@@ -479,6 +499,7 @@
 </div>
 <!--Ends discount-->
 <!--Starts schedule-->
+<div id="schedule"></div>
 <div class="schedule section">
     <div class="container">
         <div class="section-title">
@@ -490,18 +511,18 @@
                     <tbody>
                     <tr>
                         <td>JAVA падаван</td>
-                        <td>с 19.03.2016</td>
-                        <td>&nbsp;&nbsp;&nbsp;&nbsp;по субботам 16.00-20.00</td>
+                        <td>с 03.09.2016</td>
+                        <td>&nbsp;&nbsp;&nbsp;&nbsp;по субботам и воскресеньям 11:00 - 14:00</td>
                     </tr>
                     <tr>
                         <td>JAVA джежай</td>
-                        <td>с 19.03.2016</td>
-                        <td>&nbsp;&nbsp;&nbsp;&nbsp;понедельник, пятница 16.00-20.00</td>
+                        <td>с 05.09.2016</td>
+                        <td>&nbsp;&nbsp;&nbsp;&nbsp;понедельник, среда, пятница 19:00 - 22:00</td>
                     </tr>
                     <tr>
                         <td>JAVA магистр</td>
-                        <td>с 19.03.2016</td>
-                        <td>&nbsp;&nbsp;&nbsp;&nbsp;вторник, среда, четверг 16.00-20.00</td>
+                        <td>с 06.09.2016</td>
+                        <td>&nbsp;&nbsp;&nbsp;&nbsp;вторник, четверг 19:00 - 22:00</td>
                     </tr>
                     </tbody></table>
             </div>
@@ -585,6 +606,7 @@
 </div>
 <!--Ends graduates-->
 <!--Starts certificate-->
+<div id="certificate"></div>
 <div class="certificate section">
     <div class="container">
         <img src="/landing/img/serteficat/bb8.png" alt="bb8 png" class="overlay">
@@ -674,74 +696,196 @@
 </div>
 <!--Ends opensource-->
 <!--Starts process-->
+<div id="process"></div>
 <div class="process section">
     <div class="container">
-        <img src="/landing/img/kak-vse-proishodut/empire-robot.png" alt="empire robot" class="overlay">
+<!--        <img src="/landing/img/kak-vse-proishodut/empire-robot.png" alt="empire robot" class="overlay">-->
         <div class="section-title">
             как все происходит
         </div>
-        <div class="col-xs-12 col-sm-6">
-            <p>
-                Товарищи! новая модель организационной деятельности влечет за собой процесс внедрения и модернизации соответствующий условий активизации. Значимость этих проблем настолько очевидна, что укрепление и развитие структуры позволяет оценить значение направлений прогрессивного развития. Равным образом постоянный количественный рост и сфера нашей активности требуют от нас анализа дальнейших направлений развития.
-                Равным образом реализация намеченных плановых заданий обеспечивает широкому кругу (специалистов) участие в формировании форм развития. Товарищи! рамки и место обучения кадров требуют от нас анализа дальнейших направлений развития.
-            </p>
-        </div>
-        <div class="col-xs-6 col-sm-6">
-            <div class="popup-gallery">
-                <div class="col-xs-6 col-sm-4">
-                    <div class="img-wrapper">
-                        <a href="/landing/img/foto/java-kursy-1.jpg" alt="java kursy">
-                            <img src="/landing/img/foto/java-kursy-11.jpg" alt="java kursy">
-                            <span class="overlay"></span>
-                        </a>
-                    </div>
+
+        <div class="items-wr clearfix">
+            <div class="item col-xs-12 col-sm-6 col-md-3">
+                <div class="img-wr">
+                    <img src="/landing/img/kak-vse-proishodut/1.png" alt="">
                 </div>
-                <div class="col-xs-6 col-sm-4">
-                    <div class="img-wrapper">
-                        <a href="/landing/img/foto/java-kursy-6.jpg" alt="java kursy">
-                            <img src="/landing/img/foto/java-kursy-66.jpg" alt="java kursy">
-                            <span class="overlay"></span>
-                        </a>
-                    </div>
+                <div class="title">начало <br>&nbsp;</div>
+                <ul class="list">
+                   <li>
+                       <div class="table">
+                           <div class="cell">
+                               <img src="/landing/img/kak-vse-proishodut/yes-sign.png" alt="">
+                           </div>
+                           <div class="cell">
+                               Учебные материалы
+                           </div>
+                       </div>
+                   </li>
+                    <li>
+                        <div class="table">
+                            <div class="cell">
+                                <img src="/landing/img/kak-vse-proishodut/yes-sign.png" alt="">
+                            </div>
+                            <div class="cell">
+                                Описание курса
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="table">
+                            <div class="cell">
+                                <img src="/landing/img/kak-vse-proishodut/yes-sign.png" alt="">
+                            </div>
+                            <div class="cell">
+                                Регистрация на форуме
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <div class="item col-xs-12 col-sm-6 col-md-3">
+                <div class="img-wr">
+                    <img src="/landing/img/kak-vse-proishodut/2.png" alt="">
                 </div>
-                <div class="col-xs-6 col-sm-4">
-                    <div class="img-wrapper">
-                        <a href="/landing/img/foto/java-kursy-3.jpg" alt="java kursy">
-                            <img src="/landing/img/foto/java-kursy-33.jpg" alt="java kursy">
-                            <span class="overlay"></span>
-                        </a>
-                    </div>
+                <div class="title">на занятии <br>&nbsp;</div>
+                <ul class="list">
+                   <li>
+                       <div class="table">
+                           <div class="cell">
+                               <img src="/landing/img/kak-vse-proishodut/yes-sign.png" alt="">
+                           </div>
+                           <div class="cell">
+                               Разбор домашки
+                           </div>
+                       </div>
+                   </li>
+                    <li>
+                        <div class="table">
+                            <div class="cell">
+                                <img src="/landing/img/kak-vse-proishodut/yes-sign.png" alt="">
+                            </div>
+                            <div class="cell">
+                                Объяснение теории
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="table">
+                            <div class="cell">
+                                <img src="/landing/img/kak-vse-proishodut/yes-sign.png" alt="">
+                            </div>
+                            <div class="cell">
+                                Практика
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="table">
+                            <div class="cell">
+                                <img src="/landing/img/kak-vse-proishodut/yes-sign.png" alt="">
+                            </div>
+                            <div class="cell">
+                                Домашнее задание
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <div class="item col-xs-12 col-sm-6 col-md-3">
+                <div class="img-wr">
+                    <img src="/landing/img/kak-vse-proishodut/3.png" alt="">
                 </div>
-                <div class="col-xs-6 col-sm-4">
-                    <div class="img-wrapper">
-                        <a href="/landing/img/foto/java-kursy-4.jpg" alt="java kursy">
-                            <img src="/landing/img/foto/java-kursy-44.jpg" alt="java kursy">
-                            <span class="overlay"></span>
-                        </a>
-                    </div>
+                <div class="title">между
+                    занятиями</div>
+                <ul class="list">
+                   <li>
+                       <div class="table">
+                           <div class="cell">
+                               <img src="/landing/img/kak-vse-proishodut/yes-sign.png" alt="">
+                           </div>
+                           <div class="cell">
+                               Дополнительные дни для обучения
+                           </div>
+                       </div>
+                   </li>
+                    <li>
+                        <div class="table">
+                            <div class="cell">
+                                <img src="/landing/img/kak-vse-proishodut/yes-sign.png" alt="">
+                            </div>
+                            <div class="cell">
+                                Консультации преподавателя
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="table">
+                            <div class="cell">
+                                <img src="/landing/img/kak-vse-proishodut/yes-sign.png" alt="">
+                            </div>
+                            <div class="cell">
+                                Выполнение домашки
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="table">
+                            <div class="cell">
+                                <img src="/landing/img/kak-vse-proishodut/yes-sign.png" alt="">
+                            </div>
+                            <div class="cell">
+                                Проверка ДЗ онлайн
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <div class="item col-xs-12 col-sm-6 col-md-3">
+                <div class="img-wr">
+                    <img src="/landing/img/kak-vse-proishodut/4.png" alt="">
                 </div>
-                <div class="col-xs-6 col-sm-4">
-                    <div class="img-wrapper">
-                        <a href="/landing/img/foto/java-kursy-5.jpg" alt="java kursy">
-                            <img src="/landing/img/foto/java-kursy-55.jpg" alt="java kursy">
-                            <span class="overlay"></span>
-                        </a>
-                    </div>
-                </div>
-                <div class="col-xs-6 col-sm-4">
-                    <div class="img-wrapper">
-                        <a href="/landing/img/foto/java-kursy-2.jpg" alt="java kursy">
-                            <img src="/landing/img/foto/java-kursy-22.jpg" alt="java kursy">
-                            <span class="overlay"></span>
-                        </a>
-                    </div>
-                </div>
+                <div class="title">после
+                    обучения <br>&nbsp;</div>
+                <ul class="list">
+                   <li>
+                       <div class="table">
+                           <div class="cell">
+                               <img src="/landing/img/kak-vse-proishodut/yes-sign.png" alt="">
+                           </div>
+                           <div class="cell">
+                               Дипломный проект
+
+                           </div>
+                       </div>
+                   </li>
+                    <li>
+                        <div class="table">
+                            <div class="cell">
+                                <img src="/landing/img/kak-vse-proishodut/yes-sign.png" alt="">
+                            </div>
+                            <div class="cell">
+                                Сертификат о окончании
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="table">
+                            <div class="cell">
+                                <img src="/landing/img/kak-vse-proishodut/yes-sign.png" alt="">
+                            </div>
+                            <div class="cell">
+                                Контракт на стажировку
+                            </div>
+                        </div>
+                    </li>
+                </ul>
             </div>
         </div>
     </div>
 </div>
 <!--Ends process-->
 <!--Starts comments-->
+<div id="comments"></div>
 <div class="comments section">
     <div class="container">
         <div class="section-title">
@@ -765,7 +909,7 @@
                                     Решетняк Виктор Владимирович
                                 </span>
                                <span class="about">
-                                    Принцесса Альдераана
+                                    Разработчик
                                </span>
                                     </div>
                                 </div>
@@ -794,7 +938,7 @@
                                     Наталья Савенко-Решетняк
                                 </span>
                                <span class="about">
-                                    Принцесса Альдераана
+                                    
                                </span>
                                     </div>
                                 </div>
@@ -825,7 +969,7 @@
                                     Дмитрий Мирошников
                                 </span>
                                <span class="about">
-                                    Принцесса Альдераана
+                                    Разработчик
                                </span>
                                     </div>
                                 </div>
@@ -853,7 +997,7 @@
                                     Оксана Гамза
                                 </span>
                                <span class="about">
-                                    Принцесса Альдераана
+                                    Интерн 
                                </span>
                                     </div>
                                 </div>
@@ -877,6 +1021,7 @@
 </div>
 <!--Ends comments-->
 <!--Ends support-->
+<div id="support"></div>
 <div class="support section">
     <div class="container">
         <img src="/landing/img/podderzhka/chewbacca.png" alt="chewbacca png" class="overlay">
@@ -900,6 +1045,7 @@
 </div>
 <!--Ends support-->
 <!--Starts contacts-->
+<div id="contacts"></div>
 <div class="contacts section">
     <div class="container">
         <div class="section-title">
@@ -941,10 +1087,10 @@
                     <a rel="nofollow" href="http://vk.com/share.php?url=http://jon.com.ua" target="_blank"><i class="socicon socicon-vkontakte"></i></a>
                 </li>
                 <!--<li>
-                    <a rel="nofollow" href="http://digitalsiteagency.com.ua" target="_blank"><i class="socicon socicon-instagram"></i></a>
+                    <a rel="nofollow" href="http://digitalsiteagency.com.ua/" target="_blank"><i class="socicon socicon-instagram"></i></a>
                 </li>
                 <li>
-                    <a rel="nofollow" href="http://digitalsiteagency.com.ua" target="_blank"><i class="socicon socicon-youtube"></i></a>
+                    <a rel="nofollow" href="http://digitalsiteagency.com.ua/" target="_blank"><i class="socicon socicon-youtube"></i></a>
                 </li>-->
             </ul>
         </div>
@@ -962,11 +1108,11 @@
         <div class="left col-xs-6 col-sm-3">
             2016 &copy; Copyrights JediOnline
         </div>
-        <div class="center col-xs-6 col-sm-6">
-            <a href="site-maps.html" title="site-maps"><i class="fa fa-sitemap"> </i></a> &nbsp <a href="politika.html" title="Политика конфиденциальности">Политика конфиденциальности</a>
+        <div class="center col-xs-6 col-sm-6" style="text-align:center;">
+            <a href="http://jon.com.ua/site-maps.html" title="site-maps"><i class="fa fa-sitemap"> </i></a> &nbsp <a href="http://jon.com.ua/politika.html" title="Политика конфиденциальности">Политика конфиденциальности</a>
         </div>
         <div class="right col-xs-6 col-sm-3">
-            <a target="_blank" href="http://digitalsiteagency.com.ua" title="Заказать landing page">Заказать landing page</a>
+            <a target="_blank" href="http://digitalsiteagency.com.ua/" title="Заказать landing page">Заказать landing page</a>
         </div>
     </div>
 </div>
@@ -994,6 +1140,317 @@
         </div>
     </div>
 </div>
+
+<div id="program-popup" class="ordercall-popup mfp-hide">
+    <div class="single-form">
+        <div class="col-xs-12 title">
+            Программа курса Java OOP
+        </div>
+        <div class="enroll-form col-xs-12">
+            <div class="row">
+                <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3 opac prog1">
+                    <div class="prog_title" style="color:yellow;" data-hc-id="a0083061359300e0587744020000">Первый блок (1 нед.)<span class="hcc hc__ht hc_a0083061359300e0587744020000" data-hc-id="a0083061359300e0587744020000" style="display: none;"><svg width="11" height="11" viewBox="0 0 511.626 511.626"><path d="M477.371,127.44c-22.843-28.074-53.871-50.249-93.076-66.523c-39.204-16.272-82.035-24.41-128.478-24.41c-34.643,0-67.762,4.805-99.357,14.417c-31.595,9.611-58.812,22.602-81.653,38.97c-22.845,16.37-41.018,35.832-54.534,58.385C6.757,170.833,0,194.484,0,219.228c0,28.549,8.61,55.3,25.837,80.234c17.227,24.931,40.778,45.871,70.664,62.811c-2.096,7.611-4.57,14.846-7.426,21.693c-2.855,6.852-5.424,12.474-7.708,16.851c-2.286,4.377-5.376,9.233-9.281,14.562c-3.899,5.328-6.849,9.089-8.848,11.275c-1.997,2.19-5.28,5.812-9.851,10.849c-4.565,5.048-7.517,8.329-8.848,9.855c-0.193,0.089-0.953,0.952-2.285,2.567c-1.331,1.615-1.999,2.423-1.999,2.423l-1.713,2.566c-0.953,1.431-1.381,2.334-1.287,2.707c0.096,0.373-0.094,1.331-0.57,2.851c-0.477,1.526-0.428,2.669,0.142,3.433v0.284c0.765,3.429,2.43,6.187,4.998,8.277c2.568,2.092,5.474,2.95,8.708,2.563c12.375-1.522,23.223-3.606,32.548-6.276c49.87-12.758,93.649-35.782,131.334-69.097c14.272,1.522,28.072,2.286,41.396,2.286c46.442,0,89.271-8.138,128.479-24.417c39.208-16.272,70.233-38.448,93.072-66.517c22.843-28.062,34.263-58.663,34.263-91.781C511.626,186.108,500.207,155.509,477.371,127.44z"></path></svg><span class="hcc hc__htcount">+</span></span></div>
+                    <div class="prog_pod_title" style="color:#79742c;">Повторение</div>
+                    <ul class="bl_arr">
+                        <li>Переменные и ветвление.</li>
+                        <li>Итерация.</li>
+                        <li>Массивы.</li>
+                        <li>Методы.</li>
+                    </ul>
+                    <div class="prog_pod_title" style="color:#79742c;">Повторение</div>
+                    <ul class="bl_arr">
+                        <li>Основные принципы ООП.</li>
+                        <li>Использование объектов.</li>
+                    </ul>
+                </div>
+
+                <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3 opac prog2">
+                    <div class="prog_title" style="color:yellow;" data-hc-id="00081063301300f05837443a0020">Второй блок (1 нед.)<span class="hcc hc__ht hc_00081063301300f05837443a0020" data-hc-id="00081063301300f05837443a0020" style="display: none;"><svg width="11" height="11" viewBox="0 0 511.626 511.626"><path d="M477.371,127.44c-22.843-28.074-53.871-50.249-93.076-66.523c-39.204-16.272-82.035-24.41-128.478-24.41c-34.643,0-67.762,4.805-99.357,14.417c-31.595,9.611-58.812,22.602-81.653,38.97c-22.845,16.37-41.018,35.832-54.534,58.385C6.757,170.833,0,194.484,0,219.228c0,28.549,8.61,55.3,25.837,80.234c17.227,24.931,40.778,45.871,70.664,62.811c-2.096,7.611-4.57,14.846-7.426,21.693c-2.855,6.852-5.424,12.474-7.708,16.851c-2.286,4.377-5.376,9.233-9.281,14.562c-3.899,5.328-6.849,9.089-8.848,11.275c-1.997,2.19-5.28,5.812-9.851,10.849c-4.565,5.048-7.517,8.329-8.848,9.855c-0.193,0.089-0.953,0.952-2.285,2.567c-1.331,1.615-1.999,2.423-1.999,2.423l-1.713,2.566c-0.953,1.431-1.381,2.334-1.287,2.707c0.096,0.373-0.094,1.331-0.57,2.851c-0.477,1.526-0.428,2.669,0.142,3.433v0.284c0.765,3.429,2.43,6.187,4.998,8.277c2.568,2.092,5.474,2.95,8.708,2.563c12.375-1.522,23.223-3.606,32.548-6.276c49.87-12.758,93.649-35.782,131.334-69.097c14.272,1.522,28.072,2.286,41.396,2.286c46.442,0,89.271-8.138,128.479-24.417c39.208-16.272,70.233-38.448,93.072-66.517c22.843-28.062,34.263-58.663,34.263-91.781C511.626,186.108,500.207,155.509,477.371,127.44z"></path></svg><span class="hcc hc__htcount">+</span></span></div>
+                    <div class="prog_pod_title" style="color:#79742c;">Классы</div>
+                    <ul class="bl_arr">
+                        <li>Структура класса.</li>
+                        <li>Структура класса.</li>
+                        <li>Связи между класамми.</li>
+                    </ul>
+                    <div class="prog_pod_title" style="color:#79742c;">Объекты</div>
+                    <ul class="bl_arr">
+                        <li>Ссылочные типы данных.</li>
+                        <li>Связь классов и обектов.</li>
+                        <li>Инстанциирование объектов.</li>
+                        <li>Уничтожение объектов.</li>
+                        <li>Взаимодействие между объектами.</li>
+                    </ul>
+                    <div class="prog_pod_title" style="color:#79742c;">Массивы объектов</div>
+                    <ul class="bl_arr">
+                        <li>Объявление и инициализация массивов объектов.</li>
+                        <li>Особенности работы с массивами объектов.</li>
+                    </ul>
+                </div>
+
+                <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3 opac prog3">
+                    <div class="prog_title" style="color:yellow;" data-hc-id="20083169b99300f45817c18a4008">Третий блок (1 нед.)<span class="hcc hc__ht hc_20083169b99300f45817c18a4008" data-hc-id="20083169b99300f45817c18a4008" style="display: none;"><svg width="11" height="11" viewBox="0 0 511.626 511.626"><path d="M477.371,127.44c-22.843-28.074-53.871-50.249-93.076-66.523c-39.204-16.272-82.035-24.41-128.478-24.41c-34.643,0-67.762,4.805-99.357,14.417c-31.595,9.611-58.812,22.602-81.653,38.97c-22.845,16.37-41.018,35.832-54.534,58.385C6.757,170.833,0,194.484,0,219.228c0,28.549,8.61,55.3,25.837,80.234c17.227,24.931,40.778,45.871,70.664,62.811c-2.096,7.611-4.57,14.846-7.426,21.693c-2.855,6.852-5.424,12.474-7.708,16.851c-2.286,4.377-5.376,9.233-9.281,14.562c-3.899,5.328-6.849,9.089-8.848,11.275c-1.997,2.19-5.28,5.812-9.851,10.849c-4.565,5.048-7.517,8.329-8.848,9.855c-0.193,0.089-0.953,0.952-2.285,2.567c-1.331,1.615-1.999,2.423-1.999,2.423l-1.713,2.566c-0.953,1.431-1.381,2.334-1.287,2.707c0.096,0.373-0.094,1.331-0.57,2.851c-0.477,1.526-0.428,2.669,0.142,3.433v0.284c0.765,3.429,2.43,6.187,4.998,8.277c2.568,2.092,5.474,2.95,8.708,2.563c12.375-1.522,23.223-3.606,32.548-6.276c49.87-12.758,93.649-35.782,131.334-69.097c14.272,1.522,28.072,2.286,41.396,2.286c46.442,0,89.271-8.138,128.479-24.417c39.208-16.272,70.233-38.448,93.072-66.517c22.843-28.062,34.263-58.663,34.263-91.781C511.626,186.108,500.207,155.509,477.371,127.44z"></path></svg><span class="hcc hc__htcount">+</span></span></div>
+                    <div class="prog_pod_title" style="color:#79742c;">Алгоритмы</div>
+                    <ul class="bl_arr">
+                        <li>Обзор алгоритмов.</li>
+                        <li>Понятие и определение сложности алгоритма.</li>
+                        <li>Примеры сложности разных алгоритмов.</li>
+                    </ul>
+                    <div class="prog_pod_title" style="color:#79742c;">Сортировка</div>
+                    <ul class="bl_arr">
+                        <li>Обзор алгоритмов сортировки.</li>
+                        <li>Общие принципы сортировки.</li>
+                        <li>Рассмотрение основных алгоритмов сортировки.</li>
+                        <li>Применение стандартной сортировки.</li>
+                    </ul>
+                    <div class="prog_pod_title" style="color:#79742c;">Поиск</div>
+                    <ul class="bl_arr">
+                        <li>Обзор алгоритмов поиска.</li>
+                        <li>Двоичный поиск.</li>
+                    </ul>
+                </div>
+
+                <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3 opac prog4">
+                    <div class="prog_title" style="color:yellow;" data-hc-id="22003063fc130074405740300028">Четвертый блок (1 нед.)<span class="hcc hc__ht hc_22003063fc130074405740300028" data-hc-id="22003063fc130074405740300028" style="display: none;"><svg width="11" height="11" viewBox="0 0 511.626 511.626"><path d="M477.371,127.44c-22.843-28.074-53.871-50.249-93.076-66.523c-39.204-16.272-82.035-24.41-128.478-24.41c-34.643,0-67.762,4.805-99.357,14.417c-31.595,9.611-58.812,22.602-81.653,38.97c-22.845,16.37-41.018,35.832-54.534,58.385C6.757,170.833,0,194.484,0,219.228c0,28.549,8.61,55.3,25.837,80.234c17.227,24.931,40.778,45.871,70.664,62.811c-2.096,7.611-4.57,14.846-7.426,21.693c-2.855,6.852-5.424,12.474-7.708,16.851c-2.286,4.377-5.376,9.233-9.281,14.562c-3.899,5.328-6.849,9.089-8.848,11.275c-1.997,2.19-5.28,5.812-9.851,10.849c-4.565,5.048-7.517,8.329-8.848,9.855c-0.193,0.089-0.953,0.952-2.285,2.567c-1.331,1.615-1.999,2.423-1.999,2.423l-1.713,2.566c-0.953,1.431-1.381,2.334-1.287,2.707c0.096,0.373-0.094,1.331-0.57,2.851c-0.477,1.526-0.428,2.669,0.142,3.433v0.284c0.765,3.429,2.43,6.187,4.998,8.277c2.568,2.092,5.474,2.95,8.708,2.563c12.375-1.522,23.223-3.606,32.548-6.276c49.87-12.758,93.649-35.782,131.334-69.097c14.272,1.522,28.072,2.286,41.396,2.286c46.442,0,89.271-8.138,128.479-24.417c39.208-16.272,70.233-38.448,93.072-66.517c22.843-28.062,34.263-58.663,34.263-91.781C511.626,186.108,500.207,155.509,477.371,127.44z"></path></svg><span class="hcc hc__htcount">+</span></span></div>
+                    <div class="prog_pod_title" style="color:#79742c;">Инкапсуляция</div>
+                    <ul class="bl_arr">
+                        <li>Скрытие данных.</li>
+                        <li>Модификаторы доступа.</li>
+                        <li>Пакеты.</li>
+                        <li>Реализация инкапсуляции.</li>
+                        <li>UML: диаграмма классов.</li>
+                    </ul>
+                    <div class="prog_pod_title" style="color:#79742c;">Наследование</div>
+                    <ul class="bl_arr">
+                        <li>Перегрузка и переопределение методов.</li>
+                        <li>Статические поля и методы.</li>
+                    </ul>
+                    <div class="prog_pod_title" style="color:#79742c;">Агрегация</div>
+                    <ul class="bl_arr">
+                        <li>Подвиды агрегации.</li>
+                        <li>Делегирование.</li>
+                    </ul>
+                </div>
+                <div class="clearfix"></div>
+
+                <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3 opac prog1 marg-top50">
+                    <div class="prog_title" style="color:yellow;" data-hc-id="8048312b95930074404741884828">Пятый блок (1 нед.)<span class="hcc hc__ht hc_8048312b95930074404741884828" data-hc-id="8048312b95930074404741884828" style="display: none;"><svg width="11" height="11" viewBox="0 0 511.626 511.626"><path d="M477.371,127.44c-22.843-28.074-53.871-50.249-93.076-66.523c-39.204-16.272-82.035-24.41-128.478-24.41c-34.643,0-67.762,4.805-99.357,14.417c-31.595,9.611-58.812,22.602-81.653,38.97c-22.845,16.37-41.018,35.832-54.534,58.385C6.757,170.833,0,194.484,0,219.228c0,28.549,8.61,55.3,25.837,80.234c17.227,24.931,40.778,45.871,70.664,62.811c-2.096,7.611-4.57,14.846-7.426,21.693c-2.855,6.852-5.424,12.474-7.708,16.851c-2.286,4.377-5.376,9.233-9.281,14.562c-3.899,5.328-6.849,9.089-8.848,11.275c-1.997,2.19-5.28,5.812-9.851,10.849c-4.565,5.048-7.517,8.329-8.848,9.855c-0.193,0.089-0.953,0.952-2.285,2.567c-1.331,1.615-1.999,2.423-1.999,2.423l-1.713,2.566c-0.953,1.431-1.381,2.334-1.287,2.707c0.096,0.373-0.094,1.331-0.57,2.851c-0.477,1.526-0.428,2.669,0.142,3.433v0.284c0.765,3.429,2.43,6.187,4.998,8.277c2.568,2.092,5.474,2.95,8.708,2.563c12.375-1.522,23.223-3.606,32.548-6.276c49.87-12.758,93.649-35.782,131.334-69.097c14.272,1.522,28.072,2.286,41.396,2.286c46.442,0,89.271-8.138,128.479-24.417c39.208-16.272,70.233-38.448,93.072-66.517c22.843-28.062,34.263-58.663,34.263-91.781C511.626,186.108,500.207,155.509,477.371,127.44z"></path></svg><span class="hcc hc__htcount">+</span></span></div>
+                    <div class="prog_pod_title" style="color:#79742c;">Рекурсия</div>
+                    <ul class="bl_arr">
+                        <li>Бесконечная рекурсия.</li>
+                        <li>Связь рекурсии и итерации.</li>
+                        <li>Виды рекурсивных алгоритмов.</li>
+                        <li>Рекурсивный метод.</li>
+                    </ul>
+                    <div class="prog_pod_title" style="color:#79742c;">Перечисления</div>
+                    <ul class="bl_arr">
+                        <li>Создание перечислений.</li>
+                        <li>Основные действия с перечислениями.</li>
+                        <li>Применение перечислений.</li>
+                    </ul>
+                </div>
+
+                <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3 opac prog2 marg-top50">
+                    <div class="prog_title" style="color:yellow;" data-hc-id="0248306b589300e44867c0a24808">Шестой блок (1 нед.)<span class="hcc hc__ht hc_0248306b589300e44867c0a24808" data-hc-id="0248306b589300e44867c0a24808" style="display: none;"><svg width="11" height="11" viewBox="0 0 511.626 511.626"><path d="M477.371,127.44c-22.843-28.074-53.871-50.249-93.076-66.523c-39.204-16.272-82.035-24.41-128.478-24.41c-34.643,0-67.762,4.805-99.357,14.417c-31.595,9.611-58.812,22.602-81.653,38.97c-22.845,16.37-41.018,35.832-54.534,58.385C6.757,170.833,0,194.484,0,219.228c0,28.549,8.61,55.3,25.837,80.234c17.227,24.931,40.778,45.871,70.664,62.811c-2.096,7.611-4.57,14.846-7.426,21.693c-2.855,6.852-5.424,12.474-7.708,16.851c-2.286,4.377-5.376,9.233-9.281,14.562c-3.899,5.328-6.849,9.089-8.848,11.275c-1.997,2.19-5.28,5.812-9.851,10.849c-4.565,5.048-7.517,8.329-8.848,9.855c-0.193,0.089-0.953,0.952-2.285,2.567c-1.331,1.615-1.999,2.423-1.999,2.423l-1.713,2.566c-0.953,1.431-1.381,2.334-1.287,2.707c0.096,0.373-0.094,1.331-0.57,2.851c-0.477,1.526-0.428,2.669,0.142,3.433v0.284c0.765,3.429,2.43,6.187,4.998,8.277c2.568,2.092,5.474,2.95,8.708,2.563c12.375-1.522,23.223-3.606,32.548-6.276c49.87-12.758,93.649-35.782,131.334-69.097c14.272,1.522,28.072,2.286,41.396,2.286c46.442,0,89.271-8.138,128.479-24.417c39.208-16.272,70.233-38.448,93.072-66.517c22.843-28.062,34.263-58.663,34.263-91.781C511.626,186.108,500.207,155.509,477.371,127.44z"></path></svg><span class="hcc hc__htcount">+</span></span></div>
+                    <div class="prog_pod_title" style="color:#79742c;">Связанные списки</div>
+                    <ul class="bl_arr">
+                        <li>Структура связанного списка.</li>
+                        <li>Заполнение связанного списка.</li>
+                        <li>Операции со связанными списками.</li>
+                    </ul>
+                    <div class="prog_pod_title" style="color:#79742c;">Вложенные классы</div>
+                    <ul class="bl_arr">
+                        <li>Типы вложенных классов.</li>
+                        <li>Особенности создания вложенных классов.</li>
+                        <li>Преимущества и недостатки вложенных классов.</li>
+                    </ul>
+                    <div class="prog_pod_title" style="color:#79742c;">Потоки выполнения</div>
+                    <ul class="bl_arr">
+                        <li>Концепция параллельного программирования.</li>
+                        <li>Способы создания потоков</li>
+                        <li>Запуск потоков</li>
+                        <li>Остановка потоков</li>
+                    </ul>
+                </div>
+
+                <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3 opac prog3 marg-top50">
+                    <div class="prog_title" style="color:yellow;" data-hc-id="8048102bb09300f0582741280000">Седьмой блок (1 нед.)<span class="hcc hc__ht hc_8048102bb09300f0582741280000" data-hc-id="8048102bb09300f0582741280000" style="display: none;"><svg width="11" height="11" viewBox="0 0 511.626 511.626"><path d="M477.371,127.44c-22.843-28.074-53.871-50.249-93.076-66.523c-39.204-16.272-82.035-24.41-128.478-24.41c-34.643,0-67.762,4.805-99.357,14.417c-31.595,9.611-58.812,22.602-81.653,38.97c-22.845,16.37-41.018,35.832-54.534,58.385C6.757,170.833,0,194.484,0,219.228c0,28.549,8.61,55.3,25.837,80.234c17.227,24.931,40.778,45.871,70.664,62.811c-2.096,7.611-4.57,14.846-7.426,21.693c-2.855,6.852-5.424,12.474-7.708,16.851c-2.286,4.377-5.376,9.233-9.281,14.562c-3.899,5.328-6.849,9.089-8.848,11.275c-1.997,2.19-5.28,5.812-9.851,10.849c-4.565,5.048-7.517,8.329-8.848,9.855c-0.193,0.089-0.953,0.952-2.285,2.567c-1.331,1.615-1.999,2.423-1.999,2.423l-1.713,2.566c-0.953,1.431-1.381,2.334-1.287,2.707c0.096,0.373-0.094,1.331-0.57,2.851c-0.477,1.526-0.428,2.669,0.142,3.433v0.284c0.765,3.429,2.43,6.187,4.998,8.277c2.568,2.092,5.474,2.95,8.708,2.563c12.375-1.522,23.223-3.606,32.548-6.276c49.87-12.758,93.649-35.782,131.334-69.097c14.272,1.522,28.072,2.286,41.396,2.286c46.442,0,89.271-8.138,128.479-24.417c39.208-16.272,70.233-38.448,93.072-66.517c22.843-28.062,34.263-58.663,34.263-91.781C511.626,186.108,500.207,155.509,477.371,127.44z"></path></svg><span class="hcc hc__htcount">+</span></span></div>
+                    <div class="prog_pod_title" style="color:#79742c;">Полиморфизм</div>
+                    <ul class="bl_arr">
+                        <li>Преобразование объектных типов.</li>
+                        <li>Позднее связывание.</li>
+                        <li>Практическое применение полиморфизма.</li>
+                    </ul>
+                    <div class="prog_pod_title" style="color:#79742c;">Абстрактные классы</div>
+                    <ul class="bl_arr">
+                        <li>Абстрактные методы.</li>
+                        <li>Использования абстрактных классов.</li>
+                    </ul>
+                    <div class="prog_pod_title" style="color:#79742c;">Интерфейсы</div>
+                    <ul class="bl_arr">
+                        <li>Объявление интерфейсов.</li>
+                        <li>Использование интерфейсов.</li>
+                        <li>Объектно ориентированная архитектура</li>
+                    </ul>
+                </div>
+
+                <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3 opac prog4 marg-top50">
+                    <div class="prog_title" style="color:yellow;" data-hc-id="a00831617593006040e740224008">Восьмой блок (1 нед.)<span class="hcc hc__ht hc_a00831617593006040e740224008" data-hc-id="a00831617593006040e740224008" style="display: none;"><svg width="11" height="11" viewBox="0 0 511.626 511.626"><path d="M477.371,127.44c-22.843-28.074-53.871-50.249-93.076-66.523c-39.204-16.272-82.035-24.41-128.478-24.41c-34.643,0-67.762,4.805-99.357,14.417c-31.595,9.611-58.812,22.602-81.653,38.97c-22.845,16.37-41.018,35.832-54.534,58.385C6.757,170.833,0,194.484,0,219.228c0,28.549,8.61,55.3,25.837,80.234c17.227,24.931,40.778,45.871,70.664,62.811c-2.096,7.611-4.57,14.846-7.426,21.693c-2.855,6.852-5.424,12.474-7.708,16.851c-2.286,4.377-5.376,9.233-9.281,14.562c-3.899,5.328-6.849,9.089-8.848,11.275c-1.997,2.19-5.28,5.812-9.851,10.849c-4.565,5.048-7.517,8.329-8.848,9.855c-0.193,0.089-0.953,0.952-2.285,2.567c-1.331,1.615-1.999,2.423-1.999,2.423l-1.713,2.566c-0.953,1.431-1.381,2.334-1.287,2.707c0.096,0.373-0.094,1.331-0.57,2.851c-0.477,1.526-0.428,2.669,0.142,3.433v0.284c0.765,3.429,2.43,6.187,4.998,8.277c2.568,2.092,5.474,2.95,8.708,2.563c12.375-1.522,23.223-3.606,32.548-6.276c49.87-12.758,93.649-35.782,131.334-69.097c14.272,1.522,28.072,2.286,41.396,2.286c46.442,0,89.271-8.138,128.479-24.417c39.208-16.272,70.233-38.448,93.072-66.517c22.843-28.062,34.263-58.663,34.263-91.781C511.626,186.108,500.207,155.509,477.371,127.44z"></path></svg><span class="hcc hc__htcount">+</span></span></div>
+                    <div class="prog_pod_title" style="color:#79742c;" data-hc-id="7df6e46021387b487f8d4c932b50">Исключения и потоки ввода вывода<span class="hcc hc__ht hc_7df6e46021387b487f8d4c932b50" data-hc-id="7df6e46021387b487f8d4c932b50" style="display: none;"><svg width="11" height="11" viewBox="0 0 511.626 511.626"><path d="M477.371,127.44c-22.843-28.074-53.871-50.249-93.076-66.523c-39.204-16.272-82.035-24.41-128.478-24.41c-34.643,0-67.762,4.805-99.357,14.417c-31.595,9.611-58.812,22.602-81.653,38.97c-22.845,16.37-41.018,35.832-54.534,58.385C6.757,170.833,0,194.484,0,219.228c0,28.549,8.61,55.3,25.837,80.234c17.227,24.931,40.778,45.871,70.664,62.811c-2.096,7.611-4.57,14.846-7.426,21.693c-2.855,6.852-5.424,12.474-7.708,16.851c-2.286,4.377-5.376,9.233-9.281,14.562c-3.899,5.328-6.849,9.089-8.848,11.275c-1.997,2.19-5.28,5.812-9.851,10.849c-4.565,5.048-7.517,8.329-8.848,9.855c-0.193,0.089-0.953,0.952-2.285,2.567c-1.331,1.615-1.999,2.423-1.999,2.423l-1.713,2.566c-0.953,1.431-1.381,2.334-1.287,2.707c0.096,0.373-0.094,1.331-0.57,2.851c-0.477,1.526-0.428,2.669,0.142,3.433v0.284c0.765,3.429,2.43,6.187,4.998,8.277c2.568,2.092,5.474,2.95,8.708,2.563c12.375-1.522,23.223-3.606,32.548-6.276c49.87-12.758,93.649-35.782,131.334-69.097c14.272,1.522,28.072,2.286,41.396,2.286c46.442,0,89.271-8.138,128.479-24.417c39.208-16.272,70.233-38.448,93.072-66.517c22.843-28.062,34.263-58.663,34.263-91.781C511.626,186.108,500.207,155.509,477.371,127.44z"></path></svg><span class="hcc hc__htcount">+</span></span></div>
+                    <ul class="bl_arr">
+                        <li>Виды исключений.</li>
+                        <li>Иерархия исключений.</li>
+                        <li>Обработка исключений.</li>
+                        <li>Иерархия потоков.</li>
+                        <li>Основные операции с потоками.</li>
+                        <li>Работа с файлами</li>
+                    </ul>
+                    <div class="prog_pod_title" style="color:#79742c;">Обобщенное программирование</div>
+                    <ul class="bl_arr">
+                        <li>Применение родовых типов.</li>
+                        <li>Параметризация списков.</li>
+                    </ul>
+                    <div class="prog_pod_title" style="color:#79742c;">Оконные приложения</div>
+                    <ul class="bl_arr">
+                        <li>Структура Swing приложения.</li>
+                        <li>Графические компоненты.</li>
+                        <li>Компоновка элементов.</li>
+                    </ul>
+                    <div class="prog_pod_title" style="color:#79742c;">Обработка событий</div>
+                    <ul class="bl_arr">
+                        <li>События в Swing.</li>
+                        <li>Обработчики событий.</li>
+                        <li>Анонимные классы.</li>
+                        <li>Полноценное Java приложение</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="program-popup-magistr" class="ordercall-popup mfp-hide">
+    <div class="single-form">
+        <div class="col-xs-12 title">
+            Программа курса Java Developer
+        </div>
+        <div class="enroll-form col-xs-12">
+            <div class="row">
+                <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3 opac prog1">
+                    <div class="prog_title" style="color:yellow;" data-hc-id="a0083061359300e0587744020000">Первый блок (2нед.)<span class="hcc hc__ht hc_a0083061359300e0587744020000" data-hc-id="a0083061359300e0587744020000" style="display: none;"><svg width="11" height="11" viewBox="0 0 511.626 511.626"><path d="M477.371,127.44c-22.843-28.074-53.871-50.249-93.076-66.523c-39.204-16.272-82.035-24.41-128.478-24.41c-34.643,0-67.762,4.805-99.357,14.417c-31.595,9.611-58.812,22.602-81.653,38.97c-22.845,16.37-41.018,35.832-54.534,58.385C6.757,170.833,0,194.484,0,219.228c0,28.549,8.61,55.3,25.837,80.234c17.227,24.931,40.778,45.871,70.664,62.811c-2.096,7.611-4.57,14.846-7.426,21.693c-2.855,6.852-5.424,12.474-7.708,16.851c-2.286,4.377-5.376,9.233-9.281,14.562c-3.899,5.328-6.849,9.089-8.848,11.275c-1.997,2.19-5.28,5.812-9.851,10.849c-4.565,5.048-7.517,8.329-8.848,9.855c-0.193,0.089-0.953,0.952-2.285,2.567c-1.331,1.615-1.999,2.423-1.999,2.423l-1.713,2.566c-0.953,1.431-1.381,2.334-1.287,2.707c0.096,0.373-0.094,1.331-0.57,2.851c-0.477,1.526-0.428,2.669,0.142,3.433v0.284c0.765,3.429,2.43,6.187,4.998,8.277c2.568,2.092,5.474,2.95,8.708,2.563c12.375-1.522,23.223-3.606,32.548-6.276c49.87-12.758,93.649-35.782,131.334-69.097c14.272,1.522,28.072,2.286,41.396,2.286c46.442,0,89.271-8.138,128.479-24.417c39.208-16.272,70.233-38.448,93.072-66.517c22.843-28.062,34.263-58.663,34.263-91.781C511.626,186.108,500.207,155.509,477.371,127.44z"></path></svg><span class="hcc hc__htcount">+</span></span></div>
+                    <div class="prog_pod_title" style="color:#79742c;">ООП</div>
+                    <ul class="bl_arr">
+                        <li>Инструментарий для разработки в java.</li>
+                        <li>Классы.</li>
+                        <li>Объекты.</li>
+                        <li>Переопределение.</li>
+                        <li>Инкапсуляция.</li>
+                        <li>Полиморфизм.</li>
+                        <li>Повторное использование кода.</li>
+                    </ul>
+                    <div class="prog_pod_title" style="color:#79742c;">Коллекции</div>
+                    <ul class="bl_arr">
+                        <li>Иерархия коллекций в Java.</li>
+                        <li>Списки.</li>
+                        <li>Очереди.</li>
+                        <li>Множества.</li>
+                        <li>Карты.</li>
+                    </ul>
+                </div>
+
+                <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3 opac prog2">
+                    <div class="prog_title" style="color:yellow;" data-hc-id="00081063301300f05837443a0020">Второй блок (3 нед.)<span class="hcc hc__ht hc_00081063301300f05837443a0020" data-hc-id="00081063301300f05837443a0020" style="display: none;"><svg width="11" height="11" viewBox="0 0 511.626 511.626"><path d="M477.371,127.44c-22.843-28.074-53.871-50.249-93.076-66.523c-39.204-16.272-82.035-24.41-128.478-24.41c-34.643,0-67.762,4.805-99.357,14.417c-31.595,9.611-58.812,22.602-81.653,38.97c-22.845,16.37-41.018,35.832-54.534,58.385C6.757,170.833,0,194.484,0,219.228c0,28.549,8.61,55.3,25.837,80.234c17.227,24.931,40.778,45.871,70.664,62.811c-2.096,7.611-4.57,14.846-7.426,21.693c-2.855,6.852-5.424,12.474-7.708,16.851c-2.286,4.377-5.376,9.233-9.281,14.562c-3.899,5.328-6.849,9.089-8.848,11.275c-1.997,2.19-5.28,5.812-9.851,10.849c-4.565,5.048-7.517,8.329-8.848,9.855c-0.193,0.089-0.953,0.952-2.285,2.567c-1.331,1.615-1.999,2.423-1.999,2.423l-1.713,2.566c-0.953,1.431-1.381,2.334-1.287,2.707c0.096,0.373-0.094,1.331-0.57,2.851c-0.477,1.526-0.428,2.669,0.142,3.433v0.284c0.765,3.429,2.43,6.187,4.998,8.277c2.568,2.092,5.474,2.95,8.708,2.563c12.375-1.522,23.223-3.606,32.548-6.276c49.87-12.758,93.649-35.782,131.334-69.097c14.272,1.522,28.072,2.286,41.396,2.286c46.442,0,89.271-8.138,128.479-24.417c39.208-16.272,70.233-38.448,93.072-66.517c22.843-28.062,34.263-58.663,34.263-91.781C511.626,186.108,500.207,155.509,477.371,127.44z"></path></svg><span class="hcc hc__htcount">+</span></span></div>
+                    <div class="prog_pod_title" style="color:#79742c;">Потоки выполнения</div>
+                    <ul class="bl_arr">
+                        <li>Создание потоков.</li>
+                        <li>Остановка потоков.</li>
+                        <li>Взаимодействие потоков.</li>
+                        <li>Управление потоками.</li>
+                    </ul>
+                    <div class="prog_pod_title" style="color:#79742c;">Разработка архитектуры БД</div>
+                    <ul class="bl_arr">
+                        <li>Реляционные БД.</li>
+                        <li>Ключи.</li>
+                        <li>Связи.</li>
+                        <li>SQL.</li>
+                    </ul>
+                    <div class="prog_pod_title" style="color:#79742c;">Связь БД с приложением</div>
+                    <ul class="bl_arr">
+                        <li>Понятие JDBC.</li>
+                        <li>Основные объекты JDBC.</li>
+                        <li>Подключение из программы к БД.</li>
+                        <li>Выражения.</li>
+                        <li>Транзакции.</li>
+                    </ul>
+                </div>
+
+                <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3 opac prog3">
+                    <div class="prog_title" style="color:yellow;" data-hc-id="20083169b99300f45817c18a4008">Третий блок (2 нед.)<span class="hcc hc__ht hc_20083169b99300f45817c18a4008" data-hc-id="20083169b99300f45817c18a4008" style="display: none;"><svg width="11" height="11" viewBox="0 0 511.626 511.626"><path d="M477.371,127.44c-22.843-28.074-53.871-50.249-93.076-66.523c-39.204-16.272-82.035-24.41-128.478-24.41c-34.643,0-67.762,4.805-99.357,14.417c-31.595,9.611-58.812,22.602-81.653,38.97c-22.845,16.37-41.018,35.832-54.534,58.385C6.757,170.833,0,194.484,0,219.228c0,28.549,8.61,55.3,25.837,80.234c17.227,24.931,40.778,45.871,70.664,62.811c-2.096,7.611-4.57,14.846-7.426,21.693c-2.855,6.852-5.424,12.474-7.708,16.851c-2.286,4.377-5.376,9.233-9.281,14.562c-3.899,5.328-6.849,9.089-8.848,11.275c-1.997,2.19-5.28,5.812-9.851,10.849c-4.565,5.048-7.517,8.329-8.848,9.855c-0.193,0.089-0.953,0.952-2.285,2.567c-1.331,1.615-1.999,2.423-1.999,2.423l-1.713,2.566c-0.953,1.431-1.381,2.334-1.287,2.707c0.096,0.373-0.094,1.331-0.57,2.851c-0.477,1.526-0.428,2.669,0.142,3.433v0.284c0.765,3.429,2.43,6.187,4.998,8.277c2.568,2.092,5.474,2.95,8.708,2.563c12.375-1.522,23.223-3.606,32.548-6.276c49.87-12.758,93.649-35.782,131.334-69.097c14.272,1.522,28.072,2.286,41.396,2.286c46.442,0,89.271-8.138,128.479-24.417c39.208-16.272,70.233-38.448,93.072-66.517c22.843-28.062,34.263-58.663,34.263-91.781C511.626,186.108,500.207,155.509,477.371,127.44z"></path></svg><span class="hcc hc__htcount">+</span></span></div>
+                    <div class="prog_pod_title" style="color:#79742c;">ORM технологии, Hibernate</div>
+                    <ul class="bl_arr">
+                        <li>Принципы  ORM.</li>
+                        <li>Шаблоны для реализации ORM.</li>
+                        <li>Конфигурация Hibernate.</li>
+                        <li>Работа с сессией.</li>
+                        <li>JPA отображение.</li>
+                        <li>Отображение ассоциаций.</li>
+                    </ul>
+                </div>
+
+                <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3 opac prog4">
+                    <div class="prog_title" style="color:yellow;" data-hc-id="22003063fc130074405740300028">Четвертый блок (2 нед.)<span class="hcc hc__ht hc_22003063fc130074405740300028" data-hc-id="22003063fc130074405740300028" style="display: none;"><svg width="11" height="11" viewBox="0 0 511.626 511.626"><path d="M477.371,127.44c-22.843-28.074-53.871-50.249-93.076-66.523c-39.204-16.272-82.035-24.41-128.478-24.41c-34.643,0-67.762,4.805-99.357,14.417c-31.595,9.611-58.812,22.602-81.653,38.97c-22.845,16.37-41.018,35.832-54.534,58.385C6.757,170.833,0,194.484,0,219.228c0,28.549,8.61,55.3,25.837,80.234c17.227,24.931,40.778,45.871,70.664,62.811c-2.096,7.611-4.57,14.846-7.426,21.693c-2.855,6.852-5.424,12.474-7.708,16.851c-2.286,4.377-5.376,9.233-9.281,14.562c-3.899,5.328-6.849,9.089-8.848,11.275c-1.997,2.19-5.28,5.812-9.851,10.849c-4.565,5.048-7.517,8.329-8.848,9.855c-0.193,0.089-0.953,0.952-2.285,2.567c-1.331,1.615-1.999,2.423-1.999,2.423l-1.713,2.566c-0.953,1.431-1.381,2.334-1.287,2.707c0.096,0.373-0.094,1.331-0.57,2.851c-0.477,1.526-0.428,2.669,0.142,3.433v0.284c0.765,3.429,2.43,6.187,4.998,8.277c2.568,2.092,5.474,2.95,8.708,2.563c12.375-1.522,23.223-3.606,32.548-6.276c49.87-12.758,93.649-35.782,131.334-69.097c14.272,1.522,28.072,2.286,41.396,2.286c46.442,0,89.271-8.138,128.479-24.417c39.208-16.272,70.233-38.448,93.072-66.517c22.843-28.062,34.263-58.663,34.263-91.781C511.626,186.108,500.207,155.509,477.371,127.44z"></path></svg><span class="hcc hc__htcount">+</span></span></div>
+                    <div class="prog_pod_title" style="color:#79742c;">Фреймворк Spring</div>
+                   <ul class="bl_arr">
+                        <li>Разработка архитектуры ПО, OOD.</li>
+                        <li>IoC</li>
+                        <li>Виды инжектирвания</li>
+                        <li>Способы задания контекста</li>
+                        <li>Различные библиотеки Spring</li>
+                    </ul>
+                </div>
+                <div class="clearfix"></div>
+
+                <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3 opac prog1 marg-top50">
+                    <div class="prog_title" style="color:yellow;" data-hc-id="8048312b95930074404741884828">Пятый блок (3 нед.)<span class="hcc hc__ht hc_8048312b95930074404741884828" data-hc-id="8048312b95930074404741884828" style="display: none;"><svg width="11" height="11" viewBox="0 0 511.626 511.626"><path d="M477.371,127.44c-22.843-28.074-53.871-50.249-93.076-66.523c-39.204-16.272-82.035-24.41-128.478-24.41c-34.643,0-67.762,4.805-99.357,14.417c-31.595,9.611-58.812,22.602-81.653,38.97c-22.845,16.37-41.018,35.832-54.534,58.385C6.757,170.833,0,194.484,0,219.228c0,28.549,8.61,55.3,25.837,80.234c17.227,24.931,40.778,45.871,70.664,62.811c-2.096,7.611-4.57,14.846-7.426,21.693c-2.855,6.852-5.424,12.474-7.708,16.851c-2.286,4.377-5.376,9.233-9.281,14.562c-3.899,5.328-6.849,9.089-8.848,11.275c-1.997,2.19-5.28,5.812-9.851,10.849c-4.565,5.048-7.517,8.329-8.848,9.855c-0.193,0.089-0.953,0.952-2.285,2.567c-1.331,1.615-1.999,2.423-1.999,2.423l-1.713,2.566c-0.953,1.431-1.381,2.334-1.287,2.707c0.096,0.373-0.094,1.331-0.57,2.851c-0.477,1.526-0.428,2.669,0.142,3.433v0.284c0.765,3.429,2.43,6.187,4.998,8.277c2.568,2.092,5.474,2.95,8.708,2.563c12.375-1.522,23.223-3.606,32.548-6.276c49.87-12.758,93.649-35.782,131.334-69.097c14.272,1.522,28.072,2.286,41.396,2.286c46.442,0,89.271-8.138,128.479-24.417c39.208-16.272,70.233-38.448,93.072-66.517c22.843-28.062,34.263-58.663,34.263-91.781C511.626,186.108,500.207,155.509,477.371,127.44z"></path></svg><span class="hcc hc__htcount">+</span></span></div>
+                    <div class="prog_pod_title" style="color:#79742c;">Рефакторинг</div>
+                    <ul class="bl_arr">
+                        <li>Принципы рефакторинга.</li>
+                        <li>Виды рефакторинга.</li>
+                    </ul>
+                    <div class="prog_pod_title" style="color:#79742c;">Паттерны в ООП</div>
+                    <ul class="bl_arr">
+                        <li>Виды шаблонов.</li>
+                        <li>Реализация основных шаблонов.</li>
+                    </ul>
+                    <div class="prog_pod_title" style="color:#79742c;">Разработка веб приложений</div>
+                    <ul class="bl_arr">
+                        <li>Сервлеты.</li>
+                        <li>JSP.</li>
+                    </ul>
+                </div>
+
+                <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3 opac prog2 marg-top50">
+                    <div class="prog_title" style="color:yellow;" data-hc-id="0248306b589300e44867c0a24808">&nbsp<span class="hcc hc__ht hc_0248306b589300e44867c0a24808" data-hc-id="0248306b589300e44867c0a24808" style="display: none;"><svg width="11" height="11" viewBox="0 0 511.626 511.626"><path d="M477.371,127.44c-22.843-28.074-53.871-50.249-93.076-66.523c-39.204-16.272-82.035-24.41-128.478-24.41c-34.643,0-67.762,4.805-99.357,14.417c-31.595,9.611-58.812,22.602-81.653,38.97c-22.845,16.37-41.018,35.832-54.534,58.385C6.757,170.833,0,194.484,0,219.228c0,28.549,8.61,55.3,25.837,80.234c17.227,24.931,40.778,45.871,70.664,62.811c-2.096,7.611-4.57,14.846-7.426,21.693c-2.855,6.852-5.424,12.474-7.708,16.851c-2.286,4.377-5.376,9.233-9.281,14.562c-3.899,5.328-6.849,9.089-8.848,11.275c-1.997,2.19-5.28,5.812-9.851,10.849c-4.565,5.048-7.517,8.329-8.848,9.855c-0.193,0.089-0.953,0.952-2.285,2.567c-1.331,1.615-1.999,2.423-1.999,2.423l-1.713,2.566c-0.953,1.431-1.381,2.334-1.287,2.707c0.096,0.373-0.094,1.331-0.57,2.851c-0.477,1.526-0.428,2.669,0.142,3.433v0.284c0.765,3.429,2.43,6.187,4.998,8.277c2.568,2.092,5.474,2.95,8.708,2.563c12.375-1.522,23.223-3.606,32.548-6.276c49.87-12.758,93.649-35.782,131.334-69.097c14.272,1.522,28.072,2.286,41.396,2.286c46.442,0,89.271-8.138,128.479-24.417c39.208-16.272,70.233-38.448,93.072-66.517c22.843-28.062,34.263-58.663,34.263-91.781C511.626,186.108,500.207,155.509,477.371,127.44z"></path></svg><span class="hcc hc__htcount">+</span></span></div>
+                    <div class="prog_pod_title" style="color:#79742c;">Разработка веб приложений</div>
+                    <ul class="bl_arr">
+                        <li>Сервлеты.</li>
+                        <li>JSP.</li>
+                    </ul>
+                    <div class="prog_pod_title" style="color:#79742c;">Разработка проекта в команде</div>
+                    <ul class="bl_arr">
+                        <li>Передовые методологии командной разработки ПО.</li>
+                        <li>Системы контроля версий.</li>
+                    </ul>
+                    <div class="prog_pod_title" style="color:#79742c;">Подготовка к собеседованию</div>
+                    <ul class="bl_arr">
+                        <li>Советы по составлению резюме.</li>
+                        <li>Часто задаваемые вопросы на собеседовании.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 <div id="orderplace-popup" class="orderplace-popup mfp-hide">
     <div class="single-form">
         <div class="col-xs-12 title">

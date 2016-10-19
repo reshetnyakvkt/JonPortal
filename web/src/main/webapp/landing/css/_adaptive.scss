@@ -337,6 +337,20 @@
       display: none;
     }
   }
+  .process .item{
+    padding: 1.5em 0;
+    text-align: center;
+    .table{
+      margin: 0 auto;
+    }
+    .img-wr{
+      text-align: center;
+      img{
+        position: static !important;
+        margin: 0 auto;
+      }
+    }
+  }
 }
 
 /* Extra Small Devices, Phones */
