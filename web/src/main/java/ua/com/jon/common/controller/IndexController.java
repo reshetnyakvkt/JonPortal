@@ -52,7 +52,7 @@ public class IndexController {
     @RequestMapping("/")
     public String landing(ModelMap modelMap)  {
         modelMap.put("item","item9");
-        return "landing/index";
+        return "index";
     }
 
 /*    @ExceptionHandler(ResourceNotFoundException.class)

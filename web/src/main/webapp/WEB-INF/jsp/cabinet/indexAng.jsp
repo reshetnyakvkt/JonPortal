@@ -15,7 +15,7 @@
     <link href="/css/codemirror/vibrant-ink.css" rel="stylesheet" media="screen">
 
     <title>jon.com.ua</title>
-    <script src="../../../js/cabinet-angular/libs/angular.js" type="text/javascript"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.min.js" type="text/javascript"></script>
 
 
 </head>
