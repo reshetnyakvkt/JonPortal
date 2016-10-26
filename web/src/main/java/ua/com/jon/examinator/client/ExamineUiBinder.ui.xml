@@ -2,7 +2,18 @@
              xmlns:g='urn:import:com.google.gwt.user.client.ui'
              xmlns:b="urn:import:com.github.gwtbootstrap.client.ui">
     <g:HTMLPanel>
-        <!--<b:Heading size="3">Личный кабинет пользователя</b:Heading>-->
+        <b:Modal ui:field="findTaskModal" title="Поиск решения по коду" backdrop="STATIC"
+                 keyboard="true" animation="true" height="80%" width="90%" >
+            <!--<g:Label>Код</g:Label>-->
+            <b:TextBox ui:field="hash" placeholder="Введите код задания"/>
+            <b:ProgressBar ui:field="taskFindProgress" type="ANIMATED" percent="100"/>
+            <b:CodeBlock width="90%" linenums="true" scrollable="true" ui:field='codeBlock'>
+
+            </b:CodeBlock>
+            <b:ModalFooter>
+                <b:Button ui:field="findTaskBtn" icon="FILE" type="PRIMARY" enabled="true">Поиск</b:Button>
+            </b:ModalFooter>
+        </b:Modal>
         <b:Container>
 
             <b:Well>
@@ -20,18 +31,7 @@
                     <b:Button ui:field='refreshTasksBtn' type="INFO">Обновить задания</b:Button>
                     <b:Button ui:field='showTaskBtn' type="INFO">Показать решение</b:Button>
                 </b:ButtonGroup>
-                <b:Modal ui:field="findTaskModal" title="Поиск решения по коду" backdrop="STATIC"
-                         keyboard="true" animation="true" height="80%" width="60%">
-                    <!--<g:Label>Код</g:Label>-->
-                    <b:TextBox ui:field="hash" placeholder="Введите код задания"/>
-                    <b:ProgressBar ui:field="taskFindProgress" type="ANIMATED" percent="100"/>
-                    <b:CodeBlock width="90%" linenums="true" scrollable="true" ui:field='codeBlock'>
 
-                    </b:CodeBlock>
-                    <b:ModalFooter>
-                        <b:Button ui:field="findTaskBtn" icon="FILE" type="PRIMARY" enabled="true">Поиск</b:Button>
-                    </b:ModalFooter>
-                </b:Modal>
                 <b:Heading size="4">Ваши задания</b:Heading>
                 <b:CellTable ui:field='cellTable' title='Для просмотра результатов теста выберите задание' tabIndex='3'
                              bordered="true" condensed="true" striped="true">
