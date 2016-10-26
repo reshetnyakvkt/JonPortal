@@ -2,8 +2,6 @@
   Created by IntelliJ IDEA.
   User: Олег
   Date: 08.02.2016
-  Time: 16:10
-  To change this template use File | Settings | File Templates.
 --%>
 <link href="../../../css/bootstrap.min.css" rel="stylesheet" media="screen">
 <link href="../../../css/custom.css" rel="stylesheet" media="screen">

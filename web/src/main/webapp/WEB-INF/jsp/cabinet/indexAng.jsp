@@ -17,7 +17,6 @@
     <title>jon.com.ua</title>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.min.js" type="text/javascript"></script>
 
-
 </head>
 <body ng-app="CabinetApp">
 
@@ -70,17 +69,17 @@
 
 
 </div>
-<script src="../../../js/cabinet-angular/codemirror/lib/codemirror.js" type="text/javascript"></script>
-<script src="../../../js/cabinet-angular/cabinetApp.js" type="text/javascript"></script>
-<script src="../../../js/cabinet-angular/services/users.js" type="text/javascript"></script>
-<script src="../../../js/cabinet-angular/services/sprints.js" type="text/javascript"></script>
-<script src="../../../js/cabinet-angular/services/groups.js" type="text/javascript"></script>
-<script src="../../../js/cabinet-angular/controllers/CabinetController.js" type="text/javascript"></script>
-<script src="../../../js/cabinet-angular/controllers/GroupTaskController.js" type="text/javascript"></script>
-<script src="../../../js/cabinet-angular/controllers/GroupInfoController.js" type="text/javascript"></script>
-<script src="../../../js/cabinet-angular/libs/ui-bootstrap-tpls-1.1.2.min.js" type="text/javascript"></script>
-<script src="../../../js/cabinet-angular/libs/angular-animate.min.js" type="text/javascript"></script>
-<script src="../../../js/cabinet-angular/libs/angular-route.min.js" type="text/javascript"></script>
+<script src="/js/cabinet-angular/codemirror/lib/codemirror.js" type="text/javascript"></script>
+<script src="/js/cabinet-angular/cabinetApp.js" type="text/javascript"></script>
+<script src="/js/cabinet-angular/services/users.js" type="text/javascript"></script>
+<script src="/js/cabinet-angular/services/sprints.js" type="text/javascript"></script>
+<script src="/js/cabinet-angular/services/groups.js" type="text/javascript"></script>
+<script src="/js/cabinet-angular/controllers/CabinetController.js" type="text/javascript"></script>
+<script src="/js/cabinet-angular/controllers/GroupTaskController.js" type="text/javascript"></script>
+<script src="/js/cabinet-angular/controllers/GroupInfoController.js" type="text/javascript"></script>
+<script src="/js/cabinet-angular/libs/ui-bootstrap-tpls-1.1.2.min.js" type="text/javascript"></script>
+<script src="/js/cabinet-angular/libs/angular-animate.min.js" type="text/javascript"></script>
+<script src="/js/cabinet-angular/libs/angular-route.min.js" type="text/javascript"></script>
 <footer id="footer"></footer>
 
 
