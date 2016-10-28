@@ -13,6 +13,18 @@ import java.util.List;
  * Date: 6/27/13
  */
 public class TaskTemplateDtoMapper {
+    public static ua.com.jon.examinator.shared.TaskTemplateDTO domainToExamDto(TaskTemplate taskTemplate) {
+        return new ua.com.jon.examinator.shared.TaskTemplateDTO(
+                taskTemplate.getId(),
+                taskTemplate.getName(),
+                taskTemplate.getTaskText(),
+                taskTemplate.getType() == null? null: taskTemplate.getType().name(),
+                taskTemplate.getSuffix(),
+                taskTemplate.getTestName(),
+                taskTemplate.getMaterials()
+        );
+    }
+
     public static TaskTemplateDTO domainToDto(TaskTemplate taskTemplate) {
         return new TaskTemplateDTO(
                 taskTemplate.getId(),
@@ -29,7 +41,7 @@ public class TaskTemplateDtoMapper {
         if(taskTemplates == null) {
             return null;
         }
-        ArrayList<TaskTemplateDTO> taskDTOs = new ArrayList<TaskTemplateDTO>(taskTemplates.size());
+        ArrayList<TaskTemplateDTO> taskDTOs = new ArrayList<>(taskTemplates.size());
         for (TaskTemplate taskTemplate : taskTemplates) {
             taskDTOs.add(domainToDto(taskTemplate));
         }

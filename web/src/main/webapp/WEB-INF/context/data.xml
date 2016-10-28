@@ -4,22 +4,17 @@
        xmlns:p="http://www.springframework.org/schema/p"
        xmlns:tx="http://www.springframework.org/schema/tx"
        xmlns:context="http://www.springframework.org/schema/context"
-       xmlns:jdbc="http://www.springframework.org/schema/jdbc"
        xmlns:jpa="http://www.springframework.org/schema/data/jpa"
-       xmlns:util="http://www.springframework.org/schema/util"
-       xsi:schemaLocation="
-			http://www.springframework.org/schema/beans
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
 			http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
 			http://www.springframework.org/schema/tx
 			http://www.springframework.org/schema/tx/spring-tx-3.1.xsd
 			http://www.springframework.org/schema/context
 			http://www.springframework.org/schema/context/spring-context-3.1.xsd
-			http://www.springframework.org/schema/jdbc
-			http://www.springframework.org/schema/jdbc/spring-jdbc-3.1.xsd
+
+
 			http://www.springframework.org/schema/data/jpa
-   			http://www.springframework.org/schema/data/jpa/spring-jpa.xsd
-			http://www.springframework.org/schema/util
-			http://www.springframework.org/schema/util/spring-util-3.1.xsd">
+   			http://www.springframework.org/schema/data/jpa/spring-jpa.xsd">
 
     <context:property-placeholder location="classpath:/conf.properties" />
 
@@ -33,6 +28,37 @@
         <property name="url" value="${jdbc.url}"/>
         <property name="username" value="${jdbc.username}"/>
         <property name="password" value="${jdbc.password}"/>
+
+        <!--
+        INFO ua.com.jon.examinator.server.ExamineServiceImpl: -== getSprints() ==-
+        WARN org.hibernate.engine.jdbc.spi.SqlExceptionHelper: SQL Error: 0, SQLState: 08S01
+        ERROR org.hibernate.engine.jdbc.spi.SqlExceptionHelper: The last packet successfully received from the server was 48,754,692 milliseconds ago.  The last packet sent successfully to the server was 48,754,693 milliseconds ago. is longer than the server configured value of 'wait_timeout'. You should consider either expiring and/or testing connection validity before use in your application, increasing the server configured values for client timeouts, or using the Connector/J connection property 'autoReconnect=true' to avoid this problem.
+        -->
+        <!-- DBCP Connection Pool Settings -->
+        <property name="defaultAutoCommit" value="true" />
+        <property name="initialSize" value="10" />
+        <property name="maxActive" value="500" />
+        <property name="maxIdle" value="8" />
+        <property name="minIdle" value="0" />
+        <property name="maxWait" value="30000" />
+        <property name="validationQuery" value="SELECT 1" />
+        <property name="testOnBorrow" value="true" />
+        <property name="testOnReturn" value="false" />
+        <property name="testWhileIdle" value="false" />
+        <!--http://stackoverflow.com/questions/30336861/spring-boot-communications-link-failure-after-some-hours-of-inactivity-with-hib
+
+        timeBetweenEvictionRunsMillis - тот же самый параметр, что и для инвалидации холостых соединений. Дело в том, что как проверка времени простоя соединений, так и прогревание происходят в одном потоке, а данный параметр указывает на сколько времени поток будет засыпать.
+        -->
+        <property name="timeBetweenEvictionRunsMillis" value="60000" />
+
+        <property name="numTestsPerEvictionRun" value="3" />
+        <property name="minEvictableIdleTimeMillis" value="180000" />
+        <property name="poolPreparedStatements" value="true" />
+        <property name="maxOpenPreparedStatements" value="25" />
+        <property name="accessToUnderlyingConnectionAllowed" value="false" />
+        <property name="removeAbandoned" value="false" />
+        <property name="removeAbandonedTimeout" value="300" />
+        <property name="logAbandoned" value="false" />
     </bean>
 
     <bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">

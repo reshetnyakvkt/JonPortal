@@ -1,7 +1,5 @@
 package ua.com.jon.admin.shared;
 
-import ua.com.jon.cabinet.shared.TaskDTO;
-
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -17,14 +15,14 @@ public class GroupDTO implements Serializable {
 
     private  Long groupId;
     private String name;
-    private ArrayList<TaskTemplateDTO> tasks;
+    private List<TaskTemplateDTO> tasks;
 
     public GroupDTO() {
         this.name = "";
-        this.tasks = new ArrayList<TaskTemplateDTO>();
+        this.tasks = new ArrayList<>();
     }
 
-    public GroupDTO(Long id, String name, ArrayList<TaskTemplateDTO> tasks) {
+    public GroupDTO(Long id, String name, List<TaskTemplateDTO> tasks) {
         this.groupId = id;
         this.name = name;
         this.tasks = tasks;
@@ -42,7 +40,7 @@ public class GroupDTO implements Serializable {
         this.name = name;
     }
 
-    public ArrayList<TaskTemplateDTO> getTasks() {
+    public List<TaskTemplateDTO> getTasks() {
         return tasks;
     }
 

@@ -1,13 +1,6 @@
 package ua.com.jon.examinator.client;
 
-import com.github.gwtbootstrap.client.ui.Button;
-import com.github.gwtbootstrap.client.ui.CellTable;
-import com.github.gwtbootstrap.client.ui.CodeBlock;
-import com.github.gwtbootstrap.client.ui.Modal;
-import com.github.gwtbootstrap.client.ui.ProgressBar;
-import com.github.gwtbootstrap.client.ui.TextArea;
-import com.github.gwtbootstrap.client.ui.TextBox;
-import com.github.gwtbootstrap.client.ui.ValueListBox;
+import com.github.gwtbootstrap.client.ui.*;
 import com.google.gwt.cell.client.FieldUpdater;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
@@ -28,18 +21,17 @@ import com.google.gwt.user.client.ui.HTMLPanel;
 import com.google.gwt.view.client.ListDataProvider;
 import com.google.gwt.view.client.SelectionChangeEvent;
 import com.google.gwt.view.client.SingleSelectionModel;
-import ua.com.jon.examinator.shared.SprintDTO;
+import ua.com.jon.examinator.shared.ExamineSprintDTO;
 import ua.com.jon.examinator.shared.TaskDTO;
 import ua.com.jon.examinator.shared.TaskHistoryDto;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class ExamineUiBinder extends Composite {
     @UiField
-    CellTable<TaskDTO> cellTable = new CellTable<TaskDTO>(5, GWT.<CellTable.SelectableResources>create(CellTable.SelectableResources.class));//new CellTable<TaskDTO>();
+    CellTable<TaskDTO> cellTable = new CellTable<>(5, GWT.<CellTable.SelectableResources>create(CellTable.SelectableResources.class));
 
-    final SingleSelectionModel<TaskDTO> selectionModel = new SingleSelectionModel<TaskDTO>();
+    final SingleSelectionModel<TaskDTO> selectionModel = new SingleSelectionModel<>();
 //    @UiField
 //    DropdownButton sprintBtn = new DropdownButton();
 
@@ -59,9 +51,9 @@ public class ExamineUiBinder extends Composite {
     TextBox hash;
 
     @UiField(provided=true)
-    ValueListBox<SprintDTO> sprintsListBox = new ValueListBox<SprintDTO>(new AbstractRenderer<SprintDTO>() {
+    ValueListBox<ExamineSprintDTO> sprintsListBox = new ValueListBox<>(new AbstractRenderer<ExamineSprintDTO>() {
         @Override
-        public String render(SprintDTO sprintDTO) {
+        public String render(ExamineSprintDTO sprintDTO) {
             if(sprintDTO == null) {
                 return "";
             } else {
@@ -89,7 +81,7 @@ public class ExamineUiBinder extends Composite {
 
     private static ExampleUiBinderUiBinder ourUiBinder = GWT.create(ExampleUiBinderUiBinder.class);
     private ua.com.jon.examinator.client.ExamineServiceAsync tasksService = GWT.create(ExamineService.class);
-    private ListDataProvider<TaskDTO> dataProvider = new ListDataProvider<TaskDTO>();
+    private ListDataProvider<TaskDTO> dataProvider = new ListDataProvider<>();
 
     public ExamineUiBinder() {
         initWidget(ourUiBinder.createAndBindUi(this));
@@ -110,13 +102,13 @@ public class ExamineUiBinder extends Composite {
 //        alert.setVisible(false);
     }
 
-    private void selectFirstTaskIfExists() {
+/*    private void selectFirstTaskIfExists() {
         for (TaskDTO task : selectionModel.getSelectedSet()) {
             Window.alert("selected task: " + task);
             selectionModel.setSelected(task, true);
             break;
         }
-    }
+    }*/
 
 //    }
 
@@ -135,7 +127,7 @@ public class ExamineUiBinder extends Composite {
     }
 
     @UiHandler("sprintsListBox")
-    public void onChangeTabPosition(ValueChangeEvent<SprintDTO> sprint) {
+    public void onChangeTabPosition(ValueChangeEvent<ExamineSprintDTO> sprint) {
         result.setText("");
         taskText.setText("");
         addTasksToTable(sprint.getValue().getTasks(), true);
@@ -178,15 +170,15 @@ public class ExamineUiBinder extends Composite {
     }
 
     private void loadSprintsAndTasks() {
-        final AsyncCallback<ArrayList<SprintDTO>> callback = new AsyncCallback<ArrayList<SprintDTO>>() {
+        final AsyncCallback<List<ExamineSprintDTO>> callback = new AsyncCallback<List<ExamineSprintDTO>>() {
 
             @Override
             public void onFailure(Throwable caught) {
-                Window.alert("Ошибка загрузки задач с сервера");
+                Window.alert("Ошибка загрузки задач с сервера" + caught);
             }
 
             @Override
-            public void onSuccess(ArrayList<SprintDTO> sprints) {
+            public void onSuccess(List<ExamineSprintDTO> sprints) {
                 sprintsListBox.setAcceptableValues(sprints);
 
 //                SprintDTO lastSprint = null;
@@ -210,7 +202,7 @@ public class ExamineUiBinder extends Composite {
 
     }
 
-    private void loadTasksToTable() {
+/*    private void loadTasksToTable() {
         final AsyncCallback<ArrayList<TaskDTO>> callback = new AsyncCallback<ArrayList<TaskDTO>>() {
 
             @Override
@@ -225,7 +217,7 @@ public class ExamineUiBinder extends Composite {
         };
 
         tasksService.getUserTasks(callback);
-    }
+    }*/
 
     private void addTasksToTable(List<TaskDTO> tasks, boolean isSelectFirst) {
         dataProvider.setList(tasks);
@@ -374,10 +366,6 @@ public class ExamineUiBinder extends Composite {
         };
 
         cellTable.addColumn(resultColumn, "Результат");
-    }
-
-    private void disableTestButtons() {
-
     }
 
     public enum TaskType {

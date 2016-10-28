@@ -108,7 +108,7 @@ public class TaskDtoMapper {
         return taskDTOs;
     }
 
-    private static ua.com.jon.examinator.shared.TaskDTO domainToExamDto(Task task, boolean isClearResult) {
+    public static ua.com.jon.examinator.shared.TaskDTO domainToExamDto(Task task, boolean isClearResult) {
         return new ua.com.jon.examinator.shared.TaskDTO(
                 task.getId(),
                 task.getTaskTemplate().getTaskText(),

@@ -7,14 +7,10 @@ import com.jon.tron.service.processor.Crypt;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.context.ServletContextAware;
-import ua.com.jon.auth.domain.SpringUser;
 import ua.com.jon.common.domain.Sprint;
 import ua.com.jon.common.domain.SprintType;
-import ua.com.jon.common.domain.Status;
-import ua.com.jon.common.domain.Task;
 import ua.com.jon.common.domain.TaskHistory;
 import ua.com.jon.common.domain.TaskTemplate;
 import ua.com.jon.common.dto.mapper.SprintDtoMapper;
@@ -24,7 +20,7 @@ import ua.com.jon.common.repository.TaskHistoryRepository;
 import ua.com.jon.common.repository.TaskRepository;
 import ua.com.jon.common.repository.TaskTemplateRepository;
 import ua.com.jon.examinator.client.ExamineService;
-import ua.com.jon.examinator.shared.SprintDTO;
+import ua.com.jon.examinator.shared.ExamineSprintDTO;
 import ua.com.jon.examinator.shared.TaskDTO;
 import ua.com.jon.examinator.shared.TaskHistoryDto;
 
@@ -33,7 +29,10 @@ import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.net.URL;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import java.util.Map;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -75,26 +74,26 @@ public class ExamineServiceImpl /*extends RemoteServiceServlet*/ implements Exam
     @Value("${core.jar}")
     private String coreJarName;
 
-    @Override
+/*    @Override
     public String greet(String name) {
         return null;
-    }
+    }*/
 
-    @Override
+/*    @Override
     public ArrayList<TaskDTO> getUserTasks() {
         log.info("-== getUserTasks() ==-");
         SpringUser springUser = (SpringUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         String userName = springUser.getUsername();
         List<Task> tasks = taskRepository.findByUserName(userName);
-        ArrayList<TaskDTO> taskDtos = new ArrayList<TaskDTO>();
+        ArrayList<TaskDTO> taskDtos = new ArrayList<>();
         for (Task task : tasks) {
 //            taskDtos.add(TaskDtoMapper.domainToDto(task));
         }
         log.info("-== " + taskDtos + " ==-");
         return taskDtos;
-    }
+    }*/
 
-    @Override
+/*    @Override
     public void taskStatusChanged(TaskDTO dto) {
         log.info("-== taskStatusChanged() ==-");
         Task task = taskRepository.findOne(dto.getId());
@@ -103,14 +102,21 @@ public class ExamineServiceImpl /*extends RemoteServiceServlet*/ implements Exam
         taskRepository.save(task);
 
         log.info("-== " + dto + " ==-");
-    }
+    }*/
 
     @Override
-    public ArrayList<SprintDTO> getSprints() {
+    public List<ExamineSprintDTO> getSprints() {
         log.info("-== getSprints() ==-");
         Iterable<Sprint> sprintIterable = sprintRepository.findByType(SprintType.ANONYMOUS);
-        ArrayList<SprintDTO> sprints = new ArrayList<SprintDTO>();
+        List<ExamineSprintDTO> sprints = new ArrayList<>();
         for (Sprint sprint : sprintIterable) {
+            ExamineSprintDTO sprintDTO = SprintDtoMapper.cabinetDtoToExamineDto(sprint);
+            log.info("-== " + sprintDTO.getName() + " ==-");
+            sprints.add(sprintDTO);
+        }
+/*
+        for (Sprint sprint : sprintIterable) {
+            // TODO method findBySprintName is to slow
             List<Task> tasks = taskRepository.findBySprintName(sprint.getName());
             Set<Task> unique = new HashSet<>(tasks);
             tasks.clear();
@@ -120,6 +126,7 @@ public class ExamineServiceImpl /*extends RemoteServiceServlet*/ implements Exam
             log.info("-== " + sprintDTO.getName() + " ==-");
             sprints.add(sprintDTO);
         }
+*/
 
         return sprints;
     }

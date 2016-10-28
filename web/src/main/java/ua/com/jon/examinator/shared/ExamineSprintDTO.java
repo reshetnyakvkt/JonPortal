@@ -6,18 +6,18 @@ import java.util.List;
 /**
  * Created with IntelliJ IDEA.
  * User: al1
- * Date: 6/23/13
+ * Date: 28.10.16
  */
-public class SprintDTO implements Serializable {
+public class ExamineSprintDTO implements Serializable {
     private String name;
     private boolean active;
-    private List<TaskTemplateDTO> tasks;
+    private List<TaskDTO> tasks;
     private String type;
 
-    public SprintDTO() {
+    public ExamineSprintDTO() {
     }
 
-    public SprintDTO(String name, boolean active, List<TaskTemplateDTO> tasks, String type) {
+    public ExamineSprintDTO(String name, boolean active, List<TaskDTO> tasks, String type) {
         this.name = name;
         this.active = active;
         this.tasks = tasks;
@@ -32,11 +32,11 @@ public class SprintDTO implements Serializable {
         this.name = name;
     }
 
-    public List<TaskTemplateDTO> getTasks() {
+    public List<TaskDTO> getTasks() {
         return tasks;
     }
 
-    public void setTasks(List<TaskTemplateDTO> tasks) {
+    public void setTasks(List<TaskDTO> tasks) {
         this.tasks = tasks;
     }
 

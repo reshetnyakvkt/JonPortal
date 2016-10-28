@@ -1,9 +1,8 @@
 package ua.com.jon.common.dto.mapper;
 
 import ua.com.jon.admin.shared.SprintDTO;
-import ua.com.jon.common.domain.Sprint;
-import ua.com.jon.common.domain.SprintType;
-import ua.com.jon.common.domain.Task;
+import ua.com.jon.common.domain.*;
+import ua.com.jon.examinator.shared.TaskDTO;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -45,13 +44,45 @@ public class SprintDtoMapper {
         );
     }
 
-    public static ua.com.jon.examinator.shared.SprintDTO cabinetDtoToExamine(List<Task> tasks, Sprint sprint, boolean isClearResult) {
+    public static ua.com.jon.examinator.shared.SprintDTO cabinetDtoToExamine(Sprint sprint) {
         return new ua.com.jon.examinator.shared.SprintDTO(
                 sprint.getName(),
                 sprint.getActive(),
-                TaskDtoMapper.domainsToExamineDtos(tasks, isClearResult),
+                domainsToDtos(sprint.getTasks()),
                 sprint.getType().toString()
         );
+    }
+
+    public static ua.com.jon.examinator.shared.ExamineSprintDTO cabinetDtoToExamineDto(Sprint sprint) {
+        return new ua.com.jon.examinator.shared.ExamineSprintDTO(
+                sprint.getName(),
+                sprint.getActive(),
+                domainsToExamineDtos(sprint.getTasks()),
+                sprint.getType().toString()
+        );
+    }
+
+    private static List<TaskDTO> domainsToExamineDtos(List<TaskTemplate> taskTemplates) {
+        if(taskTemplates == null) {
+            return null;
+        }
+        ArrayList<ua.com.jon.examinator.shared.TaskDTO> taskDTOs = new ArrayList<>(taskTemplates.size());
+        for (TaskTemplate taskTemplate : taskTemplates) {
+            taskDTOs.add(TaskDtoMapper.domainToExamDto(
+                    new Task(new User(), taskTemplate, new Sprint(), Status.NEW, "", "", new Group()), false));
+        }
+        return taskDTOs;
+    }
+
+    private static List<ua.com.jon.examinator.shared.TaskTemplateDTO> domainsToDtos(List<TaskTemplate> taskTemplates) {
+        if(taskTemplates == null) {
+            return null;
+        }
+        ArrayList<ua.com.jon.examinator.shared.TaskTemplateDTO> taskDTOs = new ArrayList<>(taskTemplates.size());
+        for (TaskTemplate taskTemplate : taskTemplates) {
+            taskDTOs.add(TaskTemplateDtoMapper.domainToExamDto(taskTemplate));
+        }
+        return taskDTOs;
     }
 
     public static List<Sprint> convertSprintDtosToEntity(List<Sprint> sprintList, List<SprintDTO> sprintDtoMap) {
