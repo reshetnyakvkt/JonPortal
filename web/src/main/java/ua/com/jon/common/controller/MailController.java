@@ -19,7 +19,6 @@ public class MailController {
     @Autowired
     private MailService mailService;
 
-
     @RequestMapping(value = "/mail", method = RequestMethod.POST)
     public String getTask(@RequestParam("courseType") String courseType,
                           @RequestParam("name") String name,

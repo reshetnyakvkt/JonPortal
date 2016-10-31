@@ -42,6 +42,10 @@
                     <input type="password" id="password" class="form-control" name="j_password" placeholder="Пароль"/>
                 </div>
                 <div class="form-group">
+                    <label>E-mail</label>
+                    <input type="text" id="email" class="form-control" name="email" placeholder="Email"/>
+                </div>
+                <div class="form-group">
                     <label>Группа</label>
                     <select name="group" class="form-control">
 

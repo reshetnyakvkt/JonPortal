@@ -26,7 +26,7 @@ public class User {
     @Column(name = "PASSWORD", length = 30)
     private String password;
 
-    @Column(name = "MAIL", length = 30)
+    @Column(name = "MAIL", unique = true, length = 30)
     private String mail;
 
     @Temporal(value = TemporalType.DATE)
@@ -51,6 +51,12 @@ public class User {
     @Column(name="IGNORE_STATISTIC", length=1, nullable=false, columnDefinition="bit(1) default 0")
     private Boolean ignore = false;
 
+    @Column(name="ACTIVE", length=1, nullable=false, columnDefinition="bit(1) default 0")
+    private Boolean active = false;
+
+    @Column(name = "ACTIVATION_CODE", unique = true, length = 40, columnDefinition = "varchar(40) default ''")
+    private String activationCode;
+
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private Set<UserQuiz> userQuizzes = new HashSet<>();
 
@@ -60,6 +66,16 @@ public class User {
     public User(Long id, String login, String password, Date regDate, Set<Group> groups, Set<UserRole> roles, boolean ignore) {
         this(login, password, regDate, groups, roles, ignore);
         this.id = id;
+    }
+
+    public User(String login, String password, String email, String code, Date regDate, Set<Group> groups, Set<UserRole> roles, boolean ignore) {
+        this(login, password, email, regDate, groups, roles, ignore);
+        this.activationCode = code;
+    }
+
+    public User(String login, String password, String email, Date regDate, Set<Group> groups, Set<UserRole> roles, boolean ignore) {
+        this(login, password, regDate, groups, roles, ignore);
+        this.mail = email;
     }
 
     public User(String login, String password, Date regDate, Set<Group> groups, Set<UserRole> roles, boolean ignore) {
@@ -171,17 +187,34 @@ public class User {
         this.userQuizzes = userQuizzes;
     }
 
+    public Boolean getActive() {
+        return active;
+    }
+
+    public void setActive(Boolean active) {
+        this.active = active;
+    }
+
+    public String getActivationCode() {
+        return activationCode;
+    }
+
+    public void setActivationCode(String activationCode) {
+        this.activationCode = activationCode;
+    }
+
     @Override
     public String toString() {
         return "User{" +
-                "id=" + id +
-                ", login='" + login + '\'' +
-                ", password='" + password + '\'' +
-                ", mail='" + mail + '\'' +
-                ", regDate=" + regDate +
-                ", groups=" + groups.size() +
-                ", roles=" + roles.size() +
-                ", ignore=" + ignore +
+                "id=" + this.id +
+                ", login='" + this.login + '\'' +
+                ", password='" + this.password + '\'' +
+                ", mail='" + this.mail + '\'' +
+                ", regDate=" + this.regDate +
+                ", groups=" + this.groups.size() +
+                ", roles=" + this.roles.size() +
+                ", ignore=" + this.ignore +
+                ", active=" + this.active +
                 '}';
     }
 }
