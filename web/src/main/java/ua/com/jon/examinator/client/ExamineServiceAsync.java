@@ -14,9 +14,6 @@ import java.util.List;
  */
 
 public interface ExamineServiceAsync {
-//    void greet(String name, AsyncCallback<String> callback);
-//    void getUserTasks(AsyncCallback<ArrayList<TaskDTO>> async);
-//    void taskStatusChanged(TaskDTO dto, AsyncCallback<Void> async);
     void getSprints(AsyncCallback<List<ExamineSprintDTO>> callback);
     void postForTest(TaskDTO taskDTO, String userName, AsyncCallback<String> callback);
     void getTaskHistoryByHash(String hash, AsyncCallback<TaskHistoryDto> callback);

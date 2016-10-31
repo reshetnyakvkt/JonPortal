@@ -15,9 +15,6 @@ import java.util.List;
  */
 @RemoteServiceRelativePath("/service/examineService")
 public interface ExamineService extends RemoteService {
-//    String greet(String name);
-//    ArrayList<TaskDTO> getUserTasks();
-//    void taskStatusChanged(TaskDTO dto);
     List<ExamineSprintDTO> getSprints();
     String postForTest(TaskDTO taskDTO, String userName);
     TaskHistoryDto getTaskHistoryByHash(String hash);

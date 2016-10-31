@@ -74,36 +74,6 @@ public class ExamineServiceImpl /*extends RemoteServiceServlet*/ implements Exam
     @Value("${core.jar}")
     private String coreJarName;
 
-/*    @Override
-    public String greet(String name) {
-        return null;
-    }*/
-
-/*    @Override
-    public ArrayList<TaskDTO> getUserTasks() {
-        log.info("-== getUserTasks() ==-");
-        SpringUser springUser = (SpringUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        String userName = springUser.getUsername();
-        List<Task> tasks = taskRepository.findByUserName(userName);
-        ArrayList<TaskDTO> taskDtos = new ArrayList<>();
-        for (Task task : tasks) {
-//            taskDtos.add(TaskDtoMapper.domainToDto(task));
-        }
-        log.info("-== " + taskDtos + " ==-");
-        return taskDtos;
-    }*/
-
-/*    @Override
-    public void taskStatusChanged(TaskDTO dto) {
-        log.info("-== taskStatusChanged() ==-");
-        Task task = taskRepository.findOne(dto.getId());
-        Status newStatus = Status.valueOf(dto.getStatus());
-        task.setStatus(newStatus);
-        taskRepository.save(task);
-
-        log.info("-== " + dto + " ==-");
-    }*/
-
     @Override
     public List<ExamineSprintDTO> getSprints() {
         log.info("-== getSprints() ==-");
@@ -114,28 +84,12 @@ public class ExamineServiceImpl /*extends RemoteServiceServlet*/ implements Exam
             log.info("-== " + sprintDTO.getName() + " ==-");
             sprints.add(sprintDTO);
         }
-/*
-        for (Sprint sprint : sprintIterable) {
-            // TODO method findBySprintName is to slow
-            List<Task> tasks = taskRepository.findBySprintName(sprint.getName());
-            Set<Task> unique = new HashSet<>(tasks);
-            tasks.clear();
-            tasks = new ArrayList<>(unique);
-            unique.clear();
-            SprintDTO sprintDTO = SprintDtoMapper.cabinetDtoToExamine(tasks, sprint, true);
-            log.info("-== " + sprintDTO.getName() + " ==-");
-            sprints.add(sprintDTO);
-        }
-*/
 
         return sprints;
     }
 
     @Override
     public String postForTest(final TaskDTO taskDTO, final String userName) {
-//        final PrintStream out = System.out;
-//        System.setOut(new PrintStream(new ByteArrayOutputStream()));
-
         if (System.currentTimeMillis() - lastTime < TASK_PROCESSING_DELAY) {
             return "Предыдущее задание еще не проверено, попробуйте позже";
         }
@@ -147,7 +101,6 @@ public class ExamineServiceImpl /*extends RemoteServiceServlet*/ implements Exam
         log.info(resource.getPath());
 
         Map.Entry<String, String> resultEntry;
-//        final TaskTemplate template = templateRepository.findOne(taskDTO.getTaskTemplateId());
 
         try {
             resultEntry = classProcessor.processClass(taskDTO.getCode(), taskDTO.getTestName(),
@@ -191,18 +144,8 @@ public class ExamineServiceImpl /*extends RemoteServiceServlet*/ implements Exam
             executor.execute(new Runnable() {
                 @Override
                 public void run() {
-//                PrintStream out = System.out;
-//                System.setOut(new PrintStream(new ByteArrayOutputStream()));
                     try {
-//                    Task task = taskRepository.findOne(taskDTO.getId());
-//                    task.setCode(taskDTO.getCode());
-/*
-                        if(testResult.length() > 750) {
-                            testResult = testResult.substring(0, 740);
-                        }
-*/
                         String result = testResult.length() > 1000 ? testResult.substring(0, 1000) : testResult;
-//                    taskRepository.save(task);
 
                         TaskTemplate template = templateRepository.findOne(taskDTO.getTaskTemplateId());
                         taskHistoryRepository.save(new TaskHistory(taskDTO.getCode(), template, userName, new Date(), result, sha1));

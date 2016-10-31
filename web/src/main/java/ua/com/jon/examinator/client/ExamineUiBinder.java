@@ -32,8 +32,6 @@ public class ExamineUiBinder extends Composite {
     CellTable<TaskDTO> cellTable = new CellTable<>(5, GWT.<CellTable.SelectableResources>create(CellTable.SelectableResources.class));
 
     final SingleSelectionModel<TaskDTO> selectionModel = new SingleSelectionModel<>();
-//    @UiField
-//    DropdownButton sprintBtn = new DropdownButton();
 
     @UiField
     TextArea result;
@@ -97,28 +95,8 @@ public class ExamineUiBinder extends Composite {
                 }
             }
         });
-//        selectFirstTaskIfExists();
-//        loadTasksToTable();
-//        alert.setVisible(false);
     }
 
-/*    private void selectFirstTaskIfExists() {
-        for (TaskDTO task : selectionModel.getSelectedSet()) {
-            Window.alert("selected task: " + task);
-            selectionModel.setSelected(task, true);
-            break;
-        }
-    }*/
-
-//    }
-
-    //    @UiHandler("submit")
-//    void handleClick(ClickEvent e) {
-//        Window.alert("Hello, UiBinder");
-//    }
-//    @UiHandler("sprintBtn")
-//    void handleClick(ClickEvent e) {
-//
     @UiHandler("refreshTasksBtn")
     public void onClick(ClickEvent e) {
         result.setText("");
@@ -186,15 +164,6 @@ public class ExamineUiBinder extends Composite {
                     sprintsListBox.setValue(sprints.get(0));
                     addTasksToTable(sprints.get(0).getTasks(), true);
                 }
-/*
-                for (int i = 0; i < sprints.size(); i++) {
-                    lastSprint = sprints.get(i);
-                }
-                if (lastSprint != null) {
-                    sprintsListBox.setValue(lastSprint);
-                    addTasksToTable(lastSprint.getTasks(), true);
-                }
-*/
             }
         };
 
@@ -202,50 +171,21 @@ public class ExamineUiBinder extends Composite {
 
     }
 
-/*    private void loadTasksToTable() {
-        final AsyncCallback<ArrayList<TaskDTO>> callback = new AsyncCallback<ArrayList<TaskDTO>>() {
-
-            @Override
-            public void onFailure(Throwable caught) {
-                Window.alert("Error callback");
-            }
-
-            @Override
-            public void onSuccess(ArrayList<TaskDTO> tasks) {
-                addTasksToTable(tasks, true);
-            }
-        };
-
-        tasksService.getUserTasks(callback);
-    }*/
-
     private void addTasksToTable(List<TaskDTO> tasks, boolean isSelectFirst) {
         dataProvider.setList(tasks);
         cellTable.setRowData(tasks);
-
 
         // Connect the table to the data provider.
         dataProvider.addDataDisplay(cellTable);
         final List<TaskDTO> list = dataProvider.getList();
         TaskDTO first = null;
-/*        for (TaskDTO task : tasks) {
-            list.add(task);
-            last = task;
-        }*/
         if (isSelectFirst && tasks.iterator().hasNext() &&
                 (first = tasks.iterator().next()) != null) {
             selectionModel.setSelected(first, true);
         }
-
-/*        if(isSelectFirst && first != null) {
-            selectionModel.setSelected(first, true);
-        }*/
     }
 
     public void buildTable() {
-//        String jSessionId= Cookies.getCookie("JSESSIONID");
-//        Window.alert("" + Cookies.getCookieNames());
-//        userName.setText(jSessionId);
         TextColumn<TaskDTO> nameColumn = new TextColumn<TaskDTO>() {
             @Override
             public String getValue(TaskDTO contact) {
@@ -269,14 +209,6 @@ public class ExamineUiBinder extends Composite {
 
         // Add the columns.
         cellTable.addColumn(nameColumn, "Название");
-
-/*        TextColumn<TaskDTO> addressColumn = new TextColumn<TaskDTO>() {
-            @Override
-            public String getValue(TaskDTO contact) {
-                return contact.getText();
-            }
-        };
-        cellTable.addColumn(addressColumn, "Текст задания");*/
 
         final StyledButtonCell styledButtonCell = new StyledButtonCell();
         Column<TaskDTO, String> buttonTestCol = new Column<TaskDTO, String>(styledButtonCell) {
