@@ -10,8 +10,7 @@
             color: #ff0000;
             background-color: #ffEEEE;
             border: 2px solid #ff0000;
-            padding: 1px;
-            margin: 1px;
+            font-size: x-large;
         }
     </style>
 </head>
@@ -26,10 +25,9 @@
             <h4 class="error">Регистрация</h4>
 
             <c:if test="${not empty message}">
-                <div class="alert alert-error">
-                        <%--Your login attempt was not successful, try again.<br /> Caused : --%>
-                        ${message}
-                </div>
+                <p class="alert alert-error errorblock">
+                    ${message}
+                </p>
             </c:if>
 
             <form name="lform" method="POST" action="/register">

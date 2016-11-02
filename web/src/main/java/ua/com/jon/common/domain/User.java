@@ -187,7 +187,7 @@ public class User {
         this.userQuizzes = userQuizzes;
     }
 
-    public Boolean getActive() {
+    public Boolean isActive() {
         return active;
     }
 

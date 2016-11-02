@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import ua.com.jon.common.dto.GroupDTO;
 import ua.com.jon.common.service.RegisterService;
 
@@ -24,5 +25,14 @@ public class RegisterController {
         List<GroupDTO> activeGroups = registerService.getActiveGroups();
         modelMap.put("groups", activeGroups);
         return "register";
+    }
+
+    @RequestMapping("/activate.html")
+    public String activate(ModelMap modelMap,
+                           @RequestParam("user") String login,
+                           @RequestParam("pass") String password)  {
+        modelMap.put("login", login);
+        modelMap.put("pass", password);
+        return "activate";
     }
 }
