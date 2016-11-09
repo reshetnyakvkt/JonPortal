@@ -6,7 +6,8 @@ import com.jon.tron.service.compiler.InMemorySourceCompiler;
 import org.junit.Before;
 import org.junit.Test;
 
-import static junit.framework.Assert.*;
+import static junit.framework.Assert.assertFalse;
+import static junit.framework.Assert.assertTrue;
 
 
 /**
