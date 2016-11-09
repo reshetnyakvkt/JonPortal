@@ -34,6 +34,7 @@ public class UserMapper {
     }
 
     public static UserDetails convertDBToSpring(User dbUser, Set<GrantedAuthority> roles) {
-        return new org.springframework.security.core.userdetails.User(dbUser.getLogin(), dbUser.getPassword(), roles);
+        return new org.springframework.security.core.userdetails.User(dbUser.getLogin(), dbUser.getPassword(), dbUser.isActive(),
+                true, true, true, roles);
     }
 }

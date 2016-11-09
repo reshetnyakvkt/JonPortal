@@ -189,8 +189,10 @@ public class AuthController {
             ResponseEntity<GitUser> entity = gitblitClient.createUser(login, password);
             log.info("Создание пользователя gitblit: " + entity);
 
-            forwardUrl = "/j_spring_security_check?j_username=" + login + "&j_password=" + password;
-            return "forward:" + forwardUrl;
+//            forwardUrl = "/j_spring_security_check?j_username=" + login + "&j_password=" + password;
+//            return "forward:" + forwardUrl;
+            model.addAttribute("message", "Для завершения регистрации перейдите по ссылке в почте");
+            return "/register";
 
         } catch (UsernameNotFoundException e) {
             model.addAttribute("message", "Логин неверный");

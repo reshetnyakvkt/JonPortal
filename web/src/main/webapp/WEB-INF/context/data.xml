@@ -53,8 +53,9 @@
 
         <property name="numTestsPerEvictionRun" value="3" />
         <property name="minEvictableIdleTimeMillis" value="180000" />
-        <property name="poolPreparedStatements" value="true" />
-        <property name="maxOpenPreparedStatements" value="25" />
+        <property name="poolPreparedStatements" value="false" />
+        <!--maxOpenPreparedStatements should be set to a value less than the maximum number of cursors that can be open on a Connection.-->
+        <property name="maxOpenPreparedStatements" value="500" />
         <property name="accessToUnderlyingConnectionAllowed" value="false" />
         <property name="removeAbandoned" value="false" />
         <property name="removeAbandonedTimeout" value="300" />
