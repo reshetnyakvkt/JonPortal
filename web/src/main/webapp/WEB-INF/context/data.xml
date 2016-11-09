@@ -5,6 +5,7 @@
        xmlns:tx="http://www.springframework.org/schema/tx"
        xmlns:context="http://www.springframework.org/schema/context"
        xmlns:jpa="http://www.springframework.org/schema/data/jpa"
+       xmlns:jdbc="http://www.springframework.org/schema/jdbc"
        xsi:schemaLocation="http://www.springframework.org/schema/beans
 			http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
 			http://www.springframework.org/schema/tx
@@ -14,7 +15,9 @@
 
 
 			http://www.springframework.org/schema/data/jpa
-   			http://www.springframework.org/schema/data/jpa/spring-jpa.xsd">
+   			http://www.springframework.org/schema/data/jpa/spring-jpa.xsd
+   			http://www.springframework.org/schema/jdbc
+   			http://www.springframework.org/schema/jdbc/spring-jdbc.xsd">
 
     <context:property-placeholder location="classpath:/conf.properties" />
 
@@ -22,6 +25,27 @@
     <jpa:repositories base-package="ua.com.jon.quiz.repository"/>
 
     <tx:annotation-driven transaction-manager="transactionManager"/>
+
+    <jdbc:embedded-database id="derbyDataSource" type="DERBY">
+        <jdbc:script location="classpath:db/sql/create-db.sql" />
+        <jdbc:script location="classpath:db/sql/insert-data.sql" />
+    </jdbc:embedded-database>
+
+    <bean depends-on="derbyDataSource"
+          class="org.springframework.beans.factory.config.MethodInvokingBean">
+        <property name="targetClass" value="org.hsqldb.util.DatabaseManagerSwing" />
+        <property name="targetMethod" value="main" />
+        <property name="arguments">
+            <list>
+                <value>--url</value>
+                <value>jdbc:derby:memory:dataSource</value>
+                <value>--user</value>
+                <value>sa</value>
+                <value>--password</value>
+                <value></value>
+            </list>
+        </property>
+    </bean>
 
     <bean id="jpaDataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
         <property name="driverClassName" value="${jdbc.driverClassName}"/>
@@ -63,36 +87,13 @@
     </bean>
 
     <bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
-        <constructor-arg ref="jpaDataSource"/>
+        <!--<constructor-arg ref="jpaDataSource"/>-->
+        <constructor-arg ref="derbyDataSource"/>
     </bean>
-<!--
-    <bean id="jpaDataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource"
-          destroy-methodName="close"
-          p:driverClass="${jdbc.driverClassName}"
-          p:jdbcUrl="${jdbc.url}"
-          p:sprintEvent="${jdbc.username}"
-          p:password="${jdbc.password}"
-          p:acquireIncrement="5"
-          p:idleConnectionTestPeriod="60"
-          p:maxPoolSize="100"
-          p:maxStatements="50"
-          p:minPoolSize="10" />
--->
-
-    <!-- Declare a JPA entityManagerFactory -->
-<!--
-    <bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean"
-          p:persistenceXmlLocation="./WEB-INF/persistence.xml"
-          p:persistenceUnitName="hibernatePersistenceUnit"
-          p:dataSource-ref="jpaDataSource"
-          p:jpaVendorAdapter-ref="hibernateVendor"/>
--->
 
     <bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
-        <property name="dataSource" ref="jpaDataSource" />
-        <!--TODO: remove repsistance.xml-->
-        <!--<property fileName="persistenceXmlLocation" value="/WEB-INF/data/persistence.xml"/>-->
-        <!--<property fileName="persistenceUnitName" value="courcesPU"/>-->
+        <!--<property name="dataSource" ref="jpaDataSource" />-->
+        <property name="dataSource" ref="derbyDataSource" />
         <property name="packagesToScan">
             <list>
                 <value>ua.com.jon.common.domain</value>
@@ -101,15 +102,15 @@
         </property>
         <property name="jpaVendorAdapter">
             <bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
-                <!--<property fileName="generateDdl" value="true" />-->
-                <!--<property groupId="showSql" value="true"/>-->
             </bean>
         </property>
         <property name="jpaProperties">
             <props>
                 <!--<prop key="hibernate.dialect">org.hibernate.dialect.MySQL5InnoDBDialect</prop>-->
-                <prop key="hibernate.dialect">org.hibernate.dialect.MySQL5InnoDBDialect</prop>
-                <prop key="hibernate.hbm2ddl.auto">update</prop>
+                <prop key="hibernate.dialect">org.hibernate.dialect.DerbyTenSixDialect</prop>
+                <!--<prop key="hibernate.hbm2ddl.auto">update</prop>-->
+                <prop key="hibernate.hbm2ddl.auto">create</prop>
+                <prop key="hibernate.default_schema">SA</prop>
             </props>
         </property>
     </bean>
@@ -117,12 +118,6 @@
     <!-- Specify our ORM vendor -->
     <bean id="hibernateVendor" class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter"
           p:showSql="true"/>
-
-    <!-- Declare a transaction manager-->
-<!--
-    <bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager"
-          p:entityManagerFactory-ref="entityManagerFactory"/>
--->
 
     <bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
         <property name="entityManagerFactory" ref="entityManagerFactory" />
