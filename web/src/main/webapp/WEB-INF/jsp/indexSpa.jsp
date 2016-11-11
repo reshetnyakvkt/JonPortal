@@ -11,8 +11,11 @@
     <link href="/img/buttonRun.png" rel="icon" type="image/x-icon">
     <link href="/css/bootstrap.min.css" rel="stylesheet" media="screen">
     <link href="/css/custom.css" rel="stylesheet" media="screen">
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.js"></script>
+    <script src="//npmcdn.com/angular-ui-router@1.0.0-alpha.4/release/angular-ui-router.js"></script>
+    <script src="spa/router.js"></script>
 </head>
-<body>
+<body ng-app="app">
 <script>
     (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
                 (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(0),
@@ -27,6 +30,8 @@
         <div class="navbar-inner">
             <ul class="nav nav-pills">
                 <li id="item1"><a href="/">Главная</a></li>
+                <li><a ui-sref="about">Home</a></li>
+                <li><a ui-sref="hello">About</a></li>
                 <li id="item7"><a href="/cabinet/index.html">Кабинет</a></li>
                 <li id="item2"><a href="/trainings/index.html">Статьи</a></li>
                 <li id="item3"><a href="/lessons.html">Занятия</a></li>
@@ -74,6 +79,8 @@
             <nav class="navbar navbar-default">
                 <span class="navbar-brand"><b class="text-warning">Портал для тех кто связался с Java</b></span>
             </nav>
+
+            <div ui-view class="well"/>
 
             <div class="well">
                 <p>В разделе <span class="label label-primary">Статьи</span> находятся полезные для обучающихся статьи</p>
