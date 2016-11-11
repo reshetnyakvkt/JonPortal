@@ -19,108 +19,149 @@
    			http://www.springframework.org/schema/jdbc
    			http://www.springframework.org/schema/jdbc/spring-jdbc.xsd">
 
-    <context:property-placeholder location="classpath:/conf.properties" />
-
-    <jpa:repositories base-package="ua.com.jon.common.repository"/>
-    <jpa:repositories base-package="ua.com.jon.quiz.repository"/>
-
-    <tx:annotation-driven transaction-manager="transactionManager"/>
-
-    <jdbc:embedded-database id="derbyDataSource" type="DERBY">
-        <jdbc:script location="classpath:db/sql/create-db.sql" />
-        <jdbc:script location="classpath:db/sql/insert-data.sql" />
-    </jdbc:embedded-database>
-
-<!--    <bean depends-on="derbyDataSource"
-          class="org.springframework.beans.factory.config.MethodInvokingBean">
-        <property name="targetClass" value="org.hsqldb.util.DatabaseManagerSwing" />
-        <property name="targetMethod" value="main" />
-        <property name="arguments">
-            <list>
-                <value>&#45;&#45;url</value>
-                <value>jdbc:derby:memory:dataSource</value>
-                <value>&#45;&#45;user</value>
-                <value>sa</value>
-                <value>&#45;&#45;password</value>
-                <value></value>
-            </list>
-        </property>
-    </bean>-->
-
-    <bean id="jpaDataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
-        <property name="driverClassName" value="${jdbc.driverClassName}"/>
-        <property name="url" value="${jdbc.url}"/>
-        <property name="username" value="${jdbc.username}"/>
-        <property name="password" value="${jdbc.password}"/>
-
-        <!--
-        INFO ua.com.jon.examinator.server.ExamineServiceImpl: -== getSprints() ==-
-        WARN org.hibernate.engine.jdbc.spi.SqlExceptionHelper: SQL Error: 0, SQLState: 08S01
-        ERROR org.hibernate.engine.jdbc.spi.SqlExceptionHelper: The last packet successfully received from the server was 48,754,692 milliseconds ago.  The last packet sent successfully to the server was 48,754,693 milliseconds ago. is longer than the server configured value of 'wait_timeout'. You should consider either expiring and/or testing connection validity before use in your application, increasing the server configured values for client timeouts, or using the Connector/J connection property 'autoReconnect=true' to avoid this problem.
-        -->
-        <!-- DBCP Connection Pool Settings -->
-        <property name="defaultAutoCommit" value="true" />
-        <property name="initialSize" value="10" />
-        <property name="maxActive" value="500" />
-        <property name="maxIdle" value="8" />
-        <property name="minIdle" value="0" />
-        <property name="maxWait" value="30000" />
-        <property name="validationQuery" value="SELECT 1" />
-        <property name="testOnBorrow" value="true" />
-        <property name="testOnReturn" value="false" />
-        <property name="testWhileIdle" value="false" />
-        <!--http://stackoverflow.com/questions/30336861/spring-boot-communications-link-failure-after-some-hours-of-inactivity-with-hib
-
-        timeBetweenEvictionRunsMillis - тот же самый параметр, что и для инвалидации холостых соединений. Дело в том, что как проверка времени простоя соединений, так и прогревание происходят в одном потоке, а данный параметр указывает на сколько времени поток будет засыпать.
-        -->
-        <property name="timeBetweenEvictionRunsMillis" value="60000" />
-
-        <property name="numTestsPerEvictionRun" value="3" />
-        <property name="minEvictableIdleTimeMillis" value="180000" />
-        <property name="poolPreparedStatements" value="false" />
-        <!--maxOpenPreparedStatements should be set to a value less than the maximum number of cursors that can be open on a Connection.-->
-        <property name="maxOpenPreparedStatements" value="500" />
-        <property name="accessToUnderlyingConnectionAllowed" value="false" />
-        <property name="removeAbandoned" value="false" />
-        <property name="removeAbandonedTimeout" value="300" />
-        <property name="logAbandoned" value="false" />
-    </bean>
-
-    <bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
-        <!--<constructor-arg ref="jpaDataSource"/>-->
-        <constructor-arg ref="derbyDataSource"/>
-    </bean>
-
-    <bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
-        <!--<property name="dataSource" ref="jpaDataSource" />-->
-        <property name="dataSource" ref="derbyDataSource" />
-        <property name="packagesToScan">
-            <list>
-                <value>ua.com.jon.common.domain</value>
-                <value>ua.com.jon.quiz.domain</value>
-            </list>
-        </property>
-        <property name="jpaVendorAdapter">
-            <bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
-            </bean>
-        </property>
-        <property name="jpaProperties">
-            <props>
-                <!--<prop key="hibernate.dialect">org.hibernate.dialect.MySQL5InnoDBDialect</prop>-->
-                <prop key="hibernate.dialect">org.hibernate.dialect.DerbyTenSixDialect</prop>
-                <!--<prop key="hibernate.hbm2ddl.auto">update</prop>-->
-                <prop key="hibernate.hbm2ddl.auto">create</prop>
-                <prop key="hibernate.default_schema">SA</prop>
-            </props>
-        </property>
-    </bean>
+    <context:property-placeholder location="classpath:/conf.properties"/>
 
     <!-- Specify our ORM vendor -->
     <bean id="hibernateVendor" class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter"
           p:showSql="true"/>
 
-    <bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
-        <property name="entityManagerFactory" ref="entityManagerFactory" />
-    </bean>
+
+    <beans profile="prod">
+        <jpa:repositories base-package="ua.com.jon.common.repository"/>
+        <jpa:repositories base-package="ua.com.jon.quiz.repository"/>
+
+        <tx:annotation-driven transaction-manager="transactionManager"/>
+        <bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
+            <property name="entityManagerFactory" ref="entityManagerFactory"/>
+        </bean>
+
+        <bean id="jpaDataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+            <property name="driverClassName" value="${jdbc.driverClassName}"/>
+            <property name="url" value="${jdbc.url}"/>
+            <property name="username" value="${jdbc.username}"/>
+            <property name="password" value="${jdbc.password}"/>
+
+            <!--
+            INFO ua.com.jon.examinator.server.ExamineServiceImpl: -== getSprints() ==-
+            WARN org.hibernate.engine.jdbc.spi.SqlExceptionHelper: SQL Error: 0, SQLState: 08S01
+            ERROR org.hibernate.engine.jdbc.spi.SqlExceptionHelper: The last packet successfully received from the server was 48,754,692 milliseconds ago.  The last packet sent successfully to the server was 48,754,693 milliseconds ago. is longer than the server configured value of 'wait_timeout'. You should consider either expiring and/or testing connection validity before use in your application, increasing the server configured values for client timeouts, or using the Connector/J connection property 'autoReconnect=true' to avoid this problem.
+            -->
+            <!-- DBCP Connection Pool Settings -->
+            <property name="defaultAutoCommit" value="true"/>
+            <property name="initialSize" value="10"/>
+            <property name="maxActive" value="500"/>
+            <property name="maxIdle" value="8"/>
+            <property name="minIdle" value="0"/>
+            <property name="maxWait" value="30000"/>
+            <property name="validationQuery" value="SELECT 1"/>
+            <property name="testOnBorrow" value="true"/>
+            <property name="testOnReturn" value="false"/>
+            <property name="testWhileIdle" value="false"/>
+            <!--http://stackoverflow.com/questions/30336861/spring-boot-communications-link-failure-after-some-hours-of-inactivity-with-hib
+
+            timeBetweenEvictionRunsMillis - тот же самый параметр, что и для инвалидации холостых соединений. Дело в том, что как проверка времени простоя соединений, так и прогревание происходят в одном потоке, а данный параметр указывает на сколько времени поток будет засыпать.
+            -->
+            <property name="timeBetweenEvictionRunsMillis" value="60000"/>
+
+            <property name="numTestsPerEvictionRun" value="3"/>
+            <property name="minEvictableIdleTimeMillis" value="180000"/>
+            <property name="poolPreparedStatements" value="false"/>
+            <!--maxOpenPreparedStatements should be set to a value less than the maximum number of cursors that can be open on a Connection.-->
+            <property name="maxOpenPreparedStatements" value="500"/>
+            <property name="accessToUnderlyingConnectionAllowed" value="false"/>
+            <property name="removeAbandoned" value="false"/>
+            <property name="removeAbandonedTimeout" value="300"/>
+            <property name="logAbandoned" value="false"/>
+        </bean>
+
+        <bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
+            <constructor-arg ref="jpaDataSource"/>
+            <!--<constructor-arg ref="derbyDataSource"/>-->
+        </bean>
+
+        <bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+            <property name="dataSource" ref="jpaDataSource" />
+            <!--<property name="dataSource" ref="derbyDataSource"/>-->
+            <property name="packagesToScan">
+                <list>
+                    <value>ua.com.jon.common.domain</value>
+                    <value>ua.com.jon.quiz.domain</value>
+                </list>
+            </property>
+            <property name="jpaVendorAdapter">
+                <bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
+                </bean>
+            </property>
+            <property name="jpaProperties">
+                <props>
+                    <prop key="hibernate.dialect">org.hibernate.dialect.MySQL5InnoDBDialect</prop>
+                    <!--<prop key="hibernate.dialect">org.hibernate.dialect.DerbyTenSixDialect</prop>-->
+                    <!--<prop key="hibernate.hbm2ddl.auto">update</prop>-->
+                    <prop key="hibernate.hbm2ddl.auto">create</prop>
+                    <prop key="hibernate.default_schema">SA</prop>
+                </props>
+            </property>
+        </bean>
+    </beans>
+
+    <beans profile="dev">
+        <jpa:repositories entity-manager-factory-ref="derbyEntityManagerFactory" base-package="ua.com.jon.common.repository"/>
+        <jpa:repositories entity-manager-factory-ref="derbyEntityManagerFactory" base-package="ua.com.jon.quiz.repository"/>
+        <tx:annotation-driven transaction-manager="derbyTxManager"/>
+        <bean id="derbyTxManager" class="org.springframework.orm.jpa.JpaTransactionManager">
+            <property name="entityManagerFactory" ref="derbyEntityManagerFactory"/>
+        </bean>
+
+        <jdbc:embedded-database id="derbyDataSource" type="DERBY">
+            <jdbc:script location="classpath:db/sql/create-db.sql"/>
+            <jdbc:script location="classpath:db/sql/insert-data.sql"/>
+        </jdbc:embedded-database>
+
+        <!--    <bean depends-on="derbyDataSource"
+                  class="org.springframework.beans.factory.config.MethodInvokingBean">
+                <property name="targetClass" value="org.hsqldb.util.DatabaseManagerSwing" />
+                <property name="targetMethod" value="main" />
+                <property name="arguments">
+                    <list>
+                        <value>&#45;&#45;url</value>
+                        <value>jdbc:derby:memory:dataSource</value>
+                        <value>&#45;&#45;user</value>
+                        <value>sa</value>
+                        <value>&#45;&#45;password</value>
+                        <value></value>
+                    </list>
+                </property>
+            </bean>-->
+
+        <bean id="derbyJdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
+            <!--<constructor-arg ref="jpaDataSource"/>-->
+            <constructor-arg ref="derbyDataSource"/>
+        </bean>
+
+        <bean id="derbyEntityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+            <!--<property name="dataSource" ref="jpaDataSource" />-->
+            <property name="dataSource" ref="derbyDataSource"/>
+            <property name="packagesToScan">
+                <list>
+                    <value>ua.com.jon.common.domain</value>
+                    <value>ua.com.jon.quiz.domain</value>
+                </list>
+            </property>
+            <property name="jpaVendorAdapter">
+                <bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
+                </bean>
+            </property>
+            <property name="jpaProperties">
+                <props>
+                    <!--<prop key="hibernate.dialect">org.hibernate.dialect.MySQL5InnoDBDialect</prop>-->
+                    <prop key="hibernate.dialect">org.hibernate.dialect.DerbyTenSixDialect</prop>
+                    <!--<prop key="hibernate.hbm2ddl.auto">update</prop>-->
+                    <prop key="hibernate.hbm2ddl.auto">create</prop>
+                    <prop key="hibernate.default_schema">SA</prop>
+                </props>
+            </property>
+        </bean>
+    </beans>
+
 
 </beans>
