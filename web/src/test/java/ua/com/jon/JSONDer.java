@@ -1,7 +1,5 @@
 package ua.com.jon;
 
-import jdk.nashorn.internal.parser.JSONParser;
-
 /**
  * Created with IntelliJ IDEA.
  * User: al1
