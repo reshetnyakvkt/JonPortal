@@ -93,15 +93,15 @@ public class B4ShellSortTest extends BaseTest {
         if (instance == null || unitMethod == null) {
             fail();
         }
-        int from = generateInt(2, 4);
-        int to = generateInt(6, 10);
+        int from = 1;
+        int to = 10;
         int[] vector = generateVector(from, to);
         int[] expectedVector = vector.clone();
         List<SimEntry> listExpected = shellSort(expectedVector);
 
         int[] clone = vector.clone();
         ReflectionUtil.invokeMethod(instance, unitMethod, clone);
-        List<SimEntry> listActual = readPairs();
+        List<SimEntry> listActual = readPairs(vector);
 
         assertTrue("Ожидаемый результат " + Arrays.toString(expectedVector) + " при введенных параметрах (" +
                 Arrays.toString(vector) + "), но выведено [" + Arrays.toString(clone) + "]", Arrays.equals(expectedVector, clone));
@@ -109,9 +109,13 @@ public class B4ShellSortTest extends BaseTest {
                 listExpected.equals(listActual));
     }
 
-    private List<SimEntry> readPairs() {
+    private List<SimEntry> readPairs(int[] vector) {
         List<SimEntry> list = new ArrayList<>();
         String actualString = getIn().toString().trim();
+        if(actualString.isEmpty()) {
+            fail("При сортировке массива " + Arrays.toString(vector)
+                    + " в результате должны быть выведены в консоль пары обменяных чисел, а выводится пустая строка");
+        }
         String lines[] = actualString.split("\\r?\\n");
         for (String line : lines) {
             Scanner scan = new Scanner(line);
