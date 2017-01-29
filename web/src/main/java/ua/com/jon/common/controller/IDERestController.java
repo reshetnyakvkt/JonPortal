@@ -43,11 +43,13 @@ public class IDERestController {
         Long groupId = groups.get(0).getId();
         List<SprintDTO> sprints = taskService.getSprints(groupId);
 
+/*
         for (SprintDTO sprint : sprints) {
             for (ua.com.jon.cabinet.shared.TaskDTO taskDTO : sprint.getTasks()) {
                 taskDTO.setText(taskDTO.getText().substring(0, 10));
             }
         }
+*/
         return sprints;
     }
 
