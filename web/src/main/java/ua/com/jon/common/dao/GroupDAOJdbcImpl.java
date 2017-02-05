@@ -215,7 +215,7 @@ public class GroupDAOJdbcImpl implements GroupDAO {
                     String taskTemplateText = rs.getString(taskTemplateTextIndex);
                     if (!sprint.getTasks().contains(taskTemplateDTO)) {
                         taskTemplateDTO = new TaskTemplateDTO(taskTemplateId, taskTemplateName, null,
-                                null, null, null, null);
+                                null, null, null, null, null);
                         sprint.getTasks().add(taskTemplateDTO);
                     } else {
                         taskTemplateDTO = sprint.getTasks().get(sprint.getTasks().indexOf(taskTemplateDTO));

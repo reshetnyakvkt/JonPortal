@@ -50,6 +50,9 @@ public class TaskTemplate {
     @Column(length = 50, columnDefinition = "varchar(50) default ''")
     private String className;
 
+    @Column(length = 50, columnDefinition = "varchar(50) default ''")
+    private String classPath;
+
     public TaskTemplate() {
     }
 
@@ -59,7 +62,7 @@ public class TaskTemplate {
     }
 
     public TaskTemplate(Long id, String taskText, String name, TaskType type, String moduleSuffix, String materials,
-                        String testName, String className) {
+                        String testName, String className, String classPath) {
         this.id = id;
         this.taskText = taskText;
         this.name = name;
@@ -68,6 +71,7 @@ public class TaskTemplate {
         this.materials = materials;
         this.testName = testName;
         this.className = className;
+        this.classPath = classPath;
     }
 
     public String getName() {
@@ -134,6 +138,14 @@ public class TaskTemplate {
         this.className = className;
     }
 
+    public String getClassPath() {
+        return classPath;
+    }
+
+    public void setClassPath(String classPath) {
+        this.classPath = classPath;
+    }
+
     @Override
     public String toString() {
         return "TaskTemplate{" +
@@ -146,6 +158,7 @@ public class TaskTemplate {
                 ", type=" + (type==null?"":type.name()) +
                 ", testName='" + testName + '\'' +
                 ", className='" + className + '\'' +
+                ", classPath='" + classPath + '\'' +
                 '}';
     }
 }

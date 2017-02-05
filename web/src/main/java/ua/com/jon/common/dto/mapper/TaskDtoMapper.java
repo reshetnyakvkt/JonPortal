@@ -20,6 +20,7 @@ public class TaskDtoMapper {
         String taskText = "";
         String taskName = "";
         String className = "";
+        String classPath = "";
         Long templateId = 0L;
         String materials = "";
         TaskType taskType = TaskType.CLASS;
@@ -28,6 +29,7 @@ public class TaskDtoMapper {
             taskText = taskTemplate.getTaskText();
             taskName = taskTemplate.getName();
             taskType = taskTemplate.getType();
+            classPath = taskTemplate.getClassPath();
             className = taskTemplate.getClassName();
             templateId = taskTemplate.getId();
             materials = taskTemplate.getMaterials();
@@ -47,7 +49,8 @@ public class TaskDtoMapper {
                 templateId,
                 materials,
                 groupId,
-                rate
+                rate,
+                classPath
         );
     }
 

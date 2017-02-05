@@ -33,7 +33,8 @@ public class TaskTemplateDtoMapper {
                 taskTemplate.getType() == null? null: taskTemplate.getType().name(),
                 taskTemplate.getSuffix(),
                 taskTemplate.getTestName(),
-                taskTemplate.getMaterials()
+                taskTemplate.getMaterials(),
+                taskTemplate.getClassPath()
         );
     }
 
@@ -59,7 +60,8 @@ public class TaskTemplateDtoMapper {
                     task.getSuffix(),
                     task.getMaterials(),
                     task.getTestName(),
-                    task.getClassName());
+                    task.getClassName(),
+                    task.getClassPath());
             taskTemplates.add(taskTemplate);
         }
         return taskTemplates;
