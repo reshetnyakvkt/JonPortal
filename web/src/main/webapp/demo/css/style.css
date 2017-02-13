@@ -1,0 +1,257 @@
+/**{*/
+    /*margin: 0;*/
+    /*padding: 0;*/
+/*}*/
+
+/*html {*/
+    /*height: 100%;*/
+/*}*/
+
+/*p{*/
+    /*margin: 0 0 5px 0;*/
+/*}*/
+
+/*h1, h2, h3, h4, h5, h6 {*/
+    /*margin: 0 0 10px 0;*/
+/*}*/
+
+body{
+    font-family: monospace;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    user-select: none;
+}
+
+div#wrapper{
+    position: relative;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    user-select: none;
+}
+
+div#resizable div#outer div#wrapper div#container {
+    background: #E4D5D5 none repeat scroll 0 0;
+    border-radius: 5px;
+    box-shadow: 0 0 8px 0 inset;
+    height: 50px;
+    padding: 25px 15px;
+    position: relative;
+    box-sizing: content-box;
+    -webkit-box-sizing: content-box;
+}
+
+div.inner, div.deleted{
+    position: relative;
+}
+
+div#resizable div#outer div#wrapper div#container div.item {
+    background-color: white;
+    border-radius: 30px;
+    box-shadow: 0 0 8px 0;
+    font-size: 20px;
+    height: 50px;
+    line-height: 50px;
+    position: absolute;
+    text-align: center;
+    width: 50px;
+    cursor: -webkit-grab;
+    cursor: grab;
+    cursor: -moz-grab;
+    z-index: 100;
+
+}
+
+
+.dragged{
+    cursor: move !important;
+}
+
+div#resizable div.resizer:hover {
+    box-shadow: 0 0 3px 0 !important;
+}
+
+
+div#resizable div.resizer {
+    background-color: red;
+    border-radius: 50px;
+    bottom: 0;
+    cursor: col-resize;
+    height: 15px;
+    left: -7px;
+    margin: auto 0;
+    position: absolute;
+    top: 0;
+    width: 15px;
+    z-index: 300;
+
+}
+
+div#resizable div.resizer.act{
+    background-color: blue;
+    box-shadow: 0 0 3px 0;
+
+}
+
+div#resizable div#outer {
+    /*margin: 0 auto;*/
+    padding: 40px 0;
+    overflow: hidden;
+    color: black;
+}
+
+div#resizable {
+    margin: 0 auto;
+    /*padding: 60px 0px 60px 0px;*/
+    width: 630px;
+    position: relative;
+}
+
+div#resizable div.count, div#resizable div.plashka{
+    height: 30px;
+    background-color: rgba(0, 0, 0, 0.41);
+    color: white;
+    position: absolute;
+    line-height: 30px;
+    text-align: center;
+    font-size: 23px;
+    text-shadow: 1px 1px 1px black;
+
+}
+
+div#resizable div.count{
+    width: 40px;
+    border-radius: 0 0 10px 10px;
+    bottom: 10px;
+    right: 8px;
+
+
+}
+
+div#resizable div.plashka {
+    top: 10px;
+    left: 5px;
+    border-radius: 10px 10px 0 0;
+    padding: 0 0;
+    display: none;
+    width: 130px;
+}
+
+#controls{
+    width: 80%;
+    margin: 20px auto;
+}
+
+div#resizable div#wrapper div#container div.inner div.selection {
+    border-radius: 40px;
+    box-shadow: 0 0 2px 5px;
+    height: 50px;
+    width: 50px;
+    position: absolute;
+    z-index: 50;
+}
+
+div#resizable div#wrapper div#container div.inner div.selection#main{
+    z-index: 70;
+}
+
+div#saved {
+    width: 500px;
+     margin: 0 auto;
+    /*float: left;*/
+    /*width: 65%;*/
+}
+
+div#saved p {
+    text-align: center;
+}
+
+div#saved div.block{
+
+    margin-bottom: 20px;
+    background-color: white;
+    box-shadow: 0 0 5px 0 inset;
+    padding: 10px;
+    border-radius: 10px;
+}
+
+div#saved div.block div.item:last-child{
+
+    margin-bottom: 0;
+
+}
+
+
+
+div#saved div.block div.item {
+    height: 40px;
+    border: 1px solid #E4D5D5;
+    box-shadow: 0 0 5px 0;
+    border-radius: 5px;
+    background-color: #E4D5D5;
+    margin-bottom: 10px;
+    box-sizing: border-box;
+    padding: 4px;
+    line-height: 30px;
+    font-size: 15px;
+    overflow: hidden;
+    cursor: pointer;
+    display: none;
+}
+
+.pressed{
+    box-shadow: initial !important;
+}
+
+.blocked{
+    color: gray;
+}
+
+div#saved div.block div.item div {
+    width: 30px;
+    height: 30px;
+    float: right;
+    background-color: gray;
+    border-radius: 5px;
+    cursor: pointer;
+    text-align: center;
+    font-weight: bold;
+    font-size: 25px;
+
+}
+
+div#saved div.block div.item:hover {
+    border: 1px solid darkblue;
+    box-shadow: 0 0 5px 1px darkblue;
+}
+
+div.item div:hover {
+    color: white;
+    box-shadow: 0 0 6px 0 black inset;
+}
+
+
+
+
+
+
+div#bottom {
+    margin: 0 auto;
+    width: 800px;
+}
+
+
+
+div#bottom > div > p{
+    text-align: center;
+}
+
+
+div.well{
+    color: black;
+    padding: 19px 13px;
+}
+
+div.well label, div.well section, div.well p{
+    color: white;
+
+}

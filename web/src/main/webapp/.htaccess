@@ -1,0 +1,3 @@
+ErrorDocument 404 http://jon.com.ua/
+
+Redirect 301 /kursy_java http://www.jon.com.ua/

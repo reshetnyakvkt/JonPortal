@@ -1,5 +1,6 @@
 package ua.com.jon.cabinet.server;
 
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.web.context.request.async.DeferredResult;
 import ua.com.jon.cabinet.shared.GroupDTO;
 import ua.com.jon.cabinet.shared.SprintDTO;
@@ -22,8 +23,13 @@ public interface ExtTasksService {
     double getCourseRate(Long groupId);
 
     String getSpringUserName();
+    List<GrantedAuthority> getSpringUserRoles();
 
     List<GroupDTO> getUserGroups();
 
     ArrayList<SprintDTO> getSprints(Long id);
+
+    ArrayList<TaskDTO> getTasksByUserGroup(Long taskTemplateId, Long selectedGroupId, Long selectedSprintId);
+
+    List<List<String>> getGroupInfo(Long selectedGroupId) throws Exception;
 }

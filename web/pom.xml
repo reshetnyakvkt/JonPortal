@@ -14,7 +14,50 @@
     <version>1.1-SNAPSHOT</version>
     <name>ROOT</name>
 
+    <profiles>
+        <profile>
+            <id>dev</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <properties>
+                <webXmlPath>src/main/webapp/WEB-INF/dev_profile/web.xml</webXmlPath>
+            </properties>
+
+            <dependencies>
+                <dependency>
+                    <groupId>org.apache.derby</groupId>
+                    <artifactId>derby</artifactId>
+                </dependency>
+                <dependency>
+                    <groupId>org.apache.derby</groupId>
+                    <artifactId>derbyclient</artifactId>
+                </dependency>
+            </dependencies>
+
+        </profile>
+
+        <profile>
+            <id>prod</id>
+            <properties>
+                <webXmlPath>src/main/webapp/WEB-INF/web.xml</webXmlPath>
+            </properties>
+
+            <dependencies>
+                <dependency>
+                    <groupId>mysql</groupId>
+                    <artifactId>mysql-connector-java</artifactId>
+                </dependency>
+            </dependencies>
+        </profile>
+    </profiles>
     <dependencies>
+        <dependency>
+            <groupId>com.thoughtworks.xstream</groupId>
+            <artifactId>xstream</artifactId>
+            <version>${xstream.version}</version>
+        </dependency>
+
         <dependency>
             <artifactId>Core</artifactId>
             <groupId>Testeron</groupId>
@@ -24,7 +67,6 @@
             <artifactId>Tests</artifactId>
             <groupId>JonGit</groupId>
             <version>${tests.version}</version>
-            <!--<type>jar</type>-->
         </dependency>
 
         <dependency>
@@ -118,6 +160,11 @@
         </dependency>
 
         <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context-support</artifactId>
+        </dependency>
+
+        <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-core</artifactId>
         </dependency>
@@ -125,11 +172,6 @@
         <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-entitymanager</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>mysql</groupId>
-            <artifactId>mysql-connector-java</artifactId>
         </dependency>
 
         <dependency>
@@ -212,21 +254,25 @@
                     <target>${jdk.version}</target>
                 </configuration>
             </plugin>
-<!--            <plugin>
+
+            <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-war-plugin</artifactId>
+                <version>2.6</version>
+<!--                <webResources>
+                    <resource>
+                        <filtering>true</filtering>
+                        <directory>src/main/webapp</directory>
+                        <includes>
+                            <include>**/web.xml</include>
+                        </includes>
+                    </resource>
+                </webResources>-->
                 <configuration>
-                    <dependentWarExcludes>WEB-INF/web.xml,**/**.class</dependentWarExcludes>
-                    <webResources>
-                        <resource>
-                            &lt;!&ndash;  change if necessary &ndash;&gt;
-                            <directory>src/main/webapp/WEB-INF</directory>
-                            <filtering>true</filtering>
-                            <targetPath>WEB-INF</targetPath>
-                        </resource>
-                    </webResources>
+                    <webXml>${webXmlPath}</webXml>
                 </configuration>
-            </plugin>-->
+            </plugin>
+
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>gwt-maven-plugin</artifactId>
@@ -241,23 +287,6 @@
                 </executions>
             </plugin>
 
-<!--            <plugin>
-                <artifactId>maven-assembly-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <id>assembly</id>
-                        <phase>package</phase>
-                        <goals>
-                            <goal>attached</goal>
-                        </goals>
-                        <configuration>
-                            <descriptors>
-                                <descriptor>assembly.xml</descriptor>
-                            </descriptors>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>-->
         </plugins>
     </build>
 </project>

@@ -18,13 +18,14 @@ public class TaskDTO implements Serializable {
     private String type;
     private String userName;
     private String className;
+    private String classPath;
     private Long taskTemplateId;
     private Long groupId;
     private String material;
     private Double rate;
 
     public TaskDTO(Long id, String text, String name, String status, String result, String code, String type,
-                   String userName, String className, Long taskTemplateId, String material, Long groupId, Double rate) {
+                   String userName, String className, Long taskTemplateId, String material, Long groupId, Double rate, String classPath) {
         this.id = id;
         this.text = text;
         this.name = name;
@@ -38,6 +39,7 @@ public class TaskDTO implements Serializable {
         this.material = material;
         this.groupId = groupId;
         this.rate = rate;
+        this.classPath = classPath;
     }
 
     public TaskDTO() {
@@ -57,7 +59,8 @@ public class TaskDTO implements Serializable {
                 taskDTO.getTaskTemplateId(),
                 taskDTO.getMaterial(),
                 taskDTO.getGroupId(),
-                taskDTO.getRate());
+                taskDTO.getRate(),
+                taskDTO.getClassPath());
     }
 
     public Long getId() {
@@ -164,6 +167,14 @@ public class TaskDTO implements Serializable {
         this.rate = rate;
     }
 
+    public String getClassPath() {
+        return classPath;
+    }
+
+    public void setClassPath(String classPath) {
+        this.classPath = classPath;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -195,6 +206,7 @@ public class TaskDTO implements Serializable {
                 ", className='" + className + '\'' +
                 ", taskTemplateId=" + taskTemplateId +
                 ", material='" + material + '\'' +
+                ", classPath='" + classPath + '\'' +
                 '}';
     }
 }

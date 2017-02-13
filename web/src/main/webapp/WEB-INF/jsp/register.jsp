@@ -10,8 +10,7 @@
             color: #ff0000;
             background-color: #ffEEEE;
             border: 2px solid #ff0000;
-            padding: 1px;
-            margin: 1px;
+            font-size: x-large;
         }
     </style>
 </head>
@@ -26,10 +25,9 @@
             <h4 class="error">Регистрация</h4>
 
             <c:if test="${not empty message}">
-                <div class="alert alert-error">
-                        <%--Your login attempt was not successful, try again.<br /> Caused : --%>
-                        ${message}
-                </div>
+                <p class="alert alert-error errorblock">
+                    ${message}
+                </p>
             </c:if>
 
             <form name="lform" method="POST" action="/register">
@@ -40,6 +38,10 @@
                 <div class="form-group">
                     <label>Пароль: буквы и цифры</label>
                     <input type="password" id="password" class="form-control" name="j_password" placeholder="Пароль"/>
+                </div>
+                <div class="form-group">
+                    <label>E-mail</label>
+                    <input type="text" id="email" class="form-control" name="email" placeholder="Email"/>
                 </div>
                 <div class="form-group">
                     <label>Группа</label>

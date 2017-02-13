@@ -1,2 +1,7 @@
-User-Agent: *
+User-agent: *
+
 Disallow: /gitblit
+
+Host: jon.com.ua
+
+Sitemap: http://jon.com.ua/sitemap.xml

@@ -5,6 +5,7 @@ import com.jon.tron.service.processor.ClassProcessor;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.context.ServletContextAware;
@@ -12,6 +13,7 @@ import org.springframework.web.context.request.async.DeferredResult;
 import ua.com.jon.cabinet.shared.GroupDTO;
 import ua.com.jon.cabinet.shared.SprintDTO;
 import ua.com.jon.cabinet.shared.TaskDTO;
+import ua.com.jon.common.dao.GroupDAO;
 import ua.com.jon.common.domain.*;
 import ua.com.jon.common.dto.mapper.GroupDtoMapper;
 import ua.com.jon.common.dto.mapper.SprintDtoMapper;
@@ -52,6 +54,9 @@ public class ExtTaskServiceImpl implements ExtTasksService, ServletContextAware 
 
     @Resource
     private GroupRepository groupRepository;
+
+    @Autowired
+    private GroupDAO groupDAO;
 
     private ServletContext servletContext;
 
@@ -181,9 +186,11 @@ public class ExtTaskServiceImpl implements ExtTasksService, ServletContextAware 
             resultEntry = classProcessor.processClass(taskDTO.getCode(), template.getTestName(),
                     tronCoreJar, junitJar);
         } catch (CompilationException e) {
+            log.error("Compilation failed ", e);
             resultEntry = e.getResult();
         } catch (Exception e) {
             log.error(e);
+            e.printStackTrace();
             return "Ошибка проверки " + e.getMessage() + ". Обратитесь к разработчикам";
         }
         String testResult = resultEntry.getKey() + '\n' + resultEntry.getValue();
@@ -229,6 +236,7 @@ public class ExtTaskServiceImpl implements ExtTasksService, ServletContextAware 
     }
 
     private double calcTasksRate(List<Task> tasks) {
+        log.info("Tasks size: " + tasks.size());
         int doneCount = 0;
         int sumResult = 0;
         for (Task task : tasks) {
@@ -267,6 +275,7 @@ public class ExtTaskServiceImpl implements ExtTasksService, ServletContextAware 
 
 //    @Override
     public double getCourseRate(Long selectedGroupId, String userName) {
+        List<Sprint> sprintList = sprintRepository.findByUserAndGroup(userName, selectedGroupId);
         Iterable<Sprint> sprintIterable = sprintRepository.findByUserAndGroup(userName, selectedGroupId);
         ArrayList<Task> allSprintsTasks = new ArrayList<Task>();
         User user = userRepository.findByUserName(userName);
@@ -274,7 +283,9 @@ public class ExtTaskServiceImpl implements ExtTasksService, ServletContextAware 
             List<Task> tasks = taskRepository.findByUserAndSprintAndGroup(user.getId(), sprint.getId(), selectedGroupId);
             allSprintsTasks.addAll(tasks);
         }
-        return calcTasksRate(allSprintsTasks);
+        double rate = calcTasksRate(allSprintsTasks);
+        log.info("Course rate equals: " + rate);
+        return rate;
     }
 
 //    @Override
@@ -285,7 +296,18 @@ public class ExtTaskServiceImpl implements ExtTasksService, ServletContextAware 
             throw new SecurityException("can't grant access to anonymous ");
         }
         springUser = (org.springframework.security.core.userdetails.User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        log.info(springUser.getAuthorities());
         return springUser.getUsername();
+    }
+
+    public List<GrantedAuthority> getSpringUserRoles() {
+        Object authentication = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        org.springframework.security.core.userdetails.User springUser;
+        if (authentication instanceof String) {
+            throw new SecurityException("can't grant access to anonymous ");
+        }
+        springUser = (org.springframework.security.core.userdetails.User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        return new ArrayList<>(springUser.getAuthorities());
     }
 
     @Override
@@ -326,4 +348,45 @@ public class ExtTaskServiceImpl implements ExtTasksService, ServletContextAware 
         this.servletContext = servletContext;
     }
 
+
+    @Override
+    public ArrayList<TaskDTO> getTasksByUserGroup(Long taskTemplateId, Long selectedGroupId, Long selectedSprintId) {
+        log.info("-== getTasksByUserGroup: " + taskTemplateId);
+        ArrayList<TaskDTO> tasksList = new ArrayList<TaskDTO>();
+        try {
+            String userName = getSpringUserName();
+            User user = userRepository.findWithGroupsByUserName(userName);
+            if (user != null) {
+//                for (GroupDTO group : user.getGroups()) {
+//                    Long groupId = group.getId();
+                List<Task> tasks = taskRepository.findByGroupIdAndSprintIdAndTaskId(selectedGroupId,
+                        selectedSprintId, taskTemplateId);
+//                    tasksList.addAll(TaskDtoMapper.domainsToDtos(tasks, getCourseRate(selectedGroupId, userName)));
+                for (Task task : tasks) {
+                    tasksList.add(TaskDtoMapper.domainToDto(task, getSprintRate(selectedGroupId, selectedSprintId, task.getUser().getLogin())));
+                }
+                removeTasksOfCurrentUser(tasksList, user.getLogin());
+//                }
+            }
+            log.debug("Tasks for group " + tasksList);
+            log.info("Tasks for group " + tasksList.size());
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new RuntimeException(e);
+        }
+        return tasksList;
+    }
+
+    @Override
+    public List<List<String>> getGroupInfo(Long selectedGroupId) throws Exception {
+        log.info("--== getGroupInfo(" + selectedGroupId + ")");
+        try {
+            return groupDAO.findByGroupIdAndUserNotIgnore(selectedGroupId);
+        } catch (Exception e) {
+            log.error(e);
+            throw e;
+        }
+    }
+
 }
+

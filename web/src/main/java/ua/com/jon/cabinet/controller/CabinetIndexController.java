@@ -1,6 +1,7 @@
 package ua.com.jon.cabinet.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -40,14 +41,37 @@ public class CabinetIndexController {
         return "cabinet/index1";
     }
 
+    @RequestMapping(value = "/cabinet/indexAng.html", method = RequestMethod.GET)
+    public String indexAng(Model model) {
+        return "cabinet/indexAng";
+    }
+
     @RequestMapping(value = "/cabinet/index1.html", method = RequestMethod.GET)
     public String index1(Model model) {
         return "cabinet/index";
     }
 
+
+
+
+    @RequestMapping(value = "/cabinet/indexAng.html#/groupTask", method = RequestMethod.GET)
+    public String indexAngFromGroupRefresh(Model model) {
+        return "cabinet/indexAng";
+    }
+
+    @RequestMapping(value = "/cabinet/indexAng.html#/groupInfo", method = RequestMethod.GET)
+    public String indexAngFromGroupInfoRefresh(Model model) {
+        return "cabinet/indexAng";
+    }
+
     @RequestMapping(value = "/cabinet/userName", method = RequestMethod.GET)
     public @ResponseBody String userName() {
         return tasksService.getSpringUserName();
+    }
+
+    @RequestMapping(value = "/cabinet/userRoles", method = RequestMethod.GET)
+    public @ResponseBody List<GrantedAuthority> userRoles() {
+        return tasksService.getSpringUserRoles();
     }
 
     @RequestMapping(value = "/cabinet/tasks", method = RequestMethod.GET)
@@ -80,7 +104,7 @@ public class CabinetIndexController {
         task.setType(type);
         final DeferredResult<String> result = new DeferredResult<>();
         String res = tasksService.dispatchTaskChecking(task, result);
-//        result.setResult(res);
+
         return result;
     }
 
@@ -96,4 +120,29 @@ public class CabinetIndexController {
         Long groupId = Long.parseLong(groupIdParam);
         return (long)tasksService.getCourseRate(groupId);
     }
+
+    @RequestMapping(value = "/cabinet/tasksByUserGroup", method = RequestMethod.GET)
+    public @ResponseBody List<TaskDTO> getTasksByUserGroup(@RequestParam("taskTemplate") String taskTemplateParam,
+                         @RequestParam("groupId") String groupIdParam, @RequestParam("sprintId") String sprintIdParam) {
+        Long taskTemplate = Long.parseLong(taskTemplateParam);
+        Long groupId = Long.parseLong(groupIdParam);
+        Long sprintId = Long.parseLong(sprintIdParam);
+        return tasksService.getTasksByUserGroup(taskTemplate, groupId, sprintId);
+    }
+
+    @RequestMapping(value = "/cabinet/groupInfo", method = RequestMethod.GET)
+    public @ResponseBody List<List<String>> getGroupInfo(@RequestParam("groupId") String groupIdParam) {
+        Long groupId = Long.parseLong(groupIdParam);
+        List<List<String>> groupInfo = new ArrayList<>();
+        try {
+            groupInfo = tasksService.getGroupInfo(groupId);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return groupInfo;
+    }
+
+
+
 }

@@ -11,6 +11,8 @@
         http://www.springframework.org/schema/context
         http://www.springframework.org/schema/context/spring-context-3.0.xsd">
 
+    <context:property-placeholder location="classpath:/conf.properties" />
+
     <bean class="com.jon.tron.context.AppConfig"/>
     <!--<import resource="security.xml"/>-->
     <!--<annotation-driven />-->
@@ -22,6 +24,9 @@
     <context:component-scan base-package="ua.com.jon.cabinet.server"/>
     <context:component-scan base-package="ua.com.jon.auth.service"/>
     <context:component-scan base-package="ua.com.jon.admin"/>
+    <!-- Quiz beans!-->
+    <context:component-scan base-package="ua.com.jon.quiz.service"/>
+    <context:component-scan base-package="ua.com.jon.quiz.controller"/>
 
     <bean id="conf" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
         <!-- TODO move to resources -->
@@ -48,6 +53,9 @@
     <mvc:annotation-driven/>
 
     <mvc:resources mapping="/robots.txt" location="/robots.txt" order="0"/>
+    <mvc:resources mapping="/.htaccess" location="/.htaccess" order="0"/>
+    <!--<mvc:resources mapping="/kursy_java/robots.txt" location="/robots_land.txt" order="0"/>-->
+    <!--<mvc:resources mapping="/kursy_java/sitemap.xml" location="/sitemap.xml" order="0"/>-->
 
 <!--
     <bean class="org.springframework.web.servlet.view.ContentNegotiatingViewResolver">
@@ -102,5 +110,24 @@
                 <value>ua.com.jon.common.dto.TaskForTestDTO</value>
             </array>
         </property>
+    </bean>
+
+    <!-- Production implementation of the JavaMailSender interface, supporting
+		both JavaMail MimeMessages and Spring SimpleMailMessages -->
+    <bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
+        <property name="host" value="smtp.gmail.com" />
+        <property name="port" value="465" />
+        <property name="username" value="${mail.username}" />
+		<property name="password" value="${mail.password}" />
+
+		<!-- The name of the property, following JavaBean naming conventions -->
+		<property name="javaMailProperties">
+        <props>
+            <prop key="mail.transport.protocol">smtps</prop>
+            <prop key="mail.smtp.auth">true</prop>
+            <prop key="mail.smtp.starttls.enable">true</prop>
+            <prop key="mail.debug">true</prop>
+        </props>
+    </property>
     </bean>
 </beans>

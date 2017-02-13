@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 public class IndexController {
 
-    @RequestMapping("/index.html")
+    @RequestMapping("/login.html")
     public String mainPage(ModelMap modelMap)  {
         modelMap.put("item","item1");
         return "index";
@@ -49,15 +49,31 @@ public class IndexController {
         return "solutions";
     }
 
-    @RequestMapping("/kursy_java")
+    @RequestMapping("/")
     public String landing(ModelMap modelMap)  {
         modelMap.put("item","item9");
-        return "landing/index";
+        return "index";
     }
+
+/*    @ExceptionHandler(ResourceNotFoundException.class)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    public String handleResourceNotFoundException() {
+        return "meters/notfound";
+    }*/
 
     @RequestMapping("/demo")
     public String demo(ModelMap modelMap)  {
         modelMap.put("item","item10");
         return "demo/index";
+    }
+
+    @RequestMapping("/site-maps.html")
+    public String siteMaps(ModelMap modelMap)  {
+        return "site-maps";
+    }
+
+    @RequestMapping("/politika.html")
+    public String politika(ModelMap modelMap)  {
+        return "politika";
     }
 }

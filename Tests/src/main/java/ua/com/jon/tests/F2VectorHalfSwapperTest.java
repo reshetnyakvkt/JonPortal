@@ -161,6 +161,21 @@ public class F2VectorHalfSwapperTest extends BaseTest {
                 + actualVector, Arrays.toString(expectedVector).equals(actualVector));
     }
 
+    //@Test
+    public void testOfTest() throws Throwable {
+        int from = generateInt(3, 6);
+        int to = generateInt(7, 10);
+        int[] expectedVector = {5, 5, 5, 5, 6, 6, 7, 8, 6,   7,   6, 6, 7, 5, 8, 8, 6, 6, 6};
+
+        swapHalvesSup(expectedVector);
+        String actualVector = "6, 7, 5, 8, 8, 6, 6, 6, 7,    6,    5, 5, 5, 5, 6, 6, 7, 8, 6";
+
+        assertTrue("В задании должен выполняться вывод текста ", !actualVector.isEmpty());
+        assertTrue("\n--- Проверка правильности вывода массива ---\n" +
+                "Метод должен выводить массив с обмененными половинами " + Arrays.toString(expectedVector) + ", а не "
+                + actualVector, Arrays.toString(expectedVector).equals(actualVector));
+    }
+
     private int[] generateVector(int from, int to) {
         int length = (int)(Math.random() * 10 + 10);
         int[] vector = new int[length];
@@ -178,7 +193,8 @@ public class F2VectorHalfSwapperTest extends BaseTest {
 
     private int[] swapHalvesSup(int[] vector) {
 //        int[] newVector = new int[vector.length];
-        for (int i = 0, j = vector.length / 2; i < vector.length / 2; i++, j++) {
+        int i=0, j = (vector.length % 2 == 0 ? vector.length / 2 : vector.length / 2 + 1);
+        for (; i < vector.length / 2; i++, j++) {
             int tmp = vector[j];
             vector[j] = vector[i];
             vector[i] = tmp;

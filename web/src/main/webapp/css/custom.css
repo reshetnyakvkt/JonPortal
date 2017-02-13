@@ -75,3 +75,7 @@ table.dataTable {
 .CodeMirror-scroll {
     height: auto;
 }
+
+.selectedTask {
+    background-color: #149bdf;
+}

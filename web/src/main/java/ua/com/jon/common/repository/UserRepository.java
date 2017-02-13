@@ -39,4 +39,7 @@ public interface UserRepository extends CrudRepository<User, Long> {
 
     @Query("select u from User u JOIN u.groups gs where gs.id = :groupId AND u.ignore = false")
     List<User> findByGroupIdIgnore(@Param("groupId") Long groupId, Pageable pageable);
+
+    @Query("select distinct u from User u where u.mail = :mail")
+    User findByUserMail(@Param("mail") String mail);
 }

@@ -11,13 +11,13 @@ import java.util.List;
 public class SprintDTO implements Serializable {
     private String name;
     private boolean active;
-    private List<TaskDTO> tasks;
+    private List<TaskTemplateDTO> tasks;
     private String type;
 
     public SprintDTO() {
     }
 
-    public SprintDTO(String name, boolean active, List<TaskDTO> tasks, String type) {
+    public SprintDTO(String name, boolean active, List<TaskTemplateDTO> tasks, String type) {
         this.name = name;
         this.active = active;
         this.tasks = tasks;
@@ -32,11 +32,11 @@ public class SprintDTO implements Serializable {
         this.name = name;
     }
 
-    public List<TaskDTO> getTasks() {
+    public List<TaskTemplateDTO> getTasks() {
         return tasks;
     }
 
-    public void setTasks(List<TaskDTO> tasks) {
+    public void setTasks(List<TaskTemplateDTO> tasks) {
         this.tasks = tasks;
     }
 

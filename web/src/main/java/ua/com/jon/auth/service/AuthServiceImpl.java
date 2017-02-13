@@ -12,11 +12,7 @@ import org.springframework.security.provisioning.UserDetailsManager;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.client.ResourceAccessException;
-import ua.com.jon.auth.domain.AssemblaSpace;
-import ua.com.jon.auth.domain.AssemblaSpaces;
-import ua.com.jon.auth.domain.AssemblaUser;
-import ua.com.jon.auth.domain.SpringUser;
-import ua.com.jon.auth.domain.UserRole;
+import ua.com.jon.auth.domain.*;
 import ua.com.jon.auth.exceptions.RestException;
 import ua.com.jon.auth.util.UserMapper;
 import ua.com.jon.common.domain.Group;
@@ -27,12 +23,7 @@ import ua.com.jon.common.repository.GroupRepository;
 import ua.com.jon.common.repository.UserRepository;
 import ua.com.jon.utils.RestClient;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Date;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 /**
  * Created with IntelliJ IDEA.
@@ -75,8 +66,6 @@ public class AuthServiceImpl implements UserDetailsService, AuthService, UserDet
         log.info("User login: " + userName);
         UserDetails springUser;
         try {
-            //AssemblaUser assemblaUser = restClient.getAssemblaUser(userName);
-            //user = UserMapper.convertAssemblaToSpring(assemblaUser);
             User user = userRepository.findByUserNameWithRoles(userName);
             Set<GrantedAuthority> roles = new HashSet();
             for (UserRole role : user.getRoles()) {
@@ -92,6 +81,18 @@ public class AuthServiceImpl implements UserDetailsService, AuthService, UserDet
         log.info("Authenticated user info: " + springUser);
 
         return springUser;
+    }
+
+    @Override
+    public boolean isUserWithMailExists(String mail) {
+        try {
+            User user = userRepository.findByUserMail(mail);
+            return user != null;
+        } catch (Exception e) {
+            log.error("Error in check user with mail " + mail, e);
+        }
+
+        return false;
     }
 
     @Override
@@ -156,6 +157,13 @@ public class AuthServiceImpl implements UserDetailsService, AuthService, UserDet
     }
 
     @Override
+    public void activateUser(User user) {
+        User user1 = userRepository.findOne(user.getId());
+        user1.setActive(true);
+        userRepository.save(user1);
+    }
+
+    @Override
     public List<GroupDTO> getGroupsById(Long groupId) {
         List<GroupDTO> groups = new ArrayList<GroupDTO>(1);
         groups.add(GroupDtoMapper.domainToCommonDto(groupRepository.findOne(groupId)));
@@ -199,7 +207,21 @@ public class AuthServiceImpl implements UserDetailsService, AuthService, UserDet
     }
 
     @Override
-    public User createNewUser(String login, String password, List<GroupDTO> groups) {
+    public User createNewUser(String login, String password, String email, String code, List<GroupDTO> groups) {
+        Set<Group> groupSet = getGroups(groups);
+        User user = new User(login, password, email, code, new Date(), groupSet, Collections.singleton(UserRole.USER), false);
+        return userRepository.save(user);
+
+    }
+
+    @Override
+    public User createNewUser(String login, String password, String email, List<GroupDTO> groups) {
+        Set<Group> groupSet = getGroups(groups);
+        User user = new User(login, password, email, new Date(), groupSet, Collections.singleton(UserRole.USER), false);
+        return userRepository.save(user);
+    }
+
+    private Set<Group> getGroups(List<GroupDTO> groups) {
         Set<Long> groupIds = new HashSet<Long>();
         for (GroupDTO group : groups) {
             groupIds.add(group.getId());
@@ -209,8 +231,7 @@ public class AuthServiceImpl implements UserDetailsService, AuthService, UserDet
         for (Group group : groupIter) {
             groupSet.add(group);
         }
-        User user = new User(login, password, new Date(), groupSet, Collections.singleton(UserRole.USER), false);
-        return userRepository.save(user);
+        return groupSet;
     }
 
     @Override

@@ -11,20 +11,20 @@ import java.net.URL;
  * User: al1
  * Date: 24.03.15
  */
-public class RemotеService {
+public class RemoteService {
     private String login;
     private String password;
     private final String baseUrl = "http://localhost:8081";
     private final String USER_AGENT = "Mozilla/5.0 (X11; Linux i686) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2272.89 Safari/537.36";
     private String cookies;
 
-    public RemotеService(String login, String password) {
+    public RemoteService(String login, String password) {
         this.login = login;
         this.password = password;
     }
 
     public static void main(String[] args) {
-        RemotеService service = new RemotеService("it-centre", "prof3");
+        RemoteService service = new RemoteService("it-centre", "prof3");
         for (int i = 0; i < 3; i++) {
             System.out.println(service.getSprintsAsJSON());
         }
